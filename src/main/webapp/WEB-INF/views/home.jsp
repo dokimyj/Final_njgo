@@ -11,7 +11,5 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 <p> DK branch </p>
-
-<p> 한글 </p>
 </body>
 </html>

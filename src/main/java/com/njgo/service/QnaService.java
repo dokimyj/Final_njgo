@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.njgo.dao.QnaDAO;
 import com.njgo.dto.BoardDTO;
+import com.njgo.util.ListInfo;
 
 
 @Service
@@ -16,7 +17,7 @@ public class QnaService implements BoardService{
 	private QnaDAO qnaDAO;
 	
 	@Override
-	public List<BoardDTO> boardList() {
+	public List<BoardDTO> boardList(ListInfo listInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -9,8 +9,6 @@
 	Hello world!  
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
-<h2>ha</h2>
-<h1>우동하</h1>
+<p> 마스터 버전 </p>
 </body>
 </html>

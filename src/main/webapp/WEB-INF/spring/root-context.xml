@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	
+	<!-- properties파일을 읽어오는 새 객체를 생성 -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" id="propertyPlaceholderConfigurer">
+		<property name="locations" value="classpath:mybatis/mybatis.properties"></property>
+	</bean>
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- connection(datasource) -->
+	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
+		<property name="username" value="${jdbc.user}"></property> <!-- setter호출 -->
+		<property name="password" value="${jdbc.pw}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="driverClassName" value="${jdbc.driver}"></property>
+	</bean>
+	<!-- mapper + configuration of mybatis -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property> <!-- setter로 dataSource주입 -->
+		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property> 
+		<!-- mapper폴더의 위치: 실제 배포시 src/main의 경로는 삭제되므로, classpath:패키지 하위경로/*Mapper.xml 로 작성해야 함-->
+	</bean>
+	<!-- dao에 sqlsession 주입 -->
+	<bean class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"></constructor-arg>
+	</bean>
+		
+	<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
+		<!-- 데이터소스가 Connection객체를 받고 있으므로 이 클래스를 생성하여 롤백/커밋을 수동으로 할 예정임 -->
+		<property name="dataSource" ref="dataSource"> <!-- 데이터 소스 객체를 setter로 입력 --> </property>
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!-- <tx:advice id="transactionManager" transaction-manager="dataSourceTransactionManager">
+		공통로직을 위 개체로 지정
+		<tx:attributes>
+			<tx:method name="*" rollback-for="Exception"/>
+			name: 어떤 메소드를 실행할 것인가? -> 모든 메소드("*") / rollback-for: 롤백은 언제 적용할 것인가? -> Exception 발생시 
+		</tx:attributes>
+	</tx:advice>	
+	
+	<aop:config>
+		<aop:pointcut expression="execution(* com.choa.table..TableService.*(..))" id="requiredTx"/>
+		위의 txadvice에 이미 내용이 있기 때문에 before/after/around등 설정 불필요, aspect설정도 불필요
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="requiredTx"></aop:advisor>		
+	</aop:config> -->
+	
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+		<property name="defaultEncoding" value="utf-8"></property>
+	</bean>	
+	
+	<!-- 주의: root-context에 username과 pw가 전부 공개되어버림!
+		=>아예 ignore하면 새로 만들어야 하므로 정보 은닉이 필요함.
+		=>연결 정보는 아예 다른 곳에, 공개되지 않는 파일로 만들고 연결하는 방법이 있음. -->
+	<!-- 방법: src/main/resources에 새 패키지를 만들어서 property와 같은 파일에 변수=값 형식으로 username, password, url, driver를 넣으면 됨. -->
+	<!-- 꺼내오기: 최상단의 org.springframework.beans.factory.config.PropertyPlaceholderConfigurer 클래스 생성 후 property로 locations를 지정 -->
+	<!-- 이외에도 myBatis 블로그에 가보면 아예 mybatis설정을 위한 설명페이지가 따로 있음(Mapper설정->typeAlias) -->
+	
+	<!-- 공통로직 생성 -->
+<!-- 	<bean class="com.choa.aspect.CardCheck" id="cardCheck"></bean> -->
+	<!-- 핵심로직 생성: Namespaces를 누르면 AOP 태그를 사용할 수 있게 됨 -->
+	<!-- <bean class="com.choa.aspect.Transport" id="transport"></bean>
+	<bean class="com.choa.aspect.Trip" id="trip"></bean> -->
+	<!-- <aop:config>
+		<aop:aspect id="cardAspect" ref="cardCheck">
+			aspect 내에 pointcut을 선언해야 함
+			<aop:pointcut expression="execution(* com.choa.aspect..Transport.*(..))" id="trans" /> 
+			expression: *패키지명..클래스.*() 라고 쓰면 패키지명 하위 모든 폴더에서 해당 클래스의 매개변수 없는 모든 메소드
+			*위 예시와 같이 마지막에 *(..)이 들어가면 매개변수가 어떤 것이든 상관없이 메소드이기만 하면 적용하라는 의미
+			<aop:around method="check" pointcut-ref="trans"/>
+			method: 해당 클래스 내에서 어떤 메소드를 적용할 것인가?
+			pointcut-ref: 어느 클래스에 적용할 것인가?
+		</aop:aspect>
+		<aop:aspect id="cardReserve" ref="cardCheck">
+			<aop:pointcut expression="execution(* com.choa.aspect..Trip.*(..))" id="reserve" />
+			<aop:before method="reservation" pointcut-ref="reserve"/>	
+		</aop:aspect>
+	</aop:config> -->
+	
+</beans>

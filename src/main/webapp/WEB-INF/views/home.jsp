@@ -9,9 +9,6 @@
 	Hello world!  
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
-<p> DK branch </p>
-
-<p> 한글 </p>
+<p> 마스터 버전 </p>
 </body>
 </html>

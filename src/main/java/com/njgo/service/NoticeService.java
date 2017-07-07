@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.njgo.dao.NoticeDAO;
 import com.njgo.dto.BoardDTO;
-import com.njgo.util.ListInfo;
+
 
 @Service
 public class NoticeService implements BoardService{
@@ -16,7 +16,7 @@ public class NoticeService implements BoardService{
 	private NoticeDAO noticeDAO;
 	
 	@Override
-	public List<BoardDTO> boardList(ListInfo listInfo) {
+	public List<BoardDTO> boardList() {
 		// TODO Auto-generated method stub
 		return null;
 	}

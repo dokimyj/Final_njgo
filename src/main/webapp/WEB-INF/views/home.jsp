@@ -6,11 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <meta name="keywords" content="">
-<title>냉장GO</title>
-<meta property="kakao:title" content="냉장GO">
-<meta property="kakao:description" content="">
+<title>TEST 냉장GO</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/kdy/member/sample.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/kdy/member/sample2.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -62,7 +61,7 @@ function doSubmit()
     <p class="help-block">개인정보 보호를 위해 개인 PC에서만 사용하세요.</p>
     <div class="etc_line"></div>
     <div class="join_btn">
-        <a href="/user/join.html">회원가입</a><span class="space_line">|</span>
+        <a href="member/provision">회원가입</a><span class="space_line">|</span>
         <a href="/user/find_passwd.html">비밀번호 찾기</a><span class="space_line">|</span>
         
     </div>

@@ -37,4 +37,13 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value="sample")
+	public void test(){
+		
+	}
+	@RequestMapping(value="member/popup/jusoPopup")
+	public void test2(){
+		
+	}
+	
 }

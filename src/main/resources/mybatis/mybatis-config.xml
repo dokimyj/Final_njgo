@@ -16,6 +16,10 @@
 		
  	</typeAliases>
  </configuration> -->
+ 
+<settings>
+	<setting name="defaultFetchSize" value="2500"/>
+</settings>
   
 
 

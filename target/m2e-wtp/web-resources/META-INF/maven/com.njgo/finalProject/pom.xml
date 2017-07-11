@@ -9,75 +9,11 @@
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>1.6</java-version>
-		<org.springframework-version>4.3.0.RELEASE</org.springframework-version>
+		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
-	<repositories>
-		<repository>
-			<id>codelds</id>
-			<url>https://code.lds.org/nexus/content/groups/main-repo</url>
-		</repository>
-	</repositories>
-		<!-- ojdbc는 저작권 문제로 그냥 자동 다운로드 안됨!=>repositories라는, 사설 라이브러리를 올려놓은 사이트를 설정할 태그를 사용할 예정 -->
-		
 	<dependencies>
-		<!-- 자료를 JSON형태로 바로 변환시켜주는 Jackson Databind -->
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-		<dependency>
-   			<groupId>com.fasterxml.jackson.core</groupId>
-    		<artifactId>jackson-databind</artifactId>
-    		<version>2.8.5</version>
-		</dependency>
-		
-		<!-- 파일 업로드를 위한 commons-fileupload -->
-		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
-		<dependency>
-		    <groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.3.2</version>
-		</dependency>
-		<!-- MyBatis -->
-		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
-		<dependency>
- 	 		<groupId>org.mybatis</groupId>
-	    	<artifactId>mybatis</artifactId>
-	   		<version>3.4.0</version>
-		</dependency>
-		<!-- Spring-MyBatis -->
-		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
-		<dependency>
- 			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis-spring</artifactId>
-			<version>1.3.0</version>
-		</dependency>	
-		<!-- Spring-Test -->
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
-		<dependency>
-    		<groupId>org.springframework</groupId>
-    		<artifactId>spring-test</artifactId>
-    		<version>${org.springframework-version}</version>
-    		<scope>test</scope>
-		</dependency>
-		<!-- Spring-JDBC -->
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
-		<dependency>
-  		 	<groupId>org.springframework</groupId>
-  			<artifactId>spring-jdbc</artifactId>
-			<version>${org.springframework-version}</version>
-		</dependency>	
-		<!-- OJDBC -->
-		<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc6</artifactId>
-			<version>11.2.0.3</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2 -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-    		<artifactId>commons-dbcp2</artifactId>
-    		<version>2.1.1</version>
-		</dependency>		
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -103,28 +39,6 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>	
-		<!-- Spring-Transaction -->
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
-		<dependency>
-    		<groupId>org.springframework</groupId>
-    		<artifactId>spring-tx</artifactId>
-    		<version>${org.springframework-version}</version>
-		</dependency>
-		<!-- Spring-AOP -->
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
-		<dependency>
-   			<groupId>org.springframework</groupId>
-    		<artifactId>spring-aop</artifactId>
-   			<version>${org.springframework-version}</version>
-		</dependency>
-		<!-- AspectJ-Weaver -->
-		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
-		<dependency>
-    		<groupId>org.aspectj</groupId>
-    		<artifactId>aspectjweaver</artifactId>
-    		<version>${org.aspectj-version}</version>
-		</dependency>
-		
 		
 		<!-- Logging -->
 		<dependency>
@@ -199,7 +113,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>        
 	</dependencies>

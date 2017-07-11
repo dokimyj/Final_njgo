@@ -8,7 +8,9 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.njgo.dto.IngredientsDTO;
 import com.njgo.dto.RecipeDTO;
+import com.njgo.dto.StepsDTO;
 import com.njgo.util.ListInfo;
 
 @Repository
@@ -19,7 +21,13 @@ public class RecipeDAO {
 	private final String NAMESPACE="recipeMapper.";
 	
 	public HashMap<String, Object> view(Integer num) throws Exception{
+		RecipeDTO recipeDTO=sqlSession.selectOne(NAMESPACE+"rview", num);
+		List<IngredientsDTO> ingredients=sqlSession.selectList(NAMESPACE+"iview", num);
+		List<StepsDTO> steps=sqlSession.selectList(NAMESPACE+"sview", num);
 		HashMap<String, Object> recipe=new HashMap<String, Object>();
+		recipe.put("recipeDTO", recipeDTO);
+		recipe.put("ingredients", ingredients);
+		recipe.put("steps", steps);
 		return recipe;
 	}
 	
@@ -39,11 +47,11 @@ public class RecipeDAO {
 		return 0;
 	}
 	
-	public int scrapIncrease(int num){
+	public int scrapIncrease(Integer num){
 		return 0;
 	}
 	
-	public int scrapDecrease(int num){
+	public int scrapDecrease(Integer num){
 		return 0;
 	}
 }

@@ -45,8 +45,8 @@ public class RecipeService {
 		return recipeDAO.delete(num);
 	}
 	
-	public List<RecipeReplyDTO> replyList(ListInfo listInfo){
-		return rreplyDAO.replyList(listInfo);
+	public List<RecipeReplyDTO> replyList(ListInfo listInfo, Integer num){
+		return rreplyDAO.replyList(listInfo, num);
 	}
 	
 	public int replyWrite(RecipeReplyDTO rreplyDTO){
@@ -61,8 +61,8 @@ public class RecipeService {
 		return rreplyDAO.replyDelete(num);
 	}
 	
-	public List<RecipeReviewDTO> reviewList(ListInfo listInfo){
-		return rreviewDAO.reviewList(listInfo);
+	public List<RecipeReviewDTO> reviewList(ListInfo listInfo, Integer num){
+		return rreviewDAO.reviewList(listInfo, num);
 	}
 	
 	public int reviewWrite(RecipeReviewDTO rreviewDTO){
@@ -77,11 +77,11 @@ public class RecipeService {
 		return rreviewDAO.reviewDelete(num);
 	}
 	
-	public int scrapIncrease(int num){
+	public int scrapIncrease(Integer num){
 		return recipeDAO.scrapIncrease(num);
 	}
 	
-	public int scrapDecrease(int num){
+	public int scrapDecrease(Integer num){
 		return recipeDAO.scrapDecrease(num);
 	}
 }

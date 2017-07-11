@@ -3,4 +3,14 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="recipeMapper">
+	<select id="rview" parameterType="java.lang.Integer" resultType="com.njgo.dto.RecipeDTO">
+		select * from RECIPE where NUM=#{num}
+	</select>
+	<select id="iview" parameterType="java.lang.Integer" resultType="com.njgo.dto.IngredientsDTO">
+		select NAME, AMOUNT from INGREDIENTS where RECIPENUM=#{num}
+	</select>
+	<select id="sview" parameterType="java.lang.Integer" resultType="com.njgo.dto.StepsDTO">
+		select STEP, EXPLAIN, FNAME, ONAME from STEPS where RECIPENUM=#{num}
+	</select>
+
 </mapper>

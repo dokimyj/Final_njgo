@@ -8,12 +8,8 @@
 
 <meta name="keywords" content="">
 <title>TEST 냉장GO</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/kdy/member/sample.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/kdy/member/sample2.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" href="./resources/css/common/reset.css">
+
 <c:import url="./tmp/Bootstrap.jsp"/>
-<link rel="stylesheet" href="./resources/css/common/basic.css">
 
 </head>
 <body>

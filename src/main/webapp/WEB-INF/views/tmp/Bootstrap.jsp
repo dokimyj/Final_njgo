@@ -8,6 +8,11 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/kdy/member/sample.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/kdy/member/sample2.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common/reset.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common/basic.css">
+
 <title>N.J.GO</title>
 </head>
 <style type="text/css">

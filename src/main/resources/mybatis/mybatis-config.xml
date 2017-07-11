@@ -20,9 +20,5 @@
 <settings>
 	<setting name="defaultFetchSize" value="2500"/>
 </settings>
-  
-<settings>
-	<setting name="defaultFetchSize" value="2500"/>
-</settings>
 
   

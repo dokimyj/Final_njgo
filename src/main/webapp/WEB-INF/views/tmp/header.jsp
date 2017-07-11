@@ -20,8 +20,7 @@
 		<div class="menu">
 			<div class="menu_wrap">
 				<div class="logo">
-					<a href=""><img alt="" src="./resources/images/common/logo_yellow.png"></a>
-					<img alt="" src="${pageContext.request.contextPath}/resources/images/common/logo_yellow.png">
+					<a href=""><img alt="" src="${pageContext.request.contextPath}/resources/images/common/logo_yellow.png"></a>
 				</div>
 				<div class="menu_sub">
 					<nav class="menu_sub_nav">

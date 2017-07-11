@@ -41,30 +41,6 @@ public class RecipeDAO {
 		return 0;
 	}
 	
-	public int reply(RecipeReplyDTO rreplyDTO){
-		return 0;
-	}
-	
-	public int replyUpdate(RecipeReplyDTO rreplyDTO){
-		return 0;
-	}
-	
-	public int replyDelete(RecipeReplyDTO rreplyDTO){
-		return 0;
-	}
-	
-	public int review(RecipeReviewDTO rreviewDTO){
-		return 0;
-	}
-	
-	public int reviewUpdate(RecipeReviewDTO rreviewDTO){
-		return 0;
-	}
-	
-	public int reviewDelete(RecipeReviewDTO rreviewDTO){
-		return 0;
-	}
-	
 	public int scrapIncrease(int num){
 		return 0;
 	}

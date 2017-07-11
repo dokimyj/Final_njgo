@@ -39,30 +39,6 @@ public class RecipeService {
 		return recipeDAO.delete(num);
 	}
 	
-	public int reply(RecipeReplyDTO rreplyDTO){
-		return recipeDAO.reply(rreplyDTO);
-	}
-	
-	public int replyUpdate(RecipeReplyDTO rreplyDTO){
-		return recipeDAO.replyUpdate(rreplyDTO);
-	}
-	
-	public int replyDelete(RecipeReplyDTO rreplyDTO){
-		return recipeDAO.replyDelete(rreplyDTO);
-	}
-	
-	public int review(RecipeReviewDTO rreviewDTO){
-		return recipeDAO.review(rreviewDTO);
-	}
-	
-	public int reviewUpdate(RecipeReviewDTO rreviewDTO){
-		return recipeDAO.reviewUpdate(rreviewDTO);
-	}
-	
-	public int reviewDelete(RecipeReviewDTO rreviewDTO){
-		return recipeDAO.reviewDelete(rreviewDTO);
-	}
-	
 	public int scrapIncrease(int num){
 		return recipeDAO.scrapIncrease(num);
 	}

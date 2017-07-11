@@ -4,10 +4,10 @@
 	<section class="footer_section">
 	<div class="f_inner">
 		<img class="footer_logo" alt=""
-			src="./resources/images/common/logo2.png">
+			src="${pageContext.request.contextPath}/resources/images/common/logo2.png">
 		<div class="list_stats">
 			<div class="list_one">
-				<img alt="" src="./resources/images/common/chef-hat.png"><br>
+				<img alt="" src="${pageContext.request.contextPath}/resources/images/common/chef-hat.png"><br>
 				총 셰프수
 			</div>
 			<br>
@@ -15,7 +15,7 @@
 		</div>
 		<div class="list_stats">
 			<div class="list_one">
-				<img alt="" src="./resources/images/common/cooking-pot.png"><br>
+				<img alt="" src="${pageContext.request.contextPath}/resources/images/common/cooking-pot.png"><br>
 				총 레시피수
 			</div>
 			<br>
@@ -23,7 +23,7 @@
 		</div>
 		<div class="list_stats">
 			<div class="list_one">
-				<img alt="" src="./resources/images/common/recipe2.png"><br>
+				<img alt="" src="${pageContext.request.contextPath}/resources/images/common/recipe2.png"><br>
 				총 레시피 조회수
 			</div>
 			<br>

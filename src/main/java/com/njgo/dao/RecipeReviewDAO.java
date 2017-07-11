@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.njgo.dto.RecipeReplyDTO;
 import com.njgo.dto.RecipeReviewDTO;
 import com.njgo.util.ListInfo;
 
@@ -18,7 +17,7 @@ public class RecipeReviewDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE="recipeReviewMapper.";
 	
-	public List<RecipeReplyDTO> replyList(ListInfo listInfo){
+	public List<RecipeReviewDTO> reviewList(ListInfo listInfo){
 		return null;
 	}
 	
@@ -30,7 +29,7 @@ public class RecipeReviewDAO {
 		return 0;
 	}
 	
-	public int reviewDelete(RecipeReviewDTO rreviewDTO){
+	public int reviewDelete(Integer num){
 		return 0;
 	}
 }

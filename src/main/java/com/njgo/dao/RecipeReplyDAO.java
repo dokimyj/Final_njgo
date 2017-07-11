@@ -29,7 +29,7 @@ public class RecipeReplyDAO {
 		return 0;
 	}
 	
-	public int replyDelete(RecipeReplyDTO rreplyDTO){
+	public int replyDelete(Integer num){
 		return 0;
 	}
 }

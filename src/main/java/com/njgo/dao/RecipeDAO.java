@@ -9,8 +9,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.njgo.dto.RecipeDTO;
-import com.njgo.dto.RecipeReplyDTO;
-import com.njgo.dto.RecipeReviewDTO;
 import com.njgo.util.ListInfo;
 
 @Repository

@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.njgo.dao.RecipeDAO;
+import com.njgo.dao.RecipeReplyDAO;
+import com.njgo.dao.RecipeReviewDAO;
 import com.njgo.dto.RecipeDTO;
 import com.njgo.dto.RecipeReplyDTO;
 import com.njgo.dto.RecipeReviewDTO;
@@ -18,6 +20,10 @@ public class RecipeService {
 
 	@Inject
 	private RecipeDAO recipeDAO;
+	@Inject
+	private RecipeReplyDAO rreplyDAO;
+	@Inject
+	private RecipeReviewDAO rreviewDAO;
 	
 	public HashMap<String, Object> view(Integer num) throws Exception{
 		return recipeDAO.view(num);
@@ -37,6 +43,38 @@ public class RecipeService {
 	
 	public int delete(Integer num){
 		return recipeDAO.delete(num);
+	}
+	
+	public List<RecipeReplyDTO> replyList(ListInfo listInfo){
+		return rreplyDAO.replyList(listInfo);
+	}
+	
+	public int replyWrite(RecipeReplyDTO rreplyDTO){
+		return rreplyDAO.replyWrite(rreplyDTO);
+	}
+	
+	public int replyUpdate(RecipeReplyDTO rreplyDTO){
+		return rreplyDAO.replyUpdate(rreplyDTO);
+	}
+	
+	public int replyDelete(Integer num){
+		return rreplyDAO.replyDelete(num);
+	}
+	
+	public List<RecipeReviewDTO> reviewList(ListInfo listInfo){
+		return rreviewDAO.reviewList(listInfo);
+	}
+	
+	public int reviewWrite(RecipeReviewDTO rreviewDTO){
+		return rreviewDAO.reviewWrite(rreviewDTO);
+	}
+	
+	public int reviewUpdate(RecipeReviewDTO rreviewDTO){
+		return rreviewDAO.reviewUpdate(rreviewDTO);
+	}
+	
+	public int reviewDelete(Integer num){
+		return rreviewDAO.reviewDelete(num);
 	}
 	
 	public int scrapIncrease(int num){

@@ -10,5 +10,6 @@
 </h1>
 
 <p> 마스터 버전 </p>
+<a href="./board/boardList.jsp">boardList</a>
 </body>
 </html>

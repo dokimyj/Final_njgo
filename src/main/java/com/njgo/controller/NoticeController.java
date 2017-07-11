@@ -16,34 +16,35 @@ import com.njgo.service.NoticeService;
 import com.njgo.util.ListInfo;
 
 @Controller
-@RequestMapping(value="/notice/**")
+@RequestMapping(value="/board/**")
 public class NoticeController {
 
 	@Autowired
 	private NoticeService noticeService;
 
 	//list
-	@RequestMapping(value="noticeList", method=RequestMethod.GET)
+	@RequestMapping(value="boardList", method=RequestMethod.GET)
 	public void noticeList(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
+		System.out.println("Controller");
 		List<BoardDTO> ar = noticeService.boardList(listInfo);
 		model.addAttribute("list", ar);
 	}
 
 	//View
-	@RequestMapping(value="noticeView", method=RequestMethod.GET)
+	@RequestMapping(value="boardView", method=RequestMethod.GET)
 	public void noticeView(Integer num, Model model) throws Exception{
 		BoardDTO boardDTO=noticeService.boardView(num);
 		model.addAttribute("dto", boardDTO);
 	}
 
 	//writeForm
-	@RequestMapping(value="noticeWrite", method=RequestMethod.GET)
+	@RequestMapping(value="boardWrite", method=RequestMethod.GET)
 	public void noticeWrite(Model model){
 		model.addAttribute("path", "Write");
 	}
 
 	//write 
-	@RequestMapping(value="noticeWrite", method=RequestMethod.POST)
+	@RequestMapping(value="boardWrite", method=RequestMethod.POST)
 	public String noticeWrite(NoticeDTO noticeDTO, RedirectAttributes rd)throws Exception{
 		int result=noticeService.boardWrite(noticeDTO);
 		String message = "FAIL";
@@ -55,7 +56,7 @@ public class NoticeController {
 	}
 
 	//update
-	@RequestMapping(value="noticeUpdate", method=RequestMethod.GET)
+	@RequestMapping(value="boardUpdate", method=RequestMethod.GET)
 	public String noticeUpdate(Integer num, Model model) throws Exception{
 		BoardDTO boardDTO = noticeService.boardView(num);
 		model.addAttribute("dto", boardDTO);
@@ -63,7 +64,7 @@ public class NoticeController {
 		return "notice/noticeWrite";
 	}
 
-	@RequestMapping(value="noticeUpdate", method=RequestMethod.POST)
+	@RequestMapping(value="boardUpdate", method=RequestMethod.POST)
 	public String noticeUpdate(NoticeDTO noticeDTO, RedirectAttributes rd) throws Exception{
 		int result = noticeService.boardUpdate(noticeDTO);
 		String message = "FAIL";
@@ -74,7 +75,7 @@ public class NoticeController {
 		return "redirect:noticeList?curPage=1";
 	}
 
-	@RequestMapping(value="noticeDelete", method=RequestMethod.GET)
+	@RequestMapping(value="boardDelete", method=RequestMethod.GET)
 	public void noticeDelete(Integer num){
 		int result = noticeService.boardDelete(num);
 	}

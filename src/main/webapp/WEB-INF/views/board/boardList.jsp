@@ -4,15 +4,18 @@
 <!DOCTYPE html PUBLIC>
 <html>
 <head>
-<c:import url="../temp/bootstrap.jsp" />
-<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/css/communityList.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../resources/css/common/reset.css">
+<c:import url="../tmp/Bootstrap.jsp" />
+<link rel="stylesheet" href="../resources/css/common/basic.css">
+<link rel="stylesheet" href="../resources/css/wdh/boardList.css">
 <title>Insert title here</title>
 </head>
 <body>
+<c:import url="../tmp/header.jsp" />
 	<!-- section -->
 	<section>
-		<div id="section_wrap">
+		<div class="main_section">
 			<div class="community_wrap">
 				<div class="fl c-d-s2">
 					<div class="article-board">
@@ -122,17 +125,6 @@
 			</div>
 		</div>
 	</section>
+<c:import url="../tmp/footer.jsp" />
 </body>
 </html>
-
-
-
-
-
-
-	
-	
-
-</body>
-</html>
-

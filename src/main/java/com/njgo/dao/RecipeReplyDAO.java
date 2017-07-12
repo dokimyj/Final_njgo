@@ -34,6 +34,6 @@ public class RecipeReplyDAO {
 	}
 	
 	public int replyDelete(Integer num){
-		return 0;
+		return sqlSession.delete(NAMESPACE+"delete", num);
 	}
 }

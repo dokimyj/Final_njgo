@@ -6,4 +6,8 @@
 	<select id="list" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeReplyDTO">
 		select * from (select ROWNUM R, C.* from (select * from RECIPE_REPLY where RECIPENUM=#{reply.num} order by REF desc, STEP asc) C) where R between #{reply.listInfo.firstRow} and #{reply.listInfo.lastRow}
 	</select>
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete RECIPE_REPLY where NUM=#{num}
+	</delete>
 </mapper>

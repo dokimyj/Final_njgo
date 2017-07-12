@@ -44,14 +44,14 @@ public class RecipeDAO {
 	}
 	
 	public int delete(Integer num){
-		return 0;
+		return sqlSession.delete(NAMESPACE+"delete", num);
 	}
 	
 	public int scrapIncrease(Integer num){
-		return 0;
+		return sqlSession.update(NAMESPACE+"scrapI", num);
 	}
 	
 	public int scrapDecrease(Integer num){
-		return 0;
+		return sqlSession.update(NAMESPACE+"scrapD", num);
 	}
 }

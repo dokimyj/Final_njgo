@@ -58,22 +58,22 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${boardList}" var="dto">
+								<c:forEach items="${list}" var="list">
 								<tr align="center" class="bg-color">
 									<!-- 공지 -->
-									<td><!-- <img src="http://cafeimgs.naver.net/style/s03_01/ico-list-notice.gif" width="27" height="16" alt="공지"> -->${dto.num}</td>
+									<td><!-- <img src="http://cafeimgs.naver.net/style/s03_01/ico-list-notice.gif" width="27" height="16" alt="공지"> -->${list.num}</td>
 									<!-- TITLE -->
 									<td align="left" class="board-list" style="font-weight: bold; padding: 10px 0 8px 0;" width=""><span>
-											<a href="${board}View.${board}?num=${dto.num}" class="m-tcol-p" title="${dto.title}">${dto.title}</a><a href="#" class="m-tcol-p">
+											<a href="${board}View.${board}?num=${list.num}" class="m-tcol-p" title="${list.title}">${list.title}</a><a href="#" class="m-tcol-p">
 											<span class="m-tcol-p" style="float: right;">[<strong>13</strong>]</span></a>
 									</span></td>
 									<!-- WRITER -->
 									<td align="left"><div class="pers_nick_area"><table cellspacing="0"><tbody><tr><td class="p-nick">
-									<a href="#" class="m-tcol-c">${dto.writer}</a></td></tr></tbody></table></div></td>
+									<a href="#" class="m-tcol-c">${list.writer}</a></td></tr></tbody></table></div></td>
 									<!-- DATE -->
-									<td class="m-tcol-c">${dto.reg_date}</td>
+									<td class="m-tcol-c">${list.regdate}</td>
 									<!-- HIT -->
-									<td class="view-count m-tcol-c">${dto.hit}</td>
+									<td class="view-count m-tcol-c">${list.hit}</td>
 								</c:forEach>
 								<tr>
 									<td colspan="7" class="board-line"></td>
@@ -92,9 +92,23 @@
 			
 			<div class="list-btn">
 				<div class="fr">
-					<!-- 질문답변 게시판인 경우 '질문하기'를, 일반 게시판인 경우에는 '글쓰기' 버튼을 보여준다 -->
+					<div id="writeFormBtn" class="btn _rosRestrict"><span></span>
+						<p>
+							<strong>
+								<a href="${pageContext.request.contextPath}/board/boardWrite?id=t1" class="m-tcol-c">
+									<img src="http://cafeimgs.naver.net/cafe4/ico-btn-write.gif" width="10" height="10" alt="">
+							             글쓰기
+								</a>
+						    </strong>
+						</p>
+    				</div>
 				</div>
 			</div>
+			
+			
+			
+			
+			
 			<table width="100%" cellspacing="0" cellpadding="0" border="0">
 				<tbody>
 					<tr>

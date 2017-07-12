@@ -8,8 +8,8 @@ public class BoardDTO {
 	private String writer;
 	private String title;
 	private String contents;
-	private int hit;
 	private Date regdate;
+	private int hit;
 	private String kind;
 	
 	public int getNum() {
@@ -36,17 +36,17 @@ public class BoardDTO {
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	public int getHit() {
-		return hit;
-	}
-	public void setHit(int hit) {
-		this.hit = hit;
-	}
 	public Date getRegdate() {
 		return regdate;
 	}
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
+	}
+	public int getHit() {
+		return hit;
+	}
+	public void setHit(int hit) {
+		this.hit = hit;
 	}
 	public String getKind() {
 		return kind;

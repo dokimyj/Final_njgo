@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
  <!-- 아래의 DOCTYPE다음 이름을 통해 이 xml파일이 어떤 양식의 xml파일인지를 알 수 있음. -->
 <!DOCTYPE configuration
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   
   <!-- 현장에서 각 config항목들이 어떤 것인지를 직접 체험해가며 다른 것들도 세팅할 수 있다. -->
-<!--  <configuration>
+  <configuration>
    
 	<typeAliases>
 	
-	클래스 이름을 축약하여 매크로를 사용할 수 있게 해줌
-	아래와 같이 설정하고 이를 mybatis property 설정부분에 이 파일을 연결 설정해두면 mapper에 풀패키지명 대신 NoticeDTO만 쓸 수 있음
+	<!-- 클래스 이름을 축약하여 매크로를 사용할 수 있게 해줌
+	아래와 같이 설정하고 이를 mybatis property 설정부분에 이 파일을 연결 설정해두면 mapper에 풀패키지명 대신 NoticeDTO만 쓸 수 있음 -->
   
-		<typeAlias alias="NoticeDTO" type="com.choa.notice.NoticeDTO" />
+		<typeAlias alias="NoticeDTO" type="com.njgo.dto.NoticeDTO" />
 		
  	</typeAliases>
- </configuration> -->
+ </configuration>
   
-<settings>
-	<setting name="defaultFetchSize" value="2500"/>
-</settings>
-
   

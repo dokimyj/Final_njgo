@@ -17,9 +17,9 @@ public class NoticeService implements BoardService{
 	private NoticeDAO noticeDAO;
 	
 	@Override
-	public List<BoardDTO> boardList(ListInfo listInfo) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BoardDTO> boardList(ListInfo listInfo){
+		System.out.println("boardList service");	
+		return noticeDAO.boardList(listInfo);
 	}
 
 	@Override
@@ -30,8 +30,8 @@ public class NoticeService implements BoardService{
 
 	@Override
 	public int boardWrite(BoardDTO boardDTO) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return noticeDAO.boardWrite(boardDTO);
 	}
 
 	@Override

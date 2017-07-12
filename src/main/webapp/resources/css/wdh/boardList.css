@@ -59,7 +59,18 @@
 	background-image:
 		url(http://cafeimgs.naver.net/style/s03_01/btn-more.gif);
 }
-
+.btn{
+    display: inline;
+    float: left;
+    height: 23px;
+    margin-left: 5px;
+    overflow: hidden;
+    cursor: pointer;
+	border: 1px solid grey;
+	border-radius:4px;
+	padding: 0;
+	
+}
 a:visited {
 	text-decoration: none;
 }
@@ -189,6 +200,7 @@ td{
 	display: inline;
 	margin: 10px 10px 0 0 !important;
 }
+
 .prev-next{
 	clear: both;
     margin: 20px 0 15px 0;
@@ -205,9 +217,6 @@ table.Nnavi .on, table.Nnavi .on a{
 table.Nnavi td {
     padding: 0;
 }
-/* .m-tcol-p{
-	color:  #855fa1 ;
-} */
 table.Nnavi a{
 	display: block;
     font-size: 12px;
@@ -221,7 +230,6 @@ a:visited {
 }
 .m-tcol-c{
     color: #333333;
-    /* color: #666; */
     word-wrap: break-word;
 }
 

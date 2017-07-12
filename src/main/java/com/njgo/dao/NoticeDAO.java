@@ -6,18 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.njgo.dto.BoardDTO;
+import com.njgo.util.ListInfo;
 
 @Repository
 public class NoticeDAO implements BoardDAO{
 	
 	@Autowired
 	private SqlSession sqlSession;
-	private final String namespace="NoticeMapper.";
+	private final String NAMESPACE="NoticeMapper.";
 
 	@Override
-	public List<BoardDTO> boardList() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BoardDTO> boardList(ListInfo listInfo) {
+		System.out.println("noticedao");
+		return sqlSession.selectList(NAMESPACE+"list", listInfo);
 	}
 
 	@Override
@@ -28,8 +29,8 @@ public class NoticeDAO implements BoardDAO{
 
 	@Override
 	public int boardWrite(BoardDTO boardDTO) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert(NAMESPACE+"write", boardDTO);
+		
 	}
 
 	@Override
@@ -45,8 +46,7 @@ public class NoticeDAO implements BoardDAO{
 	}
 
 	@Override
-	public int boardCount() {
-		// TODO Auto-generated method stub
+	public int boardCount(ListInfo listInfo) {
 		return 0;
 	}
 

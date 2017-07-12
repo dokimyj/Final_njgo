@@ -25,9 +25,10 @@ public class NoticeController {
 	//list
 	@RequestMapping(value="boardList", method=RequestMethod.GET)
 	public void noticeList(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
-		System.out.println("Controller");
+		System.out.println("boardList controller");
 		List<BoardDTO> ar = noticeService.boardList(listInfo);
 		model.addAttribute("list", ar);
+		model.addAttribute("board", "notice");
 	}
 
 	//View

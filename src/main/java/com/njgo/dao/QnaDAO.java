@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.njgo.dto.BoardDTO;
+import com.njgo.util.ListInfo;
 
 @Repository
 public class QnaDAO implements BoardDAO {
@@ -14,7 +15,7 @@ public class QnaDAO implements BoardDAO {
 	private final String namespace="QnaMapper.";
 		
 	@Override
-	public List<BoardDTO> boardList() {
+	public List<BoardDTO> boardList(ListInfo listInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -44,7 +45,7 @@ public class QnaDAO implements BoardDAO {
 	}
 
 	@Override
-	public int boardCount() {
+	public int boardCount(ListInfo listInfo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

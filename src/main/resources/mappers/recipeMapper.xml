@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="recipeMapper">
+	<!-- view -->
 	<select id="rview" parameterType="java.lang.Integer" resultType="com.njgo.dto.RecipeDTO">
 		select * from RECIPE where NUM=#{num}
 	</select>
@@ -12,5 +13,38 @@
 	<select id="sview" parameterType="java.lang.Integer" resultType="com.njgo.dto.StepsDTO">
 		select STEP, EXPLAIN, FNAME, ONAME from STEPS where RECIPENUM=#{num}
 	</select>
-
+	
+	<!-- list -->
+	<select id="list" parameterType="com.njgo.util.ListInfo" resultType="com.njgo.dto.RecipeDTO">
+		select * from 
+		(select ROWNUM R, L.* from 
+		(select WRITER, FOODNAME, TITLE, REP_PIC, RATING, ELAPSEDTIME, SCRAP, HASHTAG from RECIPE where
+		<if test="search=='title'">
+			TITLE like '%'||#{find}||'%'
+		</if>
+		<if test="search=='writer'">
+			WRITER like '%'||#{find}||'%'
+		</if>
+		<if test="search=='hashtag'">
+			HASHTAG like '%'||#{find}||'%'
+		</if>
+		  order by
+		<if test="order=='regdate'">
+			REGDATE
+		</if>
+		<if test="order=='rating'">
+			RATING
+		</if>
+		  desc) L) 
+		where R between #{startRow} and #{lastRow}		
+	</select>
+	
+	
+	<!-- scrap -->
+	<update id="scrapI" parameterType="java.lang.Integer">
+		update RECIPE set SCRAP=SCRAP+1
+	</update>
+	<update id="scrapD" parameterType="java.lang.Integer">
+		update RECIPE set SCRAP=SCRAP+1
+	</update>
 </mapper>

@@ -32,20 +32,10 @@ public class RecipeDAO {
 	}
 	
 	public List<RecipeDTO> list(ListInfo listInfo){
-		return null;
+		return sqlSession.selectList(NAMESPACE+"list", listInfo);
 	}
 	
-	public int write(HashMap<String, Object> recipe){
-		return 0;
-	}
 	
-	public int update(HashMap<String, Object> recipe){
-		return 0;
-	}
-	
-	public int delete(Integer num){
-		return sqlSession.delete(NAMESPACE+"delete", num);
-	}
 	
 	public int scrapIncrease(Integer num){
 		return sqlSession.update(NAMESPACE+"scrapI", num);

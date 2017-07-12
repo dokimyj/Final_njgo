@@ -32,18 +32,7 @@ public class RecipeService {
 	public List<RecipeDTO> list(ListInfo listInfo){
 		return recipeDAO.list(listInfo);
 	}
-	
-	public int write(HashMap<String, Object> recipe){
-		return recipeDAO.write(recipe);
-	}
-	
-	public int update(HashMap<String, Object> recipe){
-		return recipeDAO.update(recipe);
-	}
-	
-	public int delete(Integer num){
-		return recipeDAO.delete(num);
-	}
+
 	
 	public List<RecipeReplyDTO> replyList(ListInfo listInfo, Integer num){
 		return rreplyDAO.replyList(listInfo, num);

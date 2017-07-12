@@ -83,4 +83,15 @@ public class ListInfo {
 		this.find = find;
 	}
 	
+	private String order;
+	
+	public String getOrder() {
+		if(order==null){
+			order="rating";
+		}
+		return order;
+	}
+	public void setOrder(String order) {
+		this.order = order;
+	}		
 }

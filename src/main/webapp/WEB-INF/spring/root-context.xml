@@ -24,7 +24,7 @@
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property> <!-- setter로 dataSource주입 -->
 		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property> 
-		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property>  
+		<!-- <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property> -->  
 		<!-- mapper폴더의 위치: 실제 배포시 src/main의 경로는 삭제되므로, classpath:패키지 하위경로/*Mapper.xml 로 작성해야 함-->
 	</bean>
 	<!-- dao에 sqlsession 주입 -->

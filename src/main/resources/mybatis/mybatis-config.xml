@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
  <!-- 아래의 DOCTYPE다음 이름을 통해 이 xml파일이 어떤 양식의 xml파일인지를 알 수 있음. -->
 <!DOCTYPE configuration
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   
   <!-- 현장에서 각 config항목들이 어떤 것인지를 직접 체험해가며 다른 것들도 세팅할 수 있다. -->
@@ -16,9 +16,11 @@
 		
  	</typeAliases>
  </configuration> -->
-  
-<settings>
-	<setting name="defaultFetchSize" value="2500"/>
-</settings>
+<configuration>
+	<typeAliases> 
+		<typeAlias type="com.njgo.dto.MemberDTO" alias="MemberDTO"/>
+	</typeAliases>
+</configuration> 
+
 
   

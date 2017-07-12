@@ -31,13 +31,13 @@ function doSubmit()
 	        
 	          <!-- Email 입력 -->
 	          <div id="idFrms" class="form-group has-feedback has-error">
-	            <input type="email" name="email" class="form-control" id="email" autocomplete="off" onblur="chkEmail()" placeholder="email">
+	            <input type="email" name="email" class="form-control" id="email" required="required" autocomplete="off" onblur="chkEmail()" placeholder="email">
 	            <span id="idStatus" class="glyphicon form-control-feedback glyphicon-remove" aria-hidden="true"></span>
-	            <span id="idMsg" style="" class="text-danger">email를 입력해 주세요.</span>
+	            <span id="idMsg" style="display:none;" class="text-danger"></span>
 	          </div>
 	          <!-- 비밀번호 입력 -->
 	          <div id="pwFrms" class="form-group has-feedback">
-	            <input type="password" name="pw" class="form-control" id="pw" onblur="chkPw1()" onkeyup="chkShiftUp(event)" onkeypress="chkCapslock(event)" onkeydown="chkShiftDown(event)" placeholder="비밀번호">
+	            <input type="password" name="pw" class="form-control" id="pw" onblur="chkPw1()"  placeholder="비밀번호">
 	            <span id="pwStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 	            <span id="pwMsg" style="display:none;"></span>
 	          </div>
@@ -54,7 +54,7 @@ function doSubmit()
 	          </div>
 	           <!-- 닉네임 --> 
 	          <div id="nickFrms" class="form-group has-feedback mag_b_10">
-	            <input type="text" name="nickName" class="form-control" id="nickname" onblur="chkNick()" placeholder="닉네임">
+	            <input type="text" name="nickName" class="form-control" id="nickName" onblur="chkNick()" placeholder="닉네임">
 	            <span id="nickStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 	            <span id="nickMsg" style="display:none;"></span>
 	          </div>
@@ -68,7 +68,7 @@ function doSubmit()
 	          
 	          <!-- 주소 API 필요 -->
 	          <div id="addressFrms" class="form-group has-feedback">
-				<input type="text" id="roadFullAddr" class="form-control"  name="address" placeholder="주소입력" onClick="goPopup();"/>
+				<input type="text" id="roadFullAddr" class="form-control"  name="address" placeholder="주소입력, 마우스 클릭!" onClick="goPopup();"/>
 	            <span id="nickStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 	            <span id="nickMsg" style="display:none;"></span>
 	          </div>
@@ -94,7 +94,6 @@ function doSubmit()
 	            <input type="text" class="form-control" disabled="">
 	            <span id="genderMsg" style="display:none;"></span>
 	          </div>
-	
 	          <input type="hidden" name="frm[pro_tg_gender]" id="pro_tg_gender">
 	          <button type="submit" class="btn btn-primary btn-block btn-lg">회원가입</button>
 	      </form></div>

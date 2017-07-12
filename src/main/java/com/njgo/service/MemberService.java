@@ -13,9 +13,19 @@ public class MemberService {
 	private MemberDAO memberDAO;
 	
 	
-	public MemberDTO memberJoin(MemberDTO memberDTO){
+	public int memberJoin(MemberDTO memberDTO){
 		
 		return memberDAO.memberJoin(memberDTO);
 	}
-
+	
+	public MemberDTO emailCheck(String email){
+		
+		return memberDAO.emailCheck(email);
+	}
+	
+	public MemberDTO nickNameCheck(String nickName){
+		
+		return memberDAO.nickNameCheck(nickName);
+	}
+	
 }

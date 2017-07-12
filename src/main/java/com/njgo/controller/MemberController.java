@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.njgo.dto.MemberDTO;
 import com.njgo.service.MemberService;
@@ -32,17 +33,45 @@ public class MemberController {
 	@RequestMapping(value="memberJoin", method = RequestMethod.POST)
 	public void memberJoin(MemberDTO memberDTO,Model model)throws Exception{
 		
-		
-		
-		memberService.memberJoin(memberDTO);
-		
-		System.out.println("email:"+memberDTO.getEmail());
-		System.out.println("Address:"+memberDTO.getAddress());
-		System.out.println("Name:"+memberDTO.getName());
-		System.out.println("phone:"+memberDTO.getPhone());
-		
-		
+		int result = memberService.memberJoin(memberDTO);
+		if(result>0){
+			System.out.println("가입성공!");
+		}else{
+			System.out.println("가입실패!!");
+		}
 	}
+	
+	@RequestMapping(value="emailCheck", method = RequestMethod.POST)
+	public ModelAndView emailCheck(String email){
+		System.out.println("email채크");
+		MemberDTO memberDTO = memberService.emailCheck(email);
+		ModelAndView mv = new ModelAndView();
+		int code = 1; // 사용가능한 email
+		if(memberDTO!=null){
+			code = 0; // 중복된 email 
+		}
+		mv.addObject("code", code);
+		mv.setViewName("./member/commons/result");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="nickNameCheck", method = RequestMethod.POST)
+	public ModelAndView nickNameCheck(String nickName){
+		System.out.println("nickName채크");
+
+		MemberDTO memberDTO = memberService.nickNameCheck(nickName);
+		ModelAndView mv = new ModelAndView();
+		int code = 1; // 사용가능한 nickName
+		if(memberDTO!=null){
+			code = 0; // 중복된 nickName 
+		}
+		mv.addObject("code", code);
+		mv.setViewName("./member/commons/result");
+		
+		return mv;
+	}
+	
 	
 	
 }

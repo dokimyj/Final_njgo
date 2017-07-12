@@ -14,9 +14,9 @@ public class MemberDAO {
 	private final String NAMESPACE ="MemberMapper.";
 	
 	//join
-	public MemberDTO memberJoin(MemberDTO memberDTO){
+	public int memberJoin(MemberDTO memberDTO){
 		
-		return null;
+		return sqlSession.insert(NAMESPACE+"join", memberDTO);
 	}
 	
 	//Delete
@@ -30,5 +30,16 @@ public class MemberDAO {
 	
 	//중복체크 
 	public void memberCheck(){}
+	
+	//email중복체크
+	public MemberDTO emailCheck(String email){
+		return sqlSession.selectOne(NAMESPACE+"emailCheck", email);
+	}
+
+	//nickName 중복체크
+	public MemberDTO nickNameCheck(String nickName) {
+		
+		return sqlSession.selectOne(NAMESPACE+"nickNameCheck", nickName);
+	}
 	
 }

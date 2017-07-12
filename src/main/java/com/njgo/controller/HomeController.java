@@ -45,5 +45,9 @@ public class HomeController {
 	public void test2(){
 		
 	}
+	@RequestMapping(value="test")
+	public void pw(){
+		
+	}
 	
 }

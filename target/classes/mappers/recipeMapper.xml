@@ -45,6 +45,6 @@
 		update RECIPE set SCRAP=SCRAP+1
 	</update>
 	<update id="scrapD" parameterType="java.lang.Integer">
-		update RECIPE set SCRAP=SCRAP+1
+		update RECIPE set SCRAP=SCRAP-1
 	</update>
 </mapper>

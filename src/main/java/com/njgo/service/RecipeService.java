@@ -46,6 +46,10 @@ public class RecipeService {
 		return rreplyDAO.replyReply(rreplyDTO);
 	}
 	
+	public RecipeReplyDTO replyView(Integer num){
+		return rreplyDAO.replyView(num);
+	}
+	
 	public int replyUpdate(RecipeReplyDTO rreplyDTO){
 		return rreplyDAO.replyUpdate(rreplyDTO);
 	}

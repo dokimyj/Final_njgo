@@ -12,8 +12,11 @@
 	<insert id="reply" statementType="CALLABLE" parameterType="java.util.Map">
 		{ call RREPLY_REPLY(#{replyDTO.num, mode=IN}, #{replyDTO.writer, mode=IN}, #{replyDTO.contents, mode=IN}, #{result, mode=OUT, javaType=int, jdbcType=INTEGER}) }
 	</insert>
+	<select id="view" parameterType="java.lang.Integer" resultType="com.njgo.dto.RecipeReplyDTO">
+		select * from RECIPE_REPLY where NUM=#{num}
+	</select>
 	<update id="update" parameterType="com.njgo.dto.RecipeReplyDTO">
-		update RECIPE_REPLY set CONTENTS=#{contents} where NUM=#{num}
+		update RECIPE_REPLY set CONTENTS=#{contents}, TIME=SYSDATE where NUM=#{num}
 	</update>
 	<delete id="delete" parameterType="java.lang.Integer">
 		delete RECIPE_REPLY where NUM=#{num}

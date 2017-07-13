@@ -26,6 +26,10 @@ public class RecipeReplyDAO {
 		return sqlSession.selectList(NAMESPACE+"list", reply);
 	}
 	
+	public RecipeReplyDTO replyView(Integer num){
+		return sqlSession.selectOne(NAMESPACE+"view", num);
+	}
+	
 	public int replyWrite(RecipeReplyDTO rreplyDTO){
 		return sqlSession.insert(NAMESPACE+"write", rreplyDTO);
 	}

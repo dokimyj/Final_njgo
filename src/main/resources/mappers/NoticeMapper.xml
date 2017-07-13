@@ -8,14 +8,32 @@
 	<select id="list" parameterType="com.njgo.util.ListInfo" resultType="NoticeDTO">
 		select * from board where kind='notice' order by num desc
 	</select>
-
-	<!-- Count -->
-	<!-- <select id="count" parameterType="com.njgo.util.ListInfo" resultType="java.lang.Integer">
+	
+	<!-- View -->
+	 <!-- <select id="view" parameterType="java.lang.Integer"> select * from 
+		board where kind='notice' and num=#{num}
+		</select> -->
+		
+	 <!-- Count -->
+	 <!-- <select id="count" parameterType="com.njgo.util.ListInfo" resultType="java.lang.Integer"> 
 		select nvl(count(num), 0) from board
-	</select> -->
+		</select> -->
+		
+	 <!-- write -->
+	 <!-- <insert id="write" parameterType="com.njgo.dto.NoticeDTO"> insert 
+		into board values (notice_seq.nextval, #{writer}, #{title}, #{contents}, 
+		sysdate, 0, notice)
+		</insert> -->
+		
+	 <!-- Update -->
+	 <!-- <update id="update" parameterType="com.njgo.dto.NoticeDTO"> update 
+		board set title=#{title} contents=#{contents} where num=#{num}
+		</update> -->
+		
+	 <!-- Delete -->
+	 <!-- <delete id="delete" parameterType="java.lang.Integer"> delete from 
+		board where kind='notice' and num=#{num} </delete> -->
+	
 
-	<!-- write -->
-	<!-- <insert id="write" parameterType="com.njgo.dto.NoticeDTO">
-		insert into board values (notice_seq.nextval, #{writer}, #{title}, #{contents}, sysdate, 0, notice)
-	</insert> -->
+	
 </mapper>

@@ -19,7 +19,7 @@
 	
 		<div class="container_etc" style="width:460px;">
 		  <h2>로그인</h2>
-		  <div class="panel-body">
+		  <div class="panel-body"> 
 		    <form name="form_login" id="formLogin" method="post" action="" autocomplete="off" onsubmit="return doSubmit()">
 		    <input type="hidden" name="q_mode" value="check">
 		    <input type="hidden" name="q_path" value="">

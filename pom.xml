@@ -22,6 +22,24 @@
 		<!-- ojdbc는 저작권 문제로 그냥 자동 다운로드 안됨!=>repositories라는, 사설 라이브러리를 올려놓은 사이트를 설정할 태그를 사용할 예정 -->
 		
 	<dependencies>
+		
+		<!-- KDY 메일 API 추가부분 -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>4.3.0.RELEASE</version>
+		</dependency>
+		
+		<!-- KDY 메일 API 추가부분 -->
+		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>javax.mail-api</artifactId>
+		    <version>1.5.6</version>
+		</dependency>
+		
+		<!-- ======================== Master ====================================-->
 		<!-- 자료를 JSON형태로 바로 변환시켜주는 Jackson Databind -->
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>

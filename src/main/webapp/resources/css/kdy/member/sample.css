@@ -2653,8 +2653,8 @@ padding-top:6px
 }
 .btn-primary {
 	color:#fff;
-	background-color:#74b243;
-	border:1px solid #497725;
+	background-color:#ffcc00;
+	
 }
 .btn-primary2 {
 	color:#fff;
@@ -2663,8 +2663,8 @@ padding-top:6px
 }
 .btn-primary.active, .btn-primary.focus, .btn-primary:active, .btn-primary:focus, .btn-primary:hover, .open>.dropdown-toggle.btn-primary {
 	color:#fff;
-	background-color:#5e9e2b;
-	border-color:#497725
+	background-color:#ffcc00;
+	border-color:#ffcc00
 }
 .btn-primary2.active, .btn-primary2.focus, .btn-primary2:active, .btn-primary2:focus, .btn-primary2:hover, .open>.dropdown-toggle.btn-primary2 {
 	color:#fff;

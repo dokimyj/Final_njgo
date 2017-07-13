@@ -11,11 +11,32 @@
 </head>
 <script>
 function doSubmit()
-{
-   
-    if(!$("#pro_tg_gender").val())
+{	
+	
+	if(chkEmail()==0){
+		return false;
+	}
+	if(chkPw1()==0){
+		return false;
+	}
+	if(chkPw2()==0){
+		return false;
+	}
+	if(chkNick()==0	){
+		return false;
+	}
+	if(chkName()==0){
+		return false;
+	}
+	if(chkPhone()==0){
+		return false;
+	}
+	
+    if($("#gender").val()=="" || $("#gender").val()==null)
     {
-        viewMsg("gender","성별을 선택해 주세요.","error");
+    	$("#genderMsg").css("color","red");
+		$("#genderMsg").css("display","block");
+		$("#genderMsg").text("성별을 선택해주세요.");
         return false;
     }
     return true;
@@ -26,14 +47,14 @@ function doSubmit()
 	
 	<section class="main_section">
 		<div class="container_etc" style="width:460px;">
-	      <h2>회원가입</h2>
+	      <h2 style="font-size: 2em;">회원가입</h2>
 	        <form name="form_insert" id="frmInsert" method="post" action="memberJoin" autocomplete="off" onsubmit="return doSubmit()">
 	        
 	          <!-- Email 입력 -->
 	          <div id="idFrms" class="form-group has-feedback has-error">
 	            <input type="email" name="email" class="form-control" id="email" required="required" autocomplete="off" onblur="chkEmail()" placeholder="email">
-	            <span id="idStatus" class="glyphicon form-control-feedback glyphicon-remove" aria-hidden="true"></span>
-	            <span id="idMsg" style="display:none;" class="text-danger"></span>
+	            <span id="emailStatus" class="glyphicon form-control-feedback glyphicon-remove" aria-hidden="true"></span>
+	            <span id="emailMsg" style="display:none;" class="text-danger"></span>
 	          </div>
 	          <!-- 비밀번호 입력 -->
 	          <div id="pwFrms" class="form-group has-feedback">
@@ -49,40 +70,39 @@ function doSubmit()
 	          <!-- KAKAO ID 입력 -->
 	          <div id="emailFrms" class="form-group has-feedback">
 	            <input type="text" name="kakaoID" class="form-control" id="kakaoID" onblur="chkKakao()" placeholder="카카오 아이디 ,나중에 추가하셔도됩니다!">
-	            <span id="emailStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
-	            <span id="emailMsg" style="display:none;"></span>
+	           
 	          </div>
 	           <!-- 닉네임 --> 
 	          <div id="nickFrms" class="form-group has-feedback mag_b_10">
-	            <input type="text" name="nickName" class="form-control" id="nickName" onblur="chkNick()" placeholder="닉네임">
+	            <input type="text" name="nickName" class="form-control" id="nickName" onblur="chkNick()" placeholder="닉네임" required="required">
 	            <span id="nickStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 	            <span id="nickMsg" style="display:none;"></span>
 	          </div>
 	          
 	          <!-- 이름  -->
 	           <div id="nameFrms" class="form-group has-feedback ">
-	            <input type="text" name="name" class="form-control" id="name" onblur="chkName()" placeholder="이름">
-	            <span id="nickStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
-	            <span id="nickMsg" style="display:none;"></span>
+	            <input type="text" name="name" class="form-control" id="name" onblur="chkName()" placeholder="이름" required="required">
+	            <span id="nameStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
+	            <span id="nameMsg" style="display:none;"></span>
 	          </div>
-	          
+	           
 	          <!-- 주소 API 필요 -->
 	          <div id="addressFrms" class="form-group has-feedback">
-				<input type="text" id="roadFullAddr" class="form-control"  name="address" placeholder="주소입력, 마우스 클릭!" onClick="goPopup();"/>
-	            <span id="nickStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
-	            <span id="nickMsg" style="display:none;"></span>
+				<input type="text" id="roadFullAddr" class="form-control"  name="address" placeholder="주소입력, 마우스 클릭!" onClick="goPopup();" required="required"/>
+	            <span id="addressStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
+	            <span id="addressMsg" style="display:none;"></span>
 	          </div>
 	          
 	          <!-- 핸드폰 번호  -->
 	           <div id="phoneFrms" class="form-group has-feedback">
-	            <input type="text" name="phone" class="form-control" id="phone" onblur="chkPhone()" placeholder="휴대전화번호">
-	            <span id="nickStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
-	            <span id="nickMsg" style="display:none;"></span>
+	            <input type="text" name="phone" class="form-control" id="phone" onblur="chkPhone()" placeholder="휴대전화번호 " required="required">
+	            <span id="phoneStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
+	            <span id="phoneMsg" style="display:none;"></span>
 	          </div>
 	          
 	
-	          
-	          <div class="form-group has-feedback">
+	          <!-- 성별 -->
+	          <div class="form-group has-feedback" >
 	            <div class="btn_gender" style="width:220px;left:20px;">
 	              <span class="input-group-btn">
 	                <button type="button" id="tg_male" class="btn btn-sm btn-default" style="width:100px;" onclick="chkGender('m')">남자</button>
@@ -94,7 +114,7 @@ function doSubmit()
 	            <input type="text" class="form-control" disabled="">
 	            <span id="genderMsg" style="display:none;"></span>
 	          </div>
-	          <input type="hidden" name="frm[pro_tg_gender]" id="pro_tg_gender">
+	          <input type="hidden" name="gender" id="gender">
 	          <button type="submit" class="btn btn-primary btn-block btn-lg">회원가입</button>
 	      </form></div>
       </section>

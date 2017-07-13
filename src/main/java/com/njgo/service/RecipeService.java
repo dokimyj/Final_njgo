@@ -42,6 +42,10 @@ public class RecipeService {
 		return rreplyDAO.replyWrite(rreplyDTO);
 	}
 	
+	public int replyReply(RecipeReplyDTO rreplyDTO){ //이 매개변수에서 rreplyDTO.setNum은 반드시 답글다는 댓글의 원댓글 번호를 가져와야 함!
+		return rreplyDAO.replyReply(rreplyDTO);
+	}
+	
 	public int replyUpdate(RecipeReplyDTO rreplyDTO){
 		return rreplyDAO.replyUpdate(rreplyDTO);
 	}
@@ -58,12 +62,8 @@ public class RecipeService {
 		return rreviewDAO.reviewWrite(rreviewDTO);
 	}
 	
-	public int reviewUpdate(RecipeReviewDTO rreviewDTO){
-		return rreviewDAO.reviewUpdate(rreviewDTO);
-	}
-	
-	public int reviewDelete(Integer num){
-		return rreviewDAO.reviewDelete(num);
+	public int reviewDelete(Integer num, Integer rnum){ //지우려는 댓글 번호, 해당 댓글이 있는 레시피의 번호
+		return rreviewDAO.reviewDelete(num, rnum);
 	}
 	
 	public int scrapIncrease(Integer num){

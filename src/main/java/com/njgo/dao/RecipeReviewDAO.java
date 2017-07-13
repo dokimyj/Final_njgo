@@ -18,22 +18,25 @@ public class RecipeReviewDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE="recipeReviewMapper.";
 	
-	public List<RecipeReviewDTO> reviewList(ListInfo listInfo, Integer num){
-		HashMap<String, Object> reply=new HashMap<String, Object>();
-		reply.put("listInfo", listInfo);
-		reply.put("num", num);
-		return sqlSession.selectList(NAMESPACE+"list", reply);
+	public List<RecipeReviewDTO> reviewList(ListInfo listInfo, Integer rnum){
+		HashMap<String, Object> review=new HashMap<String, Object>();
+		review.put("listInfo", listInfo);
+		review.put("rnum", rnum);
+		return sqlSession.selectList(NAMESPACE+"list", review);
 	}
 	
 	public int reviewWrite(RecipeReviewDTO rreviewDTO){
-		return 0;
+		HashMap<String, Object> review=new HashMap<String, Object>();
+		review.put("reviewDTO", rreviewDTO);
+		sqlSession.insert(NAMESPACE+"write", review);
+		return (Integer)review.get("result");
 	}
 	
-	public int reviewUpdate(RecipeReviewDTO rreviewDTO){
-		return 0;
-	}
-	
-	public int reviewDelete(Integer num){
-		return 0;
+	public int reviewDelete(Integer num, Integer rnum){
+		HashMap<String, Object> review=new HashMap<String, Object>();
+		review.put("num", num);
+		review.put("rnum", rnum);
+		sqlSession.delete(NAMESPACE+"delete", review);
+		return (Integer)review.get("result");
 	}
 }

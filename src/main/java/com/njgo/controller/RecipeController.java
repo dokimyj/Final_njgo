@@ -22,7 +22,9 @@ public class RecipeController {
 	
 	@RequestMapping(value="recipeView", method=RequestMethod.GET)
 	public void view(Integer num, Model model) throws Exception{
-		model.addAttribute("recipe", recipeService.view(num));
+		model.addAttribute("recipe", recipeService.view(num).get("recipeDTO"));
+		model.addAttribute("ingredients", recipeService.view(num).get("ingredients"));
+		model.addAttribute("steps", recipeService.view(num).get("steps"));
 	}
 	
 	@RequestMapping(value="recipeList", method=RequestMethod.POST)

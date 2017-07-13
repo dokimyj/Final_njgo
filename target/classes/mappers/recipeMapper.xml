@@ -18,15 +18,12 @@
 	<select id="list" parameterType="com.njgo.util.ListInfo" resultType="com.njgo.dto.RecipeDTO">
 		select * from 
 		(select ROWNUM R, L.* from 
-		(select WRITER, FOODNAME, TITLE, REP_PIC, RATING, ELAPSEDTIME, SCRAP, HASHTAG from RECIPE where
+		(select WRITER, FOODNAME, TITLE, REP_PIC, RATING, ELAPSEDTIME, SCRAP from RECIPE where
 		<if test="search=='title'">
 			TITLE like '%'||#{find}||'%'
 		</if>
 		<if test="search=='writer'">
 			WRITER like '%'||#{find}||'%'
-		</if>
-		<if test="search=='hashtag'">
-			HASHTAG like '%'||#{find}||'%'
 		</if>
 		  order by
 		<if test="order=='regdate'">

@@ -9,7 +9,6 @@ public class RecipeDTO {
 	private String title;
 	private int hit;
 	private Date regdate;
-	private String hashtag;
 	private String rep_pic;
 	private int amount;
 	private double rating;
@@ -50,12 +49,6 @@ public class RecipeDTO {
 	}
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
-	}
-	public String getHashtag() {
-		return hashtag;
-	}
-	public void setHashtag(String hashtag) {
-		this.hashtag = hashtag;
 	}
 	public String getRep_pic() {
 		return rep_pic;

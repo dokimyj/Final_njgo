@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.njgo.dto.HashtagDTO;
 import com.njgo.dto.IngredientsDTO;
 import com.njgo.dto.RecipeDTO;
 import com.njgo.dto.StepsDTO;
@@ -35,7 +36,19 @@ public class RecipeDAO {
 		return sqlSession.selectList(NAMESPACE+"list", listInfo);
 	}
 	
+	public List<RecipeDTO> tagsearch(List<HashtagDTO> tags, ListInfo listInfo){
+		HashMap<String, Object> tagsearch=new HashMap<String, Object>();
+		tagsearch.put("listInfo", listInfo);
+		tagsearch.put("tags", tags);
+		return sqlSession.selectList(NAMESPACE+"tagsearch", tagsearch);
+	}
 	
+	public List<RecipeDTO> isearch(List<IngredientsDTO> ingredients, ListInfo listInfo){
+		HashMap<String, Object> isearch=new HashMap<String, Object>();
+		isearch.put("listInfo", listInfo);
+		isearch.put("ingredients", ingredients);
+		return sqlSession.selectList(NAMESPACE+"isearch", isearch);
+	}
 	
 	public int scrapIncrease(Integer num){
 		return sqlSession.update(NAMESPACE+"scrapI", num);

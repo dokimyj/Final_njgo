@@ -5,7 +5,7 @@ public class ListInfo {
 	private Integer perPage;
 	public Integer getPerPage() {
 		if(perPage==null){
-			perPage=10;
+			perPage=9;
 		}
 		return perPage;
 	}

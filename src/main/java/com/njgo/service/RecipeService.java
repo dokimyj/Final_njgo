@@ -35,6 +35,10 @@ public class RecipeService {
 		return recipeDAO.list(listInfo);
 	}
 	
+	public List<RecipeDTO> search(String find, ListInfo listInfo){
+		return recipeDAO.search(find, listInfo);
+	}
+	
 	public List<RecipeDTO> tagsearch(List<HashtagDTO> tags, ListInfo listInfo){
 		return recipeDAO.tagsearch(tags, listInfo);
 	}

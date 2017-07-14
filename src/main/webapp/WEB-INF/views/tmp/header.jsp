@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <header>
 		<div class="search">
 			<div class="search_wrap">
-				<input type="text" id="searchInput" placeholder="음식명, 재료명으로 검색해주세요.">
+				<input type="text" id="searchInput" placeholder="음식명, 재료명으로 검색해주세요." onkeydown="search(this)">
 				<div class="pictureBtn">
 					<div id="person">
 						<img alt="" src="./resources/images/common/user-silhouette.png">
@@ -56,3 +57,12 @@
 			
 		</div>
 	</header>
+	
+	<script>
+		function search(find){
+			if(event.keyCode == 13)
+				{
+					location.href="/recipe/search?find="+find.value;
+				}
+		}
+	</script>

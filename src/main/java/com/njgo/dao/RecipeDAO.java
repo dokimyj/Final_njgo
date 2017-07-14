@@ -36,6 +36,13 @@ public class RecipeDAO {
 		return sqlSession.selectList(NAMESPACE+"list", listInfo);
 	}
 	
+	public List<RecipeDTO> search(String find, ListInfo listInfo){
+		HashMap<String, Object> search=new HashMap<String, Object>();
+		search.put("find", find);
+		search.put("listInfo", listInfo);
+		return sqlSession.selectList(NAMESPACE+"search", search);
+	}
+	
 	public List<RecipeDTO> tagsearch(List<HashtagDTO> tags, ListInfo listInfo){
 		HashMap<String, Object> tagsearch=new HashMap<String, Object>();
 		tagsearch.put("listInfo", listInfo);

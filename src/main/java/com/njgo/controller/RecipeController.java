@@ -36,6 +36,12 @@ public class RecipeController {
 		model.addAttribute("recipe", recipeService.list(listInfo));
 	}
 	
+	@RequestMapping(value="search", method=RequestMethod.GET)
+	public String list(ListInfo listInfo, String find, RedirectAttributes ra) throws Exception{
+		ra.addFlashAttribute("result", recipeService.search(find, listInfo));
+		return "redirect:recipeList";
+	}
+
 	@RequestMapping(value="tagsearch", method=RequestMethod.POST)
 	public String tagsearch(String[] tags, Integer rnum, ListInfo listInfo, RedirectAttributes ra) throws Exception{
 		List<HashtagDTO> hashtag=new ArrayList<HashtagDTO>();

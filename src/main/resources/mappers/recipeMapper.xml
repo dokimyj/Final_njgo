@@ -41,6 +41,24 @@
 		  desc) L) 
 		where R between #{startRow} and #{lastRow}		
 	</select>
+	<select id="search" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeDTO">
+		select * from 
+		(select ROWNUM R, L.* from 
+		(select C.WRITER, C.FOODNAME, C.TITLE, C.REP_PIC, C.RATING, C.ELAPSEDTIME, C.SCRAP from RECIPE C, INGREDIENTS I 
+		 where C.NUM=I.NUM and where C.FOODNAME like '%'||#{find}||'%' or where C.NUM=(select RECIPENUM from INGREDIENTS where NAME like '%'||#{find}||'%')
+		 order by
+		<if test="order=='regdate'">
+			REGDATE
+		</if>
+		<if test="order=='rating'">
+			RATING
+		</if>
+		<if test="order=='hit'">
+			HIT
+		</if>
+		  desc) L) 
+		where R between #{listInfo.startRow} and #{listInfo.lastRow}
+	</select>
 	<select id="tagsearch" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeDTO">
 		select * from 
 		(select ROWNUM R, L.* from 

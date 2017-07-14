@@ -6,25 +6,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>?</title>
-<link rel="stylesheet" media="all" href="http://d1hk7gw6lgygff.cloudfront.net/assets/application-661e969b01a864ad51eee95fed275e3a.css">
-<script src="http://d1hk7gw6lgygff.cloudfront.net/assets/application-777082a56ce39297607bc88c49a5e6e7.js"></script>
-<script type="text/javascript" src="http://d1hk7gw6lgygff.cloudfront.net/assets/_js/social-0eb941356390963d3dc232d378dcdc5d.js?1499676485"></script>
-<script src="../resources/js/kdk/recipeShow.js"></script>
+
 </head>
 <body>
 <!-- header파트 -->
-	<c:import url="./tmp/header.jsp"/>
+	<c:import url="../tmp/header.jsp"/>
 	<!-- 메뉴 옆의 내용은 전부 고정, hidden으로 태그 검색 -->
 <!-- 메인파트 -->
 	<section class="main_section">
-	<!-- 냉장고 재료 검색파트 -->
-		<!-- Hashtag를 기반으로 검색하며, 서브쿼리 이용 예정 -->
-	<!-- 날씨추천 파트 -->
-		<!-- 사용자의 태그를 우선으로 정렬예정 -->
-	<!-- 인기(HIT순) 정렬 파트 -->
-		<!-- listInfo에 3개를 넣어서 보여주기 -->
+		<!-- 태그별 검색 -->
+		
+		<!-- 레시피 리스트 3*3, 최신순/hit순 -->
+
+		<!-- TV-만개의레시피에서 두 프로그램정도 가져오기(DB에 전부 넣어야 함, 동영상 태그까지) -->
 	</section>
 <!-- 각주 파트 -->
-	<c:import url="./tmp/footer.jsp"/>
+	<c:import url="../tmp/footer.jsp"/>
 </body>
 </html>

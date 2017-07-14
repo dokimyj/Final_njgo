@@ -23,16 +23,16 @@ public class ListInfo {
 	}
 	private String search;
 	private String find;
-	private int firstRow;
+	private int startRow;
 	private int lastRow;
-	public int getFirstRow() {
-		return firstRow;
+	public int getStartRow() {
+		return startRow;
 	}
 	public int getLastRow() {
 		return lastRow;
 	}
 	public void setRow(int curPage, int perPage){
-		firstRow=(this.getCurPage()-1)*this.getPerPage()+1; //curPage가 null일 수 있기 때문에 이 페이지의 curPage를 가져오도록 this.getCurPage()로.
+		startRow=(this.getCurPage()-1)*this.getPerPage()+1; //curPage가 null일 수 있기 때문에 이 페이지의 curPage를 가져오도록 this.getCurPage()로.
 		lastRow=this.getCurPage()*this.getPerPage();
 	}
 	private int curBlock;

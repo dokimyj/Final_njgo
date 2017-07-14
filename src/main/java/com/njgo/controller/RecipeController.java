@@ -31,7 +31,7 @@ public class RecipeController {
 		model.addAttribute("steps", recipeService.view(num).get("steps"));
 	}
 	
-	@RequestMapping(value="recipeList", method=RequestMethod.POST)
+	@RequestMapping(value="recipeList", method=RequestMethod.GET)
 	public void list(ListInfo listInfo, Model model) throws Exception{
 		model.addAttribute("recipe", recipeService.list(listInfo));
 	}

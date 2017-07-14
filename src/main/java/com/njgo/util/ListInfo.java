@@ -5,7 +5,7 @@ public class ListInfo {
 	private Integer perPage;
 	public Integer getPerPage() {
 		if(perPage==null){
-			perPage=10;
+			perPage=9;
 		}
 		return perPage;
 	}
@@ -83,4 +83,15 @@ public class ListInfo {
 		this.find = find;
 	}
 	
+	private String order;
+	
+	public String getOrder() {
+		if(order==null){
+			order="rating";
+		}
+		return order;
+	}
+	public void setOrder(String order) {
+		this.order = order;
+	}			
 }

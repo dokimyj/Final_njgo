@@ -1,5 +1,8 @@
 package com.njgo.dao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -40,6 +43,20 @@ public class MemberDAO {
 	public MemberDTO nickNameCheck(String nickName) {
 		
 		return sqlSession.selectOne(NAMESPACE+"nickNameCheck", nickName);
+	}
+
+	public int emailConfrim(String joinCode,String email) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("joinCode", joinCode);
+		map.put("email", email);
+		MemberDTO memberDTO = sqlSession.selectOne(NAMESPACE+"emailConfirm", map);
+		int result =0;
+		if(memberDTO != null){
+			result = sqlSession.update(NAMESPACE+"join_success",map);
+		}
+		
+		return result;
 	}
 	
 }

@@ -5,18 +5,16 @@ import java.io.File;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MailService {
-
-	private JavaMailSender javaMailSender;
 	
-	public void setJavaMailSender(JavaMailSender javaMailSender){
-		
-	}
+	@Autowired
+	private JavaMailSender javaMailSender;
 	
 	 public boolean send(String subject, String text, String from, String to, String filePath) {
 	        // javax.mail.internet.MimeMessage
@@ -37,7 +35,7 @@ public class MailService {
 	                    helper.addAttachment(file.getName(), new File(filePath));
 	                }
 	            }
-	 
+	         
 	            javaMailSender.send(message);
 	            return true;
 	        } catch (MessagingException e) {

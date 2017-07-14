@@ -16,8 +16,15 @@ public class MemberDTO {
 	private String phone;
 	private int w_count;
 	private Timestamp joint_date;
+	private String joinCode;
 	
 	
+	public String getJoinCode() {
+		return joinCode;
+	}
+	public void setJoinCode(String joinCode) {
+		this.joinCode = joinCode;
+	}
 	public String getEmail() {
 		return email;
 	}

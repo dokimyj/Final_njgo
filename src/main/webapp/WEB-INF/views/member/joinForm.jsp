@@ -115,6 +115,7 @@ function doSubmit()
 	            <span id="genderMsg" style="display:none;"></span>
 	          </div>
 	          <input type="hidden" name="gender" id="gender">
+	          <input type="hidden" name="joinCode" value="${joinCode }"> 
 	          <button type="submit" class="btn btn-primary btn-block btn-lg">회원가입</button>
 	      </form></div>
       </section>

@@ -37,4 +37,6 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value="/recipe/recipeWrite", method = RequestMethod.GET)
+	public void recipeWrite() {}
 }

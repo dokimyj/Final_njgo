@@ -13,14 +13,21 @@
 		});
 				
 		$("#memberBtn").click(function() {
-			memberTab();
+			if( $(".member_box").attr("title") != "off" ) {
+				$(".member_box").attr("title", "off");
+				$(".member_box").hide();
+			} else {
+				$(".member_box").attr("title","on");
+				memberTab();
+			}
 		});
 		
 		$(document).mouseup(function(e) {
-			var container = $(".member_box");
-			
 			if($(".member_box").has(e.target).length == 0) {
-				$(".member_box").hide();
+				if($("#person").has(e.target).length == 0) {
+					$(".member_box").attr("title", "off");
+					$(".member_box").hide();
+				}
 			}
 		})
 	});
@@ -49,13 +56,16 @@
 	}
 	
 	function memberTab() {
+		$(".member_box").attr("title","on");
 		$(window).resize(function(){
 			var obj = $("#memberBtn").position();
 			
 			$(".member_box").css("left", obj.left - 60);
 			$(".member_box").css("top", obj.top + 2);
-			$(".member_box").css("display","inline-block");	
+			$(".member_box").css("display","inline-block");
+			$(".member_box").attr("title","on");
 		}).resize();
+		$(".member_box").attr("title","on");
 	}
 </script>
 <header>
@@ -96,7 +106,11 @@
 				</div>
 			</div>
 		</div>
+<<<<<<< HEAD
 		<div class="member_box" style="display: none;">
+=======
+		<div class="member_box" style="display: none;" title="off">
+>>>>>>> master
 			<ul>
 				<li><a href="#">MY홈</a></li>
 				<li><a href="#">스크랩한 레시피</a></li>
@@ -157,4 +171,8 @@
 			</div>
 		</div>
 	</div>
+<<<<<<< HEAD
 </header>
+=======
+</header>
+>>>>>>> master

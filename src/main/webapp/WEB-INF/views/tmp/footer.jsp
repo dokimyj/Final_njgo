@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <footer>
 	<section class="footer_section">
@@ -28,6 +27,30 @@
 				</div>
 				<br>
 				<div class="count">135,205</div>
+	<div class="f_inner">
+		<img class="footer_logo" alt=""
+			src="${pageContext.request.contextPath}/resources/images/common/logo2.png">
+		<div class="list_stats">
+			<div class="list_one">
+				<img alt="" src="${pageContext.request.contextPath}/resources/images/common/chef-hat.png"><br>
+				총 셰프수
+			</div>
+			<br>
+			<div class="count">280</div>
+		</div>
+		<div class="list_stats">
+			<div class="list_one">
+				<img alt="" src="${pageContext.request.contextPath}/resources/images/common/cooking-pot.png"><br>
+				총 레시피수
+			</div>
+			<br>
+			<div class="count">1,256</div>
+		</div>
+		<div class="list_stats">
+			<div class="list_one">
+				<img alt="" src="${pageContext.request.contextPath}/resources/images/common/recipe2.png"><br>
+				총 레시피 조회수
+>>>>>>> master
 			</div>
 			<div class="line"></div>
 

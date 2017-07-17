@@ -1,10 +1,10 @@
 package com.njgo.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 
 import java.util.Random;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +28,36 @@ public class MemberController {
 	public void test(){
 		
 	}
+	@RequestMapping(value="login")
+	public void login(){
+		
+	}
+	
+	
+	// 로그인
+	@RequestMapping(value="memberLogin",method=RequestMethod.POST)
+	public String memberLogin(HttpSession session ,@RequestParam String email,@RequestParam String pw){
+		MemberDTO memberDTO = memberService.memberLogin(email, pw);
+		String test_message= "로그인 실패";
+		if(memberDTO !=null){
+			test_message = "로그인 성공!!";
+			session.setAttribute("memberDTO",memberDTO);
+		}
+		System.out.println(test_message);
+		return "home";
+	}
+	// 로그아웃 
+	@RequestMapping(value="logout")
+	public String memberLogout(HttpSession session){
+		System.out.println("logout");
+		session.invalidate();
+		return "home";
+	}
+	
+	
+	
+	//=============================  Member Join START=====================================
+	
 	//약관 확인 누른다음 joinCode 생성해서 joinForm.jsp에 넣어줌
 	@RequestMapping(value="joinForm",method= RequestMethod.POST)
 	public void join(Model model){
@@ -35,6 +65,7 @@ public class MemberController {
 	     String joinCode = String.valueOf(ran);
 	     model.addAttribute("joinCode", joinCode);
 	}
+	
 	// 가입
 	@RequestMapping(value="memberJoin", method = RequestMethod.POST)
 	public String memberJoin(MemberDTO memberDTO,Model model)throws Exception{

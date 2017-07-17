@@ -16,10 +16,25 @@ public class MemberDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE ="MemberMapper.";
 	
-	//join
-	public int memberJoin(MemberDTO memberDTO){
+	
+	// ========================== Login , Delete, Update 관련 =====================
+	//memberLogin
+	public MemberDTO memberLogin(String email, String pw){
 		
-		return sqlSession.insert(NAMESPACE+"join", memberDTO);
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("email", email);
+		map.put("pw", pw);
+
+		return sqlSession.selectOne(NAMESPACE+"memberLogin", map);
+	}
+	
+	//find_password
+	public MemberDTO find_password(String email){
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("email", email);
+		
+		//email로 검색 
+		return sqlSession.selectOne(NAMESPACE+"emailCheck", email);
 	}
 	
 	//Delete
@@ -31,8 +46,13 @@ public class MemberDAO {
 	//Update
 	public void memberUpdate(){}
 	
-	//중복체크 
-	public void memberCheck(){}
+	
+	// =========================== 회원 가입 관련 ================================
+	//join
+	public int memberJoin(MemberDTO memberDTO){
+		
+		return sqlSession.insert(NAMESPACE+"join", memberDTO);
+	}
 	
 	//email중복체크
 	public MemberDTO emailCheck(String email){
@@ -45,18 +65,22 @@ public class MemberDAO {
 		return sqlSession.selectOne(NAMESPACE+"nickNameCheck", nickName);
 	}
 
-	public int emailConfrim(String joinCode,String email) {
+	
+	//1. 이메일 인증 확인
+	public MemberDTO emailConfrim(String joinCode,String email) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("joinCode", joinCode);
 		map.put("email", email);
+		//링크로 받아온 이메일 값 확인 
+		//DB에는 joinCode가 미리 생성되있기때문에 링크로 받아온 joinCode와 일치할경우 성공
 		MemberDTO memberDTO = sqlSession.selectOne(NAMESPACE+"emailConfirm", map);
 		int result =0;
+		//이메일 인증이 완료되면 grade 값 1로 변경 
 		if(memberDTO != null){
 			result = sqlSession.update(NAMESPACE+"join_success",map);
 		}
 		
-		return result;
-	}
-	
+		return memberDTO;
+	}	
 }

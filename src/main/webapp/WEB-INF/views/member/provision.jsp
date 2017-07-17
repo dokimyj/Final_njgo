@@ -5,8 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common/reset.css">
 <c:import url="../tmp/Bootstrap.jsp"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common/basic.css">
 
 </head>
 <body>
@@ -334,7 +336,7 @@
 		      <p id="checkMsg" style=" margin-top:10px; text-align:center; color:#FF0000; display:none;">이용약관과 개인정보 수집 및 이용에 대한 안내 모두 동의해주세요.</p>
 		      <p style="text-align:center;">
 		      <button type="button" onclick="doAgreeCheck()" class="btn btn-primary btn-lg" style="width:210px;">동의</button>
-		      <button type="button" onclick="location.href='/'" class="btn btn-default btn-lg" style="width:210px;">비동의</button>
+		      <button type="button" onclick="location.href='../'" class="btn btn-default btn-lg" style="width:210px;">비동의</button>
 		      </p>
 		    </div>
 	</section>

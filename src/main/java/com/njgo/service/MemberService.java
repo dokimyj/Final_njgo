@@ -11,6 +11,17 @@ public class MemberService {
 
 	@Autowired
 	private MemberDAO memberDAO;
+	// ========================== Login , Delete, Update 관련 =====================
+	
+	public MemberDTO memberLogin(String email, String pw){
+		return memberDAO.memberLogin(email, pw);
+	}
+	
+	public MemberDTO find_password(String email){
+		return memberDAO.find_password(email);
+	}
+	
+	// =========================== 회원 가입 관련 ================================
 	
 	// 회원가입 grade =0
 	public int memberJoin(MemberDTO memberDTO){
@@ -29,7 +40,7 @@ public class MemberService {
 	}
 	
 	// email 인증 검사
-	public int emailConfirm(String joinCode,String email){
+	public MemberDTO emailConfirm(String joinCode,String email){
 		
 		return memberDAO.emailConfrim(joinCode,email);
 	}

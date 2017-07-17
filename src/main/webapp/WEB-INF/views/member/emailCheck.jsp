@@ -6,7 +6,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>이메일 인증</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common/reset.css">
 <c:import url="../tmp/Bootstrap.jsp"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common/basic.css">
 
 </head>
 <body>

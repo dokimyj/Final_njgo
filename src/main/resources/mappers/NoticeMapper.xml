@@ -6,7 +6,7 @@
 
 	<!-- List -->
 	<select id="list" parameterType="com.njgo.util.ListInfo" resultType="NoticeDTO">
-		select * from board where kind='notice' order by num desc
+		select * from notice order by num desc
 	</select>
 	
 	<!-- View -->

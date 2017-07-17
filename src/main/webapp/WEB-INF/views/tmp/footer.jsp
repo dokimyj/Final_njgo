@@ -33,8 +33,8 @@
 
 			<div class="f_right">
 				<p class="f_link">
-					<a href="${pageContext.request.contextPath}/board/boardList">공지사항</a>
-					<span>|</span> <a href="#">Q＆A</a> <span>|</span> <a href="#">개인정보처리방침</a>
+					<a href="${pageContext.request.contextPath}/notice/noticeList">공지사항</a>
+					<span>|</span> <a href="${pageContext.request.contextPath}/qna/qnaList">Q＆A</a> <span>|</span> <a href="#">개인정보처리방침</a>
 					<span>|</span> <a href="#">이용약관</a>
 				</p>
 				<p class="f_info">

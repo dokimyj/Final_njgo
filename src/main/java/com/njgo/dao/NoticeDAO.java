@@ -5,53 +5,46 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.njgo.dto.BoardDTO;
+import com.njgo.dto.NoticeDTO;
 import com.njgo.util.ListInfo;
 
 @Repository
-public class NoticeDAO implements BoardDAO{
+public class NoticeDAO{
 	
 	@Autowired
 	private SqlSession sqlSession;
 	private final String NAMESPACE="NoticeMapper.";
 
-	@Override
-	public List<BoardDTO> boardList(ListInfo listInfo) {
+	public List<NoticeDTO> noticeList(ListInfo listInfo) {
 		System.out.println("noticedao");
 		return sqlSession.selectList(NAMESPACE+"list", listInfo);
 	}
 
-	@Override
-	public BoardDTO boardView(int num) {
+	public NoticeDTO noticeView(int num) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public int boardWrite(BoardDTO boardDTO) {
-		return sqlSession.insert(NAMESPACE+"write", boardDTO);
+	public int noticeWrite(NoticeDTO noticeDTO) {
+		return sqlSession.insert(NAMESPACE+"write", noticeDTO);
 		
 	}
-
-	@Override
-	public int boardUpdate(BoardDTO boardDTO) {
+	
+	public int noticeUpdate(NoticeDTO noticeDTO) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	@Override
-	public int boardDelete(int num) {
+	
+	public int noticeDelete(int num) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	@Override
-	public int boardCount(ListInfo listInfo) {
+	
+	public int noticeCount(ListInfo listInfo) {
 		return 0;
 	}
 
-	@Override
-	public int boardHit(int num) {
+	public int noticeHit(int num) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

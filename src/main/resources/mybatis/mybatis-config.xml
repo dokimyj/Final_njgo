@@ -13,6 +13,7 @@
 	아래와 같이 설정하고 이를 mybatis property 설정부분에 이 파일을 연결 설정해두면 mapper에 풀패키지명 대신 NoticeDTO만 쓸 수 있음 -->
   
 		<typeAlias alias="NoticeDTO" type="com.njgo.dto.NoticeDTO" />
+		<typeAlias alias="QnaDTO" type="com.njgo.dto.QnaDTO" />
 		
  	</typeAliases>
  </configuration>

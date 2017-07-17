@@ -6,42 +6,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.njgo.dao.QnaDAO;
-import com.njgo.dto.BoardDTO;
+import com.njgo.dto.NoticeDTO;
+import com.njgo.dto.QnaDTO;
 import com.njgo.util.ListInfo;
 
 
 @Service
-public class QnaService implements BoardService{
+public class QnaService{
 
 	@Autowired
 	private QnaDAO qnaDAO;
 	
-	@Override
-	public List<BoardDTO> boardList(ListInfo listInfo) {
+	
+	public List<QnaDTO> qnaList(ListInfo listInfo) {
+		return qnaDAO.qnaList(listInfo);
+	}
+
+	public QnaDTO qnaView(int num) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public BoardDTO boardView(int num) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int boardWrite(BoardDTO boardDTO) {
+	public int qnaWrite(QnaDTO qnaDTO) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
-	public int boardUpdate(BoardDTO boardDTO) {
+	public int qnaUpdate(QnaDTO qnaDTO) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
-	public int boardDelete(int num) {
+	public int qnaDelete(int num) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

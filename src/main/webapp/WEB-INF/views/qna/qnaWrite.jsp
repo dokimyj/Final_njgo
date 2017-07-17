@@ -50,7 +50,7 @@
 	vertical-align: middle;
 }
 </style>
-<script type="text/javascript" src="./SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="../resources/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript">
 	$(function() {
 		//전역변수선언
@@ -59,7 +59,7 @@
 		nhn.husky.EZCreator.createInIFrame({
 			oAppRef : editor_object,
 			elPlaceHolder : "contents",
-			sSkinURI : "../SE2/SmartEditor2Skin.html",
+			sSkinURI : "../resources/SE2/SmartEditor2Skin.html",
 			htParams : {
 				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
 				bUseToolbar : true,
@@ -129,12 +129,12 @@
          <form id="frm" action="./${param.board}Write.${param.board}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="writer" value="${param.id}">
             <div class="form-group">
-               <label for="title" style="font-weight: bolder; vertical-align: middle; font-size: 14px;">제목</label> <input type="text" name="title"
-                  class="form-control" id="title" placeholder="게시글 제목을 입력하세요.">
+               <label for="title" style="font-weight: bolder; vertical-align: middle; font-size: 14px;">제목</label>
+               <input type="text" name="title" class="form-control" id="title" style=" display: inline; width: 96.2%; margin-left: 10px;" placeholder="게시글 제목을 입력하세요.">
             </div>
 
             <div class="form-group" style="margin-bottom: 12px;">
-               <textarea class="form-control" rows="5" id="contents" name="contents" style="width: 100%; height:350px;"></textarea>
+               <textarea class="form-control" rows="5" id="contents" name="contents" style="width: 100%; height:500px;"></textarea>
             </div>
             
             <div class="form-group attach" style="display: none; position: relative;">
@@ -146,7 +146,7 @@
             </div>
             <div id="file_input" style="display: none;"></div>
             <div class="form-group" style="text-align: center; padding-top: 15px;">
-               <button type="button" id="write" style="padding: 2px 4px;"><i class="fa fa-check" aria-hidden="true" style="font-size: 12px !important;"></i><span style="font-size: 12px; font-weight: bolder;">확인</span></button>
+               <button type="button" id="write" style="padding: 2px 4px; width: 100px;"><i class="fa fa-check" aria-hidden="true" style="font-size: 12px !important;"></i><span style="font-size: 12px; font-weight: bolder;">확인</span></button>
             </div>
          </form>
       </div>

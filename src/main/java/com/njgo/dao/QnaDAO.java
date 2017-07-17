@@ -4,54 +4,48 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.njgo.dto.BoardDTO;
+
+import com.njgo.dto.QnaDTO;
 import com.njgo.util.ListInfo;
 
 @Repository
-public class QnaDAO implements BoardDAO {
+public class QnaDAO{
 
 	@Autowired
 	private SqlSession sqlSession;
-	private final String namespace="QnaMapper.";
+	private final String NAMESPACE="QnaMapper.";
 		
-	@Override
-	public List<BoardDTO> boardList(ListInfo listInfo) {
+	
+	public List<QnaDTO> qnaList(ListInfo listInfo) {
+		return sqlSession.selectList(NAMESPACE+"list",listInfo);
+	}
+
+	public QnaDTO qnaView(int num) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public BoardDTO boardView(int num) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int boardWrite(BoardDTO boardDTO) {
+	public int qnaWrite(QnaDTO qnaDTO) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
-	public int boardUpdate(BoardDTO boardDTO) {
+	public int qnaUpdate(QnaDTO qnaDTO) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
-	public int boardDelete(int num) {
+	public int qnaDelete(int num) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
-	public int boardCount(ListInfo listInfo) {
+	public int qnaCount(ListInfo listInfo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
-	public int boardHit(int num) {
+	public int qnaHit(int num) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

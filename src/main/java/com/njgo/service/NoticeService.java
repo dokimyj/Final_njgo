@@ -6,42 +6,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.njgo.dao.NoticeDAO;
-import com.njgo.dto.BoardDTO;
+import com.njgo.dto.NoticeDTO;
 import com.njgo.util.ListInfo;
 
 
 @Service
-public class NoticeService implements BoardService{
+public class NoticeService{
 
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
-	@Override
-	public List<BoardDTO> boardList(ListInfo listInfo){
-		System.out.println("boardList service");	
-		return noticeDAO.boardList(listInfo);
+	
+	public List<NoticeDTO> noticeList(ListInfo listInfo){
+		return noticeDAO.noticeList(listInfo);
 	}
 
-	@Override
-	public BoardDTO boardView(int num) {
+	public NoticeDTO noticeView(int num) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public int boardWrite(BoardDTO boardDTO) {
+	public int noticeWrite(NoticeDTO noticeDTO) {
 		
-		return noticeDAO.boardWrite(boardDTO);
+		return noticeDAO.noticeWrite(noticeDTO);
 	}
 
-	@Override
-	public int boardUpdate(BoardDTO boardDTO) {
+	public int noticeUpdate(NoticeDTO noticeDTO) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
-	public int boardDelete(int num) {
+	public int noticeDelete(int num) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

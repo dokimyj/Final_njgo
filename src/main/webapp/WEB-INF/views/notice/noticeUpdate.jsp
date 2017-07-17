@@ -5,18 +5,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="./resources/css/common/reset.css">
-<c:import url="./tmp/Bootstrap.jsp" />
-<link rel="stylesheet" href="./resources/css/common/basic.css">
+<link rel="stylesheet" href="../resources/css/common/reset.css">
+<c:import url="../tmp/Bootstrap.jsp" />
+<link rel="stylesheet" href="../resources/css/common/basic.css">
 <title>Insert title here</title>
 </head>
 <body>
-	<c:import url="./tmp/header.jsp" />
+	<c:import url="../tmp/header.jsp" />
 	<!-- section  -->
 		<section class="main_section">
-			<a href="./ranking/rankingPage">ranking</a>
-			<a href="./planner/plannerPage">planner</a>
+		
 		</section>
-	<c:import url="./tmp/footer.jsp" />
+	<c:import url="../tmp/footer.jsp" />
 </body>
 </html>

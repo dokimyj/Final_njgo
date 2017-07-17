@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.njgo.dto.BoardDTO;
 import com.njgo.dto.QnaDTO;
 import com.njgo.service.QnaService;
 import com.njgo.util.ListInfo;
@@ -26,15 +25,16 @@ public class QnaController {
 	//list
 	@RequestMapping(value="qnaList", method=RequestMethod.GET)
 	public void qnaList(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
-		List<BoardDTO> ar = qnaService.boardList(listInfo);
+		List<QnaDTO> ar = qnaService.qnaList(listInfo);
 		model.addAttribute("list", ar);
+		model.addAttribute("board", "qna");
 	}
 
 	//View
 	@RequestMapping(value="qnaView", method=RequestMethod.GET)
 	public void qnaView(Integer num, Model model) throws Exception{
-		BoardDTO boardDTO=qnaService.boardView(num);
-		model.addAttribute("dto", boardDTO);
+		QnaDTO qnaDTO=qnaService.qnaView(num);
+		model.addAttribute("dto", qnaDTO);
 	}
 
 	//writeForm
@@ -46,7 +46,7 @@ public class QnaController {
 	//write 
 	@RequestMapping(value="qnaWrite", method=RequestMethod.POST)
 	public String qnaWrite(QnaDTO qnaDTO, RedirectAttributes rd)throws Exception{
-		int result=qnaService.boardWrite(qnaDTO);
+		int result=qnaService.qnaWrite(qnaDTO);
 		String message = "FAIL";
 		if(result>0){
 			message="SUCCESS";
@@ -58,15 +58,15 @@ public class QnaController {
 	//update
 	@RequestMapping(value="qnaUpdate", method=RequestMethod.GET)
 	public String qnaUpdate(Integer num, Model model) throws Exception{
-		BoardDTO boardDTO = qnaService.boardView(num);
-		model.addAttribute("dto", boardDTO);
+		QnaDTO qnaDTO = qnaService.qnaView(num);
+		model.addAttribute("dto", qnaDTO);
 		model.addAttribute("path", "Update");
 		return "qna/qnaWrite";
 	}
 
 	@RequestMapping(value="qnaUpdate", method=RequestMethod.POST)
 	public String qnaUpdate(QnaDTO qnaDTO, RedirectAttributes rd) throws Exception{
-		int result = qnaService.boardUpdate(qnaDTO);
+		int result = qnaService.qnaUpdate(qnaDTO);
 		String message = "FAIL";
 		if(result>0){
 			message="SUCCESS";
@@ -77,7 +77,7 @@ public class QnaController {
 
 	@RequestMapping(value="qnaDelete", method=RequestMethod.GET)
 	public void qnaDelete(Integer num){
-		int result = qnaService.boardDelete(num);
+		int result = qnaService.qnaDelete(num);
 	}
 
 }

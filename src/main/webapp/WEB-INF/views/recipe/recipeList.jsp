@@ -108,7 +108,7 @@
 						<br>
 						<br>
 						<br>
-						<div id="counts${dto.num }" class=counts>${dto.headcount} ON</div>
+						<div id="counts${dto.num }" class=counts>보기</div>
 						<br>					
 						<br>
 						<br>

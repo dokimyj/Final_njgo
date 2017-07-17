@@ -37,7 +37,7 @@ public class ListInfo {
 	}
 	private int curBlock;
 	private int totalBlock;
-	private int firstNum;
+	private int startNum;
 	private int lastNum;
 	
 	public int getCurBlock() {
@@ -46,8 +46,8 @@ public class ListInfo {
 	public int getTotalBlock() {
 		return totalBlock;
 	}
-	public int getFirstNum() {
-		return firstNum;
+	public int getStartNum() {
+		return startNum;
 	}
 	public int getLastNum() {
 		return lastNum;
@@ -57,7 +57,7 @@ public class ListInfo {
 		int totalPage=(totalCount-1)/this.getPerPage()+1;
 		totalBlock=(totalPage-1)/perBlock+1;
 		curBlock=(this.getCurPage()-1)/perBlock+1;
-		firstNum=(curBlock-1)*perBlock+1;
+		startNum=(curBlock-1)*perBlock+1;
 		lastNum=curBlock*perBlock;
 		if(curBlock==totalBlock){
 			lastNum=totalPage;
@@ -93,5 +93,5 @@ public class ListInfo {
 	}
 	public void setOrder(String order) {
 		this.order = order;
-	}		
+	}			
 }

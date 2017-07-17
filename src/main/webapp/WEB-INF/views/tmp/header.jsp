@@ -1,20 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<header>
-		<div class="search">
-			<div class="search_wrap">
-				<input type="text" id="searchInput" placeholder="음식명, 재료명으로 검색해주세요." onkeydown="search(this)">
-				<div class="pictureBtn">
-					<div id="person">
-						<img alt="" src="./resources/images/common/user-silhouette.png">
-					</div>
-					<div id="writer">
-						<img alt="" src="./resources/images/common/pen-tool.png">
-					</div>
-					<div id="refrigerator">
-						<img alt="" src="./resources/images/common/fridge.png">
-					</div>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
 	$(function() {
@@ -101,14 +86,6 @@
 						<span class="tooltiptext">내 레시피 등록하기</span>
 					</a>
 				</div>
-				<div class="menu_sub">
-					<nav class="menu_sub_nav">
-						<ul class="menu_sub_ul">
-							<li><a href="recipe/recipeList">레시피</a></li>
-							<li><a href="#">플래너</a></li>
-							<li><a href="#">쇼핑몰</a></li>
-						</ul>
-					</nav>
 				<div id="refrigerator">
 					<a href="#">
 						<img alt="냉장고 추천" src="${pageContext.request.contextPath}/resources/images/common/fridge.png"
@@ -179,15 +156,5 @@
 				</div>
 			</div>
 		</div>
-	</header>
-	
-	<script>
-		function search(find){
-			if(event.keyCode == 13)
-				{
-					location.href="/recipe/search?find="+find.value;
-				}
-		}
-	</script>
 	</div>
 </header>

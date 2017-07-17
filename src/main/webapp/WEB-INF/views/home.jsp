@@ -11,13 +11,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-
-<p> 마스터 버전 </p>
-<a href="./board/boardList.jsp">boardList</a>
-
 	<c:import url="./tmp/header.jsp"/>
 	
 	<section class="main_section"></section>

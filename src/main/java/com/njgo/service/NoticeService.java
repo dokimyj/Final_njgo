@@ -22,18 +22,21 @@ public class NoticeService{
 	}
 
 	public NoticeDTO noticeView(int num) {
-		// TODO Auto-generated method stub
-		return null;
+		return noticeDAO.noticeView(num);
+	}
+	public NoticeDTO noticeBefore(int num) {
+		return noticeDAO.noticeBefore(num);
+	}
+	public NoticeDTO noticeAfter(int num) {
+		return noticeDAO.noticeAfter(num);
 	}
 
 	public int noticeWrite(NoticeDTO noticeDTO) {
-		
 		return noticeDAO.noticeWrite(noticeDTO);
 	}
 
 	public int noticeUpdate(NoticeDTO noticeDTO) {
-		// TODO Auto-generated method stub
-		return 0;
+		return noticeDAO.noticeUpdate(noticeDTO);
 	}
 
 	public int noticeDelete(int num) {

@@ -33,7 +33,11 @@ public class NoticeController {
 	@RequestMapping(value="noticeView", method=RequestMethod.GET)
 	public void noticeView(Integer num, Model model) throws Exception{
 		NoticeDTO noticeDTO=noticeService.noticeView(num);
+		NoticeDTO noticeBefore=noticeService.noticeBefore(num);
+		NoticeDTO noticeAfter=noticeService.noticeAfter(num);
 		model.addAttribute("dto", noticeDTO);
+		model.addAttribute("before", noticeBefore);
+		model.addAttribute("after", noticeAfter);
 	}
 
 	//writeForm
@@ -54,15 +58,16 @@ public class NoticeController {
 		return "redirect:noticeList?curPage=2";
 	}
 
-	//update
+	//update Form
 	@RequestMapping(value="noticeUpdate", method=RequestMethod.GET)
 	public String noticeUpdate(Integer num, Model model) throws Exception{
-		NoticeDTO noticeDTO = noticeService.noticeView(num);
+		NoticeDTO noticeDTO= noticeService.noticeView(num);
 		model.addAttribute("dto", noticeDTO);
 		model.addAttribute("path", "Update");
 		return "notice/noticeWrite";
 	}
-
+	
+	/*//update 
 	@RequestMapping(value="noticeUpdate", method=RequestMethod.POST)
 	public String noticeUpdate(NoticeDTO noticeDTO, RedirectAttributes rd) throws Exception{
 		int result = noticeService.noticeUpdate(noticeDTO);
@@ -72,7 +77,7 @@ public class NoticeController {
 		}
 		rd.addFlashAttribute("message", message);
 		return "redirect:noticeList?curPage=1";
-	}
+	}*/
 
 	@RequestMapping(value="noticeDelete", method=RequestMethod.GET)
 	public void noticeDelete(Integer num){

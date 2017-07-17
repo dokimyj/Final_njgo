@@ -10,9 +10,24 @@
 	</select>
 	
 	<!-- View -->
-	 <!-- <select id="view" parameterType="java.lang.Integer"> select * from 
-		board where kind='notice' and num=#{num}
-		</select> -->
+	<select id="view" parameterType="java.lang.Integer" resultType="NoticeDTO">
+	select * from notice where num=#{num}
+	</select>
+	<!-- View 이전글 -->
+	<select id="viewbefore" parameterType="java.lang.Integer" resultType="NoticeDTO">
+	select * from notice where num =
+	(select max(num) from notice where #{num}>num)
+	</select>
+	<!-- View 다음글 -->
+	<select id="viewafter" parameterType="java.lang.Integer" resultType="NoticeDTO">
+	select * from notice where num =
+	(select min(num) from notice where num>#{num})
+	</select>
+		
+	 <!-- Update -->
+	 <update id="update" parameterType="com.njgo.dto.NoticeDTO">
+	 update notice set title=#{title} contents=#{contents} where num=#{num}
+	 </update>
 		
 	 <!-- Count -->
 	 <!-- <select id="count" parameterType="com.njgo.util.ListInfo" resultType="java.lang.Integer"> 
@@ -25,10 +40,6 @@
 		sysdate, 0, notice)
 		</insert> -->
 		
-	 <!-- Update -->
-	 <!-- <update id="update" parameterType="com.njgo.dto.NoticeDTO"> update 
-		board set title=#{title} contents=#{contents} where num=#{num}
-		</update> -->
 		
 	 <!-- Delete -->
 	 <!-- <delete id="delete" parameterType="java.lang.Integer"> delete from 

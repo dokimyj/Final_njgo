@@ -21,9 +21,15 @@ public class NoticeDAO{
 	}
 
 	public NoticeDTO noticeView(int num) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne(NAMESPACE+"view", num);
 	}
+	public NoticeDTO noticeBefore(int num) {
+		return sqlSession.selectOne(NAMESPACE+"viewbefore", num);
+	}
+	public NoticeDTO noticeAfter(int num) {
+		return sqlSession.selectOne(NAMESPACE+"viewafter", num);
+	}
+	
 
 	public int noticeWrite(NoticeDTO noticeDTO) {
 		return sqlSession.insert(NAMESPACE+"write", noticeDTO);
@@ -31,8 +37,7 @@ public class NoticeDAO{
 	}
 	
 	public int noticeUpdate(NoticeDTO noticeDTO) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update(NAMESPACE+"update", noticeDTO);
 	}
 	
 	public int noticeDelete(int num) {

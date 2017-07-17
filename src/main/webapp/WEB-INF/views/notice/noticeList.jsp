@@ -84,11 +84,6 @@
 				</div>
 			</div>
 			<div id="main-widget-area">
-				<ul class="com">
-
-				</ul>
-			</div>
-			
 			<div class="list-btn">
 				<div class="fr">
 					<div id="writeFormBtn" class="btn _rosRestrict"><span></span>
@@ -102,6 +97,11 @@
 						</p>
     				</div>
 				</div>
+			</div>
+			
+				<ul class="com">
+
+				</ul>
 			</div>
 			
 			

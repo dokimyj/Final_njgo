@@ -96,7 +96,7 @@
 		</div>
 		<!-- 레시피 리스트 3*3, 최신순/hit순 -->
 		<div>
-			<c:forEach items="${recipe }" var="dto">
+			<c:forEach items="${result }" var="dto">
 				<div class=main_concep_channel title=${dto.num }>		
 					<div class="channel_img" style='background-image:url("../resources/upload/${dto.rep_pic }")'>
 						<div id="overlays${dto.num }" class=overlays>

@@ -23,6 +23,9 @@ public class ListInfo {
 	}
 	private String search;
 	private String find;
+	
+	
+	
 	private int startRow;
 	private int lastRow;
 	public int getStartRow() {
@@ -63,7 +66,7 @@ public class ListInfo {
 			lastNum=totalPage;
 		}
 	}
-
+	
 	public String getSearch() {
 		if(search==null){
 			search="title";

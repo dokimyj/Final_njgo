@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.njgo.dto.HashtagDTO;
+import com.njgo.dto.CategoryDTO;
 import com.njgo.dto.IngredientsDTO;
 import com.njgo.dto.RecipeDTO;
 import com.njgo.dto.StepsDTO;
@@ -37,17 +37,15 @@ public class RecipeDAO {
 	}
 	
 	public List<RecipeDTO> search(String find, ListInfo listInfo){
-		HashMap<String, Object> search=new HashMap<String, Object>();
-		search.put("find", find);
-		search.put("listInfo", listInfo);
-		return sqlSession.selectList(NAMESPACE+"search", search);
+		listInfo.setFind(find);
+		return sqlSession.selectList(NAMESPACE+"search", listInfo);
 	}
 	
-	public List<RecipeDTO> tagsearch(List<HashtagDTO> tags, ListInfo listInfo){
-		HashMap<String, Object> tagsearch=new HashMap<String, Object>();
-		tagsearch.put("listInfo", listInfo);
-		tagsearch.put("tags", tags);
-		return sqlSession.selectList(NAMESPACE+"tagsearch", tagsearch);
+	public List<RecipeDTO> catesearch(CategoryDTO category, ListInfo listInfo){
+		HashMap<String, Object> catesearch=new HashMap<String, Object>();
+		catesearch.put("listInfo", listInfo);
+		catesearch.put("category", category);
+		return sqlSession.selectList(NAMESPACE+"catesearch", catesearch);
 	}
 	
 	public List<RecipeDTO> isearch(List<IngredientsDTO> ingredients, ListInfo listInfo){

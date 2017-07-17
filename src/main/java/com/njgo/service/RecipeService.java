@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.njgo.dao.RecipeDAO;
 import com.njgo.dao.RecipeReplyDAO;
 import com.njgo.dao.RecipeReviewDAO;
-import com.njgo.dto.HashtagDTO;
+import com.njgo.dto.CategoryDTO;
 import com.njgo.dto.IngredientsDTO;
 import com.njgo.dto.RecipeDTO;
 import com.njgo.dto.RecipeReplyDTO;
@@ -39,8 +39,8 @@ public class RecipeService {
 		return recipeDAO.search(find, listInfo);
 	}
 	
-	public List<RecipeDTO> tagsearch(List<HashtagDTO> tags, ListInfo listInfo){
-		return recipeDAO.tagsearch(tags, listInfo);
+	public List<RecipeDTO> catesearch(CategoryDTO category, ListInfo listInfo){
+		return recipeDAO.catesearch(category, listInfo);
 	}
 	
 	public List<RecipeDTO> isearch(List<IngredientsDTO> ingredients, ListInfo listInfo){

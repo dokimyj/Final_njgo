@@ -9,9 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.njgo.dto.HashtagDTO;
+import com.njgo.dto.CategoryDTO;
 import com.njgo.dto.IngredientsDTO;
 import com.njgo.dto.RecipeReplyDTO;
 import com.njgo.dto.RecipeReviewDTO;
@@ -33,30 +32,26 @@ public class RecipeController {
 	
 	@RequestMapping(value="recipeList", method=RequestMethod.GET)
 	public void list(ListInfo listInfo, Model model) throws Exception{
+		listInfo.setRow(1, 9);
 		model.addAttribute("recipe", recipeService.list(listInfo));
 	}
 	
 	@RequestMapping(value="search", method=RequestMethod.GET)
-	public String list(ListInfo listInfo, String find, RedirectAttributes ra) throws Exception{
-		ra.addFlashAttribute("result", recipeService.search(find, listInfo));
-		return "redirect:recipeList";
+	public String list(ListInfo listInfo, String find, Model model) throws Exception{
+		listInfo.setRow(1, 9);
+		model.addAttribute("result", recipeService.search(find, listInfo));
+		return "/recipe/recipeSearch";
 	}
 
-	@RequestMapping(value="tagsearch", method=RequestMethod.POST)
-	public String tagsearch(String[] tags, Integer rnum, ListInfo listInfo, RedirectAttributes ra) throws Exception{
-		List<HashtagDTO> hashtag=new ArrayList<HashtagDTO>();
-		for(int i=0;i<tags.length;i++){
-			HashtagDTO hdto=new HashtagDTO();
-			hdto.setRecipenum(rnum);
-			hdto.setHashtag(tags[i]);
-			hashtag.add(hdto);
-		}
-		ra.addFlashAttribute("result", recipeService.tagsearch(hashtag, listInfo)); 
-		return "redirect:recipeList";
+	@RequestMapping(value="catesearch", method=RequestMethod.POST)
+	public String catesearch(CategoryDTO cdto, Integer rnum, ListInfo listInfo, Model model) throws Exception{
+		listInfo.setRow(1, 9);
+		model.addAttribute("result", recipeService.catesearch(cdto, listInfo)); 
+		return "/recipe/recipeSearch";
 	}
 	
 	@RequestMapping(value="isearch", method=RequestMethod.POST)
-	public String isearch(String[] ingredients, String[] amount, Integer rnum, ListInfo listInfo, RedirectAttributes ra) throws Exception{
+	public String isearch(String[] ingredients, String[] amount, Integer rnum, ListInfo listInfo, Model model) throws Exception{
 		List<IngredientsDTO> ing=new ArrayList<IngredientsDTO>();
 		for(int i=0;i<ingredients.length;i++){
 			IngredientsDTO idto=new IngredientsDTO();
@@ -65,8 +60,9 @@ public class RecipeController {
 			idto.setAmount(amount[i]);
 			ing.add(idto);
 		}
-		ra.addFlashAttribute("result", recipeService.isearch(ing, listInfo)); 
-		return "redirect:recipeList";
+		listInfo.setRow(1, 9);
+		model.addAttribute("result", recipeService.isearch(ing, listInfo)); 
+		return "/recipe/recipeSearch";
 	}
 	
 	@RequestMapping(value="recipeScrapI", method=RequestMethod.GET)

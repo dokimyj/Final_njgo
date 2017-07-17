@@ -18,10 +18,19 @@
 	</select>
 	
 	<!-- list -->
+	<select id="count" parameterType="com.njgo.util.ListInfo" resultType="java.lang.Integer">
+		select COUNT(NUM) from RECIPE
+		<if test="search=='title'">
+			where TITLE like '%'||#{find}||'%'
+		</if>
+		<if test="search=='writer'">
+			where WRITER like '%'||#{find}||'%'
+		</if>
+	</select>
 	<select id="list" parameterType="com.njgo.util.ListInfo" resultType="com.njgo.dto.RecipeDTO">
 		select * from 
 		(select ROWNUM R, L.* from 
-		(select WRITER, FOODNAME, TITLE, REP_PIC, RATING, ELAPSEDTIME, SCRAP from RECIPE 
+		(select NUM, WRITER, FOODNAME, TITLE, REP_PIC, RATING, ELAPSEDTIME, SCRAP from RECIPE 
 			<if test="search=='title'">
 				where TITLE like '%'||#{find}||'%'
 			</if>
@@ -41,11 +50,11 @@
 		  desc) L) 
 		where R between #{startRow} and #{lastRow}		
 	</select>
-	<select id="search" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeDTO">
+	<select id="search" parameterType="com.njgo.util.ListInfo" resultType="com.njgo.dto.RecipeDTO">
 		select * from 
 		(select ROWNUM R, L.* from 
-		(select C.WRITER, C.FOODNAME, C.TITLE, C.REP_PIC, C.RATING, C.ELAPSEDTIME, C.SCRAP from RECIPE C, INGREDIENTS I 
-		 where C.NUM=I.NUM and where C.FOODNAME like '%'||#{find}||'%' or where C.NUM=(select RECIPENUM from INGREDIENTS where NAME like '%'||#{find}||'%')
+		(select C.NUM, C.WRITER, C.FOODNAME, C.TITLE, C.REP_PIC, C.RATING, C.ELAPSEDTIME, C.SCRAP from RECIPE C, INGREDIENTS I
+		 where C.NUM=I.RECIPENUM and C.FOODNAME like '%'||#{find}||'%' or C.NUM=(select RECIPENUM from INGREDIENTS where NAME like '%'||#{find}||'%')
 		 order by
 		<if test="order=='regdate'">
 			REGDATE
@@ -57,22 +66,19 @@
 			HIT
 		</if>
 		  desc) L) 
-		where R between #{listInfo.startRow} and #{listInfo.lastRow}
+		where R between #{startRow} and #{lastRow}
 	</select>
-	<select id="tagsearch" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeDTO">
+	<select id="catesearch" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeDTO">
 		select * from 
 		(select ROWNUM R, L.* from 
-		(select C.WRITER, C.FOODNAME, C.TITLE, C.REP_PIC, C.RATING, C.ELAPSEDTIME, C.SCRAP from RECIPE C, HASHTAG H
-		 where C.NUM=H.RECIPENUM and H.RECIPENUM=(select RECIPENUM from HASHTAG where HASHTAG in 
-			<foreach collection="tags" item="dto" open="(" separator="," close=")">
-				#{dto.hashtag}
-			</foreach>)
+		(select C.NUM, C.WRITER, C.FOODNAME, C.TITLE, C.REP_PIC, C.RATING, C.ELAPSEDTIME, C.SCRAP from RECIPE C, CATEGORY T
+		 where C.NUM=T.RECIPENUM and T.RECIPENUM=(select RECIPENUM from CATEGORY where C_KIND=#{category.c_kind} and C_SITUATION=#{category.c_situation} and C_PROCEDURE=#{category.c_procedure} and C_INGREDIENT=#{category.c_ingredients})
 		 order by
 		<if test="order=='regdate'">
-			REGDATE
+			C.REGDATE
 		</if>
 		<if test="order=='rating'">
-			RATING
+			C.RATING
 		</if>
 		 desc) L) 
 		where R between #{listInfo.startRow} and #{listInfo.lastRow}
@@ -80,17 +86,17 @@
 	<select id="isearch" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeDTO">
 		select * from 
 		(select ROWNUM R, L.* from 
-		(select C.WRITER, C.FOODNAME, C.TITLE, C.REP_PIC, C.RATING, C.ELAPSEDTIME, C.SCRAP from RECIPE C, INGREDIENTS I
+		(select C.NUM, C.WRITER, C.FOODNAME, C.TITLE, C.REP_PIC, C.RATING, C.ELAPSEDTIME, C.SCRAP from RECIPE C, INGREDIENTS I
 		 where C.NUM=I.RECIPENUM and I.RECIPENUM=(select RECIPENUM from INGREDIENTS where NAME in 
 			<foreach collection="ingredients" item="dto" open="(" separator="," close=")">
 				#{dto.name}
 			</foreach>)
 		 order by
 		<if test="order=='regdate'">
-			REGDATE
+			C.REGDATE
 		</if>
 		<if test="order=='rating'">
-			RATING
+			C.RATING
 		</if>
 		 desc) L) 
 		where R between #{listInfo.startRow} and #{listInfo.lastRow}

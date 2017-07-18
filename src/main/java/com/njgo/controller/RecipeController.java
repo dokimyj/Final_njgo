@@ -1,6 +1,7 @@
 package com.njgo.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.njgo.dto.CategoryDTO;
 import com.njgo.dto.IngredientsDTO;
+import com.njgo.dto.RecipeDTO;
 import com.njgo.dto.RecipeReplyDTO;
 import com.njgo.dto.RecipeReviewDTO;
 import com.njgo.service.RecipeService;
@@ -28,26 +30,27 @@ public class RecipeController {
 		model.addAttribute("recipe", recipeService.view(num).get("recipeDTO"));
 		model.addAttribute("ingredients", recipeService.view(num).get("ingredients"));
 		model.addAttribute("steps", recipeService.view(num).get("steps"));
+		model.addAttribute("hashtags", recipeService.view(num).get("hashtags"));
 	}
 	
 	@RequestMapping(value="recipeList", method=RequestMethod.GET)
-	public void list(ListInfo listInfo, Model model) throws Exception{
-		listInfo.setRow(1, 9);
-		model.addAttribute("recipe", recipeService.list(listInfo));
+	public void list(ListInfo listInfo, Model model) throws Exception{		
+		model.addAttribute("list", recipeService.list(listInfo));
+		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
 	}
 	
 	@RequestMapping(value="search", method=RequestMethod.GET)
-	public String list(ListInfo listInfo, String find, Model model) throws Exception{
-		listInfo.setRow(1, 9);
-		model.addAttribute("result", recipeService.search(find, listInfo));
-		return "/recipe/recipeSearch";
+	public String search(ListInfo listInfo, Model model) throws Exception{
+		model.addAttribute("result", recipeService.search(listInfo));
+		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "searchResult"-List<RecipeDTO>받아옴
+		return "recipe/recipeSearch";
 	}
 
 	@RequestMapping(value="catesearch", method=RequestMethod.POST)
 	public String catesearch(CategoryDTO cdto, Integer rnum, ListInfo listInfo, Model model) throws Exception{
-		listInfo.setRow(1, 9);
 		model.addAttribute("result", recipeService.catesearch(cdto, listInfo)); 
-		return "/recipe/recipeSearch";
+		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "cateResult"-List<RecipeDTO>받아옴
+		return "recipe/recipeSearch";
 	}
 	
 	@RequestMapping(value="isearch", method=RequestMethod.POST)
@@ -60,8 +63,8 @@ public class RecipeController {
 			idto.setAmount(amount[i]);
 			ing.add(idto);
 		}
-		listInfo.setRow(1, 9);
 		model.addAttribute("result", recipeService.isearch(ing, listInfo)); 
+		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "iResult"-List<RecipeDTO>받아옴
 		return "/recipe/recipeSearch";
 	}
 	

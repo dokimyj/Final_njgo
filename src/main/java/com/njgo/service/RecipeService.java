@@ -31,19 +31,19 @@ public class RecipeService {
 		return recipeDAO.view(num);
 	}
 	
-	public List<RecipeDTO> list(ListInfo listInfo){
+	public HashMap<String, Object> list(ListInfo listInfo){
 		return recipeDAO.list(listInfo);
 	}
 	
-	public List<RecipeDTO> search(String find, ListInfo listInfo){
-		return recipeDAO.search(find, listInfo);
+	public HashMap<String, Object> search(ListInfo listInfo){
+		return recipeDAO.search(listInfo);
 	}
 	
-	public List<RecipeDTO> catesearch(CategoryDTO category, ListInfo listInfo){
+	public HashMap<String, Object> catesearch(CategoryDTO category, ListInfo listInfo){
 		return recipeDAO.catesearch(category, listInfo);
 	}
 	
-	public List<RecipeDTO> isearch(List<IngredientsDTO> ingredients, ListInfo listInfo){
+	public HashMap<String, Object> isearch(List<IngredientsDTO> ingredients, ListInfo listInfo){
 		return recipeDAO.isearch(ingredients, listInfo);
 	}
 	

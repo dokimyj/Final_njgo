@@ -172,7 +172,7 @@
         function search(find){
             if(event.keyCode == 13)
                 {
-                    location.href="recipe/search?find="+find.value;
+                    location.href=${pageContext.request.contextPath}+"/recipe/search?find="+find.value;
                 }
         }
     </script>

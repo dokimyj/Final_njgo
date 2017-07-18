@@ -44,7 +44,15 @@ public class MemberDAO {
 	public void memberList(){}
 	
 	//Update
-	public void memberUpdate(){}
+	public int memberUpdate(String data, String type,String email){
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("data", data);
+		map.put("type", type);
+		map.put("email", email);
+		
+		return sqlSession.update(NAMESPACE+"memberUpdate", map);
+		
+	}
 	
 	
 	// =========================== 회원 가입 관련 ================================
@@ -82,5 +90,10 @@ public class MemberDAO {
 		}
 		
 		return memberDTO;
+	}
+
+	public MemberDTO kakaoIDCheck(String kakaoID) {
+		
+		return sqlSession.selectOne(NAMESPACE+"kakaoIDCheck", kakaoID);
 	}	
 }

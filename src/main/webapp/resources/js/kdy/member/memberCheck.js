@@ -17,7 +17,8 @@ function goPopup(){
 function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
 		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
 		
-		document.form_insert.roadFullAddr.value = roadFullAddr;
+		//document.form_insert.roadFullAddr.value = roadFullAddr;
+		$("#roadFullAddr").val(roadFullAddr);
 		var address = $("#roadFullAddr").val();
 		if(address==""|| address==null){
 			$("#addressStatus").addClass("glyphicon-remove");
@@ -38,6 +39,23 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAdd
 		}
 }
 
+
+
+
+function infoCorrectSend(data,type,email) {
+	$.ajax({
+		type : "POST",
+		url : "infoCorrectSend",
+		data : {
+			data : data,
+			type : type,
+			email : email
+		},
+		success:function(data){
+			
+		}
+	});	
+}
 
 
 /* ============================ 회원 가입 Check 사항  =================================*/
@@ -183,13 +201,13 @@ function chkNick() {
 	//중복확인
 	var nickName = $("#nickName").val();
 	
-	if(nickName=="" || nickName==null){
+	if(nickName=="" || nickName==null || nickName.length <4){
 		$("#nickStatus").addClass("glyphicon-remove");
 		$("#nickStatus").removeClass("glyphicon-ok");
 		$("#nickStatus").css("color","#a94442");
 		$("#nickMsg").css("color","red");
 		$("#nickMsg").css("display","block");
-		$("#nickMsg").text("닉네임을 입력해 주세요.");
+		$("#nickMsg").text("닉네임을 입력해 주세요.(4글자이상)");
 		return 0;
 	}
 	else{
@@ -284,7 +302,37 @@ function chkPhone() {
 	}
 }
 function chkKakao() {
+	//중복확인
+	var kakaoID = $("#kakaoID").val();
 	
+	$.ajax({
+		type : "POST",
+		url : "kakaoIDCheck",
+		data : {
+			kakaoID : kakaoID
+		},
+		success:function(data){
+			if(data.trim()==1){
+				$("#kakaoIDStatus").removeClass("glyphicon-remove");
+				$("#kakaoIDStatus").addClass("glyphicon-ok");
+				$("#kakaoIDStatus").css("color","#42a967");
+				$("#kakaoIDMsg").css("display","block");
+				$("#kakaoIDMsg").css("color","green");
+				
+				
+				return 1;
+			}
+			else{
+				$("#kakaoIDStatus").addClass("glyphicon-remove");
+				$("#kakaoIDStatus").removeClass("glyphicon-ok");
+				$("#kakaoIDStatus").css("color","#a94442");
+				$("#kakaoIDMsg").css("color","red");
+				$("#kakaoIDMsg").css("display","block");
+				$("#kakaoIDMsg").text("중복된 닉네임 입니다.");
+				return 0;
+			}
+		}
+	});
 }
 
 function chkGender(gender) {

@@ -20,6 +20,9 @@ public class MemberService {
 	public MemberDTO find_password(String email){
 		return memberDAO.find_password(email);
 	}
+	public int memberUpdate(String data, String type,String email){
+		return memberDAO.memberUpdate(data, type, email);
+	}
 	
 	// =========================== 회원 가입 관련 ================================
 	
@@ -43,6 +46,11 @@ public class MemberService {
 	public MemberDTO emailConfirm(String joinCode,String email){
 		
 		return memberDAO.emailConfrim(joinCode,email);
+	}
+
+	public MemberDTO kakaoIDCheck(String kakaoID) {
+	
+		return memberDAO.kakaoIDCheck(kakaoID);
 	}
 	
 }

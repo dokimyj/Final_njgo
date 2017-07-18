@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.njgo.dto.MemberDTO;
 import com.njgo.service.MemberService;
@@ -32,6 +33,51 @@ public class MemberController {
 	public void login(){
 		
 	}
+	@RequestMapping(value="info_check" ,method=RequestMethod.GET)
+	public void info_check(){
+		
+	}
+	@RequestMapping(value="info_correct" ,method=RequestMethod.GET)
+	public void info_correct(){
+	
+	}
+	
+	//=================================== 로그인 , 회원정보 수정 관련 ==========================================
+	
+	//회원 정보 수정
+	@RequestMapping(value="infoCorrectSend",method=RequestMethod.POST)
+	public String infoCorrectSend(@RequestParam String data,@RequestParam String type,@RequestParam String email,HttpSession session){
+		System.out.println("data : "+data);
+		System.out.println("type : "+type);
+		System.out.println("email :"+email);
+		int result = memberService.memberUpdate(data, type, email);
+		MemberDTO memberDTO =null;
+		if(result >0){
+			memberDTO = memberService.emailCheck(email);
+			session.setAttribute("memberDTO", memberDTO);
+			
+		}else{
+			System.out.println("실패...");
+			
+		}
+		return "redirect:info_correct";
+	}
+	
+	
+	//회원정보 비밀번호 재확인
+	@RequestMapping(value="info_check" ,method=RequestMethod.POST)
+	public String info_check(@RequestParam String email,@RequestParam String pw, RedirectAttributes rd){
+		
+		MemberDTO memberDTO = memberService.memberLogin(email, pw);
+		Boolean check =false;
+		if(memberDTO !=null){
+			check =true;
+			rd.addFlashAttribute("check", check);
+			return "redirect:info_correct";
+		}
+		return "redirect:info_check";
+	}
+	
 	
 	
 	// 로그인
@@ -49,7 +95,7 @@ public class MemberController {
 	// 로그아웃 
 	@RequestMapping(value="logout")
 	public String memberLogout(HttpSession session){
-		System.out.println("logout");
+	
 		session.invalidate();
 		return "home";
 	}
@@ -87,7 +133,7 @@ public class MemberController {
 	// 이메일 중복 체크 
 	@RequestMapping(value="emailCheck", method = RequestMethod.POST)
 	public ModelAndView emailCheck(String email){
-		System.out.println("email채크");
+		
 		MemberDTO memberDTO = memberService.emailCheck(email);
 		ModelAndView mv = new ModelAndView();
 		int code = 1; // 사용가능한 email
@@ -99,11 +145,25 @@ public class MemberController {
 		
 		return mv;
 	}
+	// kakaoID 중복 체크 
+		@RequestMapping(value="kakaoIDCheck", method = RequestMethod.POST)
+		public ModelAndView kakaoIDCheck(String kakaoID){
+			
+			MemberDTO memberDTO = memberService.kakaoIDCheck(kakaoID);
+			ModelAndView mv = new ModelAndView();
+			int code = 1; // 사용가능한 kakaoID
+			if(memberDTO!=null){
+				code = 0; // 중복된 kakaoID 
+			}
+			mv.addObject("code", code);
+			mv.setViewName("./member/commons/result");
+			
+			return mv;
+		}
 
 	// 닉네임 중복체크
 	@RequestMapping(value="nickNameCheck", method = RequestMethod.POST)
 	public ModelAndView nickNameCheck(String nickName){
-		System.out.println("nickName채크");
 
 		MemberDTO memberDTO = memberService.nickNameCheck(nickName);
 		ModelAndView mv = new ModelAndView();

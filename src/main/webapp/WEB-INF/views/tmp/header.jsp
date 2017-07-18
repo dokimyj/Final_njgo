@@ -119,7 +119,7 @@
 				<li><a href="#">문의내역</a></li>
 				<li><a href="#">주문조회</a></li>
 				<li><a href="#">장바구니</a></li>
-				<li><a href="#">회원정보수정</a></li>
+				<li><a href="${pageContext.request.contextPath}/member/info_check">회원정보수정</a></li>
 				<li><a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></li>
 			</ul>
 		</div>

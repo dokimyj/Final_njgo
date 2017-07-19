@@ -2,10 +2,11 @@ package com.njgo.dto;
 
 import java.sql.Date;
 
-public class RankingDTO{
+public class R_CookDTO{
 	
 	private String foodname;
-	private Date MM;
+	private Date regdate;
+	private String rep_pic;
 	private int hit;
 	private int scrap;
 	
@@ -15,11 +16,17 @@ public class RankingDTO{
 	public void setFoodname(String foodname) {
 		this.foodname = foodname;
 	}
-	public Date getMM() {
-		return MM;
+	public Date getRegdate() {
+		return regdate;
 	}
-	public void setMM(Date mM) {
-		MM = mM;
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+	public String getRep_pic() {
+		return rep_pic;
+	}
+	public void setRep_pic(String rep_pic) {
+		this.rep_pic = rep_pic;
 	}
 	public int getHit() {
 		return hit;
@@ -33,4 +40,6 @@ public class RankingDTO{
 	public void setScrap(int scrap) {
 		this.scrap = scrap;
 	}
+
+	
 }

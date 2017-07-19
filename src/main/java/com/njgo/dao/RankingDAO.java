@@ -5,7 +5,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.njgo.dto.RankingDTO;
+import com.njgo.dto.MemberDTO;
+import com.njgo.dto.R_CookDTO;
+import com.njgo.dto.RecipeDTO;
 import com.njgo.util.ListInfo;
 
 @Repository
@@ -14,16 +16,32 @@ public class RankingDAO{
 	@Autowired
 	private SqlSession sqlSession;
 	private final String NAMESPACE="RankingMapper.";
-
-	public List<RankingDTO> rankingselect() {
-		return sqlSession.selectList(NAMESPACE+"list");
+	
+	//select recipeDTO
+	public List<RecipeDTO> selectRecipe() {
+		return sqlSession.selectList(NAMESPACE+"selectRecipe");
 	}
-
-	public int rankingWrite(List<RankingDTO> ar) {
-		return sqlSession.insert(NAMESPACE+"write", ar);		
+	public List<MemberDTO> selectUpload() {
+		return sqlSession.selectList(NAMESPACE+"selectUpload");
 	}
 	
-	public List<RankingDTO> rankingListhit(ListInfo listInfo) {
+	//insert rankingDTO
+	public int writeRecipe(List<R_CookDTO> recipe) {
+		return sqlSession.insert(NAMESPACE+"writeRecipe", recipe);		
+	}
+	
+	public int writeUpload(List<R_CookDTO> upload) {
+		return sqlSession.insert(NAMESPACE+"writeRecipe", upload);		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	public List<R_CookDTO> rankingListhit(ListInfo listInfo) {
 		return sqlSession.selectList(NAMESPACE+"listhit", listInfo);
 	}
 	

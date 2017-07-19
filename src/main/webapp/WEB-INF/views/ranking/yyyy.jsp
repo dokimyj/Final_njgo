@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form name="s1" action="?" method="post" style="display: inline-block; margin-left: 805px; font-weight: 700; ">연도
+<form name="s1" action="?" method="post" style="display: inline-block; font-weight: 700; ">
 					<select name="sDate" onchange="JavaScript:document.s1.submit();" style="width:100px;font-weight: 700; font-size: 12px;">
 							<option style="font-weight: 700; font-size: 12px;" value="201707" selected="">2017년 07월</option>
 							<option style="font-weight: 700; font-size: 12px;" value="201706">2017년 06월</option>

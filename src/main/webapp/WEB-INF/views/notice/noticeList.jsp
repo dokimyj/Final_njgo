@@ -27,10 +27,10 @@
 						<div class="list-tit">
 							<c:choose>
 								<c:when test="${board == 'notice'}">
-									<h3><a href="#" class="m-tcol-t" title="공지사항">공지사항</a></h3>
+									<h3 class="m-tcol-t">공지사항</h3>
 								</c:when>
 								<c:when test="${board == 'qna'}">
-									<h3><a href="#" class="m-tcol-t" title="질문게시판">질문게시판</a></h3>
+									<h3 class="m-tcol-t">질문게시판</h3>
 								</c:when>
 							</c:choose>						
 						</div>

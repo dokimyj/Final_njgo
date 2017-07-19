@@ -15,13 +15,13 @@
 	
 	<!-- write -->
 	<insert id="writeRecipe" parameterType="com.njgo.dto.RankingDTO">
-		insert into rankingCook (foodname, regdate, rep_pic, hit, scrap) values
+		insert into r_Cook (foodname, regdate, rep_pic, hit, scrap) values
 		(#{foodname}, #{regdate}, #{rep_pic}, #{hit}, #{scrap})
 	</insert>	
 	<insert id="writeUpload" parameterType="com.njgo.dto.RankingDTO">
-		insert into rankingChef (foodname, regdate, rep_pic, hit, scrap) values
-		(#{foodname}, #{regdate}, #{rep_pic}, #{hit}, #{scrap})
-	</insert>	
+		insert into r_Chef (nicname, regdate, rep_pic, u_count) values
+		(#{nicname}, #{regdate}, #{rep_pic}, #{u_count})
+	</insert>
 	<!-- 선행되어야 하는 작업 : Recipe테이블에서 Ranking테이블로 데이터를 옮기는 작업 -->
 	
 
@@ -31,22 +31,22 @@
 		select foodname, regdate, rep_pic, hit, scrap from ranking
 		where regdate like '%#{date}%'
 		order by hit desc
-	</select>
+	</select> 
 
 	<!-- Listscrap -->
-	<select id="listscrap" parameterType="com.njgo.util.ListInfo" resultType="RankingDTO">
+	<!-- <select id="listscrap" parameterType="com.njgo.util.ListInfo" resultType="RankingDTO">
 		select foodname, regdate, rep_pic, hit, scrap from ranking
 		where regdate like '%#{date}%'
 		order by scrap desc
-	</select>
+	</select> -->
 	
 	<!-- Listupload -->
-	<select id="listupload" parameterType="com.njgo.util.ListInfo" resultType="RecipeDTO">
+	<!-- <select id="listupload" parameterType="com.njgo.util.ListInfo" resultType="RecipeDTO">
 		select writer, count(writer) as count from recipe 
   	    where regdate like '%#{date}%'
         group by writer
         order by count desc;
-	</select>	
+	</select>	 -->
 	<!-- Ranking테이블에서 데이터를 꺼내는 작업 -->
 	
 </mapper>

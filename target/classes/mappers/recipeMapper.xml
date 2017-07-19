@@ -63,7 +63,7 @@
 		select COUNT(distinct C.NUM) from RECIPE C, INGREDIENTS I, HASHTAG H
 		<trim prefix="where">
 		 C.NUM=I.RECIPENUM and C.NUM=H.RECIPENUM and C.NUM in 
-			<foreach collection="numbers" item="num" open="(" separator="," close=")">
+			<foreach collection="collection" item="num" open="(" separator="," close=")">
 				#{num}
 			</foreach>		 
 		</trim>
@@ -74,18 +74,18 @@
 		(select distinct C.* from RECIPE C, INGREDIENTS I, HASHTAG H
 		<trim prefix="where">
 		 C.NUM=I.RECIPENUM and C.NUM=H.RECIPENUM and C.NUM in 
-			<foreach collection="numbers" item="num" open="(" separator="," close=")">
+			<foreach collection="collection" item="num" open="(" separator="," close=")">
 				#{num}
 			</foreach>		 
 		</trim>
 		 order by
-		<if test="order=='regdate'">
+		<if test="listInfo.order=='regdate'">
 			C.REGDATE
 		</if>
-		<if test="order=='rating'">
+		<if test="listInfo.order=='rating'">
 			C.RATING
 		</if>
-		<if test="order=='hit'">
+		<if test="listInfo.order=='hit'">
 			C.HIT
 		</if>
 		  desc) L) 
@@ -103,10 +103,10 @@
 		(select distinct C.* from RECIPE C, CATEGORY T
 		 where C.NUM=T.RECIPENUM and T.RECIPENUM in (select RECIPENUM from CATEGORY where C_KIND=#{category.c_kind} and C_SITUATION=#{category.c_situation} and C_PROCEDURE=#{category.c_procedure} and C_INGREDIENT=#{category.c_ingredients})
 		 order by
-		<if test="order=='regdate'">
+		<if test="listInfo.order=='regdate'">
 			C.REGDATE
 		</if>
-		<if test="order=='rating'">
+		<if test="listInfo.order=='rating'">
 			C.RATING
 		</if>
 		 desc) L) 
@@ -130,10 +130,10 @@
 				#{dto.name}
 			</foreach>)
 		 order by
-		<if test="order=='regdate'">
+		<if test="listInfo.order=='regdate'">
 			C.REGDATE
 		</if>
-		<if test="order=='rating'">
+		<if test="listInfo.order=='rating'">
 			C.RATING
 		</if>
 		 desc) L) 

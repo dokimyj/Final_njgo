@@ -48,18 +48,18 @@ public class RecipeDAO {
 	
 	public HashMap<String, Object> search(ListInfo listInfo){
 		listInfo.setRow(1, 9);
-		List<Integer> num=sqlSession.selectList(NAMESPACE+"rnum", listInfo.getFind());
+		List<Integer> collection=sqlSession.selectList(NAMESPACE+"rnum", listInfo.getFind());
 		List<Integer> inum=sqlSession.selectList(NAMESPACE+"inum", listInfo.getFind());
 		List<Integer> hnum=sqlSession.selectList(NAMESPACE+"hnum", listInfo.getFind());
-		num.addAll(inum);
-		num.addAll(hnum);
-		Integer searchCount=sqlSession.selectOne(NAMESPACE+"searchcount", num);
+		collection.addAll(inum);
+		collection.addAll(hnum);
+		Integer searchCount=sqlSession.selectOne(NAMESPACE+"searchcount", collection);
 		listInfo.makePage(searchCount, 10);
 		HashMap<String, Object> searchQ=new HashMap<String, Object>();
-		searchQ.put("numbers", num);
+		searchQ.put("collection", collection);
 		searchQ.put("listInfo", listInfo);
 		List<RecipeDTO> searchResult=sqlSession.selectList(NAMESPACE+"search", searchQ);
-		searchQ.put("searchResult", searchResult);
+		searchQ.put("listPack", searchResult);
 		return searchQ;
 	}
 	
@@ -71,7 +71,7 @@ public class RecipeDAO {
 		catesearch.put("listInfo", listInfo);
 		catesearch.put("category", category);
 		List<RecipeDTO> cateResult=sqlSession.selectList(NAMESPACE+"catesearch", catesearch);
-		catesearch.put("cateResult", cateResult);
+		catesearch.put("searchResult", cateResult);
 		return catesearch;
 	}
 	
@@ -83,7 +83,7 @@ public class RecipeDAO {
 		isearch.put("listInfo", listInfo);
 		isearch.put("ingredients", ingredients);
 		List<RecipeDTO> iResult=sqlSession.selectList(NAMESPACE+"isearch", isearch);
-		isearch.put("iResult", iResult);
+		isearch.put("listPack", iResult);
 		return isearch;
 	}
 	

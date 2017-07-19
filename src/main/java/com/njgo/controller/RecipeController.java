@@ -41,15 +41,15 @@ public class RecipeController {
 	
 	@RequestMapping(value="search", method=RequestMethod.GET)
 	public String search(ListInfo listInfo, Model model) throws Exception{
-		model.addAttribute("result", recipeService.search(listInfo));
-		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "searchResult"-List<RecipeDTO>받아옴
-		return "recipe/recipeSearch";
+		model.addAttribute("list", recipeService.search(listInfo));
+		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
+		return "recipe/recipeList";
 	}
 
 	@RequestMapping(value="catesearch", method=RequestMethod.POST)
 	public String catesearch(CategoryDTO cdto, Integer rnum, ListInfo listInfo, Model model) throws Exception{
 		model.addAttribute("result", recipeService.catesearch(cdto, listInfo)); 
-		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "cateResult"-List<RecipeDTO>받아옴
+		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "searchResult"-List<RecipeDTO>받아옴
 		return "recipe/recipeSearch";
 	}
 	
@@ -63,9 +63,9 @@ public class RecipeController {
 			idto.setAmount(amount[i]);
 			ing.add(idto);
 		}
-		model.addAttribute("result", recipeService.isearch(ing, listInfo)); 
-		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "iResult"-List<RecipeDTO>받아옴
-		return "/recipe/recipeSearch";
+		model.addAttribute("list", recipeService.isearch(ing, listInfo)); 
+		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
+		return "recipe/recipeList";
 	}
 	
 	@RequestMapping(value="recipeScrapI", method=RequestMethod.GET)

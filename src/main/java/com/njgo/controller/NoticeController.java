@@ -27,6 +27,7 @@ public class NoticeController {
 		List<NoticeDTO> ar = noticeService.noticeList(listInfo);
 		model.addAttribute("list", ar);
 		model.addAttribute("board", "notice");
+		model.addAttribute("nicName","t10");
 	}
 
 	//View
@@ -49,7 +50,7 @@ public class NoticeController {
 	//write 
 	@RequestMapping(value="noticeWrite", method=RequestMethod.POST)
 	public String noticeWrite(NoticeDTO noticeDTO, RedirectAttributes rd)throws Exception{
-		int result=noticeService.noticeWrite(noticeDTO);
+		int result = noticeService.noticeWrite(noticeDTO);
 		String message = "FAIL";
 		if(result>0){
 			message="SUCCESS";
@@ -67,7 +68,7 @@ public class NoticeController {
 		return "notice/noticeWrite";
 	}
 	
-	/*//update 
+	//update 
 	@RequestMapping(value="noticeUpdate", method=RequestMethod.POST)
 	public String noticeUpdate(NoticeDTO noticeDTO, RedirectAttributes rd) throws Exception{
 		int result = noticeService.noticeUpdate(noticeDTO);
@@ -77,11 +78,17 @@ public class NoticeController {
 		}
 		rd.addFlashAttribute("message", message);
 		return "redirect:noticeList?curPage=1";
-	}*/
+	}
 
 	@RequestMapping(value="noticeDelete", method=RequestMethod.GET)
-	public void noticeDelete(Integer num){
+	public String noticeDelete(Integer num, RedirectAttributes rd){
 		int result = noticeService.noticeDelete(num);
+		String message = "FAIL";
+		if(result>0){
+			message="SUCCESS";
+		}
+		rd.addFlashAttribute("message", message);
+		return "redirect:noticeList?curPage=2";
 	}
 
 }

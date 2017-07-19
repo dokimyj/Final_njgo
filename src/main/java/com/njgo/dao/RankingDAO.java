@@ -5,22 +5,29 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.njgo.dto.NoticeDTO;
+import com.njgo.dto.RankingDTO;
 import com.njgo.util.ListInfo;
 
 @Repository
-public class NoticeDAO{
+public class RankingDAO{
 	
 	@Autowired
 	private SqlSession sqlSession;
-	private final String NAMESPACE="NoticeMapper.";
+	private final String NAMESPACE="RankingMapper.";
 
-	public List<NoticeDTO> noticeList(ListInfo listInfo) {
-		System.out.println("noticedao");
-		return sqlSession.selectList(NAMESPACE+"list", listInfo);
+	public List<RankingDTO> rankingselect() {
+		return sqlSession.selectList(NAMESPACE+"list");
 	}
 
-	public NoticeDTO noticeView(int num) {
+	public int rankingWrite(List<RankingDTO> ar) {
+		return sqlSession.insert(NAMESPACE+"write", ar);		
+	}
+	
+	public List<RankingDTO> rankingListhit(ListInfo listInfo) {
+		return sqlSession.selectList(NAMESPACE+"listhit", listInfo);
+	}
+	
+	/*public NoticeDTO noticeView(int num) {
 		return sqlSession.selectOne(NAMESPACE+"view", num);
 	}
 	public NoticeDTO noticeBefore(int num) {
@@ -30,16 +37,15 @@ public class NoticeDAO{
 		return sqlSession.selectOne(NAMESPACE+"viewafter", num);
 	}
 	
-	public int noticeWrite(NoticeDTO noticeDTO) {
-		return sqlSession.insert(NAMESPACE+"write", noticeDTO);	
-	}
+
 	
 	public int noticeUpdate(NoticeDTO noticeDTO) {
 		return sqlSession.update(NAMESPACE+"update", noticeDTO);
 	}
 	
 	public int noticeDelete(int num) {
-		return sqlSession.delete(NAMESPACE+"delete", num);
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	public int noticeCount(ListInfo listInfo) {
@@ -49,6 +55,6 @@ public class NoticeDAO{
 	public int noticeHit(int num) {
 		// TODO Auto-generated method stub
 		return 0;
-	}
+	}*/
 
 }

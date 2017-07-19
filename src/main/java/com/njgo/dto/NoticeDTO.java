@@ -10,7 +10,6 @@ public class NoticeDTO{
 	private String contents;
 	private Date regdate;
 	private int hit;
-	private String kind;
 	
 	public int getNum() {
 		return num;
@@ -47,12 +46,6 @@ public class NoticeDTO{
 	}
 	public void setHit(int hit) {
 		this.hit = hit;
-	}
-	public String getKind() {
-		return kind;
-	}
-	public void setKind(String kind) {
-		this.kind = kind;
 	}
 
 }

@@ -10,6 +10,11 @@
 <link rel="stylesheet" href="../resources/css/common/basic.css">
 <link rel="stylesheet" href="../resources/css/wdh/boardList.css">
 <title>Insert title here</title>
+<style type="text/css">
+	.dd{
+		border-bottom: 1px solid 
+	}
+</style>
 </head>
 <body>
 <c:import url="../tmp/header.jsp" />
@@ -59,12 +64,12 @@
 							</thead>
 							<tbody>
 								<c:forEach items="${list}" var="list">
-								<tr align="center" class="bg-color">
+								<tr align="center" class="bg-color" style="border-bottom: 1px solid #cccccc;">
 									<!-- 공지 -->
 									<td><!-- <img src="http://cafeimgs.naver.net/style/s03_01/ico-list-notice.gif" width="27" height="16" alt="공지"> -->${list.num}</td>
 									<!-- TITLE -->
 									<td align="left" class="board-list" style="font-weight: bold; padding: 10px 0 8px 0;" width=""><span>
-										<a href="noticeView?num=${list.num}" class="m-tcol-p" title="${list.title}" style="color: #ff3c00;" >${list.title}<span class="m-tcol-p" style="float: right;">[<strong>13</strong>]</span></a>
+										<a href="noticeView?num=${list.num}" class="m-tcol-p" title="${list.title}" style="color: #ff3c00;" >${list.title}</a>
 									</span></td>
 									<!-- WRITER -->
 									<td align="left"><div class="pers_nick_area"><table cellspacing="0"><tbody><tr><td class="p-nick">
@@ -89,7 +94,7 @@
 					<div id="writeFormBtn" class="btn _rosRestrict"><span></span>
 						<p>
 							<strong>
-								<a href="${pageContext.request.contextPath}/notice/noticeWrite?id=t1" class="m-tcol-c">
+								<a href="${pageContext.request.contextPath}/notice/noticeWrite?id=${nicName}" class="m-tcol-c">
 									<img src="http://cafeimgs.naver.net/cafe4/ico-btn-write.gif" width="10" height="10" alt="">
 							             글쓰기
 								</a>

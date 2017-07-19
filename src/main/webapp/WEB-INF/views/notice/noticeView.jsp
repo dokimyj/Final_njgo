@@ -81,7 +81,7 @@
 					<div id="deleteBtn" class="btn_view _rosRestrict">
 						<span></span>
 						<p>
-							<a href="#" class="m-tcol-c">삭제</a>
+							<a href="noticeDelete?num=${dto.num}" class="m-tcol-c">삭제</a>
 						</p>
 					</div>
 					

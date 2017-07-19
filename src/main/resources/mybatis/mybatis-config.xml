@@ -24,14 +24,11 @@
 	아래와 같이 설정하고 이를 mybatis property 설정부분에 이 파일을 연결 설정해두면 mapper에 풀패키지명 대신 NoticeDTO만 쓸 수 있음
 -->
 
- <configuration>
+<!--  <configuration>
 	 
 	<settings>
 	<setting name="defaultFetchSize" value="2500"/>
 	</settings>
 
- </configuration> 
-  
-
-  
->>>>>>> master
+ </configuration>  -->
+ 

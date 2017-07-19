@@ -23,7 +23,18 @@
 	select * from notice where num =
 	(select min(num) from notice where num>#{num})
 	</select>
+	
+	 <!-- write -->
+	 <insert id="write" parameterType="com.njgo.dto.NoticeDTO">
+	 insert into notice values
+	 (notice_seq.nextval, #{writer}, #{title}, #{contents}, sysdate, 0)
+	 </insert>
 		
+	 <!-- Delete -->
+	 <delete id="delete" parameterType="java.lang.Integer">
+	 delete from notice where num=#{num}
+	 </delete>
+
 	 <!-- Update -->
 	 <update id="update" parameterType="com.njgo.dto.NoticeDTO">
 	 update notice set title=#{title} contents=#{contents} where num=#{num}
@@ -34,16 +45,6 @@
 		select nvl(count(num), 0) from board
 		</select> -->
 		
-	 <!-- write -->
-	 <!-- <insert id="write" parameterType="com.njgo.dto.NoticeDTO"> insert 
-		into board values (notice_seq.nextval, #{writer}, #{title}, #{contents}, 
-		sysdate, 0, notice)
-		</insert> -->
-		
-		
-	 <!-- Delete -->
-	 <!-- <delete id="delete" parameterType="java.lang.Integer"> delete from 
-		board where kind='notice' and num=#{num} </delete> -->
 	
 
 	

@@ -103,7 +103,7 @@ img {
 	margin: 0;
 	border-style: solid;
 	border-width: 1px;
-	height: 350px;
+	min-height: 350px;
 }
 
 .inbox {

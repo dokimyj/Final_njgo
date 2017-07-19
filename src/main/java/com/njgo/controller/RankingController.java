@@ -8,82 +8,51 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.njgo.dto.NoticeDTO;
-import com.njgo.service.NoticeService;
+import com.njgo.dto.RankingDTO;
+import com.njgo.service.RankingService;
 import com.njgo.util.ListInfo;
 
 @Controller
 @RequestMapping(value="/ranking/**")
 public class RankingController {
 
-	/*@Autowired
-	private NoticeService noticeService;*/
+	@Autowired
+	private RankingService rankingService;
 	
-	//test
+	//Page
 	@RequestMapping(value="rankingPage", method=RequestMethod.GET)
-	public void test() throws Exception{
+	public void rankingPage(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
+		List<RankingDTO> hit = rankingService.rankingHit(listInfo);
+		List<RankingDTO> scrap = rankingService.rankingScrap(listInfo);
+		List<RankingDTO> upload = rankingService.rankingUpload(listInfo);
+		model.addAttribute("hit", hit);
+		model.addAttribute("scrap", scrap);
+		model.addAttribute("upload", upload);
 	}
 	
 	
-	/*//list
-	@RequestMapping(value="boardList", method=RequestMethod.GET)
-	public void noticeList(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
-		System.out.println("boardList controller");
-		List<BoardDTO> ar = noticeService.boardList(listInfo);
-		model.addAttribute("list", ar);
-		model.addAttribute("board", "notice");
+	//ListHit
+	@RequestMapping(value="rankingHit", method=RequestMethod.GET)
+	public void rankingHit(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
+		List<RankingDTO> hit = rankingService.rankingHit(listInfo);
+		model.addAttribute("list", hit);
+		model.addAttribute("board", "hit");
 	}
-
-	//View
-	@RequestMapping(value="boardView", method=RequestMethod.GET)
-	public void noticeView(Integer num, Model model) throws Exception{
-		BoardDTO boardDTO=noticeService.boardView(num);
-		model.addAttribute("dto", boardDTO);
-	}
-
-	//writeForm
-	@RequestMapping(value="boardWrite", method=RequestMethod.GET)
-	public void noticeWrite(Model model){
-		model.addAttribute("path", "Write");
-	}
-
-	//write 
-	@RequestMapping(value="boardWrite", method=RequestMethod.POST)
-	public String noticeWrite(NoticeDTO noticeDTO, RedirectAttributes rd)throws Exception{
-		int result=noticeService.boardWrite(noticeDTO);
-		String message = "FAIL";
-		if(result>0){
-			message="SUCCESS";
+	
+	//ListScrap
+	@RequestMapping(value="rankingScrap", method=RequestMethod.GET)
+	public void rankingScrap(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
+		List<RankingDTO> scrap = rankingService.rankingScrap(listInfo);
+		model.addAttribute("list", scrap);
+		model.addAttribute("board", "scrap");
+	}	
+	
+	//ListUpload
+		@RequestMapping(value="rankingUpload", method=RequestMethod.GET)
+		public void rankingUpload(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
+			List<RankingDTO> upload = rankingService.rankingUpload(listInfo);
+			model.addAttribute("list", upload);
+			model.addAttribute("board", "upload");
 		}
-		rd.addFlashAttribute("message", message);
-		return "redirect:noticeList?curPage=2";
-	}
-
-	//update
-	@RequestMapping(value="boardUpdate", method=RequestMethod.GET)
-	public String noticeUpdate(Integer num, Model model) throws Exception{
-		BoardDTO boardDTO = noticeService.boardView(num);
-		model.addAttribute("dto", boardDTO);
-		model.addAttribute("path", "Update");
-		return "notice/noticeWrite";
-	}
-
-	@RequestMapping(value="boardUpdate", method=RequestMethod.POST)
-	public String noticeUpdate(NoticeDTO noticeDTO, RedirectAttributes rd) throws Exception{
-		int result = noticeService.boardUpdate(noticeDTO);
-		String message = "FAIL";
-		if(result>0){
-			message="SUCCESS";
-		}
-		rd.addFlashAttribute("message", message);
-		return "redirect:noticeList?curPage=1";
-	}
-
-	@RequestMapping(value="boardDelete", method=RequestMethod.GET)
-	public void noticeDelete(Integer num){
-		int result = noticeService.boardDelete(num);
-	}
-*/
 }

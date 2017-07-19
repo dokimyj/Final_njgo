@@ -40,8 +40,7 @@ public class NoticeService{
 	}
 
 	public int noticeDelete(int num) {
-		// TODO Auto-generated method stub
-		return 0;
+		return noticeDAO.noticeDelete(num);
 	}
 
 }

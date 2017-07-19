@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RankingMapper">
+
+	<!-- 선행되어야 하는 작업 : Recipe테이블에서 Ranking테이블로 데이터를 옮기는 작업 -->
+	<!-- List -->
+	<select id="selectRecipe" resultType="RecipeDTO">
+		select foodname, regdate, rep_pic, hit, scrap from recipe;
+	</select>
+	<select id="selectUpload" resultType="MemberDTO">
+		select nicname, rep_pic, regdate, upload from member;
+	</select>
+	
+	<!-- write -->
+	<insert id="writeRecipe" parameterType="com.njgo.dto.RankingDTO">
+		insert into rankingCook (foodname, regdate, rep_pic, hit, scrap) values
+		(#{foodname}, #{regdate}, #{rep_pic}, #{hit}, #{scrap})
+	</insert>	
+	<insert id="writeUpload" parameterType="com.njgo.dto.RankingDTO">
+		insert into rankingChef (foodname, regdate, rep_pic, hit, scrap) values
+		(#{foodname}, #{regdate}, #{rep_pic}, #{hit}, #{scrap})
+	</insert>	
+	<!-- 선행되어야 하는 작업 : Recipe테이블에서 Ranking테이블로 데이터를 옮기는 작업 -->
+	
+
+	<!-- Ranking테이블에서 데이터를 꺼내는 작업 -->
+	<!-- Listhit -->
+	<select id="listhit" parameterType="com.njgo.util.ListInfo" resultType="RankingDTO">
+		select foodname, regdate, rep_pic, hit, scrap from ranking
+		where regdate like '%#{date}%'
+		order by hit desc
+	</select>
+
+	<!-- Listscrap -->
+	<select id="listscrap" parameterType="com.njgo.util.ListInfo" resultType="RankingDTO">
+		select foodname, regdate, rep_pic, hit, scrap from ranking
+		where regdate like '%#{date}%'
+		order by scrap desc
+	</select>
+	
+	<!-- Listupload -->
+	<select id="listupload" parameterType="com.njgo.util.ListInfo" resultType="RecipeDTO">
+		select writer, count(writer) as count from recipe 
+  	    where regdate like '%#{date}%'
+        group by writer
+        order by count desc;
+	</select>	
+	<!-- Ranking테이블에서 데이터를 꺼내는 작업 -->
+	
+</mapper>

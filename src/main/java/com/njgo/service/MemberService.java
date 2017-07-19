@@ -13,15 +13,22 @@ public class MemberService {
 	private MemberDAO memberDAO;
 	// ========================== Login , Delete, Update 관련 =====================
 	
+	//로그인
 	public MemberDTO memberLogin(String email, String pw){
 		return memberDAO.memberLogin(email, pw);
 	}
-	
+	// 비밀번호 찾기
 	public MemberDTO find_password(String email){
 		return memberDAO.find_password(email);
 	}
+	//회원 정보수정
 	public int memberUpdate(String data, String type,String email){
 		return memberDAO.memberUpdate(data, type, email);
+	}
+	// 회원탈퇴
+	public int memberDelete(String email, String pw) {
+		
+		return memberDAO.memberDelete(email,pw);
 	}
 	
 	// =========================== 회원 가입 관련 ================================
@@ -42,7 +49,7 @@ public class MemberService {
 		return memberDAO.nickNameCheck(nickName);
 	}
 	
-	// email 인증 검사
+	// email 인증 검사 완료 후 grade = 1
 	public MemberDTO emailConfirm(String joinCode,String email){
 		
 		return memberDAO.emailConfrim(joinCode,email);
@@ -52,5 +59,7 @@ public class MemberService {
 	
 		return memberDAO.kakaoIDCheck(kakaoID);
 	}
+
+	
 	
 }

@@ -27,7 +27,7 @@
 		            </form>
 		            <p class="guide_txt2" style="padding-top:20px;">이용약관, 개인정보 수집 및 이용에 모두 동의합니다. <input type="checkbox" id="allCheck" name="allchk" onclick="allCheck()" ></p>
 		            <div class="etc_line"></div>
-		            <p class="guide_txt2">냉장GO 레시피 이용약관 동의<input type="checkbox" id="contractCheck" ></p>
+		            <p class="guide_txt2">냉장GO 레시피 이용약관 동의<input type="checkbox" id="contractCheck" name="ckck" ></p>
 		            <textarea>냉장GO레시피 이용약관은 다음과 같은 내용을 담고 있습니다. (2015년 6월 1일 시행)
 		 
 		1. 총칙 
@@ -269,7 +269,7 @@
 		2. 본 약관 시행 전에 이미 가입된 회원은 변경전의 약관이 적용됨을 원칙으로 합니다. 
 		다만, 공지된 바에 따라 변경된 약관의 시행일 이후에도 본 약관에 따른 서비스를 계속 이용하는 경우에는 변경후의 약관에 대해 동의한 것으로 봅니다.</textarea>
 		            <span style="position:relative;">
-		            <p class="guide_txt2" style="padding-top:20px;">개인정보 수집 및 이용에 대한 안내 <input type="checkbox" id="privacyCheck" value="1"></p>
+		            <p class="guide_txt2" style="padding-top:20px;">개인정보 수집 및 이용에 대한 안내 <input type="checkbox" id="privacyCheck" value="1" name="ckck"></p>
 		            </span>
 		            <textarea>· 수집하는 개인정보의 항목 및 수집방법
 		· 개인정보의 수집목적 및 이용목적
@@ -368,7 +368,7 @@
 	    }
 	}
 	
-	function allCheck()
+/* 	function allCheck()
 	{	
 		 var a= $("#allCheck").is(':checked');
 	
@@ -383,6 +383,24 @@
 		}
 		
 
-	}
+	} */
+	
+	$(function() {
+		$("#allCheck").click(function() {
+			if($("#allCheck").prop("checked")==true) {
+				$("input[name=ckck]").prop("checked", true);				
+			}else {
+				$("input[name=ckck]").prop("checked", false);
+			}
+		});
+		
+		$("input[name=ckck]").click(function() {
+			if($("#contractCheck").prop("checked")==true && $("#privacyCheck").prop("checked")==true) {
+				$("#allCheck").prop("checked", true);
+			}else {
+				$("#allCheck").prop("checked", false);
+			}
+		});
+	});
 </script>
 </html>

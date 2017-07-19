@@ -38,7 +38,13 @@ public class MemberDAO {
 	}
 	
 	//Delete
-	public void memberDelete(){}
+	public int memberDelete(String email, String pw) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("email", email);
+		map.put("pw", pw);
+		
+		return sqlSession.delete(NAMESPACE+"memberDelete", map);
+	}
 	
 	//List
 	public void memberList(){}
@@ -95,5 +101,7 @@ public class MemberDAO {
 	public MemberDTO kakaoIDCheck(String kakaoID) {
 		
 		return sqlSession.selectOne(NAMESPACE+"kakaoIDCheck", kakaoID);
-	}	
+	}
+
+	
 }

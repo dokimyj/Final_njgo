@@ -41,8 +41,29 @@ public class MemberController {
 	public void info_correct(){
 	
 	}
+	@RequestMapping(value="memberDelete" ,method=RequestMethod.GET)
+	public void memberDelete(){
 	
-	//=================================== 로그인 , 회원정보 수정 관련 ==========================================
+	}
+	@RequestMapping(value="test" ,method=RequestMethod.GET)
+	public void testKakao(){
+	
+	}
+	
+	//=================================== 로그인 , 회원정보 수정, 탈퇴 관련 ==========================================
+	
+	@RequestMapping(value="memberDelete" ,method=RequestMethod.POST)
+	public String memberDelete(@RequestParam String email,@RequestParam String pw,HttpSession session,RedirectAttributes rd){
+		
+		int result = memberService.memberDelete(email,pw);
+		String message ="이용해주셔서 감사합니다!";
+		if(result>0){
+			System.out.println("탈퇴 성공!!");
+			session.invalidate();
+			rd.addFlashAttribute("message", message);
+		}
+		return "redirect:../";
+	}
 	
 	//회원 정보 수정
 	@RequestMapping(value="infoCorrectSend",method=RequestMethod.POST)
@@ -52,13 +73,10 @@ public class MemberController {
 		System.out.println("email :"+email);
 		int result = memberService.memberUpdate(data, type, email);
 		MemberDTO memberDTO =null;
+		
 		if(result >0){
 			memberDTO = memberService.emailCheck(email);
 			session.setAttribute("memberDTO", memberDTO);
-			
-		}else{
-			System.out.println("실패...");
-			
 		}
 		return "redirect:info_correct";
 	}
@@ -82,15 +100,15 @@ public class MemberController {
 	
 	// 로그인
 	@RequestMapping(value="memberLogin",method=RequestMethod.POST)
-	public String memberLogin(HttpSession session ,@RequestParam String email,@RequestParam String pw){
+	public String memberLogin(HttpSession session ,@RequestParam String email,@RequestParam String pw,Model model){
 		MemberDTO memberDTO = memberService.memberLogin(email, pw);
-		String test_message= "로그인 실패";
+		String message= "아이디 또는 비밀번호를 다시 확인해주세요.";
 		if(memberDTO !=null){
-			test_message = "로그인 성공!!";
+			message = "로그인 성공!!";
 			session.setAttribute("memberDTO",memberDTO);
 		}
-		System.out.println(test_message);
-		return "home";
+		model.addAttribute("message", message);
+		return "home"; 
 	}
 	// 로그아웃 
 	@RequestMapping(value="logout")

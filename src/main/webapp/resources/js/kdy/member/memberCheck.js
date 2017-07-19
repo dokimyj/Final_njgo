@@ -43,18 +43,44 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAdd
 
 
 function infoCorrectSend(data,type,email) {
-	$.ajax({
-		type : "POST",
-		url : "infoCorrectSend",
-		data : {
-			data : data,
-			type : type,
-			email : email
-		},
-		success:function(data){
-			
-		}
-	});	
+	
+	if($("#"+type+"Status").css("color")=="rgb(66, 169, 103)"){
+		$.ajax({
+			type : "POST",
+			url : "infoCorrectSend",
+			data : {
+				data : data,
+				type : type,
+				email : email
+			},
+			success:function(data){
+				alert("수정 성공!");
+				location.href = "info_correct";
+			}
+		});
+	}
+	// 비밀번호 수정하는곳
+	// 비밀번호 확인 하는곳 id가 pwStatus2 임...
+	else if($("#"+type+"Status2").css("color")=="rgb(66, 169, 103)"){
+		
+		$.ajax({
+			type : "POST",
+			url : "infoCorrectSend",
+			data : {
+				data : data,
+				type : type,
+				email : email
+			},
+			success:function(data){
+				alert("수정 성공!");
+				location.href = "info_correct";
+			}
+		});
+	}
+	else{
+		alert("다시 확인해주세요.");
+	}
+	
 }
 
 
@@ -208,7 +234,7 @@ function chkNick() {
 		$("#nickMsg").css("color","red");
 		$("#nickMsg").css("display","block");
 		$("#nickMsg").text("닉네임을 입력해 주세요.(4글자이상)");
-		return 0;
+		return false;
 	}
 	else{
 		$.ajax({
@@ -226,7 +252,7 @@ function chkNick() {
 					$("#nickMsg").css("color","green");
 					$("#nickMsg").text("사용가능한 닉네임 입니다.");	
 					
-					return 1;
+					return true;
 				}
 				else{
 					$("#nickStatus").addClass("glyphicon-remove");
@@ -235,7 +261,7 @@ function chkNick() {
 					$("#nickMsg").css("color","red");
 					$("#nickMsg").css("display","block");
 					$("#nickMsg").text("중복된 닉네임 입니다.");
-					return 0;
+					return false;
 				}
 			}
 		});
@@ -301,7 +327,7 @@ function chkPhone() {
 		
 	}
 }
-function chkKakao() {
+function chkKakaoID() {
 	//중복확인
 	var kakaoID = $("#kakaoID").val();
 	

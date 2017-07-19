@@ -32,11 +32,15 @@
        <div id="updNick" style="display:none;margin-top:20px;">
           <div id="nickFrms" class="form-group has-feedback">
             <input type="text" name="nickName" class="form-control" id="nickName" placeholder="닉네임" onblur="chkNick()">
-            <span id="nickStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            <span id="nickNameStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
             <span id="nickMsg" style="display:none;"></span>
           </div>
-          <p style="text-align:center"><button type="button" onclick="infoCorrectSend($('#nickName').val(),'nickName','${memberDTO.email}')" class="btn btn-primary" style="width:150px">변경</button></p>
-          <p class="help-block">닉네임은 변경후 24시간동안 다시 변경할 수 없습니다.<br>변경전에 잘 확인해 주세요.</p>
+          <p style="text-align:center"><button type="button" 
+           
+          	 onclick="infoCorrectSend($('#nickName').val(),'nickName','${memberDTO.email}')"
+          
+           class="btn btn-primary" style="width:150px">변경</button></p>
+        <!--   <p class="help-block">닉네임은 변경후 24시간동안 다시 변경할 수 없습니다.<br>변경전에 잘 확인해 주세요.</p> -->
         </div>
         <div class="etc_line"></div>
      <!--======================================== 이름 변경 ================================================-->
@@ -58,12 +62,12 @@
         </span></p>
        <div id="updkakaoID" style="display:none;margin-top:20px;">
           <div id="kakaoIDFrms" class="form-group has-feedback">
-            <input type="text" name="kakaoID" class="form-control" id="kakaoID" placeholder="카카오아이디" onblur="chkKakao()">
+            <input type="text" name="kakaoID" class="form-control" id="kakaoID" placeholder="카카오아이디" onblur="chkKakaoID()">
             <span id="kakaoIDStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
             <span id="kakaoIDMsg" style="display:none;"></span>
           </div>
           <p style="text-align:center"><button type="button" onclick="infoCorrectSend($('#kakaoID').val(),'kakaoID','${memberDTO.email}')" class="btn btn-primary" style="width:150px">변경</button></p>
-          <p class="help-block">카카오아이디는 변경후 24시간동안 다시 변경할 수 없습니다.<br>변경전에 잘 확인해 주세요.</p>
+         <!--  <p class="help-block">카카오아이디는 변경후 24시간동안 다시 변경할 수 없습니다.<br>변경전에 잘 확인해 주세요.</p> -->
         </div>
         <div class="etc_line"></div>
          <!--======================================== 주소 변경 ================================================-->
@@ -96,25 +100,21 @@
       <!--============================================ 비밀번호 변경 ========================================-->  
     <p style="margin:15px 0;line-height:34px;"><span id="pwResult">&nbsp; <button type="button" onclick="$('#updPw').show()" class="btn btn-default" style="float:right;">비밀번호 수정</button></span></p>
         <div id="updPw" style="display:none;margin-top:20px;">
-          <div id="opwFrms" class="form-group has-feedback">
-            <input type="password" name="pw" class="form-control" id="pw" onblur="chkPasswdOld()" placeholder="현재 비밀번호">
-            <span id="opwStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
-            <span id="opwMsg" style="display:none;"></span>
-          </div>
+         
           <div id="pwFrms" class="form-group has-feedback">
-            <input type="password" name="new_pw" class="form-control" id="new_pw" onblur="chkPasswd1()" onkeyup="chkShiftUp(event)" onkeypress="chkCapslock(event)" onkeydown="chkShiftDown(event)" placeholder="새로운 비밀번호">
-            <span id="pwStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            <input type="password" name="new_pw" class="form-control" id="pw" onblur="chkPw1()" placeholder="새로운 비밀번호">
+            <span id="pwStatus1" class="glyphicon form-control-feedback" aria-hidden="true"></span>
             <span id="pwMsg" style="display:none;"></span>
           </div>
           <div id="pwFrms2" class="form-group has-feedback">
-            <input type="password" name="new_pw2" class="form-control" id="new_pw2" onblur="chkPasswd2()" placeholder="새 비밀번호 확인">
+            <input type="password" name="new_pw2" class="form-control" id="pw_check" onblur="chkPw2()" placeholder="새 비밀번호 확인">
             <span id="pwStatus2" class="glyphicon form-control-feedback" aria-hidden="true"></span>
             <span id="pwMsg2" style="display:none;" class="text-danger">비밀번호 확인을 입력해주세요.</span>
           </div>
-          <p style="text-align:center"><button type="button" onclick="doChangePassword()" class="btn btn-primary" style="width:150px">변경</button></p>
+          <p style="text-align:center"><button type="button" onclick="infoCorrectSend($('#pw_check').val(),'pw','${memberDTO.email}')" class="btn btn-primary" style="width:150px">변경</button></p>
         </div>
         <div class="etc_line"></div>
-        <p style="margin:15px 0;line-height:34px;">회원탈퇴 <button type="button" onclick="location.href='/user/out.html'" class="btn btn-default" style="float:right;">탈퇴하기</button></p>
+        <p style="margin:15px 0;line-height:34px;">회원탈퇴 <button type="button" onclick="location.href='memberDelete'" class="btn btn-default" style="float:right;">탈퇴하기</button></p>
   </div>
 </div>
 	</section>

@@ -23,6 +23,9 @@
 			<if test="type == 'phone'">
 				phone = #{data}
 			</if>
+			<if test="type == 'pw'">
+				pw = #{data}
+			</if>
 		</trim>
 	</sql>
 	
@@ -35,6 +38,10 @@
 	<update id="memberUpdate" parameterType="java.util.Map">
 		update member set <include refid="type"></include> where email=#{email} 
 	</update>
+	
+	<delete id="memberDelete"  parameterType="java.util.Map">
+		delete member where email=#{email} and pw =#{pw}
+	</delete>
 
 
 	<!-- ============================= 회원가입 관련 ======================================== -->

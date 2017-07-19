@@ -54,7 +54,7 @@ function doSubmit()
 	        
 	          <!-- Email 입력 -->
 	          <div id="idFrms" class="form-group has-feedback has-error">
-	            <input type="email" name="email" class="form-control" id="email" required="required" autocomplete="off" onblur="chkEmail()" placeholder="email">
+	            <input type="email" name="email" class="form-control" id="email" required="required" autocomplete="off" onblur="chkEmail()" placeholder="email, 예)email@naver.com">
 	            <span id="emailStatus" class="glyphicon form-control-feedback glyphicon-remove" aria-hidden="true"></span>
 	            <span id="emailMsg" style="display:none;" class="text-danger"></span>
 	          </div>

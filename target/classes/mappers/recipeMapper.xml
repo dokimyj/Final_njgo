@@ -94,14 +94,14 @@
 	<select id="catecount" parameterType="com.njgo.dto.CategoryDTO" resultType="java.lang.Integer">
 		select COUNT(distinct C.NUM) from RECIPE C, CATEGORY T
 		<trim prefix="where">
-			C.NUM=T.RECIPENUM and C.NUM in (select RECIPENUM from CATEGORY where C_KIND=#{category.c_kind} and C_SITUATION=#{category.c_situation} and C_PROCEDURE=#{category.c_procedure} and C_INGREDIENT=#{category.c_ingredients})
+			C.NUM=T.RECIPENUM and C.NUM in (select RECIPENUM from CATEGORY where C_KIND like #{c_kind} and C_SITUATION like #{c_situation} and C_PROCEDURE like #{c_procedure} and C_INGREDIENT like #{c_ingredient})
 		</trim>
 	</select>
 	<select id="catesearch" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeDTO">
 		select * from 
 		(select ROWNUM R, L.* from 
 		(select distinct C.* from RECIPE C, CATEGORY T
-		 where C.NUM=T.RECIPENUM and T.RECIPENUM in (select RECIPENUM from CATEGORY where C_KIND=#{category.c_kind} and C_SITUATION=#{category.c_situation} and C_PROCEDURE=#{category.c_procedure} and C_INGREDIENT=#{category.c_ingredients})
+		 where C.NUM=T.RECIPENUM and T.RECIPENUM in (select RECIPENUM from CATEGORY where C_KIND like #{category.c_kind} and C_SITUATION like #{category.c_situation} and C_PROCEDURE like #{category.c_procedure} and C_INGREDIENT like #{category.c_ingredient})
 		 order by
 		<if test="listInfo.order=='regdate'">
 			C.REGDATE

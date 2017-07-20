@@ -14,7 +14,7 @@ public class CategoryDTO {
 		this.recipenum = recipenum;
 	}
 	public String getC_kind() {
-		if(c_kind==null){
+		if(c_kind.equals("전체")||c_kind==null){
 			c_kind="%%";
 		}
 		return c_kind;
@@ -23,7 +23,7 @@ public class CategoryDTO {
 		this.c_kind = c_kind;
 	}
 	public String getC_situation() {
-		if(c_situation==null){
+		if(c_situation.equals("전체")||c_situation==null){
 			c_situation="%%";
 		}
 		return c_situation;
@@ -32,7 +32,7 @@ public class CategoryDTO {
 		this.c_situation = c_situation;
 	}
 	public String getC_procedure() {
-		if(c_procedure==null){
+		if(c_procedure.equals("전체")||c_procedure==null){
 			c_procedure="%%";
 		}
 		return c_procedure;
@@ -41,7 +41,7 @@ public class CategoryDTO {
 		this.c_procedure = c_procedure;
 	}
 	public String getC_ingredient() {
-		if(c_ingredient==null){
+		if(c_ingredient.equals("전체")||c_ingredient==null){
 			c_ingredient="%%";
 		}
 		return c_ingredient;

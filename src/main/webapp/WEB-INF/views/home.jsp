@@ -26,7 +26,7 @@
 <script>
 function recipe(){
 	$.ajax({
-		url:"./recipe/recipeList?curPage=1",
+		url:"./recipe/recipeList",
 		type:"GET",
 		success:function(data){
 			$('.main_section').html(data.trim());

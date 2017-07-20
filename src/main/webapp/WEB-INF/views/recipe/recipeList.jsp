@@ -3,13 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 태그별 검색 -->
 	<div id=categories>
-		<span style="background-color:#ffcc00">종류별</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=c_kind>밑반찬</span>&nbsp;&nbsp;<span class=c_kind>메인반찬</span>&nbsp;&nbsp;<span class=c_kind>국/탕</span>&nbsp;&nbsp;<span class=c_kind>찌개</span>&nbsp;&nbsp;<span class=c_kind>디저트</span>&nbsp;&nbsp;<span class=c_kind>면/만두</span>&nbsp;&nbsp;<span class=c_kind>밥/죽/떡</span>&nbsp;&nbsp;<span class=c_kind>퓨전</span>&nbsp;&nbsp;<span class=c_kind>김치/젓갈/장류</span>&nbsp;&nbsp;<span class=c_kind>양념/소스/잼</span>&nbsp;&nbsp;<span class=c_kind>양식</span>&nbsp;&nbsp;<span class=c_kind>샐러드</span>&nbsp;&nbsp;<span class=c_kind>스프</span>&nbsp;&nbsp;<span class=c_kind>빵</span>&nbsp;&nbsp;<span class=c_kind>과자</span>&nbsp;&nbsp;<span class=c_kind>차/음료/술</span>&nbsp;&nbsp;<span class=c_kind>기타</span><br>
-		<span style="background-color:#ffcc00">상황별</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=c_situation>일상</span>&nbsp;&nbsp;<span class=c_situation>초스피드</span>&nbsp;&nbsp;<span class=c_situation>손님접대</span>&nbsp;&nbsp;<span class=c_situation>술안주</span>&nbsp;&nbsp;<span class=c_situation>다이어트</span>&nbsp;&nbsp;<span class=c_situation>도시락</span>&nbsp;&nbsp;<span class=c_situation>영양식</span>&nbsp;&nbsp;<span class=c_situation>간식</span>&nbsp;&nbsp;<span class=c_situation>야식</span>&nbsp;&nbsp;<span class=c_situation>푸드스타일링</span>&nbsp;&nbsp;<span class=c_situation>해장</span>&nbsp;&nbsp;<span class=c_situation>명절</span>&nbsp;&nbsp;<span class=c_situation>이유식</span>&nbsp;&nbsp;<span class=c_situation>기타</span><br>
-		<span style="background-color:#ffcc00">재료별</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=c_procedure>소고기</span>&nbsp;&nbsp;<span class=c_procedure>돼지고기</span>&nbsp;&nbsp;<span class=c_procedure>육류</span>&nbsp;&nbsp;<span class=c_procedure>채소류</span>&nbsp;&nbsp;<span class=c_procedure>해물류</span>&nbsp;&nbsp;<span class=c_procedure>달걀/유제품</span>&nbsp;&nbsp;<span class=c_procedure>가공식품류</span>&nbsp;&nbsp;<span class=c_procedure>쌀</span>&nbsp;&nbsp;<span class=c_procedure>밀가루</span>&nbsp;&nbsp;<span class=c_procedure>건어물류</span>&nbsp;&nbsp;<span class=c_procedure>버섯류</span>&nbsp;&nbsp;<span class=c_procedure>과일류</span>&nbsp;&nbsp;<span class=c_procedure>콩/견과류</span>&nbsp;&nbsp;<span class=c_procedure>곡류</span>&nbsp;&nbsp;<span class=c_procedure>기타</span><br>
-		<span style="background-color:#ffcc00">방법별</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=c_ingredient>볶음</span>&nbsp;&nbsp;<span class=c_ingredient>끓이기</span>&nbsp;&nbsp;<span class=c_ingredient>부침</span>&nbsp;&nbsp;<span class=c_ingredient>조림</span>&nbsp;&nbsp;<span class=c_ingredient>무침</span>&nbsp;&nbsp;<span class=c_ingredient>비빔</span>&nbsp;&nbsp;<span class=c_ingredient>찜</span>&nbsp;&nbsp;<span class=c_ingredient>절임</span>&nbsp;&nbsp;<span class=c_ingredient>튀김</span>&nbsp;&nbsp;<span class=c_ingredient>삶기</span>&nbsp;&nbsp;<span class=c_ingredient>굽기</span>&nbsp;&nbsp;<span class=c_ingredient>데치기</span>&nbsp;&nbsp;<span class=c_ingredient>회</span>&nbsp;&nbsp;<span class=c_ingredient>기타</span><br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="cate">종류별</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=c_kind title=active>전체</span>&nbsp;&nbsp;<span class=c_kind>밑반찬</span>&nbsp;&nbsp;<span class=c_kind>메인반찬</span>&nbsp;&nbsp;<span class=c_kind>국/탕</span>&nbsp;&nbsp;<span class=c_kind>찌개</span>&nbsp;&nbsp;<span class=c_kind>디저트</span>&nbsp;&nbsp;<span class=c_kind>면/만두</span>&nbsp;&nbsp;<span class=c_kind>밥/죽/떡</span>&nbsp;&nbsp;<span class=c_kind>퓨전</span>&nbsp;&nbsp;<span class=c_kind>김치/젓갈/장류</span>&nbsp;&nbsp;<span class=c_kind>양념/소스/잼</span>&nbsp;&nbsp;<span class=c_kind>양식</span>&nbsp;&nbsp;<span class=c_kind>샐러드</span>&nbsp;&nbsp;<span class=c_kind>스프</span>&nbsp;&nbsp;<span class=c_kind>빵</span>&nbsp;&nbsp;<span class=c_kind>과자</span>&nbsp;&nbsp;<span class=c_kind>차/음료/술</span>&nbsp;&nbsp;<span class=c_kind>기타</span><br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="cate">상황별</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=c_situation title=active>전체</span>&nbsp;&nbsp;<span class=c_situation>일상</span>&nbsp;&nbsp;<span class=c_situation>초스피드</span>&nbsp;&nbsp;<span class=c_situation>손님접대</span>&nbsp;&nbsp;<span class=c_situation>술안주</span>&nbsp;&nbsp;<span class=c_situation>다이어트</span>&nbsp;&nbsp;<span class=c_situation>도시락</span>&nbsp;&nbsp;<span class=c_situation>영양식</span>&nbsp;&nbsp;<span class=c_situation>간식</span>&nbsp;&nbsp;<span class=c_situation>야식</span>&nbsp;&nbsp;<span class=c_situation>푸드스타일링</span>&nbsp;&nbsp;<span class=c_situation>해장</span>&nbsp;&nbsp;<span class=c_situation>명절</span>&nbsp;&nbsp;<span class=c_situation>이유식</span>&nbsp;&nbsp;<span class=c_situation>기타</span><br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="cate">재료별</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=c_ingredient title=active>전체</span>&nbsp;&nbsp;<span class=c_ingredient>소고기</span>&nbsp;&nbsp;<span class=c_ingredient>돼지고기</span>&nbsp;&nbsp;<span class=c_ingredient>육류</span>&nbsp;&nbsp;<span class=c_ingredient>채소류</span>&nbsp;&nbsp;<span class=c_ingredient>해물류</span>&nbsp;&nbsp;<span class=c_ingredient>달걀/유제품</span>&nbsp;&nbsp;<span class=c_ingredient>가공식품류</span>&nbsp;&nbsp;<span class=c_ingredient>쌀</span>&nbsp;&nbsp;<span class=c_ingredient>밀가루</span>&nbsp;&nbsp;<span class=c_ingredient>건어물류</span>&nbsp;&nbsp;<span class=c_ingredient>버섯류</span>&nbsp;&nbsp;<span class=c_ingredient>과일류</span>&nbsp;&nbsp;<span class=c_ingredient>콩/견과류</span>&nbsp;&nbsp;<span class=c_ingredient>곡류</span>&nbsp;&nbsp;<span class=c_ingredient>기타</span><br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="cate">방법별</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=c_procedure title=active>전체</span>&nbsp;&nbsp;<span class=c_procedure>볶음</span>&nbsp;&nbsp;<span class=c_procedure>끓이기</span>&nbsp;&nbsp;<span class=c_procedure>부침</span>&nbsp;&nbsp;<span class=c_procedure>조림</span>&nbsp;&nbsp;<span class=c_procedure>무침</span>&nbsp;&nbsp;<span class=c_procedure>비빔</span>&nbsp;&nbsp;<span class=c_procedure>찜</span>&nbsp;&nbsp;<span class=c_procedure>절임</span>&nbsp;&nbsp;<span class=c_procedure>튀김</span>&nbsp;&nbsp;<span class=c_procedure>삶기</span>&nbsp;&nbsp;<span class=c_procedure>굽기</span>&nbsp;&nbsp;<span class=c_procedure>데치기</span>&nbsp;&nbsp;<span class=c_procedure>회</span>&nbsp;&nbsp;<span class=c_procedure>기타</span><br>
 	</div>
 		<hr>
 		<!-- 레시피 리스트 3*3, 최신순/hit순 -->
+<div id=results>
 	<div id=searchresult>
 		<c:forEach items="${list.listPack }" var="dto">
 			<div class=main_concep_channel title=${dto.num }>		
@@ -37,7 +38,23 @@
 				</div>
 		</c:forEach>
 	</div>
-		<!-- TV-만개의레시피에서 두 프로그램정도 가져오기(DB에 전부 넣어야 함, 동영상 태그까지) -->
+<br>
+	<div id=pagers title='${list.totalCount }'>
+		<ul class="pagination">
+			<c:if test="${list.listInfo.curBlock>1 }">
+				<li><span title='${list.listInfo.startNum-1 }'>&lt;</span></li>
+			</c:if>
+			<c:forEach begin="${list.listInfo.startNum }" end="${list.listInfo.lastNum }" step="1" var="i">
+				<li><span title='${i}'>${i}</span></li>
+			</c:forEach>
+			<c:if test="${list.listInfo.curBlock<listInfo.totalBlock }">
+				<li><span title='${list.listInfo.lastNum+1 }'>&gt;</span></li>
+			</c:if>
+		</ul>
+	</div>
+</div>
+
+<!-- TV-만개의레시피에서 두 프로그램정도 가져오기(DB에 전부 넣어야 함, 동영상 태그까지) -->
 	<script>	
 		$('.overlays').css("background", "none");
 		$('.creators').css("visibility", "hidden");
@@ -45,7 +62,7 @@
 			
 		$('.main_concep_channel').mouseover(function(){	
 			var num=$(this).attr('title');
-			$('#overlays'+num).css("background-image", "url('resources/images/kdk/thumb_over_rev1.png')");
+			$('#overlays'+num).css("background-image", "url('./resources/images/kdk/thumb_over_rev1.png')");
 			$('#creators'+num).css("visibility", "visible");
 			$('#counts'+num).css("visibility", "visible");
 		});
@@ -55,7 +72,76 @@
 			$('#creators'+num).css("visibility", "hidden");
 			$('#counts'+num).css("visibility", "hidden");		
 		});
-		$('#categories>span').click(function(){
-			$(this).attr('title', 'selected');
+		$('.c_kind').click(function(){
+			$('.c_kind').attr('title', 'inactive');
+			$(this).attr('title', 'active');
+			$.ajax({
+				url: "./recipe/catesearch",
+				type: "GET",
+				data:{
+					c_kind:$(this).html(),
+					c_situation:$('.c_situation[title=active]').html(),
+					c_ingredient:$('.c_ingredient[title=active]').html(),
+					c_procedure:$('.c_procedure[title=active]').html()
+				},
+				success:function(data){
+					alert(data.trim());
+					$('#results').html(data.trim());
+				}
+			});	
 		});
+		$('.c_situation').click(function(){
+			$('.c_situation').attr('title', 'inactive');
+			$(this).attr('title', 'active');
+			$.ajax({
+				url: "./recipe/catesearch",
+				type: "GET",
+				data:{
+					c_kind:$('.c_kind[title=active]').html(),
+					c_situation:$(this).html(),
+					c_ingredient:$('.c_ingredient[title=active]').html(),
+					c_procedure:$('.c_procedure[title=active]').html()
+				},
+				success:function(data){
+					$('#results').html(data.trim());
+				}
+			});	
+		});
+		$('.c_ingredient').click(function(){
+			$('.c_ingredient').attr('title', 'inactive');
+			$(this).attr('title', 'active');
+			$.ajax({
+				url: "./recipe/catesearch",
+				type: "GET",
+				data:{
+					c_kind:$('.c_kind[title=active]').html(),
+					c_situation:$('.c_situation[title=active]').html(),
+					c_ingredient:$(this).html(),
+					c_procedure:$('.c_procedure[title=active]').html()
+				},
+				success:function(data){
+					$('#results').html(data.trim());
+				}
+			});	
+		});
+		$('.c_procedure').click(function(){
+			$('.c_procedure').attr('title', 'inactive');
+			$(this).attr('title', 'active');
+			$.ajax({
+				url: "./recipe/catesearch",
+				type: "GET",
+				data:{
+					c_kind:$('.c_kind[title=active]').html(),
+					c_situation:$('.c_situation[title=active]').html(),
+					c_ingredient:$('.c_ingredient[title=active]').html(),
+					c_procedure:$(this).html()
+				},
+				success:function(data){
+					$('#results').html(data.trim());
+				}
+			});	
+		});
+		if($('#pagers').attr('title')<9){
+			$('.pagination>ul>li>span').css('display', 'none');
+		}
 	</script>

@@ -37,23 +37,26 @@ public class RecipeController {
 	public void list(ListInfo listInfo, Model model) throws Exception{		
 		model.addAttribute("list", recipeService.list(listInfo));
 		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
+		model.addAttribute("pagetype", "recipeList");
 	}
 	
 	@RequestMapping(value="search", method=RequestMethod.GET)
 	public String search(ListInfo listInfo, Model model) throws Exception{
 		model.addAttribute("list", recipeService.search(listInfo));
 		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
-		return "recipe/recipeList";
+		model.addAttribute("pagetype", "search");
+		return "recipe/recipeSearch";
 	}
 
-	@RequestMapping(value="catesearch", method=RequestMethod.POST)
-	public String catesearch(CategoryDTO cdto, Integer rnum, ListInfo listInfo, Model model) throws Exception{
-		model.addAttribute("result", recipeService.catesearch(cdto, listInfo)); 
-		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "searchResult"-List<RecipeDTO>받아옴
+	@RequestMapping(value="catesearch", method=RequestMethod.GET)
+	public String catesearch(CategoryDTO cdto, ListInfo listInfo, Model model) throws Exception{
+		model.addAttribute("list", recipeService.catesearch(cdto, listInfo)); 
+		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
+		model.addAttribute("pagetype", "catesearch");
 		return "recipe/recipeSearch";
 	}
 	
-	@RequestMapping(value="isearch", method=RequestMethod.POST)
+	@RequestMapping(value="isearch", method=RequestMethod.GET)
 	public String isearch(String[] ingredients, String[] amount, Integer rnum, ListInfo listInfo, Model model) throws Exception{
 		List<IngredientsDTO> ing=new ArrayList<IngredientsDTO>();
 		for(int i=0;i<ingredients.length;i++){
@@ -65,7 +68,8 @@ public class RecipeController {
 		}
 		model.addAttribute("list", recipeService.isearch(ing, listInfo)); 
 		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
-		return "recipe/recipeList";
+		model.addAttribute("pagetype", "isearch");
+		return "recipe/recipeSearch";
 	}
 	
 	@RequestMapping(value="recipeScrapI", method=RequestMethod.GET)

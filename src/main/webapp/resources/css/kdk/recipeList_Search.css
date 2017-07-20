@@ -73,3 +73,29 @@
 		font-size: 20px;
 		text-align: center;
 	}
+	
+	.c_kind, .c_situation, .c_procedure, .c_ingredient{
+		font-weight: bolder;
+		cursor: pointer;
+		color: #595528;
+	}
+	.c_kind[title=active], .c_situation[title=active], .c_procedure[title=active], .c_ingredient[title=active]{
+		background-color: #ffcc00;
+		border: 1px	solid #ffcc00;
+		border-radius: 5px;
+		font-size: small;
+	}
+	.cate{
+		background-color: #ffcc00;
+		border: 1px	solid #ffcc00;
+		border-radius: 5px;
+		font-size: small;
+		color: #ffffff;
+	}
+	.pagers{
+		margin-top: 5%;
+		width: 20%;
+		display: block;
+		float: right;
+	}
+	

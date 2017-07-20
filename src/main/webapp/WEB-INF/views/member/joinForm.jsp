@@ -10,19 +10,22 @@
 <c:import url="../tmp/Bootstrap.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common/basic.css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/kdy/member/memberCheck.js"></script>
+<!-- 카카오톡 -->
+ <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <script>
-function doSubmit()
+function doSubmit(mode)
 {	
-	
-	if(chkEmail()==0){
-		return false;
-	}
-	if(chkPw1()==0){
-		return false;
-	}
-	if(chkPw2()==0){
-		return false;
+	if(mode =='general_join'){
+		if(chkEmail()==0){
+			return false;
+		}
+		if(chkPw1()==0){
+			return false;
+		}
+		if(chkPw2()==0){
+			return false;
+		}
 	}
 	if(chkNick()==0	){
 		return false;
@@ -50,30 +53,33 @@ function doSubmit()
 	<section class="main_section">
 		<div class="container_etc" style="width:460px;">
 	      <h2 style="font-size: 2em;">회원가입</h2>
-	        <form name="form_insert" id="frmInsert" method="post" action="memberJoin" autocomplete="off" onsubmit="return doSubmit()">
-	        
+	        <form name="form_insert" id="frmInsert" method="post" action="memberJoin" autocomplete="off" onsubmit="return doSubmit(${mode})">
+	          <input type="hidden" id="kakao" value="">
 	          <!-- Email 입력 -->
-	          <div id="idFrms" class="form-group has-feedback has-error">
-	            <input type="email" name="email" class="form-control" id="email" required="required" autocomplete="off" onblur="chkEmail()" placeholder="email, 예)email@naver.com">
-	            <span id="emailStatus" class="glyphicon form-control-feedback glyphicon-remove" aria-hidden="true"></span>
-	            <span id="emailMsg" style="display:none;" class="text-danger"></span>
-	          </div>
-	          <!-- 비밀번호 입력 -->
-	          <div id="pwFrms" class="form-group has-feedback">
-	            <input type="password" name="pw" class="form-control" id="pw" onblur="chkPw1()"  placeholder="비밀번호">
-	            <span id="pwStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
-	            <span id="pwMsg" style="display:none;"></span>
-	          </div>
-	          <div id="pwFrms2" class="form-group has-feedback mag_b_10">
-	            <input type="password" name="pw2" class="form-control" id="pw_check" onblur="chkPw2()" placeholder="비밀번호확인">
-	            <span id="pwStatus2" class="glyphicon form-control-feedback" aria-hidden="true"></span>
-	            <span id="pwMsg2" style="display:none;" class="text-danger">비밀번호 확인을 입력해주세요.</span>
-	          </div>
-	          <!-- KAKAO ID 입력 -->
-	          <div id="emailFrms" class="form-group has-feedback">
-	            <input type="text" name="kakaoID" class="form-control" id="kakaoID" onblur="chkKakao()" placeholder="카카오 아이디 ,나중에 추가하셔도됩니다!">
-	           
-	          </div>
+	          <c:if test="${mode eq 'general_join' }">
+	          
+		          <div id="idFrms" class="form-group has-feedback has-error">
+		            <input type="email" name="email" class="form-control" id="email" required="required" autocomplete="off" onblur="chkEmail()" placeholder="email, 예)email@naver.com">
+		            <span id="emailStatus" class="glyphicon form-control-feedback glyphicon-remove" aria-hidden="true"></span>
+		            <span id="emailMsg" style="display:none;" class="text-danger"></span>
+		          </div>
+		          <!-- 비밀번호 입력 -->
+		          <div id="pwFrms" class="form-group has-feedback">
+		            <input type="password" name="pw" class="form-control" id="pw" onblur="chkPw1()"  placeholder="비밀번호">
+		            <span id="pwStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
+		            <span id="pwMsg" style="display:none;"></span>
+		          </div>
+		          <div id="pwFrms2" class="form-group has-feedback mag_b_10">
+		            <input type="password" name="pw2" class="form-control" id="pw_check" onblur="chkPw2()" placeholder="비밀번호확인">
+		            <span id="pwStatus2" class="glyphicon form-control-feedback" aria-hidden="true"></span>
+		            <span id="pwMsg2" style="display:none;" class="text-danger">비밀번호 확인을 입력해주세요.</span>
+		          </div>
+		          <!-- KAKAO ID 입력 -->
+		          <div id="emailFrms" class="form-group has-feedback">
+		            <input type="text" name="kakaoID" class="form-control" id="kakaoID" onblur="chkKakao()" placeholder="카카오 아이디 ,나중에 추가하셔도됩니다!">
+		           
+		          </div>
+	          </c:if>
 	           <!-- 닉네임 --> 
 	          <div id="nickFrms" class="form-group has-feedback mag_b_10">
 	            <input type="text" name="nickName" class="form-control" id="nickName" onblur="chkNick()" placeholder="닉네임" required="required">
@@ -124,4 +130,12 @@ function doSubmit()
       
       <c:import url="../tmp/footer.jsp"/>
 </body>
+<script type="text/javascript">
+	$(function() {
+		
+		$("#kakao").val("abcd");
+	});
+	
+</script>
+
 </html>

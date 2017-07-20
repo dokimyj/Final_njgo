@@ -19,13 +19,14 @@
 		      <div class="panel panel-default">
 		        <div class="panel-body">
 		            <form name="joinFrm" method="post" action="joinForm">
+		            
 		            <input type="hidden" name="token" value="44971180">
-		            <input type="hidden" name="kakao_token" value="">
+		            <input type="hidden" name="access_token" value="${access_token }">
 		            <input type="hidden" name="facebook_token" value="">
 		            <input type="hidden" name="naver_token" value="">
-		            <input type="hidden" name="q_path" value="">
+		            <input type="hidden" name="mode" value="${mode }">
 		            </form>
-		            <p class="guide_txt2" style="padding-top:20px;">이용약관, 개인정보 수집 및 이용에 모두 동의합니다. <input type="checkbox" id="allCheck" name="allchk" onclick="allCheck()" ></p>
+		            <p class="guide_txt2" style="padding-top:20px;">이용약관, 개인정보 수집 및 이용에 모두 동의합니다. <input type="checkbox" id="allCheck" name="allchk"  ></p>
 		            <div class="etc_line"></div>
 		            <p class="guide_txt2">냉장GO 레시피 이용약관 동의<input type="checkbox" id="contractCheck" name="ckck" ></p>
 		            <textarea>냉장GO레시피 이용약관은 다음과 같은 내용을 담고 있습니다. (2015년 6월 1일 시행)
@@ -343,15 +344,7 @@
 <c:import url="../tmp/footer.jsp"/>
 <script type="text/javascript" src="http://recipe.ezmember.co.kr/static/js/coreutil.min_20170112.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://recipe.ezmember.co.kr/static/js/ui.min_20150609.js" charset="utf-8"></script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-62003031-2', 'auto');
-  ga('require', 'displayfeatures');
-  ga('send', 'pageview');
-</script>
+
 </body>
 
 <script>

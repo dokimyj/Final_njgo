@@ -4,6 +4,7 @@ package com.njgo.controller;
 
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,10 @@ public class MemberController {
 	private MemberService memberService;
 	
 	@RequestMapping(value="provision",method= RequestMethod.GET)
-	public void test(){
+	public void test(@RequestParam String mode,@RequestParam String access_token, Model model){
+		System.out.println("mode : "+mode);
+		model.addAttribute("mode", mode);
+		model.addAttribute("access_token", access_token);
 		
 	}
 	@RequestMapping(value="login")
@@ -68,9 +72,9 @@ public class MemberController {
 	//회원 정보 수정
 	@RequestMapping(value="infoCorrectSend",method=RequestMethod.POST)
 	public String infoCorrectSend(@RequestParam String data,@RequestParam String type,@RequestParam String email,HttpSession session){
-		System.out.println("data : "+data);
+		/*System.out.println("data : "+data);
 		System.out.println("type : "+type);
-		System.out.println("email :"+email);
+		System.out.println("email :"+email);*/
 		int result = memberService.memberUpdate(data, type, email);
 		MemberDTO memberDTO =null;
 		
@@ -124,10 +128,13 @@ public class MemberController {
 	
 	//약관 확인 누른다음 joinCode 생성해서 joinForm.jsp에 넣어줌
 	@RequestMapping(value="joinForm",method= RequestMethod.POST)
-	public void join(Model model){
+	public void join(Model model, @RequestParam String mode, @RequestParam String access_token){
+		System.out.println("access_token : "+access_token);
+		
 		 int ran = new Random().nextInt(1000000) + 100000; // 100000 ~ 999999
 	     String joinCode = String.valueOf(ran);
 	     model.addAttribute("joinCode", joinCode);
+	     model.addAttribute("access_token", access_token);	
 	}
 	
 	// 가입
@@ -194,7 +201,11 @@ public class MemberController {
 		
 		return mv;
 	}
-	
+	// ======================================= Kakao Join ===========================================
+	@RequestMapping(value="/kakaoLogin" ,produces="application/json", method={RequestMethod.GET,RequestMethod.POST})
+	public void kakaoTest(@RequestParam("code") String code, HttpServletRequest request){
+			System.out.println("code : "+code);
+	}
 	
 	
 }

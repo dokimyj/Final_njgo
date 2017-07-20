@@ -47,14 +47,12 @@
 		    <p class="help-block">개인정보 보호를 위해 개인 PC에서만 사용하세요.</p>
 		    <div class="etc_line"></div>
 		    <div class="join_btn">
-		        <a href="provision">회원가입</a><span class="space_line">|</span>
+		        <a href="provision?mode=general_join">회원가입</a><span class="space_line">|</span>
 		        <a href="${pageContext.request.contextPath}/member/find_password">비밀번호 찾기</a><span class="space_line">|</span>
 		        
 		    </div>
 		    
-		   <a id="custom-login-btn" href="javascript:loginWithKakao()">
-			<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300">
-			</a>
+		  <button type="button" onclick="loginWithKakao()" class="btn btn-primary btn-lg btn-block join_k"><span>카카오톡으로 로그인</span></button>
 		  </div>
 		</div>
 	</section>
@@ -83,24 +81,40 @@
 	    return true;
 	}
 	
-	function loginWithKakao() {
-		 //<![CDATA[
-	    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+
+
+	$(function() {
+	    $('#id_user').focus();
 	    Kakao.init('cd868dba3cc2bd18d62a147752f2347c');
-	    function loginWithKakao() {
-	      // 로그인 창을 띄웁니다.
-	      Kakao.Auth.login({
+	});
+
+	function loginWithKakao() {
+	    Kakao.Auth.login({
+	        persistAccessToken : false,
 	        success: function(authObj) {
-	          alert(JSON.stringify(authObj));
+				
+	        	alert(JSON.stringify(authObj));
+	        	Kakao.API.request({
+	        		url : "/v1/api/talk/profile",
+	        		success: function(res){
+	        			var result = JSON.stringify(res);
+	        			alert(result); 
+	        		}
+	        		
+	        	});
+	        		
+	        	
+
+	        	/*  location.href ="provision?mode=SNS_join&access_token="+Kakao.Auth.getAccessToken(); */
+	       	Kakao.Auth.logout();
+	        	
 	        },
 	        fail: function(err) {
-	          alert(JSON.stringify(err));
+	            console.log(JSON.parse(err));
 	        }
-	      });
-	    };
-	  //]]>
-		
+	    });
 	}
+
 	
 	</script>
 

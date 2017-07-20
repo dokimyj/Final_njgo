@@ -22,9 +22,9 @@ public class RankingController {
 	private RankingService rankingService;
 	
 	//rankingPage
-	@RequestMapping(value="rankingPage", method=RequestMethod.GET)
+	@RequestMapping(value="rankingPage1", method=RequestMethod.GET)
 	public void rankingPage(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
-		List<R_CookDTO> hit = rankingService.rankingPage(listInfo);
+		List<R_CookDTO> hit = rankingService.rankingPage1(listInfo);
 		model.addAttribute("list", hit);
 		model.addAttribute("board", "조회수 랭킹");
 		model.addAttribute("column", "hit");

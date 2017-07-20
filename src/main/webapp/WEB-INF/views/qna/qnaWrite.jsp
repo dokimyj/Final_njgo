@@ -8,49 +8,10 @@
 <link rel="stylesheet" href="../resources/css/common/reset.css">
 <c:import url="../tmp/Bootstrap.jsp" />
 <link rel="stylesheet" href="../resources/css/common/basic.css">
+<link rel="stylesheet" href="../resources/css/wdh/boardWrite.css">
 <title>Insert title here</title>
-<style type="text/css">
-
-.container {
-	width: 100% !important;
-	padding: 0px 6px !important;
-}
-
-#title {
-	border-color: #b5b5b5;
-	border-radius: 0px;
-	width: 100%;
-	height: 26px;
-	font-size: 13px;
-	margin-left: 23px;
-}
-
-.file_list {
-	width: auto;
-	margin-left: 60px;
-	padding: 0;
-	border: 1px solid #DFDFDF;
-	font-size: 12px;
-}
-
-.file_list>ul>li {
-	position: relative;
-	margin: 0px;
-	padding: 6px 0px 3px 23px;
-	background: url(../images/ico_file2.gif) 7px 7px no-repeat;
-	font-weight: 700;
-}
-
-.file_list>ul>li>span {
-	position: absolute;
-	right: 5px;
-	top: 6px;
-	font-size: 9px;
-	color: rgb(61, 61, 61);
-	vertical-align: middle;
-}
-</style>
 <script type="text/javascript" src="../resources/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+
 <script type="text/javascript">
 	$(function() {
 		//전역변수선언
@@ -66,7 +27,7 @@
 				// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
 				bUseVerticalResizer : true,
 				// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-				bUseModeChanger : true,
+				bUseModeChanger : false,
 			}
 		});
 
@@ -113,11 +74,6 @@
 				});
 	});
 </script>
-<style type="text/css">
-.rFile {
-	color: red;
-}
-</style>
 </head>
 <body>
 	<c:import url="../tmp/header.jsp" />
@@ -126,16 +82,29 @@
 		
       <div class="container">
 	
-         <form id="frm" action="./${param.board}Write.${param.board}" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="writer" value="${param.id}">
+         <form id="frm" action="${pageContext.request.contextPath}/qna/qnaWrite" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="writer" value="${param.id}"><!-- 이부분, 생각이 필요함 -->
             <div class="form-group">
+            <c:if test="${path == 'Write'}">
                <label for="title" style="font-weight: bolder; vertical-align: middle; font-size: 14px;">제목</label>
-               <input type="text" name="title" class="form-control" id="title" style=" display: inline; width: 96.2%; margin-left: 10px;" placeholder="게시글 제목을 입력하세요.">
+               <input type="text" name="title" class="form-control" id="title" style=" display: inline; width: 87.5%; margin-left: 10px;" placeholder="게시글 제목을 입력하세요.">
+            </c:if>
+            <c:if test="${path == 'Update'}">
+               <label for="title" style="font-weight: bolder; vertical-align: middle; font-size: 14px;">제목</label>
+               <input type="text" name="title" class="form-control" id="title" style=" display: inline; width: 87.5%; margin-left: 10px;" placeholder="${dto.title}">
+            </c:if>
             </div>
-
-            <div class="form-group" style="margin-bottom: 12px;">
-               <textarea class="form-control" rows="5" id="contents" name="contents" style="width: 100%; height:500px;"></textarea>
-            </div>
+            
+			<c:if test="${path == 'Write'}">
+            	<div class="form-group" style="margin-bottom: 12px;">
+               		<textarea class="form-control" rows="5" id="contents" name="contents" style="width: 778px; min-height:430px; margin-left: 200px;"></textarea>
+            	</div>
+            </c:if>
+            <c:if test="${path == 'Update'}">
+            	<div class="form-group" style="margin-bottom: 12px;">
+               		<textarea class="form-control" rows="5" id="contents" name="contents" style="width: 778px; min-height:430px; margin-left: 200px;">${dto.contents}</textarea>
+            	</div>
+            </c:if>
             
             <div class="form-group attach" style="display: none; position: relative;">
                <span style="font-size: 12px; font-weight: bolder; position: absolute; top: 4px;">첨부파일</span>
@@ -145,9 +114,16 @@
                </div>
             </div>
             <div id="file_input" style="display: none;"></div>
-            <div class="form-group" style="text-align: center; padding-top: 15px;">
-               <button type="button" id="write" style="padding: 2px 4px; width: 100px;"><i class="fa fa-check" aria-hidden="true" style="font-size: 12px !important;"></i><span style="font-size: 12px; font-weight: bolder;">확인</span></button>
-            </div>
+            <c:if test="${path == 'Write'}">
+               <div class="form-group" style="text-align: center; padding-top: 15px; margin-right:60px;">
+               	   <button type="button" id="write" style="padding: 2px 4px; width: 100px;"><i class="fa fa-check" aria-hidden="true" style="font-size: 12px !important;"></i><span style="font-size: 12px; font-weight: bolder;">확인</span></button>
+           	   </div>
+            </c:if>
+            <c:if test="${path == 'Update'}">
+               <div class="form-group" style="text-align: center; padding-top: 15px; margin-right:60px;">
+               	   <button type="button" id="update" style="padding: 2px 4px; width: 100px;"><i class="fa fa-check" aria-hidden="true" style="font-size: 12px !important;"></i><span style="font-size: 12px; font-weight: bolder;">확인</span></button>
+           	   </div>
+            </c:if>
          </form>
       </div>
 	</section>

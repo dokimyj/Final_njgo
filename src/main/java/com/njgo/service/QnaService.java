@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.njgo.dao.QnaDAO;
-import com.njgo.dto.NoticeDTO;
 import com.njgo.dto.QnaDTO;
 import com.njgo.util.ListInfo;
 
@@ -23,23 +22,25 @@ public class QnaService{
 	}
 
 	public QnaDTO qnaView(int num) {
-		// TODO Auto-generated method stub
-		return null;
+		return qnaDAO.qnaView(num);
+	}
+	public QnaDTO qnaBefore(int num) {
+		return qnaDAO.qnaBefore(num);
+	}
+	public QnaDTO qnaAfter(int num) {
+		return qnaDAO.qnaAfter(num);
 	}
 
 	public int qnaWrite(QnaDTO qnaDTO) {
-		// TODO Auto-generated method stub
-		return 0;
+		return qnaDAO.qnaWrite(qnaDTO);
 	}
 
 	public int qnaUpdate(QnaDTO qnaDTO) {
-		// TODO Auto-generated method stub
-		return 0;
+		return qnaDAO.qnaUpdate(qnaDTO);
 	}
 
 	public int qnaDelete(int num) {
-		// TODO Auto-generated method stub
-		return 0;
+		return qnaDAO.qnaDelete(num);
 	}
 
 }

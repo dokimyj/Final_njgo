@@ -47,7 +47,7 @@
 												<tr>
 													<td width="120" height="30" align="center" class="rank_tab_off"><a href="rankingPage3">셰프 랭킹</a></td>
 													<td width="120" height="30" align="center" class="rank_tab_off"><a href="rankingPage2">스크랩수 랭킹</a></td>
-													<td width="120" height="30" align="center" class="rank_tab_on"><a href="rankingPage">조회수 랭킹</a></td>
+													<td width="120" height="30" align="center" class="rank_tab_on"><a href="rankingPage1">조회수 랭킹</a></td>
 													<td width="230" height="30" align="right" valign="top"></td>
 												</tr>
 											</tbody>

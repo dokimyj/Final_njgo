@@ -28,13 +28,18 @@ public class QnaController {
 		List<QnaDTO> ar = qnaService.qnaList(listInfo);
 		model.addAttribute("list", ar);
 		model.addAttribute("board", "qna");
+		model.addAttribute("nickName","t10");
 	}
 
 	//View
 	@RequestMapping(value="qnaView", method=RequestMethod.GET)
 	public void qnaView(Integer num, Model model) throws Exception{
 		QnaDTO qnaDTO=qnaService.qnaView(num);
+		QnaDTO qnaBefore=qnaService.qnaBefore(num);
+		QnaDTO qnaAfter=qnaService.qnaAfter(num);
 		model.addAttribute("dto", qnaDTO);
+		model.addAttribute("before", qnaBefore);
+		model.addAttribute("after", qnaAfter);
 	}
 
 	//writeForm
@@ -55,7 +60,7 @@ public class QnaController {
 		return "redirect:qnaList?curPage=2";
 	}
 
-	//update
+	//update Form
 	@RequestMapping(value="qnaUpdate", method=RequestMethod.GET)
 	public String qnaUpdate(Integer num, Model model) throws Exception{
 		QnaDTO qnaDTO = qnaService.qnaView(num);
@@ -63,7 +68,7 @@ public class QnaController {
 		model.addAttribute("path", "Update");
 		return "qna/qnaWrite";
 	}
-
+	//update 
 	@RequestMapping(value="qnaUpdate", method=RequestMethod.POST)
 	public String qnaUpdate(QnaDTO qnaDTO, RedirectAttributes rd) throws Exception{
 		int result = qnaService.qnaUpdate(qnaDTO);
@@ -76,8 +81,14 @@ public class QnaController {
 	}
 
 	@RequestMapping(value="qnaDelete", method=RequestMethod.GET)
-	public void qnaDelete(Integer num){
+	public String qnaDelete(Integer num, RedirectAttributes rd){
 		int result = qnaService.qnaDelete(num);
+		String message = "FAIL";
+		if(result>0){
+			message="SUCCESS";
+		}
+		rd.addFlashAttribute("message", message);
+		return "redirect:qnaList?curPage=2";
 	}
 
 }

@@ -23,11 +23,10 @@ public class NoticeController {
 	//list
 	@RequestMapping(value="noticeList", method=RequestMethod.GET)
 	public void noticeList(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
-		System.out.println("noticeList controller");
 		List<NoticeDTO> ar = noticeService.noticeList(listInfo);
 		model.addAttribute("list", ar);
 		model.addAttribute("board", "notice");
-		model.addAttribute("nicName","t10");
+		model.addAttribute("nickName","t10");
 	}
 
 	//View

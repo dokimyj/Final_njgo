@@ -10,6 +10,11 @@
 <link rel="stylesheet" href="../resources/css/common/basic.css">
 <link rel="stylesheet" href="../resources/css/wdh/boardList.css">
 <title>Insert title here</title>
+<style type="text/css">
+	.dd{
+		border-bottom: 1px solid 
+	}
+</style>
 </head>
 <body>
 <c:import url="../tmp/header.jsp" />
@@ -20,14 +25,7 @@
 				<div class="fl c-d-s2">
 					<div class="article-board">
 						<div class="list-tit">
-							<c:choose>
-								<c:when test="${board == 'notice'}">
-									<h3><a href="#" class="m-tcol-t" title="공지사항">공지사항</a></h3>
-								</c:when>
-								<c:when test="${board == 'qna'}">
-									<h3><a href="#" class="m-tcol-t" title="질문게시판">질문게시판</a></h3>
-								</c:when>
-							</c:choose>						
+							<h3 class="m-tcol-t">질문게시판</h3>				
 						</div>
 						<!-- Table -->
 						<table cellspacing="0" cellpadding="0" border="0"
@@ -59,13 +57,12 @@
 							</thead>
 							<tbody>
 								<c:forEach items="${list}" var="list">
-								<tr align="center" class="bg-color">
+								<tr align="center" class="bg-color" style="border-bottom: 1px solid #cccccc;">
 									<!-- 공지 -->
 									<td><!-- <img src="http://cafeimgs.naver.net/style/s03_01/ico-list-notice.gif" width="27" height="16" alt="공지"> -->${list.num}</td>
 									<!-- TITLE -->
 									<td align="left" class="board-list" style="font-weight: bold; padding: 10px 0 8px 0;" width=""><span>
-											<a href="${board}View.${board}?num=${list.num}" class="m-tcol-p" title="${list.title}">${list.title}</a><a href="#" class="m-tcol-p">
-											<span class="m-tcol-p" style="float: right;">[<strong>13</strong>]</span></a>
+										<a href="noticeView?num=${list.num}" class="m-tcol-p" title="${list.title}" style="color: #ff3c00;" >${list.title}</a>
 									</span></td>
 									<!-- WRITER -->
 									<td align="left"><div class="pers_nick_area"><table cellspacing="0"><tbody><tr><td class="p-nick">
@@ -85,17 +82,12 @@
 				</div>
 			</div>
 			<div id="main-widget-area">
-				<ul class="com">
-
-				</ul>
-			</div>
-			
 			<div class="list-btn">
 				<div class="fr">
 					<div id="writeFormBtn" class="btn _rosRestrict"><span></span>
 						<p>
 							<strong>
-								<a href="${pageContext.request.contextPath}/board/boardWrite?id=t1" class="m-tcol-c">
+								<a href="${pageContext.request.contextPath}/notice/noticeWrite?id=${nickName}" class="m-tcol-c">
 									<img src="http://cafeimgs.naver.net/cafe4/ico-btn-write.gif" width="10" height="10" alt="">
 							             글쓰기
 								</a>
@@ -103,6 +95,11 @@
 						</p>
     				</div>
 				</div>
+			</div>
+			
+				<ul class="com">
+
+				</ul>
 			</div>
 			
 			

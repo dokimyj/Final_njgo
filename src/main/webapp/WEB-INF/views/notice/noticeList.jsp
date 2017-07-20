@@ -94,7 +94,7 @@
 					<div id="writeFormBtn" class="btn _rosRestrict"><span></span>
 						<p>
 							<strong>
-								<a href="${pageContext.request.contextPath}/notice/noticeWrite?id=${nicName}" class="m-tcol-c">
+								<a href="${pageContext.request.contextPath}/notice/noticeWrite?id=${nickName}" class="m-tcol-c">
 									<img src="http://cafeimgs.naver.net/cafe4/ico-btn-write.gif" width="10" height="10" alt="">
 							             글쓰기
 								</a>

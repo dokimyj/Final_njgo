@@ -8,4 +8,41 @@
 	<select id="list" parameterType="com.njgo.util.ListInfo" resultType="QnaDTO">
 		select * from qna order by num desc
 	</select>
+	
+	<!-- View -->
+	<select id="view" parameterType="java.lang.Integer" resultType="QnaDTO">
+	select * from qna where num=#{num}
+	</select>
+	<!-- View 이전글 -->
+	<select id="viewbefore" parameterType="java.lang.Integer" resultType="QnaDTO">
+	select * from qna where num =
+	(select max(num) from qna where #{num}>num)
+	</select>
+	<!-- View 다음글 -->
+	<select id="viewafter" parameterType="java.lang.Integer" resultType="QnaDTO">
+	select * from qna where num =
+	(select min(num) from qna where num>#{num})
+	</select>
+	
+	 <!-- write -->
+	 <insert id="write" parameterType="com.njgo.dto.QnaDTO">
+	 insert into qna values
+	 (qna_seq.nextval, #{writer}, #{title}, #{contents}, sysdate, 0)
+	 </insert>
+		
+	 <!-- Delete -->
+	 <delete id="delete" parameterType="java.lang.Integer">
+	 delete from qna where num=#{num}
+	 </delete>
+
+	 <!-- Update -->
+	 <update id="update" parameterType="com.njgo.dto.QnaDTO">
+	 update qna set title=#{title} contents=#{contents} where num=#{num}
+	 </update>
+		
+	 <!-- Count -->
+	 <!-- <select id="count" parameterType="com.njgo.util.ListInfo" resultType="java.lang.Integer"> 
+		select nvl(count(num), 0) from board
+		</select> -->
+		
 </mapper>

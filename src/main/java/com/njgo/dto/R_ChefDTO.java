@@ -4,16 +4,16 @@ import java.sql.Timestamp;
 
 public class R_ChefDTO{
 	
-	private String nicname;
+	private String nickname;
 	private Timestamp regdate;
 	private String rep_pic;
 	private int u_count;
 	
-	public String getNicname() {
-		return nicname;
+	public String getNickname() {
+		return nickname;
 	}
-	public void setNicname(String nicname) {
-		this.nicname = nicname;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	public Timestamp getRegdate() {
 		return regdate;

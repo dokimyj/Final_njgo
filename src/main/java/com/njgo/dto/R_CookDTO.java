@@ -9,6 +9,7 @@ public class R_CookDTO{
 	private String rep_pic;
 	private int hit;
 	private int scrap;
+	private String writer;
 	
 	public String getFoodname() {
 		return foodname;
@@ -39,6 +40,12 @@ public class R_CookDTO{
 	}
 	public void setScrap(int scrap) {
 		this.scrap = scrap;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 
 	

@@ -6,7 +6,7 @@ public class MemberDTO{
 	private String email;
 	private String kakaoid;
 	private String pw;
-	private String nicname;
+	private String nickname;
 	private String grade;
 	private int point;
 	private String info;
@@ -37,11 +37,11 @@ public class MemberDTO{
 	public void setPw(String pw) {
 		this.pw = pw;
 	}
-	public String getNicname() {
-		return nicname;
+	public String getNickname() {
+		return nickname;
 	}
-	public void setNicname(String nicname) {
-		this.nicname = nicname;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	public String getGrade() {
 		return grade;

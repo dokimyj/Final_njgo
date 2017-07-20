@@ -7,20 +7,20 @@
 	<!-- 선행되어야 하는 작업 : Recipe테이블에서 Ranking테이블로 데이터를 옮기는 작업 -->
 	<!-- Select -->
 	<select id="selectRecipe" resultType="RecipeDTO">
-		select foodname, regdate, rep_pic, hit, scrap from recipe
+		select foodname, regdate, rep_pic, hit, scrap, writer from recipe
 	</select>
 	<select id="selectUpload" resultType="MemberDTO">
-		select nicname, rep_pic, regdate, upload from member
+		select nickname, myphoto, join_date, u_count from member
 	</select>
 	
 	<!-- Insert -->
-	<insert id="insertRecipe" parameterType="java.util.ArrayList">
-		insert into r_cook (foodname, regdate, rep_pic, hit, scrap) values
-		(#{foodname}, #{regdate}, #{rep_pic}, #{hit}, #{scrap})
+	<insert id="insertRecipe" parameterType="R_CookDTO">
+		insert into r_cook (foodname, regdate, rep_pic, hit, scrap, writer) values
+		(#{foodname}, #{regdate}, #{rep_pic}, #{hit}, #{scrap}, #{writer})
 	</insert>	
-	<insert id="insertUpload" parameterType="java.util.ArrayList">
-		insert into r_chef (nicname, regdate, rep_pic, u_count) values
-		(#{nicname}, #{regdate}, #{rep_pic}, #{u_count})
+	<insert id="insertUpload" parameterType="R_ChefDTO">
+		insert into r_chef (nickname, regdate, rep_pic, u_count) values
+		(#{nickname}, #{regdate}, #{rep_pic}, #{u_count})
 	</insert>
 	<!-- 선행되어야 하는 작업 : Recipe테이블에서 Ranking테이블로 데이터를 옮기는 작업 -->
 	
@@ -28,22 +28,22 @@
 	<!-- Ranking테이블에서 데이터를 꺼내는 작업 -->
 	<!-- SelectHit -->
 	<select id="selectHit" parameterType="com.njgo.util.ListInfo" resultType="R_CookDTO">
-		select foodname, regdate, rep_pic, hit from r_cook
-		where regdate like '%#{regdate}%'
+		select foodname, regdate, rep_pic, hit, writer from r_cook
+		where regdate like '%07%'
 		order by hit desc
 	</select> 
 
 	<!-- SelectScrap -->
 	<select id="selectScrap" parameterType="com.njgo.util.ListInfo" resultType="R_CookDTO">
-		select foodname, regdate, rep_pic, scrap from r_cook
-		where regdate like '%#{regdate}%'
+		select foodname, regdate, rep_pic, scrap, writer from r_cook
+		where regdate like '%07%'
 		order by scrap desc
 	</select>
 	
 	<!-- SelectUpload -->
-	<select id="selectUpload" parameterType="com.njgo.util.ListInfo" resultType="R_ChefDTO">
-		select writer, count(writer) as count from recipe 
-  	    where regdate like '%#{date}%'
+	<select id="selectR_Chef" parameterType="com.njgo.util.ListInfo" resultType="R_ChefDTO">
+		select count(writer) as count from r_chef
+  	    where regdate like '%#{07}%'
         group by writer
         order by count desc;
 	</select>

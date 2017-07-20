@@ -16,7 +16,6 @@
 		<section class="main_section">
 			<a href="./ranking/rankingPage">ranking</a>
 			<a href="./planner/plannerPage">planner</a>
-			<a href="./ranking/rankingtest">rankingtest</a>
 		</section>
 	<c:import url="./tmp/footer.jsp" />
 </body>

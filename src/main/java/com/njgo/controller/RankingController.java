@@ -25,46 +25,27 @@ public class RankingController {
 	@RequestMapping(value="rankingPage", method=RequestMethod.GET)
 	public void rankingPage(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
 		List<R_CookDTO> hit = rankingService.rankingPage(listInfo);
-		model.addAttribute("hit", hit);
+		model.addAttribute("list", hit);
 		model.addAttribute("board", "조회수 랭킹");
+		model.addAttribute("column", "hit");
 	}
 	//rankingPage2
 	@RequestMapping(value="rankingPage2", method=RequestMethod.GET)
-	public void rankingPage2(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
+	public String rankingPage2(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
 		List<R_CookDTO> scrap = rankingService.rankingPage2(listInfo);
-		model.addAttribute("serap", scrap);
+		model.addAttribute("list", scrap);
 		model.addAttribute("board", "스크랩수 랭킹");
+		model.addAttribute("column", "scrap");
+		return "redirect:rankingPage";
 	}
 	//rankingPage3
-		@RequestMapping(value="rankingPage3", method=RequestMethod.GET)
-		public void rankingPage3(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
-			List<R_ChefDTO> upload = rankingService.rankingPage3(listInfo);
-			model.addAttribute("upload", upload);
-			model.addAttribute("board", "셰프 랭킹");
-		}	
-	
-	/*
-	//ListHit
-	@RequestMapping(value="rankingHit", method=RequestMethod.GET)
-	public void rankingHit(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
-		List<R_CookDTO> hit = rankingService.rankingHit(listInfo);
-		model.addAttribute("list", hit);
-		model.addAttribute("board", "hit");
-	}
-	
-	//ListScrap
-	@RequestMapping(value="rankingScrap", method=RequestMethod.GET)
-	public void rankingScrap(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
-		List<R_CookDTO> scrap = rankingService.rankingScrap(listInfo);
-		model.addAttribute("list", scrap);
-		model.addAttribute("board", "scrap");
+	@RequestMapping(value="rankingPage3", method=RequestMethod.GET)
+	public String rankingPage3(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
+		List<R_ChefDTO> upload = rankingService.rankingPage3(listInfo);
+		model.addAttribute("list", upload);
+		model.addAttribute("board", "셰프 랭킹");
+		model.addAttribute("column", "upload");
+		return "redirect:rankingPage";
 	}	
 	
-	//ListUpload
-	@RequestMapping(value="rankingUpload", method=RequestMethod.GET)
-	public void rankingUpload(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
-		List<R_CookDTO> upload = rankingService.rankingUpload(listInfo);
-		model.addAttribute("list", upload);
-		model.addAttribute("board", "upload");
-	}*/
 }

@@ -1,11 +1,11 @@
 package com.njgo.dto;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class R_ChefDTO{
 	
 	private String nicname;
-	private Date regdate;
+	private Timestamp regdate;
 	private String rep_pic;
 	private int u_count;
 	
@@ -15,11 +15,11 @@ public class R_ChefDTO{
 	public void setNicname(String nicname) {
 		this.nicname = nicname;
 	}
-	public Date getRegdate() {
+	public Timestamp getRegdate() {
 		return regdate;
 	}
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
+	public void setRegdate(Timestamp timestamp) {
+		this.regdate = timestamp;
 	}
 	public String getRep_pic() {
 		return rep_pic;

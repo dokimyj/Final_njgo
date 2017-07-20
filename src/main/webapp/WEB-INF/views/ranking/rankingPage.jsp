@@ -34,8 +34,8 @@
 						<td align="center" valign="top"><table width="778" border="0" cellspacing="0" cellpadding="0">
 								<tbody>
 									<tr>
-										<td style="border-top: 1px solid #dbdbdb" height="45"><span class="rank_tt1">레시피 랭킹</span><span class="rank_tt2">
-										월간 레시피 순위를 나타냅니다.</span></td>
+										<td style="border-top: 1px solid #dbdbdb" height="45"><span class="rank_tt1">${board}</span><span class="rank_tt2">
+										월간 ${board} 순위를 나타냅니다.</span></td>
 									</tr>
 								</tbody>
 							</table>
@@ -45,9 +45,9 @@
 										<td class="rank_st1"><table width="590" border="0" cellspacing="0" cellpadding="0">
 												<tbody>
 													<tr>
-														<td width="120" height="30" align="center" class="rank_tab_off"><a href="ranking1_1.html">조회수 랭킹</a></td>
-														<td width="120" height="30" align="center" class="rank_tab_off"><a href="ranking1_2.html">스크랩수 랭킹</a></td>
-														<td width="120" height="30" align="center" class="rank_tab_on"><a href="ranking1_3.html">셰프 랭킹</a></td>
+														<td width="120" height="30" align="center" class="rank_tab_off"><a href="rankingPage">조회수 랭킹</a></td>
+														<td width="120" height="30" align="center" class="rank_tab_off"><a href="rankingPage2">스크랩수 랭킹</a></td>
+														<td width="120" height="30" align="center" class="rank_tab_on"><a href="rankingPage3">셰프 랭킹</a></td>
 														<td width="230" height="30" align="right" valign="top"></td>
 													</tr>
 												</tbody>

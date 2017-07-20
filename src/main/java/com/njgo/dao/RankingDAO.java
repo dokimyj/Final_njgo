@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.njgo.dto.MemberDTO;
+import com.njgo.dto.R_ChefDTO;
 import com.njgo.dto.R_CookDTO;
 import com.njgo.dto.RecipeDTO;
 import com.njgo.util.ListInfo;
@@ -17,62 +18,33 @@ public class RankingDAO{
 	private SqlSession sqlSession;
 	private final String NAMESPACE="RankingMapper.";
 	
-	//select recipeDTO
+	//select RecipeDTO
 	public List<RecipeDTO> selectRecipe() {
 		return sqlSession.selectList(NAMESPACE+"selectRecipe");
 	}
+	//insert R_CookDTO
+	public int insertRecipe(List<R_CookDTO> recipe) {
+		return sqlSession.insert(NAMESPACE+"insertRecipe", recipe);		
+	}
+	
+	//select MemberDTO
 	public List<MemberDTO> selectUpload() {
 		return sqlSession.selectList(NAMESPACE+"selectUpload");
 	}
 	
-	//insert rankingDTO
-	public int writeRecipe(List<R_CookDTO> recipe) {
-		return sqlSession.insert(NAMESPACE+"writeRecipe", recipe);		
+	//insert R_ChefDTO
+	public int insertUpload(List<R_ChefDTO> upload) {
+		return sqlSession.insert(NAMESPACE+"insertUpload", upload);		
 	}
 	
-	public int writeUpload(List<R_CookDTO> upload) {
-		return sqlSession.insert(NAMESPACE+"writeRecipe", upload);		
+	public List<R_CookDTO> selectHit(ListInfo listInfo) {
+		return sqlSession.selectList(NAMESPACE+"selectHit", listInfo);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	public List<R_CookDTO> rankingListhit(ListInfo listInfo) {
-		return sqlSession.selectList(NAMESPACE+"listhit", listInfo);
+	public List<R_CookDTO> selectScrap(ListInfo listInfo) {
+		return sqlSession.selectList(NAMESPACE+"selectScrap", listInfo);
 	}
-	
-	/*public NoticeDTO noticeView(int num) {
-		return sqlSession.selectOne(NAMESPACE+"view", num);
+	public List<R_ChefDTO> selectUpload(ListInfo listInfo) {
+		return sqlSession.selectList(NAMESPACE+"selectUpload", listInfo);
 	}
-	public NoticeDTO noticeBefore(int num) {
-		return sqlSession.selectOne(NAMESPACE+"viewbefore", num);
-	}
-	public NoticeDTO noticeAfter(int num) {
-		return sqlSession.selectOne(NAMESPACE+"viewafter", num);
-	}
-	
-
-	
-	public int noticeUpdate(NoticeDTO noticeDTO) {
-		return sqlSession.update(NAMESPACE+"update", noticeDTO);
-	}
-	
-	public int noticeDelete(int num) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	public int noticeCount(ListInfo listInfo) {
-		return 0;
-	}
-
-	public int noticeHit(int num) {
-		// TODO Auto-generated method stub
-		return 0;
-	}*/
 
 }

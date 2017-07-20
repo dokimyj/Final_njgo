@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.njgo.dto.R_ChefDTO;
 import com.njgo.dto.R_CookDTO;
 import com.njgo.service.RankingService;
 import com.njgo.util.ListInfo;
@@ -20,18 +21,29 @@ public class RankingController {
 	@Autowired
 	private RankingService rankingService;
 	
-	//Page
+	//rankingPage
 	@RequestMapping(value="rankingPage", method=RequestMethod.GET)
 	public void rankingPage(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
-		List<R_CookDTO> hit = rankingService.rankingHit(listInfo);
-		List<R_CookDTO> scrap = rankingService.rankingScrap(listInfo);
-		List<R_CookDTO> upload = rankingService.rankingUpload(listInfo);
+		List<R_CookDTO> hit = rankingService.rankingPage(listInfo);
 		model.addAttribute("hit", hit);
-		model.addAttribute("scrap", scrap);
-		model.addAttribute("upload", upload);
+		model.addAttribute("board", "조회수 랭킹");
 	}
+	//rankingPage2
+	@RequestMapping(value="rankingPage2", method=RequestMethod.GET)
+	public void rankingPage2(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
+		List<R_CookDTO> scrap = rankingService.rankingPage2(listInfo);
+		model.addAttribute("serap", scrap);
+		model.addAttribute("board", "스크랩수 랭킹");
+	}
+	//rankingPage3
+		@RequestMapping(value="rankingPage3", method=RequestMethod.GET)
+		public void rankingPage3(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
+			List<R_ChefDTO> upload = rankingService.rankingPage3(listInfo);
+			model.addAttribute("upload", upload);
+			model.addAttribute("board", "셰프 랭킹");
+		}	
 	
-	
+	/*
 	//ListHit
 	@RequestMapping(value="rankingHit", method=RequestMethod.GET)
 	public void rankingHit(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
@@ -54,5 +66,5 @@ public class RankingController {
 		List<R_CookDTO> upload = rankingService.rankingUpload(listInfo);
 		model.addAttribute("list", upload);
 		model.addAttribute("board", "upload");
-	}
+	}*/
 }

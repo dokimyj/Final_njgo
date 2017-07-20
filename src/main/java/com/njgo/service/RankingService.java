@@ -21,7 +21,7 @@ public class RankingService{
 	private RankingDAO rankingDAO;
 	
 	
-	public List<R_CookDTO> rankingList(ListInfo listInfo){
+	public List<R_CookDTO> rankingPage(ListInfo listInfo){
 		//select RecipeDTO
 		List<RecipeDTO> recipe = rankingDAO.selectRecipe();
 		List<R_CookDTO> rank = new ArrayList<R_CookDTO>();
@@ -31,7 +31,9 @@ public class RankingService{
 			int i =0;
 			R_CookDTO r_CookDTO = new R_CookDTO();
 			r_CookDTO.setFoodname(recipe.get(i).getFoodname());
+			System.out.println(recipe.get(i).getFoodname());
 			r_CookDTO.setRegdate(recipe.get(i).getRegdate());
+			System.out.println(recipe.get(i).getRegdate());
 			r_CookDTO.setRep_pic(recipe.get(i).getRep_pic());
 			r_CookDTO.setHit(recipe.get(i).getHit());
 			r_CookDTO.setScrap(recipe.get(i).getScrap());
@@ -40,61 +42,77 @@ public class RankingService{
 			i++;
 		}
 		//insert RankingDTO
-		rankingDAO.writeRecipe(rank);
+		int result = rankingDAO.insertRecipe(rank);
+		System.out.println("리턴값 : "+result);
 		
 		//select MemberDTO
 		List<MemberDTO> upload = rankingDAO.selectUpload();
+		List<R_ChefDTO> chef = new ArrayList<R_ChefDTO>();
 		int count1 = upload.size();
-		while(count>0){
+		while(count1>0){
 			int i =0;
 			R_ChefDTO r_ChefDTO = new R_ChefDTO();
 			r_ChefDTO.setNicname(upload.get(i).getNicname());
 			r_ChefDTO.setRegdate(upload.get(i).getJoin_date());
-			rankingChefDTO.setRep_pic(recipe.get(i).getRep_pic());
-			rankingChefDTO.setHit(recipe.get(i).getHit());
-			rankingChefDTO.setScrap(recipe.get(i).getScrap());
-			rank.add(rankingChefDTO);
+			r_ChefDTO.setRep_pic(upload.get(i).getMyphoto());
+			r_ChefDTO.setU_count(upload.get(i).getU_count());
+			chef.add(r_ChefDTO);
+			count1--;
+			i++;
+		}
+		//insert RankingDTO
+		result = rankingDAO.insertUpload(chef);
+		System.out.println("최종 리턴값 : "+result);
+		
+		return rankingDAO.selectHit(listInfo);
+	}
+	public List<R_CookDTO> rankingPage2(ListInfo listInfo){
+		//select RecipeDTO
+		List<RecipeDTO> recipe = rankingDAO.selectRecipe();
+		List<R_CookDTO> rank = new ArrayList<R_CookDTO>();
+		
+		int count = recipe.size();
+		while(count>0){
+			int i =0;
+			R_CookDTO r_CookDTO = new R_CookDTO();
+			r_CookDTO.setFoodname(recipe.get(i).getFoodname());
+			System.out.println(recipe.get(i).getFoodname());
+			r_CookDTO.setRegdate(recipe.get(i).getRegdate());
+			System.out.println(recipe.get(i).getRegdate());
+			r_CookDTO.setRep_pic(recipe.get(i).getRep_pic());
+			r_CookDTO.setHit(recipe.get(i).getHit());
+			r_CookDTO.setScrap(recipe.get(i).getScrap());
+			rank.add(r_CookDTO);
 			count--;
 			i++;
 		}
+		//insert RankingDTO
+		int result = rankingDAO.insertRecipe(rank);
+		System.out.println("리턴값 : "+result);
 		
+		//select MemberDTO
+		List<MemberDTO> upload = rankingDAO.selectUpload();
+		List<R_ChefDTO> chef = new ArrayList<R_ChefDTO>();
+		int count1 = upload.size();
+		while(count1>0){
+			int i =0;
+			R_ChefDTO r_ChefDTO = new R_ChefDTO();
+			r_ChefDTO.setNicname(upload.get(i).getNicname());
+			r_ChefDTO.setRegdate(upload.get(i).getJoin_date());
+			r_ChefDTO.setRep_pic(upload.get(i).getMyphoto());
+			r_ChefDTO.setU_count(upload.get(i).getU_count());
+			chef.add(r_ChefDTO);
+			count1--;
+			i++;
+		}
+		//insert RankingDTO
+		result = rankingDAO.insertUpload(chef);
+		System.out.println("최종 리턴값 : "+result);
 		
-		return rankingDAO.rankingListhit(listInfo);
+		return rankingDAO.selectScrap(listInfo);
 	}
-	
-	public List<R_CookDTO> rankingScrap(ListInfo listInfo){
-		List<R_CookDTO> ar = rankingDAO.rankingselect();
-		rankingDAO.rankingWrite(ar);
-		return rankingDAO.rankingListhit(listInfo);
+	public List<R_ChefDTO> rankingPage3(ListInfo listInfo){
+		return rankingDAO.selectUpload();
 	}
-	
-	public List<R_CookDTO> rankingUpload(ListInfo listInfo){
-		/*List<RankingDTO> ar = rankingDAO.rankingUpload();
-		rankingDAO.rankingWrite(ar);*/
-		return rankingDAO.rankingListhit(listInfo);
-	}
-
-	/*public NoticeDTO noticeView(int num) {
-		return noticeDAO.noticeView(num);
-	}
-	public NoticeDTO noticeBefore(int num) {
-		return noticeDAO.noticeBefore(num);
-	}
-	public NoticeDTO noticeAfter(int num) {
-		return noticeDAO.noticeAfter(num);
-	}
-
-	public int noticeWrite(NoticeDTO noticeDTO) {
-		return noticeDAO.noticeWrite(noticeDTO);
-	}
-
-	public int noticeUpdate(NoticeDTO noticeDTO) {
-		return noticeDAO.noticeUpdate(noticeDTO);
-	}
-
-	public int noticeDelete(int num) {
-		// TODO Auto-generated method stub
-		return 0;
-	}*/
 
 }

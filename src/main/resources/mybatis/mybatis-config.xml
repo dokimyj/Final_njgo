@@ -14,6 +14,12 @@
   
 		<typeAlias alias="NoticeDTO" type="com.njgo.dto.NoticeDTO" />
 		<typeAlias alias="QnaDTO" type="com.njgo.dto.QnaDTO" />
+		<typeAlias alias="R_CookDTO" type="com.njgo.dto.R_CookDTO" />
+		<typeAlias alias="R_ChefDTO" type="com.njgo.dto.R_ChefDTO" />
+		<typeAlias alias="MemberDTO" type="com.njgo.dto.MemberDTO" />
+		<typeAlias alias="RecipeDTO" type="com.njgo.dto.RecipeDTO" />
+		
+		
 		
  	</typeAliases>
  </configuration>

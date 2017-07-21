@@ -442,7 +442,7 @@ tr{
         <div id="lPanel" class="col-xs-2" style="padding-right: 2px;">
             <div id="accordion" class="ui-accordion ui-widget ui-helper-reset" role="tablist">
                 <h3 rel="find" class="ui-accordion-header ui-helper-reset ui-state-default ui-accordion-header-active ui-state-active ui-corner-top ui-accordion-icons" role="tab" id="ui-accordion-accordion-header-0" aria-controls="ui-accordion-accordion-panel-0" aria-selected="true" tabindex="0"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-s"></span>Find Recipe</h3>
-                <div style="text-align: center; display: block; height: 451px; overflow: auto;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" id="ui-accordion-accordion-panel-0" aria-labelledby="ui-accordion-accordion-header-0" role="tabpanel" aria-expanded="true" aria-hidden="false">
+                <div style="text-align: center; display: block; height: 300px; overflow: auto;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" id="ui-accordion-accordion-panel-0" aria-labelledby="ui-accordion-accordion-header-0" role="tabpanel" aria-expanded="true" aria-hidden="false">
                     <div class="recipePick3">
                         <div id="theControl">
                         	<div id="filterDiv" style="clear:both;">
@@ -472,13 +472,13 @@ tr{
             </div>
         </div>
         <div id="calendarTarget" class="col-xs-10" style="padding-left: 0px;">
-            <table class="meal-planner-calendar" style="height: 600px; overflow: visible; z-index: 0;">
+            <table class="meal-planner-calendar" style="height: 300px; overflow: visible; z-index: 0;">
 
 
 
 
                     <tbody style="overflow: visible;">
-                        <tr class="weekrow">
+                        <tr class="weekrow" style="height: 50px;">
                                 <td id="dayHeader2017-07-09" class="dayHeader dayBoxPast disabled dayBoxDisabled">
                                     Sunday
                                     <span class="dayTitle">

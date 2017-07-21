@@ -70,21 +70,17 @@
 			<!------------------------------------------------ 업데이트, 목록 --------------------------------------------------------------->
 			<div class="list-btn-nor">
 				<div class="fr">
-					
+					<c:if test="${not empty member and dto.writer eq member.id eq 'admin'}">
 					<div id="updateBtn" class="btn_view _rosRestrict">
 						<span></span>
-						<p>
-							<a href="noticeUpdate?num=${dto.num}" class="m-tcol-c">수정</a>
-						</p>
+						<p><a href="noticeUpdate?num=${dto.num}" class="m-tcol-c">수정</a></p>
 					</div>
 					
 					<div id="deleteBtn" class="btn_view _rosRestrict">
 						<span></span>
-						<p>
-							<a href="noticeDelete?num=${dto.num}" class="m-tcol-c">삭제</a>
-						</p>
+						<p><a href="noticeDelete?num=${dto.num}" class="m-tcol-c">삭제</a></p>
 					</div>
-					
+					</c:if>
 					<div class="btn_view">
 						<span></span>
 						<p>

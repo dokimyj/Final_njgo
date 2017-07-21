@@ -11,9 +11,12 @@
 <link rel="stylesheet" href="../resources/css/wdh/boardList.css">
 <title>Insert title here</title>
 <style type="text/css">
-	.dd{
+.dd{
 		border-bottom: 1px solid 
 	}
+.main_section{
+		min-height: 590px;
+}
 </style>
 </head>
 <body>
@@ -36,19 +39,19 @@
 								<!-- TITLE -->
 								<col width="*">
 								<!-- WRITER -->
-								<col width="70">
+								<col width="55">
 								<!-- date -->
-								<col width="110">
+								<col width="125">
 								<!-- HIT -->
 								<col width="42">
 							</colgroup>
 							<thead>
 								<tr>
 									<td style="padding-left: 12">번호</td>
-									<td style="padding-left: 240">제목</td>
+									<td style="padding-left: 10">제목</td>
 									<!--  style="padding: 10 0 8 200;" -->
 									<td>글쓴이</td>
-									<td style="padding: 10 0 8 32;">작성일</td>
+									<td style="padding: 10 0 8 43;">작성일</td>
 									<td style="padding-left: 7">조회</td>
 								</tr>
 								<tr>
@@ -62,11 +65,11 @@
 									<td><!-- <img src="http://cafeimgs.naver.net/style/s03_01/ico-list-notice.gif" width="27" height="16" alt="공지"> -->${list.num}</td>
 									<!-- TITLE -->
 									<td align="left" class="board-list" style="font-weight: bold; padding: 10px 0 8px 0;" width=""><span>
-										<a href="noticeView?num=${list.num}" class="m-tcol-p" title="${list.title}" style="color: #ff3c00;" >${list.title}</a>
+										<a href="qnaView?num=${list.num}" class="m-tcol-p" title="${list.title}" style="color: #ff3c00; margin-left: 10px;" >${list.title}</a>
 									</span></td>
 									<!-- WRITER -->
 									<td align="left"><div class="pers_nick_area"><table cellspacing="0"><tbody><tr><td class="p-nick">
-									<a href="#" class="m-tcol-c">${list.writer}</a></td></tr></tbody></table></div></td>
+									<a href="#" class="m-tcol-c"style="margin-left: 10px;">${list.writer}</a></td></tr></tbody></table></div></td>
 									<!-- DATE -->
 									<td class="m-tcol-c">${list.regdate}</td>
 									<!-- HIT -->
@@ -84,16 +87,16 @@
 			<div id="main-widget-area">
 			<div class="list-btn">
 				<div class="fr">
-					<div id="writeFormBtn" class="btn _rosRestrict"><span></span>
-						<p>
-							<strong>
-								<a href="${pageContext.request.contextPath}/notice/noticeWrite?id=${nickName}" class="m-tcol-c">
-									<img src="http://cafeimgs.naver.net/cafe4/ico-btn-write.gif" width="10" height="10" alt="">
-							             글쓰기
-								</a>
-						    </strong>
-						</p>
-    				</div>
+					<c:if test="${not empty member}">
+						<div id="writeFormBtn" class="btn _rosRestrict"><span></span>
+							<p>
+								<strong>
+									<a href="${pageContext.request.contextPath}/notice/noticeWrite?id=${nickName}" class="m-tcol-c">
+									<img src="http://cafeimgs.naver.net/cafe4/ico-btn-write.gif" width="10" height="10" alt="">글쓰기</a>
+						  	 	</strong>
+							</p>
+    					</div>
+    				</c:if>	
 				</div>
 			</div>
 			

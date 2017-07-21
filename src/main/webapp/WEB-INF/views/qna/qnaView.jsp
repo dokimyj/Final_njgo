@@ -30,7 +30,7 @@
 							<table cellspacing="0" cellpadding="0" border="0">
 								<tbody>
 									<tr valign="top">
-										<td nowrap="nowrap"><span class="head m-tcol-p">[공지사항]</span></td>
+										<td nowrap="nowrap"><span class="head m-tcol-p">[제목]</span></td>
 										
 										<td><span class="b m-tcol-p">${dto.title}</span></td>
 										<!-- title -->
@@ -70,26 +70,27 @@
 			<!------------------------------------------------ 업데이트, 목록 --------------------------------------------------------------->
 			<div class="list-btn-nor">
 				<div class="fr">
-					
+					<c:if test="${dto.writer eq member.id or member.id eq 'admin'}">
 					<div id="updateBtn" class="btn_view _rosRestrict">
 						<span></span>
-						<p>
-							<a href="qnaUpdate?num=${dto.num}" class="m-tcol-c">수정</a>
-						</p>
+						<p><a href="qnaUpdate?num=${dto.num}" class="m-tcol-c">수정</a></p>
 					</div>
 					
 					<div id="deleteBtn" class="btn_view _rosRestrict">
 						<span></span>
-						<p>
-							<a href="qnaDelete?num=${dto.num}" class="m-tcol-c">삭제</a>
-						</p>
+						<p><a href="qnaDelete?num=${dto.num}" class="m-tcol-c">삭제</a></p>
 					</div>
+					</c:if>
+					<c:if test="${not empty member}">
+						<div id="updateBtn" class="btn_view _rosRestrict">
+							<span></span>
+							<p><a href="qnaReply?num=${dto.num}" class="m-tcol-c">답글</a></p>
+						</div>
+					</c:if>
 					
 					<div class="btn_view">
 						<span></span>
-						<p>
-							<a href="${pageContext.request.contextPath}/qna/qnaList" class="m-tcol-c"><img src="">목록</a>
-						</p>
+						<p><a href="${pageContext.request.contextPath}/qna/qnaList" class="m-tcol-c"><img src="">목록</a></p>
 					</div>
 				</div>
 			</div>

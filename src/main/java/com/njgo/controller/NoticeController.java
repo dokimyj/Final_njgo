@@ -24,6 +24,11 @@ public class NoticeController {
 	@RequestMapping(value="noticeList", method=RequestMethod.GET)
 	public void noticeList(Model model, @RequestParam(defaultValue="1") Integer curPage, ListInfo listInfo) throws Exception{
 		List<NoticeDTO> ar = noticeService.noticeList(listInfo);
+
+		/*listInfo.getPerPage();
+		  model.addAttribute("totalCount", "totalCount");
+		  model.addAttribute("makePage", "makePage");*/
+		
 		model.addAttribute("list", ar);
 		model.addAttribute("board", "notice");
 		model.addAttribute("nickName","t10");

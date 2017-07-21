@@ -2,12 +2,19 @@ package com.njgo.controller;
 
 
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.njgo.dto.MemberDTO;
 import com.njgo.service.MemberService;
 
@@ -27,10 +36,12 @@ public class MemberController {
 	private MemberService memberService;
 	
 	@RequestMapping(value="provision",method= RequestMethod.GET)
-	public void test(@RequestParam String mode,@RequestParam String access_token, Model model){
-		System.out.println("mode : "+mode);
-		model.addAttribute("mode", mode);
+	public void test(@RequestParam String login_mode,@RequestParam(defaultValue="") String access_token, Model model){
+		System.out.println("login_mode : "+login_mode);
+		
+		model.addAttribute("login_mode", login_mode);
 		model.addAttribute("access_token", access_token);
+		
 		
 	}
 	@RequestMapping(value="login")
@@ -128,8 +139,14 @@ public class MemberController {
 	
 	//약관 확인 누른다음 joinCode 생성해서 joinForm.jsp에 넣어줌
 	@RequestMapping(value="joinForm",method= RequestMethod.POST)
-	public void join(Model model, @RequestParam String mode, @RequestParam String access_token){
+	public void join(Model model, @RequestParam String login_mode, @RequestParam String access_token)throws Exception{
 		System.out.println("access_token : "+access_token);
+		String path = "memberJoin";
+		if(login_mode.equals("SNS_join")){
+			path="memberSNSJoin";
+		}
+		model.addAttribute("path", path);
+		
 		
 		 int ran = new Random().nextInt(1000000) + 100000; // 100000 ~ 999999
 	     String joinCode = String.valueOf(ran);
@@ -155,6 +172,25 @@ public class MemberController {
 			return "/";
 		}
 	}
+	// SNS(Kakao) 가입 
+	@RequestMapping(value="memberSNSJoin", method = RequestMethod.POST)
+	public String memberSNSJoin(MemberDTO memberDTO,Model model)throws Exception{
+		
+		int result = memberService.memberJoin(memberDTO);
+		String path ="member/sendEmail";
+		if(result>0){
+				
+			model.addAttribute("email", memberDTO.getEmail());
+			model.addAttribute("joinCode", memberDTO.getJoinCode());
+			model.addAttribute("path", "sendEmail");
+			
+			return path;
+		}else{
+		
+			return "/";
+		}
+	}
+	
 	// 이메일 중복 체크 
 	@RequestMapping(value="emailCheck", method = RequestMethod.POST)
 	public ModelAndView emailCheck(String email){
@@ -204,7 +240,7 @@ public class MemberController {
 	// ======================================= Kakao Join ===========================================
 	@RequestMapping(value="/kakaoLogin" ,produces="application/json", method={RequestMethod.GET,RequestMethod.POST})
 	public void kakaoTest(@RequestParam("code") String code, HttpServletRequest request){
-			System.out.println("code : "+code);
+			System.out.println("code : "+code.toString());
 	}
 	
 	

@@ -17,8 +17,15 @@ public class MemberDTO {
 	private int w_count;
 	private Timestamp joint_date;
 	private String joinCode;
+	private String login_mode;
 	
 	
+	public String getLogin_mode() {
+		return login_mode;
+	}
+	public void setLogin_mode(String login_mode) {
+		this.login_mode = login_mode;
+	}
 	public String getJoinCode() {
 		return joinCode;
 	}

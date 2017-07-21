@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common/reset.css">
 <c:import url="../tmp/Bootstrap.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common/basic.css">
-
+ <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body>
 	<c:import url="../tmp/header.jsp"/>
@@ -20,11 +20,11 @@
 		        <div class="panel-body">
 		            <form name="joinFrm" method="post" action="joinForm">
 		            
-		            <input type="hidden" name="token" value="44971180">
+
 		            <input type="hidden" name="access_token" value="${access_token }">
 		            <input type="hidden" name="facebook_token" value="">
 		            <input type="hidden" name="naver_token" value="">
-		            <input type="hidden" name="mode" value="${mode }">
+		            <input type="hidden" name="login_mode" value="${login_mode }">
 		            </form>
 		            <p class="guide_txt2" style="padding-top:20px;">이용약관, 개인정보 수집 및 이용에 모두 동의합니다. <input type="checkbox" id="allCheck" name="allchk"  ></p>
 		            <div class="etc_line"></div>
@@ -348,8 +348,14 @@
 </body>
 
 <script>
+	$(function() {
+	    $('#id_user').focus();
+	    Kakao.init('cd868dba3cc2bd18d62a147752f2347c');
+	});
 	function doAgreeCheck()
 	{
+		
+		
 	    if(!$('#contractCheck').is(':checked') || !$('#privacyCheck').is(':checked'))
 	    {
 	        $('#checkMsg').show();
@@ -357,6 +363,17 @@
 	    }
 	    else
 	    {
+	    	
+	    	 Kakao.API.request({
+	        		url : "/v1/user/me",
+	        		
+	        		success: function(res){
+	        			var result = JSON.stringify(res);
+	        			alert(res.id); 
+	        		}
+	        		
+	        	});  
+	       /*  Kakao.Auth.logout();     */	
 	        document.joinFrm.submit();
 	    }
 	}

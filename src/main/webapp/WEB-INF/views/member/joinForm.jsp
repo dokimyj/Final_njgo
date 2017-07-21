@@ -11,9 +11,18 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common/basic.css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/kdy/member/memberCheck.js"></script>
 <!-- 카카오톡 -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+    
  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <script>
+$(function() {
+    $('#id_user').focus();
+    Kakao.init('cd868dba3cc2bd18d62a147752f2347c');
+});
+
+
 function doSubmit(mode)
 {	
 	if(mode =='general_join'){
@@ -44,6 +53,15 @@ function doSubmit(mode)
 		$("#genderMsg").text("성별을 선택해주세요.");
         return false;
     }
+    Kakao.API.request({
+    	url : "/v1/user/me",
+		
+		success: function(res){
+			var result = JSON.stringify(res);
+			alert(res.id); 
+		}
+	});
+    
     return true;
 }
 </script>
@@ -53,7 +71,7 @@ function doSubmit(mode)
 	<section class="main_section">
 		<div class="container_etc" style="width:460px;">
 	      <h2 style="font-size: 2em;">회원가입</h2>
-	        <form name="form_insert" id="frmInsert" method="post" action="memberJoin" autocomplete="off" onsubmit="return doSubmit(${mode})">
+	        <form name="form_insert" id="frmInsert" method="post" action="${path }" autocomplete="off" onsubmit="return doSubmit(${mode})">
 	          <input type="hidden" id="kakao" value="">
 	          <!-- Email 입력 -->
 	          <c:if test="${mode eq 'general_join' }">
@@ -124,6 +142,7 @@ function doSubmit(mode)
 	          </div>
 	          <input type="hidden" name="gender" id="gender">
 	          <input type="hidden" name="joinCode" value="${joinCode }"> 
+	          <input type="hidden" name="login_mode" value="${login_mode }"> 
 	          <button type="submit" class="btn btn-primary btn-block btn-lg">회원가입</button>
 	      </form></div>
       </section>
@@ -133,7 +152,16 @@ function doSubmit(mode)
 <script type="text/javascript">
 	$(function() {
 		
-		$("#kakao").val("abcd");
+		
+		Kakao.API.request({
+    		url : "/v1/api/talk/profile",
+    		success: function(res){
+    			var result = JSON.stringify(res);
+    			alert(result); 
+    		}
+    		
+    	});
+		
 	});
 	
 </script>

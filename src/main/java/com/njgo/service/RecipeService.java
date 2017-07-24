@@ -43,6 +43,10 @@ public class RecipeService {
 		return recipeDAO.catesearch(category, listInfo);
 	}
 	
+	public List<IngredientsDTO> ingList(String find){
+		return recipeDAO.ingList(find);
+	}
+	
 	public HashMap<String, Object> isearch(List<IngredientsDTO> ingredients, ListInfo listInfo){
 		return recipeDAO.isearch(ingredients, listInfo);
 	}

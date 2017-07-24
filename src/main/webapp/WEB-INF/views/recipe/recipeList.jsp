@@ -85,7 +85,6 @@
 					c_procedure:$('.c_procedure[title=active]').html()
 				},
 				success:function(data){
-					alert(data.trim());
 					$('#results').html(data.trim());
 				}
 			});	

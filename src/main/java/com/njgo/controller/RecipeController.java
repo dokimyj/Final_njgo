@@ -26,11 +26,12 @@ public class RecipeController {
 	private RecipeService recipeService;
 	
 	@RequestMapping(value="recipeView", method=RequestMethod.GET)
-	public void view(Integer num, Model model) throws Exception{
+	public void view(Integer num, String[] ing, Model model) throws Exception{
 		model.addAttribute("recipe", recipeService.view(num).get("recipeDTO"));
 		model.addAttribute("ingredients", recipeService.view(num).get("ingredients"));
 		model.addAttribute("steps", recipeService.view(num).get("steps"));
 		model.addAttribute("hashtags", recipeService.view(num).get("hashtags"));
+		model.addAttribute("curIng", ing);
 	}
 	
 	@RequestMapping(value="recipeList", method=RequestMethod.GET)
@@ -55,21 +56,24 @@ public class RecipeController {
 		model.addAttribute("pagetype", "catesearch");
 		return "recipe/recipeSearch";
 	}
-	
+	@RequestMapping(value="inglist", method=RequestMethod.GET)
+	public String inglist(String find, Model model) throws Exception{
+		List<IngredientsDTO> ing=recipeService.ingList(find);
+		model.addAttribute("ingList",ing);
+		return "recipe/ingList";
+	}
 	@RequestMapping(value="isearch", method=RequestMethod.GET)
-	public String isearch(String[] ingredients, String[] amount, Integer rnum, ListInfo listInfo, Model model) throws Exception{
+	public String isearch(String[] ingredients, ListInfo listInfo, Model model) throws Exception{
 		List<IngredientsDTO> ing=new ArrayList<IngredientsDTO>();
 		for(int i=0;i<ingredients.length;i++){
 			IngredientsDTO idto=new IngredientsDTO();
-			idto.setRecipenum(rnum);
 			idto.setName(ingredients[i]);
-			idto.setAmount(amount[i]);
 			ing.add(idto);
 		}
 		model.addAttribute("list", recipeService.isearch(ing, listInfo)); 
 		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
 		model.addAttribute("pagetype", "isearch");
-		return "recipe/recipeSearch";
+		return "recipe/recipeList";
 	}
 	
 	@RequestMapping(value="recipeScrapI", method=RequestMethod.GET)

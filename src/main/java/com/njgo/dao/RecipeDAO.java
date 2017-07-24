@@ -78,13 +78,17 @@ public class RecipeDAO {
 		return catesearch;
 	}
 	
-	public HashMap<String, Object> isearch(List<IngredientsDTO> ingredients, ListInfo listInfo){
+	public List<IngredientsDTO> ingList(String find){
+		return sqlSession.selectList(NAMESPACE+"inglist", find);
+	}
+	
+	public HashMap<String, Object> isearch(List<IngredientsDTO> collection, ListInfo listInfo){
 		HashMap<String, Object> isearch=new HashMap<String, Object>();
 		listInfo.setRow(1, 9);
-		Integer iCount=sqlSession.selectOne(NAMESPACE+"icount", ingredients);
+		Integer iCount=sqlSession.selectOne(NAMESPACE+"icount", collection);
 		listInfo.makePage(iCount, 10);
 		isearch.put("listInfo", listInfo);
-		isearch.put("ingredients", ingredients);
+		isearch.put("collection", collection);
 		List<RecipeDTO> iResult=sqlSession.selectList(NAMESPACE+"isearch", isearch);
 		isearch.put("listPack", iResult);
 		isearch.put("totalCount", iCount);

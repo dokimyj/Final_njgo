@@ -38,3 +38,41 @@
 		</c:if>
 	</ul>
 </div>
+<script>
+	$('.overlays').css("background", "none");
+	$('.creators').css("visibility", "hidden");
+	$('.counts').css("visibility", "hidden");
+		
+	$('.main_concep_channel').mouseover(function(){	
+		var num=$(this).attr('title');
+		$('#overlays'+num).css("background-image", "url('./resources/images/kdk/thumb_over_rev1.png')");
+		$('#creators'+num).css("visibility", "visible");
+		$('#counts'+num).css("visibility", "visible");
+	});
+	$('.main_concep_channel').mouseleave(function(){	
+		var num=$(this).attr('title');
+		$('#overlays'+num).css("background", "none");
+		$('#creators'+num).css("visibility", "hidden");
+		$('#counts'+num).css("visibility", "hidden");		
+	});
+	$('.c_kind').click(function(){
+		$('.c_kind').attr('title', 'inactive');
+		$(this).attr('title', 'active');
+		$.ajax({
+			url: "./recipe/catesearch",
+			type: "GET",
+			data:{
+				c_kind:$(this).html(),
+				c_situation:$('.c_situation[title=active]').html(),
+				c_ingredient:$('.c_ingredient[title=active]').html(),
+				c_procedure:$('.c_procedure[title=active]').html()
+			},
+			success:function(data){
+				$('#results').html(data.trim());
+			}
+		});	
+	});
+	if($('#pagers').attr('title')<9){
+		$('.pagination>ul>li>span').css('display', 'none');
+	}
+</script>

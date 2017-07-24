@@ -111,12 +111,15 @@
 		</if>
 		 desc) L) 
 		where R between #{listInfo.startRow} and #{listInfo.lastRow}
+	</select>
+	<select id="inglist" parameterType="java.lang.String" resultType="com.njgo.dto.IngredientsDTO">
+		select distinct NAME from INGREDIENTS where NAME like '%'||#{find}||'%'
 	</select>	
 	<select id="icount" parameterType="java.util.List" resultType="java.lang.Integer">
 		select COUNT(distinct C.NUM) from RECIPE C, INGREDIENTS I
 		<trim prefix="where">
 			C.NUM=I.RECIPENUM and I.RECIPENUM in (select RECIPENUM from INGREDIENTS where NAME in 
-			<foreach collection="ingredients" item="dto" open="(" separator="," close=")">
+			<foreach collection="collection" item="dto" open="(" separator="," close=")">
 				#{dto.name}
 			</foreach>)
 		</trim>
@@ -126,7 +129,7 @@
 		(select ROWNUM R, L.* from 
 		(select distinct C.* from RECIPE C, INGREDIENTS I
 		 where C.NUM=I.RECIPENUM and I.RECIPENUM in (select RECIPENUM from INGREDIENTS where NAME in 
-			<foreach collection="ingredients" item="dto" open="(" separator="," close=")">
+			<foreach collection="collection" item="dto" open="(" separator="," close=")">
 				#{dto.name}
 			</foreach>)
 		 order by

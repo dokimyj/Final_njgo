@@ -90,20 +90,20 @@
 
 	function loginWithKakao() {
 	    Kakao.Auth.login({
-	        persistAccessToken : false,
+	        persistAccessToken : true,  // 세션이 종료된 뒤에도 Access Token을 사용할수 있도록 로컬 스토리지에 저장
 	        success: function(authObj) {
 				
 	        	alert(JSON.stringify(authObj));
-		      /*  Kakao.Auth.logout();    */
-	        	 Kakao.API.request({
+		     
+	        	  Kakao.API.request({
 	        		url : "/v1/user/signup",
 	        		success: function(res){
-	        			
+	        			alert(res);
 	        		}
 	        		
 	        	});   
 	        		
-	        	location.href ="provision?login_mode=SNS_join&access_token="+Kakao.Auth.getAccessToken(); 
+	        	location.href ="provision?login_mode=SNS_join&access_token="+Kakao.Auth.getAccessToken();
 	        	
 	        },
 	        fail: function(err) {

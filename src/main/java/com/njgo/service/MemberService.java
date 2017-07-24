@@ -59,6 +59,10 @@ public class MemberService {
 	
 		return memberDAO.kakaoIDCheck(kakaoID);
 	}
+	public int memberSNSJoin(MemberDTO memberDTO) {
+		
+		return memberDAO.memberSNSJoin(memberDTO);
+	}
 
 	
 	

@@ -103,5 +103,10 @@ public class MemberDAO {
 		return sqlSession.selectOne(NAMESPACE+"kakaoIDCheck", kakaoID);
 	}
 
+	public int memberSNSJoin(MemberDTO memberDTO) {
+		
+		return sqlSession.insert(NAMESPACE+"SNSJoin",memberDTO);
+	}
+
 	
 }

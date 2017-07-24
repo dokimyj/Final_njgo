@@ -152,11 +152,14 @@ public class MemberController {
 	     String joinCode = String.valueOf(ran);
 	     model.addAttribute("joinCode", joinCode);
 	     model.addAttribute("access_token", access_token);	
+	     model.addAttribute("login_mode", login_mode);
 	}
 	
 	// 가입
 	@RequestMapping(value="memberJoin", method = RequestMethod.POST)
-	public String memberJoin(MemberDTO memberDTO,Model model)throws Exception{
+	public String memberJoin(MemberDTO memberDTO,@RequestParam String mode ,Model model)throws Exception{
+		
+		//일반회원 이메일 인증 전 단계 grade = 0
 		
 		int result = memberService.memberJoin(memberDTO);
 		String path ="member/sendEmail";
@@ -165,30 +168,29 @@ public class MemberController {
 			model.addAttribute("email", memberDTO.getEmail());
 			model.addAttribute("joinCode", memberDTO.getJoinCode());
 			model.addAttribute("path", "sendEmail");
-			
+				
 			return path;
 		}else{
-		
+				
 			return "/";
 		}
+			
+		
+		
 	}
 	// SNS(Kakao) 가입 
 	@RequestMapping(value="memberSNSJoin", method = RequestMethod.POST)
-	public String memberSNSJoin(MemberDTO memberDTO,Model model)throws Exception{
+	public String memberSNSJoin(MemberDTO memberDTO,Model model,HttpSession session)throws Exception{
 		
-		int result = memberService.memberJoin(memberDTO);
-		String path ="member/sendEmail";
+		int result = memberService.memberSNSJoin(memberDTO);
 		if(result>0){
 				
-			model.addAttribute("email", memberDTO.getEmail());
-			model.addAttribute("joinCode", memberDTO.getJoinCode());
-			model.addAttribute("path", "sendEmail");
-			
-			return path;
+			session.setAttribute("memberDTO", memberDTO);
+			model.addAttribute("message", "가입성공!! 환영합니다.");
 		}else{
-		
-			return "/";
+			model.addAttribute("message", "가입 실패 ERROR..");
 		}
+		return "home";
 	}
 	
 	// 이메일 중복 체크 
@@ -237,11 +239,5 @@ public class MemberController {
 		
 		return mv;
 	}
-	// ======================================= Kakao Join ===========================================
-	@RequestMapping(value="/kakaoLogin" ,produces="application/json", method={RequestMethod.GET,RequestMethod.POST})
-	public void kakaoTest(@RequestParam("code") String code, HttpServletRequest request){
-			System.out.println("code : "+code.toString());
-	}
-	
 	
 }

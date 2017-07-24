@@ -46,6 +46,11 @@
 
 	<!-- ============================= 회원가입 관련 ======================================== -->
 	
+	<insert id="SNSJoin" parameterType="MemberDTO">
+		insert into member values(#{email},#{kakaoID},'default',#{nickName},1,1000,'자기소개',#{myPhoto}
+		,#{address},#{name},#{phone},0,sysdate,#{joinCode},#{login_mode})
+	</insert>
+	
 	<insert id="join" parameterType="MemberDTO">
 		insert into member values(#{email},#{kakaoID},#{pw},#{nickName},0,1000,'자기소개','사진'
 		,#{address},#{name},#{phone},0,sysdate,#{joinCode},#{login_mode})

@@ -23,9 +23,9 @@ $(function() {
 });
 
 
-function doSubmit(mode)
+function doSubmit(login_mode)
 {	
-	if(mode =='general_join'){
+	if(login_mode =='general_join'){
 		if(chkEmail()==0){
 			return false;
 		}
@@ -71,10 +71,10 @@ function doSubmit(mode)
 	<section class="main_section">
 		<div class="container_etc" style="width:460px;">
 	      <h2 style="font-size: 2em;">회원가입</h2>
-	        <form name="form_insert" id="frmInsert" method="post" action="${path }" autocomplete="off" onsubmit="return doSubmit(${mode})">
+	        <form name="form_insert" id="frmInsert" method="post" action="${path }" autocomplete="off" onsubmit="return doSubmit(${login_mode})">
 	          <input type="hidden" id="kakao" value="">
 	          <!-- Email 입력 -->
-	          <c:if test="${mode eq 'general_join' }">
+	          <c:if test="${login_mode eq 'general_join' }">
 	          
 		          <div id="idFrms" class="form-group has-feedback has-error">
 		            <input type="email" name="email" class="form-control" id="email" required="required" autocomplete="off" onblur="chkEmail()" placeholder="email, 예)email@naver.com">
@@ -143,6 +143,16 @@ function doSubmit(mode)
 	          <input type="hidden" name="gender" id="gender">
 	          <input type="hidden" name="joinCode" value="${joinCode }"> 
 	          <input type="hidden" name="login_mode" value="${login_mode }"> 
+	          <!-- 카카오톡 가입시 필요  -->
+	          <c:if test="${login_mode eq 'SNS_join' }">  
+		          <input type="hidden" name="email" id="SNS_email" value="">
+		          <input type="hidden" name="myPhoto" id="SNS_photo" value="">
+		          <input type="hidden" name="kakaoID" id="SNS_id" value=""> <!-- 앱에 처음 연결시 저장되는 고유 id값 -->
+	          </c:if>
+	          <!-- 이미지 테스트  -->
+	          <div>
+					<img alt="" id="SNS_photo2" src="">	          
+	          </div>
 	          <button type="submit" class="btn btn-primary btn-block btn-lg">회원가입</button>
 	      </form></div>
       </section>
@@ -152,16 +162,21 @@ function doSubmit(mode)
 <script type="text/javascript">
 	$(function() {
 		
-		
-		Kakao.API.request({
-    		url : "/v1/api/talk/profile",
-    		success: function(res){
-    			var result = JSON.stringify(res);
-    			alert(result); 
-    		}
-    		
-    	});
-		
+		if("${login_mode}"=="SNS_join"){
+			
+			 Kakao.API.request({
+	     		url : "/v1/user/me",
+	     		
+	     		success: function(res){
+	     			var result = JSON.stringify(res);
+	     			$("#SNS_email").val(res.kaccount_email);
+	     			$("#SNS_photo").val(res.properties.profile_image);
+	     			$("#SNS_id").val(res.id);
+	     			$("#SNS_photo2").attr("src",res.properties.profile_image);  //테스트용
+	     			alert(result); 
+	     		}
+	     	});  		
+		}
 	});
 	
 </script>

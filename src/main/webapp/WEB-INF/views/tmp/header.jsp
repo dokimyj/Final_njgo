@@ -83,9 +83,17 @@
 						</a>
 					</c:if>
 					<c:if test="${sessionScope.memberDTO !=null }">	<!-- 로그인 했을 때 -->
-						<img alt="회원" src="${pageContext.request.contextPath}/resources/images/common/user-silhouette.png"
-							onmouseover="this.src='${pageContext.request.contextPath}/resources/images/common/user-silhouette-over.png'"
-							onmouseout="this.src='${pageContext.request.contextPath}/resources/images/common/user-silhouette.png'" id="memberBtn">
+						<c:if test="${sessionScope.memberDTO.login_mode eq 'SNS_join' }">
+							<img alt="회원" style="width:35px;border-radius: 50%;" src="${memberDTO.myPhoto }"
+							onmouseover="this.src='${memberDTO.myPhoto }"
+							onmouseout="this.src='${memberDTO.myPhoto }" id="memberBtn">
+						</c:if>
+						<c:if test="${sessionScope.memberDTO.login_mode eq 'general_join' }">
+							<img alt="회원" style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/images/common/default.png"
+							onmouseover="this.src='${pageContext.request.contextPath}/resources/images/common/default.png'"
+							onmouseout="this.src='${pageContext.request.contextPath}/resources/images/common/default.png'" id="memberBtn">
+						</c:if>
+							
 					</c:if>
 				</div>
 				

@@ -1,8 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		$("#logout").click(function() {
+			/* KDY 로그아웃 추가  */
+			if("${memberDTO.login_mode}"=="general_join"){
+				$("#logout").attr("href","${pageContext.request.contextPath}/member/logout");
+			}
+			else{
+				$("#logout").attr("href","${pageContext.request.contextPath}/member/logout");
+				 Kakao.init('cd868dba3cc2bd18d62a147752f2347c');
+				Kakao.API.request({
+					url : "/v1/user/logout",
+					success: function(data){
+						alert("카카오톡 로그아웃 성공");
+					}
+				});
+			}
+		});
+		
 		$('[data-toggle="tooltip"]').tooltip({ position: { my: "left+15 center", at: "right center" } });
 		
 		$("#arrow_left img").click(function() {
@@ -84,9 +102,7 @@
 					</c:if>
 					<c:if test="${sessionScope.memberDTO !=null }">	<!-- 로그인 했을 때 -->
 						<c:if test="${sessionScope.memberDTO.login_mode eq 'SNS_join' }">
-							<img alt="회원" style="width:35px;border-radius: 50%;" src="${memberDTO.myPhoto }"
-							onmouseover="this.src='${memberDTO.myPhoto }"
-							onmouseout="this.src='${memberDTO.myPhoto }" id="memberBtn">
+							<img alt="회원" style="width:35px;border-radius: 50%;" src="${memberDTO.myPhoto }" id="memberBtn">
 						</c:if>
 						<c:if test="${sessionScope.memberDTO.login_mode eq 'general_join' }">
 							<img alt="회원" style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/images/common/default.png"
@@ -127,8 +143,15 @@
 				<li><a href="#">문의내역</a></li>
 				<li><a href="#">주문조회</a></li>
 				<li><a href="#">장바구니</a></li>
-				<li><a href="${pageContext.request.contextPath}/member/info_check">회원정보수정</a></li>
-				<li><a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></li>
+				<li>
+					<c:if test="${memberDTO.login_mode eq 'SNS_join' }">
+						<a href="${pageContext.request.contextPath}/member/info_correct">회원정보수정</a>	
+					</c:if>
+					<c:if test="${memberDTO.login_mode eq 'general_join' }">
+						<a href="${pageContext.request.contextPath}/member/info_check">회원정보수정</a>	
+					</c:if>
+				</li>
+				<li><a role="button" id="logout">로그아웃</a></li>
 			</ul>
 		</div>
 	</div>

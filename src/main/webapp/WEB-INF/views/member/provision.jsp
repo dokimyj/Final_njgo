@@ -369,7 +369,7 @@
 	        return ;
 	    }
 	    else
-	    {
+	    {  
 	     
 	         document.joinFrm.submit(); 
 	    }

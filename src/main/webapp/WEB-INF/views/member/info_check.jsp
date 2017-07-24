@@ -15,6 +15,9 @@
 		location.href="login";
 		
 	}
+	if("${message}"!=""){
+		alert("${message}");	
+	}
 </script>
 </head>
 <body>
@@ -28,7 +31,8 @@
 		    <input type="hidden" name="q_mode" value="check">
 		        <input type="text" name="email" class="form-control" style="margin-bottom:15px;" value="${memberDTO.email }" readonly="readonly">
 		        <input type="password" name="pw" class="form-control" style="margin-bottom:15px;" id="pw" placeholder="비밀번호">
-		        <span id="pwMsg" style="display:none;color:#FF0000;">비밀번호를 입력해주세요.</span>
+		        <input type="hidden" name="login_mode" value="${memberDTO.login_mode }">
+		        <span id="pwMsg" style="display:none;color:#FF0000;">비밀번호를 입력해주세요.</span> 
 		      <div class="etc_line"></div>
 		      <button type="submit" class="btn btn-primary btn-block btn-lg">확 인</button>
 		    </form>

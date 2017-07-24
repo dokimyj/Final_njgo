@@ -58,7 +58,7 @@ public class MemberController {
 	}
 	@RequestMapping(value="memberDelete" ,method=RequestMethod.GET)
 	public void memberDelete(){
-	
+		
 	}
 	@RequestMapping(value="test" ,method=RequestMethod.GET)
 	public void testKakao(){
@@ -67,15 +67,18 @@ public class MemberController {
 	
 	//=================================== 로그인 , 회원정보 수정, 탈퇴 관련 ==========================================
 	
+	
 	@RequestMapping(value="memberDelete" ,method=RequestMethod.POST)
-	public String memberDelete(@RequestParam String email,@RequestParam String pw,HttpSession session,RedirectAttributes rd){
+	public String memberDelete(MemberDTO memberDTO,HttpSession session,RedirectAttributes rd){
 		
-		int result = memberService.memberDelete(email,pw);
+		int result = memberService.memberDelete(memberDTO);
 		String message ="이용해주셔서 감사합니다!";
+	
 		if(result>0){
 			System.out.println("탈퇴 성공!!");
 			session.invalidate();
 			rd.addFlashAttribute("message", message);
+			rd.addFlashAttribute("code", "delete");
 		}
 		return "redirect:../";
 	}
@@ -99,31 +102,38 @@ public class MemberController {
 	
 	//회원정보 비밀번호 재확인
 	@RequestMapping(value="info_check" ,method=RequestMethod.POST)
-	public String info_check(@RequestParam String email,@RequestParam String pw, RedirectAttributes rd){
+	public String info_check(MemberDTO memberDTO, RedirectAttributes rd){
 		
-		MemberDTO memberDTO = memberService.memberLogin(email, pw);
+		MemberDTO memberDTO_result = memberService.memberLogin(memberDTO);
 		Boolean check =false;
-		if(memberDTO !=null){
+		String message = "비밀번호를 다시 확인해주세요.";
+		if(memberDTO_result !=null){
 			check =true;
 			rd.addFlashAttribute("check", check);
 			return "redirect:info_correct";
 		}
+		rd.addFlashAttribute("message", message);
+		
 		return "redirect:info_check";
 	}
 	
 	
 	
 	// 로그인
-	@RequestMapping(value="memberLogin",method=RequestMethod.POST)
-	public String memberLogin(HttpSession session ,@RequestParam String email,@RequestParam String pw,Model model){
-		MemberDTO memberDTO = memberService.memberLogin(email, pw);
-		String message= "아이디 또는 비밀번호를 다시 확인해주세요.";
-		if(memberDTO !=null){
+	@RequestMapping(value="memberLogin",method={RequestMethod.GET,RequestMethod.POST})
+	public String memberLogin(HttpSession session ,MemberDTO memberDTO,Model model){
+	
+		MemberDTO memberDTO_result = memberService.memberLogin(memberDTO);
+		System.out.println("memberDTO_result : "+memberDTO_result);
+		String message = "아이디 또는 비밀번호를 다시 확인해주세요.";
+		if (memberDTO_result != null) {
 			message = "로그인 성공!!";
-			session.setAttribute("memberDTO",memberDTO);
+			session.setAttribute("memberDTO", memberDTO_result);
+			return "home";
 		}
 		model.addAttribute("message", message);
-		return "home"; 
+		
+		return "member/login"; 
 	}
 	// 로그아웃 
 	@RequestMapping(value="logout")
@@ -157,7 +167,7 @@ public class MemberController {
 	
 	// 가입
 	@RequestMapping(value="memberJoin", method = RequestMethod.POST)
-	public String memberJoin(MemberDTO memberDTO,@RequestParam String mode ,Model model)throws Exception{
+	public String memberJoin(MemberDTO memberDTO ,Model model)throws Exception{
 		
 		//일반회원 이메일 인증 전 단계 grade = 0
 		
@@ -174,9 +184,7 @@ public class MemberController {
 				
 			return "/";
 		}
-			
-		
-		
+
 	}
 	// SNS(Kakao) 가입 
 	@RequestMapping(value="memberSNSJoin", method = RequestMethod.POST)
@@ -208,10 +216,11 @@ public class MemberController {
 		
 		return mv;
 	}
-	// kakaoID 중복 체크 
+	//1.kakaoID 중복 체크
+	//2. 로그인 할때 kakao 아이디 존재 유무
 		@RequestMapping(value="kakaoIDCheck", method = RequestMethod.POST)
 		public ModelAndView kakaoIDCheck(String kakaoID){
-			
+			System.out.println("kakaoID : "+kakaoID);
 			MemberDTO memberDTO = memberService.kakaoIDCheck(kakaoID);
 			ModelAndView mv = new ModelAndView();
 			int code = 1; // 사용가능한 kakaoID

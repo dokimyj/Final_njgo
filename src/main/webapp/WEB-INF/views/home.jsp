@@ -24,11 +24,21 @@
 </body>
 	<script>
 	
+	 
 	//추가 된부분
 	if("${message}"!=""){
 		alert("${message}");
 	}
-	
+	if("${code}"=="delete"){
+	    Kakao.init('cd868dba3cc2bd18d62a147752f2347c');
+		  Kakao.API.request({
+			  url : "/v1/user/unlink",
+			  success : function() {
+				alert("앱 데이터 삭제 완료");
+			}
+		  });
+	}
+
 	</script>
 </html>
 

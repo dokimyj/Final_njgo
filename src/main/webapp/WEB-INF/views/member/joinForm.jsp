@@ -53,14 +53,7 @@ function doSubmit(login_mode)
 		$("#genderMsg").text("성별을 선택해주세요.");
         return false;
     }
-    Kakao.API.request({
-    	url : "/v1/user/me",
-		
-		success: function(res){
-			var result = JSON.stringify(res);
-			alert(res.id); 
-		}
-	});
+
     
     return true;
 }

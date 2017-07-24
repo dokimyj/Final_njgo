@@ -30,8 +30,11 @@
 	</sql>
 	
 	<!--  ========================== Login , Delete, Update 관련 ===================== -->
+	<select id="memberSNSLogin" parameterType="MemberDTO" resultType="MemberDTO">
+		select * from member where kakaoID=#{kakaoID}
+	</select>
 
-	<select id="memberLogin" parameterType="java.util.Map" resultType="MemberDTO">
+	<select id="memberLogin" parameterType="MemberDTO" resultType="MemberDTO">
 		select * from member where email=#{email} and pw=#{pw}
 	</select>
 
@@ -39,8 +42,11 @@
 		update member set <include refid="type"></include> where email=#{email} 
 	</update>
 	
-	<delete id="memberDelete"  parameterType="java.util.Map">
+	<delete id="memberDelete"  parameterType="MemberDTO">
 		delete member where email=#{email} and pw =#{pw}
+	</delete>
+	<delete id="memberSNSDelete"  parameterType="MemberDTO">
+		delete member where kakaoID=#{kakaoID}
 	</delete>
 
 

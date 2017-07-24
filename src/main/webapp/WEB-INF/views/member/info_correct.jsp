@@ -14,7 +14,6 @@
 	if("${memberDTO}"==""){
 		alert("로그인 해주세요.");
 		location.href="login";
-		
 	}
 </script>
 </head>
@@ -57,6 +56,7 @@
         </div>
         <div class="etc_line"></div>
      <!--======================================== 카카오톡 아이디 변경 ================================================-->
+    <c:if test="${memberDTO.login_mode eq 'general_join' }">
     <p style="margin:15px 0;line-height:34px;"><span id="cur_nick"><strong>${memberDTO.kakaoID }</strong>
         <button type="button" onclick="$('#updkakaoID').show()" class="btn btn-default" style="float:right;">카카오아이디 수정</button>
         </span></p>
@@ -70,6 +70,7 @@
          <!--  <p class="help-block">카카오아이디는 변경후 24시간동안 다시 변경할 수 없습니다.<br>변경전에 잘 확인해 주세요.</p> -->
         </div>
         <div class="etc_line"></div>
+     </c:if>
          <!--======================================== 주소 변경 ================================================-->
     <p style="margin:15px 0;line-height:34px;"><span id="cur_nick"><strong>${memberDTO.address }</strong>
         <button type="button" onclick="$('#updAddress').show()" class="btn btn-default" style="float:right;">주소 수정</button>
@@ -97,7 +98,8 @@
  
         </div>
         <div class="etc_line"></div>
-      <!--============================================ 비밀번호 변경 ========================================-->  
+      <!--============================================ 비밀번호 변경 ========================================-->
+      <c:if test="${memberDTO.login_mode eq 'general_join' }">  
     <p style="margin:15px 0;line-height:34px;"><span id="pwResult">&nbsp; <button type="button" onclick="$('#updPw').show()" class="btn btn-default" style="float:right;">비밀번호 수정</button></span></p>
         <div id="updPw" style="display:none;margin-top:20px;">
          
@@ -114,6 +116,7 @@
           <p style="text-align:center"><button type="button" onclick="infoCorrectSend($('#pw_check').val(),'pw','${memberDTO.email}')" class="btn btn-primary" style="width:150px">변경</button></p>
         </div>
         <div class="etc_line"></div>
+       </c:if>
         <p style="margin:15px 0;line-height:34px;">회원탈퇴 <button type="button" onclick="location.href='memberDelete'" class="btn btn-default" style="float:right;">탈퇴하기</button></p>
   </div>
 </div>

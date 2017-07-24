@@ -14,8 +14,8 @@ public class MemberService {
 	// ========================== Login , Delete, Update 관련 =====================
 	
 	//로그인
-	public MemberDTO memberLogin(String email, String pw){
-		return memberDAO.memberLogin(email, pw);
+	public MemberDTO memberLogin(MemberDTO memberDTO){
+		return memberDAO.memberLogin(memberDTO);
 	}
 	// 비밀번호 찾기
 	public MemberDTO find_password(String email){
@@ -26,9 +26,9 @@ public class MemberService {
 		return memberDAO.memberUpdate(data, type, email);
 	}
 	// 회원탈퇴
-	public int memberDelete(String email, String pw) {
+	public int memberDelete(MemberDTO memberDTO) {
 		
-		return memberDAO.memberDelete(email,pw);
+		return memberDAO.memberDelete(memberDTO);
 	}
 	
 	// =========================== 회원 가입 관련 ================================

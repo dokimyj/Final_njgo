@@ -19,13 +19,13 @@ public class MemberDAO {
 	
 	// ========================== Login , Delete, Update 관련 =====================
 	//memberLogin
-	public MemberDTO memberLogin(String email, String pw){
-		
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("email", email);
-		map.put("pw", pw);
-
-		return sqlSession.selectOne(NAMESPACE+"memberLogin", map);
+	public MemberDTO memberLogin(MemberDTO memberDTO){
+		String path ="memberLogin";
+		//SNS 로그인
+		if(memberDTO.getLogin_mode().equals("SNS_join")){
+			path ="memberSNSLogin";
+		}
+		return sqlSession.selectOne(NAMESPACE+path, memberDTO);
 	}
 	
 	//find_password
@@ -38,12 +38,16 @@ public class MemberDAO {
 	}
 	
 	//Delete
-	public int memberDelete(String email, String pw) {
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("email", email);
-		map.put("pw", pw);
+	public int memberDelete(MemberDTO memberDTO) {
 		
-		return sqlSession.delete(NAMESPACE+"memberDelete", map);
+		//SNS 탈퇴
+		if(memberDTO.getLogin_mode().equals("SNS_join")){
+			return sqlSession.delete(NAMESPACE+"memberSNSDelete",memberDTO);
+		}
+		// 일반 회원탈퇴
+		else{
+			return sqlSession.delete(NAMESPACE+"memberDelete", memberDTO);	
+		}
 	}
 	
 	//List

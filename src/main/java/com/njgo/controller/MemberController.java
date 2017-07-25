@@ -129,7 +129,7 @@ public class MemberController {
 		if (memberDTO_result != null) {
 			message = "로그인 성공!!";
 			session.setAttribute("memberDTO", memberDTO_result);
-			return "home";
+			return "redirect:../";
 		}
 		model.addAttribute("message", message);
 		

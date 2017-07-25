@@ -4,86 +4,93 @@
  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		
+		function logout() {
+			Kakao.init('cd868dba3cc2bd18d62a147752f2347c');
+			
+			Kakao.Auth.logout(function(data) {
+				alert(data);
+			}); 
+			
+		}
+		function go() {
+			location.href ="${pageContext.request.contextPath}/member/logout";
+			
+		}
+		
 		$("#logout").click(function() {
-			/* KDY 로그아웃 추가  */
-			if("${memberDTO.login_mode}"=="general_join"){
-				$("#logout").attr("href","${pageContext.request.contextPath}/member/logout");
-			}
-			else{
-				$("#logout").attr("href","${pageContext.request.contextPath}/member/logout");
-				 Kakao.init('cd868dba3cc2bd18d62a147752f2347c');
-				Kakao.API.request({
-					url : "/v1/user/logout",
-					success: function(data){
-						alert("카카오톡 로그아웃 성공");
-					}
-				});
+			logout();
+			go();
+		});
+
+		$('[data-toggle="tooltip"]').tooltip({
+			position : {
+				my : "left+15 center",
+				at : "right center"
 			}
 		});
-		
-		$('[data-toggle="tooltip"]').tooltip({ position: { my: "left+15 center", at: "right center" } });
-		
+
 		$("#arrow_left img").click(function() {
 			changeSearch(0);
 		});
 		$("#arrow_right img").click(function() {
 			changeSearch(1);
 		});
-				
+
 		$("#memberBtn").click(function() {
-			if( $(".member_box").attr("title") != "off" ) {
+			if ($(".member_box").attr("title") != "off") {
 				$(".member_box").attr("title", "off");
 				$(".member_box").hide();
 			} else {
-				$(".member_box").attr("title","on");
+				$(".member_box").attr("title", "on");
 				memberTab();
 			}
 		});
-		
+
 		$(document).mouseup(function(e) {
-			if($(".member_box").has(e.target).length == 0) {
-				if($("#person").has(e.target).length == 0) {
+			if ($(".member_box").has(e.target).length == 0) {
+				if ($("#person").has(e.target).length == 0) {
 					$(".member_box").attr("title", "off");
 					$(".member_box").hide();
 				}
 			}
 		})
 	});
-	
-	function changeSearch(status) {		
+
+	function changeSearch(status) {
 		var totalNum = $(".associativeSearch_ul").length;
 		var curNum;
-		
+
 		$(".associativeSearch_ul").each(function() {
-			if($(this).css("display") != "none") {
-				curNum = $(this).attr("id").substring(17,18) * 1;
+			if ($(this).css("display") != "none") {
+				curNum = $(this).attr("id").substring(17, 18) * 1;
 			}
 			$(this).css("display", "none");
 		});
-		
-		if(status == 0) {	// left
-			if(curNum > 1) {
+
+		if (status == 0) { // left
+			if (curNum > 1) {
 				curNum -= 1;
 			}
-		} else {			// right
-			if(curNum < totalNum) {
+		} else { // right
+			if (curNum < totalNum) {
 				curNum += 1;
 			}
 		}
-		$("#associativeSearch"+curNum).css("display", "inline");
+		$("#associativeSearch" + curNum).css("display", "inline");
 	}
-	
+
 	function memberTab() {
-		$(".member_box").attr("title","on");
-		$(window).resize(function(){
+		$(".member_box").attr("title", "on");
+		$(window).resize(function() {
 			var obj = $("#memberBtn").position();
-			
+
 			$(".member_box").css("left", obj.left - 60);
 			$(".member_box").css("top", obj.top + 2);
-			$(".member_box").css("display","inline-block");
-			$(".member_box").attr("title","on");
+			$(".member_box").css("display", "inline-block");
+			$(".member_box").attr("title", "on");
 		}).resize();
-		$(".member_box").attr("title","on");
+		$(".member_box").attr("title", "on");
 	}
 </script>
 <header>

@@ -1,0 +1,45 @@
+@CHARSET "UTF-8";
+
+	.fridge{
+		margin:0 auto;
+		text-align:center;
+		background-color:#ffcc00;
+		height:60%;
+		padding-top:3%;
+		padding-bottom:3%;
+		border-radius:5px;
+	}
+	.fridge>h1{
+		color: #337ab7;
+	}
+	.fridge>h3{
+		color: white;
+	}
+	.ingkeyword{
+		width:50%;
+		height:50px;
+		text-align:center;
+		margin:0 auto;
+		border-radius:5px;
+	}
+	.ing_btn{
+		height:50px;
+		width:88px;
+	}
+	.ing_search{
+		border: 1px solid #ffcc00;
+		border-radius: 5px;
+		background-color: white;
+		padding: 1%;
+		width: 55%;
+		height: 20%;
+		margin: 1% auto;
+	}
+	.btn-primary{
+		color: white;
+		border-color: #ffcc00;
+	}
+	.btn-warning{
+		background-color: #ffcc00;
+		border-color: #ffcc00;		
+	}

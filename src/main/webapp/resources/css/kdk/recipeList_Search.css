@@ -98,4 +98,7 @@
 		display: block;
 		float: right;
 	}
+	.clear{
+		clear: both;
+	}
 	

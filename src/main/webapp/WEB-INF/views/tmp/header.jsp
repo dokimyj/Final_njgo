@@ -21,7 +21,6 @@
 				memberTab();
 			}
 		});
-		
 		$(document).mouseup(function(e) {
 			if($(".member_box").has(e.target).length == 0) {
 				if($("#person").has(e.target).length == 0) {
@@ -97,12 +96,10 @@
 					</a>
 				</div>
 				<div id="refrigerator">
-					<a href="#">
-						<img alt="냉장고 추천" src="${pageContext.request.contextPath}/resources/images/common/fridge.png"
-							onmouseover="this.src='${pageContext.request.contextPath}/resources/images/common/fridge-over.png'"
-							onmouseout="this.src='${pageContext.request.contextPath}/resources/images/common/fridge.png'">
-						<span class="tooltiptext">있는재료로 추천받기</span>
-					</a>
+					<img alt="냉장고 추천" src="${pageContext.request.contextPath}/resources/images/common/fridge.png"
+						onmouseover="this.src='${pageContext.request.contextPath}/resources/images/common/fridge-over.png'"
+						onmouseout="this.src='${pageContext.request.contextPath}/resources/images/common/fridge.png'" data-toggle="modal" style="cursor:pointer" data-target="#ingredientsSearch">
+					<span class="tooltiptext">있는재료로 추천받기</span>
 				</div>
 			</div>
 		</div>

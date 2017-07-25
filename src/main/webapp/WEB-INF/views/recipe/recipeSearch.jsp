@@ -24,17 +24,17 @@
 		</div>
 	</c:forEach>
 </div>
-
+<div class="clear"></div>
 <div id=pagers title="${list.totalCount}">
 	<ul class="pagination">
 		<c:if test="${list.listInfo.curBlock>1 }">
-			<li><span>&lt;&lt;</span></li>
+			<li><span title="${list.listInfo.startNum-1 }">&lt;</span></li>
 		</c:if>
 		<c:forEach begin="${list.listInfo.startNum }" end="${listInfo.lastNum }" step="1" var="i">
-			<li><span>${i}</span></li>
+			<li><span title="${i }">${i}</span></li>
 		</c:forEach>
 		<c:if test="${list.listInfo.curBlock<listInfo.totalBlock }">
-			<li><span>&gt;&gt;</span></li>
+			<li><span title="${list.listInfo.lastNum+1 }">&gt;</span></li>
 		</c:if>
 	</ul>
 </div>
@@ -55,24 +55,4 @@
 		$('#creators'+num).css("visibility", "hidden");
 		$('#counts'+num).css("visibility", "hidden");		
 	});
-	$('.c_kind').click(function(){
-		$('.c_kind').attr('title', 'inactive');
-		$(this).attr('title', 'active');
-		$.ajax({
-			url: "./recipe/catesearch",
-			type: "GET",
-			data:{
-				c_kind:$(this).html(),
-				c_situation:$('.c_situation[title=active]').html(),
-				c_ingredient:$('.c_ingredient[title=active]').html(),
-				c_procedure:$('.c_procedure[title=active]').html()
-			},
-			success:function(data){
-				$('#results').html(data.trim());
-			}
-		});	
-	});
-	if($('#pagers').attr('title')<9){
-		$('.pagination>ul>li>span').css('display', 'none');
-	}
 </script>

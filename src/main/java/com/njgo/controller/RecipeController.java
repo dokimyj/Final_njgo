@@ -26,12 +26,12 @@ public class RecipeController {
 	private RecipeService recipeService;
 	
 	@RequestMapping(value="recipeView", method=RequestMethod.GET)
-	public void view(Integer num, String[] ing, Model model) throws Exception{
+	public void view(Integer num, String[] curIng, Model model) throws Exception{
 		model.addAttribute("recipe", recipeService.view(num).get("recipeDTO"));
 		model.addAttribute("ingredients", recipeService.view(num).get("ingredients"));
 		model.addAttribute("steps", recipeService.view(num).get("steps"));
 		model.addAttribute("hashtags", recipeService.view(num).get("hashtags"));
-		model.addAttribute("curIng", ing);
+		model.addAttribute("curIng", curIng);
 	}
 	
 	@RequestMapping(value="recipeList", method=RequestMethod.GET)
@@ -46,7 +46,7 @@ public class RecipeController {
 		model.addAttribute("list", recipeService.search(listInfo));
 		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
 		model.addAttribute("pagetype", "search");
-		return "recipe/recipeSearch";
+		return "recipe/recipeList";
 	}
 
 	@RequestMapping(value="catesearch", method=RequestMethod.GET)
@@ -59,7 +59,7 @@ public class RecipeController {
 	@RequestMapping(value="inglist", method=RequestMethod.GET)
 	public String inglist(String find, Model model) throws Exception{
 		List<IngredientsDTO> ing=recipeService.ingList(find);
-		model.addAttribute("ingList",ing);
+		model.addAttribute("ingList", ing);
 		return "recipe/ingList";
 	}
 	@RequestMapping(value="isearch", method=RequestMethod.GET)

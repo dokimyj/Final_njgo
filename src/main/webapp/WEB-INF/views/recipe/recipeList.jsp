@@ -13,7 +13,7 @@
 <div id=results>
 	<div id=searchresult>
 		<c:forEach items="${list.listPack }" var="dto">
-			<div class=main_concep_channel title=${dto.num }>		
+			<div class=main_concep_channel title=${dto.num } data-toggle="modal" style="cursor:pointer" data-target="#recipeView">		
 				<div class="channel_img" style='background-image:url("resources/upload/${dto.rep_pic }")'>
 					<div id="overlays${dto.num }" class=overlays>
 						&nbsp;
@@ -161,6 +161,22 @@
 				success:function(data){
 					$('.categories').hide();
 					$('#results').html(data.trim());
+				}
+			});
+		});
+		$('.main_concep_channel').click(function(){
+			jQuery.ajaxSettings.traditional = true;
+			var ar=new Array();
+			var curIng=document.getElementsByName('curIng');
+			for(i=0;i<curIng.length;i++){
+				ar.push(curIng[i].value);
+			}
+			$.ajax({
+				url: "./recipe/recipeView",
+				method: "GET",
+				data:{
+					curIng:ar,
+					
 				}
 			});
 		});

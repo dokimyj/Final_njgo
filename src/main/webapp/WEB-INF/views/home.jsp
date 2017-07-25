@@ -76,6 +76,7 @@ $('#selections').on("click", "#ing_btn", (function(){
 	$('#ing_search').append('<span class="btn btn-warning ings" title="'+ings+'">'+ings+'<strong class="badge ing" style="cursor:pointer">X</strong></span>');
 	$('#ingkeyword').val('');
 	$('#selections>input[button]').remove();
+	)
 });
 $('#ing_search').on("click", ".ings", function(){
 	$(this).remove();

@@ -67,6 +67,7 @@ function doSubmit(login_mode)
 	        <form name="form_insert" id="frmInsert" method="post" action="${path }" autocomplete="off" onsubmit="return doSubmit(${login_mode})">
 	          <input type="hidden" id="kakao" value="">
 	          <!-- Email 입력 -->
+	          <!-- 일반회원  -->
 	          <c:if test="${login_mode eq 'general_join' }">
 	          
 		          <div id="idFrms" class="form-group has-feedback has-error">
@@ -94,7 +95,7 @@ function doSubmit(login_mode)
 	           <!-- 닉네임 --> 
 	          <div id="nickFrms" class="form-group has-feedback mag_b_10">
 	            <input type="text" name="nickName" class="form-control" id="nickName" onblur="chkNick()" placeholder="닉네임" required="required">
-	            <span id="nickStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
+	            <span id="nickNameStatus" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 	            <span id="nickMsg" style="display:none;"></span>
 	          </div>
 	          
@@ -166,7 +167,7 @@ function doSubmit(login_mode)
 	     			$("#SNS_photo").val(res.properties.profile_image);
 	     			$("#SNS_id").val(res.id);
 	     			$("#SNS_photo2").attr("src",res.properties.profile_image);  //테스트용
-	     			alert(result); 
+	     			
 	     		}
 	     	});  		
 		}

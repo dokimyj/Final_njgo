@@ -182,7 +182,7 @@ public class MemberController {
 			return path;
 		}else{
 				
-			return "/";
+			return "redirect:../";
 		}
 
 	}
@@ -198,7 +198,7 @@ public class MemberController {
 		}else{
 			model.addAttribute("message", "가입 실패 ERROR..");
 		}
-		return "home";
+		return "redirect:../";
 	}
 	
 	// 이메일 중복 체크 

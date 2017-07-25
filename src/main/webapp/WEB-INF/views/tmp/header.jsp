@@ -9,7 +9,9 @@
 			Kakao.init('cd868dba3cc2bd18d62a147752f2347c');
 			
 			Kakao.Auth.logout(function(data) {
-				alert(data);
+				if(data){
+					go();
+				}
 			}); 
 			
 		}
@@ -20,7 +22,7 @@
 		
 		$("#logout").click(function() {
 			logout();
-			go();
+		
 		});
 
 		$('[data-toggle="tooltip"]').tooltip({
@@ -109,7 +111,15 @@
 					</c:if>
 					<c:if test="${sessionScope.memberDTO !=null }">	<!-- 로그인 했을 때 -->
 						<c:if test="${sessionScope.memberDTO.login_mode eq 'SNS_join' }">
-							<img alt="회원" style="width:35px;border-radius: 50%;" src="${memberDTO.myPhoto }" id="memberBtn">
+							<!-- 사진있을때 -->
+							<c:if test="${memberDTO.myPhoto != ''  }">
+								<img alt="회원" style="width:35px;border-radius: 50%;" src="${memberDTO.myPhoto }" id="memberBtn">			
+							</c:if>
+							<!-- 사진없을때 -->
+							<c:if test="${memberDTO.myPhoto == '' }">
+								<img src="${pageContext.request.contextPath}/resources/images/default.png">
+							</c:if>
+							
 						</c:if>
 						<c:if test="${sessionScope.memberDTO.login_mode eq 'general_join' }">
 							<img alt="회원" style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/images/common/default.png"

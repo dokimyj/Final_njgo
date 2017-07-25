@@ -239,9 +239,9 @@ function chkNick() {
 	var nickName = $("#nickName").val();
 	
 	if(nickName=="" || nickName==null || nickName.length <4){
-		$("#nickStatus").addClass("glyphicon-remove");
-		$("#nickStatus").removeClass("glyphicon-ok");
-		$("#nickStatus").css("color","#a94442");
+		$("#nickNameStatus").addClass("glyphicon-remove");
+		$("#nickNameStatus").removeClass("glyphicon-ok");
+		$("#nickNameStatus").css("color","#a94442");
 		$("#nickMsg").css("color","red");
 		$("#nickMsg").css("display","block");
 		$("#nickMsg").text("닉네임을 입력해 주세요.(4글자이상)");
@@ -256,9 +256,9 @@ function chkNick() {
 			},
 			success:function(data){
 				if(data.trim()==1){
-					$("#nickStatus").removeClass("glyphicon-remove");
-					$("#nickStatus").addClass("glyphicon-ok");
-					$("#nickStatus").css("color","#42a967");
+					$("#nickNameStatus").removeClass("glyphicon-remove");
+					$("#nickNameStatus").addClass("glyphicon-ok");
+					$("#nickNameStatus").css("color","#42a967");
 					$("#nickMsg").css("display","block");
 					$("#nickMsg").css("color","green");
 					$("#nickMsg").text("사용가능한 닉네임 입니다.");	
@@ -266,9 +266,9 @@ function chkNick() {
 					return true;
 				}
 				else{
-					$("#nickStatus").addClass("glyphicon-remove");
-					$("#nickStatus").removeClass("glyphicon-ok");
-					$("#nickStatus").css("color","#a94442");
+					$("#nickNameStatus").addClass("glyphicon-remove");
+					$("#nickNameStatus").removeClass("glyphicon-ok");
+					$("#nickNameStatus").css("color","#a94442");
 					$("#nickMsg").css("color","red");
 					$("#nickMsg").css("display","block");
 					$("#nickMsg").text("중복된 닉네임 입니다.");

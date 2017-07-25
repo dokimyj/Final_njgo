@@ -86,7 +86,7 @@
 	    Kakao.Auth.login({
 	        persistAccessToken : true,  // 세션이 종료된 뒤에도 Access Token을 사용할수 있도록 로컬 스토리지에 저장
 	        success: function(authObj) {				
-	        	 alert(JSON.stringify(authObj));
+	        	
 	        	
 	        	  //2. 앱 연결 유무 확인
 		       	  Kakao.API.request({

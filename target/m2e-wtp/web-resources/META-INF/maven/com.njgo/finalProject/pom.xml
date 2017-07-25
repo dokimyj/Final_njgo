@@ -18,10 +18,17 @@
 			<id>codelds</id>
 			<url>https://code.lds.org/nexus/content/groups/main-repo</url>
 		</repository>
+		
+		
 	</repositories>
+	
+	
 		<!-- ojdbc는 저작권 문제로 그냥 자동 다운로드 안됨!=>repositories라는, 사설 라이브러리를 올려놓은 사이트를 설정할 태그를 사용할 예정 -->
 		
 	<dependencies>
+		
+		
+		
 		
 		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
 		<dependency>

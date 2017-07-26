@@ -9,7 +9,11 @@
 				<h4 class="modal-title"><!-- 요리의 title --></h4>
 			</div>
 			<div class="modal-body">
-				
+				model.addAttribute("recipe", recipeService.view(num).get("recipeDTO"));
+		model.addAttribute("ingredients", recipeService.view(num).get("ingredients"));
+		model.addAttribute("steps", recipeService.view(num).get("steps"));
+		model.addAttribute("hashtags", recipeService.view(num).get("hashtags"));
+		model.addAttribute("curIng", curIng);
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>

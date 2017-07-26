@@ -146,9 +146,18 @@
 	
 	<!-- scrap -->
 	<update id="scrapI" parameterType="java.lang.Integer">
-		update RECIPE set SCRAP=SCRAP+1
+		update RECIPE set SCRAP=SCRAP+1 where NUM=#{num}
 	</update>
+	<insert id="scrapAdd" parameterType="com.njgo.dto.ScrapDTO">
+		insert into SCRAP values(#{nickname}, #{recipenum})
+	</insert>
 	<update id="scrapD" parameterType="java.lang.Integer">
-		update RECIPE set SCRAP=SCRAP-1
+		update RECIPE set SCRAP=SCRAP-1 where NUM=#{num}
 	</update>
+	<delete id="scrapSub" parameterType="com.njgo.dto.ScrapDTO">
+		delete SCRAP where NICKNAME=#{nickname} and RECIPENUM=#{recipenum}
+	</delete>
+	<select id="scrapSearch" parameterType="java.lang.String" resultType="com.njgo.dto.RecipeDTO">
+		select RECIPENUM from SCRAP where NICKNAME=#{nickname} 
+	</select>
 </mapper>

@@ -35,6 +35,10 @@ public class RecipeService {
 		return recipeDAO.list(listInfo);
 	}
 	
+	public HashMap<String, Object> tvsearch(ListInfo listInfo){
+		return recipeDAO.tvsearch(listInfo);
+	}
+	
 	public HashMap<String, Object> search(ListInfo listInfo){
 		return recipeDAO.search(listInfo);
 	}

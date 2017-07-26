@@ -24,17 +24,17 @@
 		</div>
 	</c:forEach>
 </div>
-<div class="clear"></div>
+<div class="clear"><input type="hidden" id="pagetype" value="${pagetype }"></div>
 <div id=pagers title="${list.totalCount}">
 	<ul class="pagination">
 		<c:if test="${list.listInfo.curBlock>1 }">
-			<li><span title="${list.listInfo.startNum-1 }">&lt;</span></li>
+			<li><span title="${list.listInfo.startNum-1 }" style='cursor:pointer'>&lt;</span></li>
 		</c:if>
 		<c:forEach begin="${list.listInfo.startNum }" end="${listInfo.lastNum }" step="1" var="i">
-			<li><span title="${i }">${i}</span></li>
+			<li><span title="${i }" style='cursor:pointer'>${i}</span></li>
 		</c:forEach>
 		<c:if test="${list.listInfo.curBlock<listInfo.totalBlock }">
-			<li><span title="${list.listInfo.lastNum+1 }">&gt;</span></li>
+			<li><span title="${list.listInfo.lastNum+1 }" style='cursor:pointer'>&gt;</span></li>
 		</c:if>
 	</ul>
 </div>
@@ -54,5 +54,46 @@
 		$('#overlays'+num).css("background", "none");
 		$('#creators'+num).css("visibility", "hidden");
 		$('#counts'+num).css("visibility", "hidden");		
+	});
+	$('.main_concep_channel').click(function(){
+		jQuery.ajaxSettings.traditional = true;
+		var ar=new Array();
+		var curIng=document.getElementsByName('curIng');
+		for(i=0;i<curIng.length;i++){
+			ar.push(curIng[i].value);
+		}
+		$.ajax({
+			url: "./recipe/recipeView",
+			method: "GET",
+			data:{
+				curIng:ar,
+				num:$(this).attr('title')
+			},
+			success:function(data){
+				
+			}
+		});
+	});
+	$('.pagination').on("click", "span", function(){
+		jQuery.ajaxSettings.traditional = true;
+		var ar=new Array();
+		var curIng=document.getElementsByName('curIng');
+		for(i=0;i<curIng.length;i++){
+			ar.push(curIng[i].value);
+		}
+		$.ajax({
+			url: "./recipe/catesearch",
+			method: "GET",
+			data:{
+				curPage:$(this).attr('title'),
+				c_kind:$('.c_kind[title=active]').html(),
+				c_situation:$('.c_situation[title=active]').html(),
+				c_ingredient:$('.c_ingredient[title=active]').html(),
+				c_procedure:$('.c_procedure[title=active]').html()
+			},
+			success:function(data){
+				$('#results').html(data.trim());
+			}
+		});
 	});
 </script>

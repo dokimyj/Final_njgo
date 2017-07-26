@@ -37,7 +37,7 @@ public class RecipeDAO {
 	}
 	
 	public HashMap<String, Object> list(ListInfo listInfo){
-		listInfo.setRow(1, 9);
+		listInfo.setRow(listInfo.getCurPage(), 9);
 		Integer totalCount=sqlSession.selectOne(NAMESPACE+"totalcount", listInfo);
 		listInfo.makePage(totalCount, 10);
 		HashMap<String, Object> listPack=new HashMap<String, Object>();
@@ -47,8 +47,18 @@ public class RecipeDAO {
 		return listPack;
 	}
 	
+	public HashMap<String, Object> tvsearch(ListInfo listInfo){
+		listInfo.setRow(listInfo.getCurPage(), 3);
+		Integer tvCount=sqlSession.selectOne(NAMESPACE+"tvcount", listInfo);
+		listInfo.makePage(tvCount, 1);
+		HashMap<String, Object> listPack=new HashMap<String, Object>();
+		listPack.put("listInfo", listInfo);
+		listPack.put("listPack", sqlSession.selectList(NAMESPACE+"tvsearch", listInfo)); 
+		return listPack;
+	}
+	
 	public HashMap<String, Object> search(ListInfo listInfo){
-		listInfo.setRow(1, 9);
+		listInfo.setRow(listInfo.getCurPage(), 9);
 		List<Integer> collection=sqlSession.selectList(NAMESPACE+"rnum", listInfo.getFind());
 		List<Integer> inum=sqlSession.selectList(NAMESPACE+"inum", listInfo.getFind());
 		List<Integer> hnum=sqlSession.selectList(NAMESPACE+"hnum", listInfo.getFind());
@@ -67,7 +77,7 @@ public class RecipeDAO {
 	
 	public HashMap<String, Object> catesearch(CategoryDTO category, ListInfo listInfo){
 		HashMap<String, Object> catesearch=new HashMap<String, Object>();
-		listInfo.setRow(1, 9);
+		listInfo.setRow(listInfo.getCurPage(), 9);
 		Integer cateCount=sqlSession.selectOne(NAMESPACE+"catecount", category);
 		listInfo.makePage(cateCount, 10);
 		catesearch.put("listInfo", listInfo);
@@ -84,7 +94,7 @@ public class RecipeDAO {
 	
 	public HashMap<String, Object> isearch(List<IngredientsDTO> collection, ListInfo listInfo){
 		HashMap<String, Object> isearch=new HashMap<String, Object>();
-		listInfo.setRow(1, 9);
+		listInfo.setRow(listInfo.getCurPage(), 9);
 		Integer iCount=sqlSession.selectOne(NAMESPACE+"icount", collection);
 		listInfo.makePage(iCount, 10);
 		isearch.put("listInfo", listInfo);

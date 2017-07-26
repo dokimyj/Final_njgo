@@ -97,6 +97,7 @@
 		width: 20%;
 		display: block;
 		float: right;
+		cursor: pointer;
 	}
 	.clear{
 		clear: both;

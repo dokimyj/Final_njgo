@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.njgo.dto.CategoryDTO;
 import com.njgo.dto.IngredientsDTO;
@@ -34,13 +35,22 @@ public class RecipeController {
 		model.addAttribute("curIng", curIng);
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="recipeList", method=RequestMethod.GET)
 	public void list(ListInfo listInfo, Model model) throws Exception{		
 		model.addAttribute("list", recipeService.list(listInfo));
 		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
 		model.addAttribute("pagetype", "recipeList");
 	}
+
+	@ResponseBody
+	@RequestMapping(value="tvsearch", method=RequestMethod.GET)
+	public void tvsearch(ListInfo listInfo, Model model) throws Exception{
+		model.addAttribute("tvlist", recipeService.tvsearch(listInfo));
+		model.addAttribute("pagetype", "tvsearch");
+	}
 	
+	@ResponseBody
 	@RequestMapping(value="search", method=RequestMethod.GET)
 	public String search(ListInfo listInfo, Model model) throws Exception{
 		model.addAttribute("list", recipeService.search(listInfo));
@@ -49,6 +59,7 @@ public class RecipeController {
 		return "recipe/recipeList";
 	}
 
+	@ResponseBody
 	@RequestMapping(value="catesearch", method=RequestMethod.GET)
 	public String catesearch(CategoryDTO cdto, ListInfo listInfo, Model model) throws Exception{
 		model.addAttribute("list", recipeService.catesearch(cdto, listInfo)); 
@@ -62,6 +73,8 @@ public class RecipeController {
 		model.addAttribute("ingList", ing);
 		return "recipe/ingList";
 	}
+	
+	@ResponseBody
 	@RequestMapping(value="isearch", method=RequestMethod.GET)
 	public String isearch(String[] ingredients, ListInfo listInfo, Model model) throws Exception{
 		List<IngredientsDTO> ing=new ArrayList<IngredientsDTO>();

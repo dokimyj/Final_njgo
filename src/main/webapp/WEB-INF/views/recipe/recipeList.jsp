@@ -56,38 +56,7 @@
 	</div>
 </div>
 <br>
-<c:forEach items="${tvlist.listPack }" var="tvdto">
-	<div class=main_concep_channel title=${dto.num }>
-		<div class="channel_img" style='background-image:url("resources/upload/${tvdto.rep_pic }")'>
-			<div id="overlays${tvdto.num }" class=overlays>
-				&nbsp; <br> <br> <br> <br>
-				<div id="counts${tvdto.num }" class=counts></div>
-					<br> <br> <br>
-				<div id="creators${tvdto.num }" class=creators>by ${tvdto.writer}</div>
-					<br>
-			</div>
-		</div>
-		<div class="channel_title">
-			<div>${tvdto.foodname }</div>
-		</div>
-		<div class="channel_info">
-			<div>${tvdto.title }</div>
-			<div></div>
-		</div>
-	</div>
-</c:forEach>
-<div class="clear"><input type="hidden" id="pagetype" value="${pagetype }"></div>	
-<br>
-<div id=pagers title="${tvlist.totalCount}">
-	<ul class="pagination">
-		<c:if test="${tvlist.listInfo.curBlock>1 }">
-			<li><span title="${tvlist.listInfo.startNum-1 }" style='cursor:pointer'>&lt;</span></li>
-		</c:if>
-		<c:if test="${tvlist.listInfo.curBlock<tvlist.listInfo.totalBlock }">
-			<li><span title="${tvlist.listInfo.lastNum+1 }" style='cursor:pointer'>&gt;</span></li>
-		</c:if>
-	</ul>
-</div>
+
 <!-- TV-만개의레시피에서 두 프로그램정도 가져오기(DB에 전부 넣어야 함, 동영상 태그까지) perPage=3, 페이징 대신 a태그나 스크립트로 '더 보기' 버튼 만들기 -->
 	<script>	
 		$('.overlays').css("background", "none");

@@ -188,15 +188,15 @@ public class MemberController {
 	}
 	// SNS(Kakao) 가입 
 	@RequestMapping(value="memberSNSJoin", method = RequestMethod.POST)
-	public String memberSNSJoin(MemberDTO memberDTO,Model model,HttpSession session)throws Exception{
+	public String memberSNSJoin(MemberDTO memberDTO,RedirectAttributes rd,HttpSession session)throws Exception{
 		
 		int result = memberService.memberSNSJoin(memberDTO);
 		if(result>0){
 				
 			session.setAttribute("memberDTO", memberDTO);
-			model.addAttribute("message", "가입성공!! 환영합니다.");
+			rd.addFlashAttribute("message", "가입성공!! 환영합니다.");
 		}else{
-			model.addAttribute("message", "가입 실패 ERROR..");
+			rd.addFlashAttribute("message", "가입 실패 ERROR..");
 		}
 		return "redirect:../";
 	}

@@ -139,6 +139,7 @@ function doSubmit(login_mode)
 	          <input type="hidden" name="login_mode" value="${login_mode }"> 
 	          <!-- 카카오톡 가입시 필요  -->
 	          <c:if test="${login_mode eq 'SNS_join' }">  
+	          	  <input type="hidden" name="grade" value="1">
 		          <input type="hidden" name="email" id="SNS_email" value="">
 		          <input type="hidden" name="myPhoto" id="SNS_photo" value="">
 		          <input type="hidden" name="kakaoID" id="SNS_id" value=""> <!-- 앱에 처음 연결시 저장되는 고유 id값 -->

@@ -10,13 +10,9 @@
 			
 			Kakao.Auth.logout(function(data) {
 				if(data){
-					go();
+					location.href ="${pageContext.request.contextPath}/member/logout";
 				}
 			}); 
-			
-		}
-		function go() {
-			location.href ="${pageContext.request.contextPath}/member/logout";
 			
 		}
 		

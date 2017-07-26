@@ -25,7 +25,7 @@
 			<div class="container_etc" style="width:500px;">
   <h2>회원탈퇴</h2>
 	  <div class="panel-body">
-	    <form name="form_check" id="chkEdit" method="post" action="memberDelete">
+	    <form name="form_check" id="delete_form" method="post" action="memberDelete">
 	    <p class="help-block">
 	        탈퇴하면 앞으로 이 계정으로 로그인할 수 없고 이 계정을 다시 복구할 수 없습니다.<br>
 	        * 가입정보를 변경하고 싶다면 <a href="info_correct">회원정보수정</a>에서 변경할 수 있습니다.<br>
@@ -40,7 +40,7 @@
 	        	 <input type="hidden" name="kakaoID" value="${memberDTO.kakaoID }">
 	        </c:if>
 	        <div class="etc_line"></div>
-	      <button type="submit" class="btn btn-primary btn-block btn-lg">확 인</button>
+	      <button type="button" class="btn btn-primary btn-block btn-lg" id="delete_btn" onclick="withdrawal()">확 인</button>
 	    </form>
 	  </div>
 	</div>
@@ -49,6 +49,17 @@
 	<c:import url="../tmp/footer.jsp"/>
 </body>
 <script>
-	
+		function withdrawal() {
+			Kakao.init('cd868dba3cc2bd18d62a147752f2347c');
+					
+					//앱연결 끊어주기
+					Kakao.API.request({
+						url :"/v1/user/unlink",
+						success : function(res) {
+							$("form").submit();		
+						}
+					});
+
+		}
 	</script>
 </html>

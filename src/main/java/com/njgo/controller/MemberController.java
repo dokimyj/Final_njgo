@@ -78,7 +78,6 @@ public class MemberController {
 			System.out.println("탈퇴 성공!!");
 			session.invalidate();
 			rd.addFlashAttribute("message", message);
-			rd.addFlashAttribute("code", "delete");
 		}
 		return "redirect:../";
 	}

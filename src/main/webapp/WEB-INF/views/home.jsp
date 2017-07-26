@@ -29,15 +29,7 @@
 	if("${message}"!=""){
 		alert("${message}");
 	}
-	if("${code}"=="delete"){
-	    Kakao.init('cd868dba3cc2bd18d62a147752f2347c');
-		  Kakao.API.request({
-			  url : "/v1/user/unlink",
-			  success : function() {
-				alert("앱 데이터 삭제 완료");
-			}
-		  });
-	}
+	
 	if(("${memberDTO.grade}" <1) && ("${memberDTO}"!="")){
 		alert("이메일 인증을 안한상태입니다. 가입하신 이메일을 확인해주세요.")
 	}

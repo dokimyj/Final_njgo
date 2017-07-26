@@ -52,14 +52,34 @@
 		function withdrawal() {
 			Kakao.init('cd868dba3cc2bd18d62a147752f2347c');
 					
-					//앱연결 끊어주기
-					Kakao.API.request({
+			// 카카오 아이디 회원탈퇴일경우 
+			if("${memberDTO.login_mode}" =='SNS_join'){
+				// 메세지 보내기 
+				Kakao.API.request({
+					url : "/v2/api/talk/memo/send", 
+					data : {
+						template_id : 4991
+					},
+					success : function(data) {	
+					}
+				});
+				
+				 //앱연결 끊어주기
+				Kakao.API.request({
 						url :"/v1/user/unlink",
-						success : function(res) {
-							$("form").submit();		
+						success : function(res) {	
+							if(res.id =="${memberDTO.kakaoID}"){
+								 $("form").submit();
+							}
+							else{
+								alert("응?..카카오아이디 값이 다름");
+							}
 						}
-					});
-
+				}); 
+			}
+			else{
+				$("form").submit();			
+			}	
 		}
 	</script>
 </html>

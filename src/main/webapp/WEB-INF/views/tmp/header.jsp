@@ -148,7 +148,7 @@
 		</div>
 		<div class="member_box" style="display: none;" title="off">
 			<ul>
-				<li><a href="#">MY홈</a></li>
+				<li><a href="${pageContext.request.contextPath}/member/myPage/myPage">MY홈</a></li>
 				<li><a href="#">스크랩한 레시피</a></li>
 				<li><a href="#">레시피 노트</a></li>
 				<li><a href="#">알림</a></li>

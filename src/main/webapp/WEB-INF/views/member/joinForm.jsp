@@ -16,13 +16,8 @@
     
  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
-<script>
-$(function() {
-    $('#id_user').focus();
-    Kakao.init('cd868dba3cc2bd18d62a147752f2347c');
-});
-
-
+<script type="text/javascript">
+//form Check
 function doSubmit(login_mode)
 {	
 	if(login_mode =='general_join'){
@@ -64,7 +59,7 @@ function doSubmit(login_mode)
 	<section class="main_section">
 		<div class="container_etc" style="width:460px;">
 	      <h2 style="font-size: 2em;">회원가입</h2>
-	        <form name="form_insert" id="frmInsert" method="post" action="${path }" autocomplete="off" onsubmit="return doSubmit(${login_mode})">
+	        <form name="form_insert" id="frmInsert" method="post" action="${path }" autocomplete="off" onsubmit="return doSubmit('${login_mode}')">
 	          <input type="hidden" id="kakao" value="">
 	          <!-- Email 입력 -->
 	          <!-- 일반회원  -->
@@ -148,7 +143,7 @@ function doSubmit(login_mode)
 	          <div>
 					<img alt="" id="SNS_photo2" src="">	          
 	          </div>
-	          <button type="submit" class="btn btn-primary btn-block btn-lg">회원가입</button>
+	          <button type="button" id="join_btn" class="btn btn-primary btn-block btn-lg">회원가입</button>
 	      </form></div>
       </section>
       
@@ -156,9 +151,9 @@ function doSubmit(login_mode)
 </body>
 <script type="text/javascript">
 	$(function() {
-		
+	 Kakao.init('cd868dba3cc2bd18d62a147752f2347c');
 		if("${login_mode}"=="SNS_join"){
-			
+			 	 
 			 Kakao.API.request({
 	     		url : "/v1/user/me",
 	     		
@@ -172,6 +167,23 @@ function doSubmit(login_mode)
 	     		}
 	     	});  		
 		}
+	});
+	// 회원가입 Button
+	$("#join_btn").click(function() {
+		
+		// 나에게 메세지 보내기
+		if("${login_mode}"=='SNS_join'){
+			Kakao.API.request({
+				url : "/v2/api/talk/memo/send",
+				data : {
+					template_id : 4970
+				},
+				success : function(data) {	
+				}
+			});		
+		}
+		
+		$("form").submit();
 	});
 	
 </script>

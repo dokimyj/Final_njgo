@@ -4077,7 +4077,7 @@ body {
 	padding: 50px 0 50px 150px
 }
 
-.user_information img {
+.user_information #myPhoto {
 	display: block;
 	width: 100px;
 	height: 100px;
@@ -4145,7 +4145,7 @@ body {
 	bottom: 20px
 }
 
-.user_information .btn_area button, .user_information .btn_area a {
+.user_information .btn_area #profile_btn, .user_information .btn_area a {
 	width: 120px;
 	height: 35px;
 	display: inline-block;

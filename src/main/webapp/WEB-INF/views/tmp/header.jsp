@@ -21,7 +21,6 @@
 				memberTab();
 			}
 		});
-		
 		$(document).mouseup(function(e) {
 			if($(".member_box").has(e.target).length == 0) {
 				if($("#person").has(e.target).length == 0) {
@@ -71,7 +70,7 @@
 <header>
 	<div class="search">
 		<div class="search_wrap">
-			<input type="text" id="searchInput" placeholder="음식명, 재료명으로 검색해주세요.">
+			<input type="text" id="searchInput" placeholder="음식명, 재료명으로 검색해주세요." onkeydown="search(this)">
 			<div class="pictureBtn">
 				<div id="person">
 					<c:if test="false">	<!-- 로그인 안 했을 때 -->
@@ -97,12 +96,10 @@
 					</a>
 				</div>
 				<div id="refrigerator">
-					<a href="#">
-						<img alt="냉장고 추천" src="${pageContext.request.contextPath}/resources/images/common/fridge.png"
-							onmouseover="this.src='${pageContext.request.contextPath}/resources/images/common/fridge-over.png'"
-							onmouseout="this.src='${pageContext.request.contextPath}/resources/images/common/fridge.png'">
-						<span class="tooltiptext">있는재료로 추천받기</span>
-					</a>
+					<img alt="냉장고 추천" src="${pageContext.request.contextPath}/resources/images/common/fridge.png"
+						onmouseover="this.src='${pageContext.request.contextPath}/resources/images/common/fridge-over.png'"
+						onmouseout="this.src='${pageContext.request.contextPath}/resources/images/common/fridge.png'" data-toggle="modal" style="cursor:pointer" data-target="#ingredientsSearch">
+					<span class="tooltiptext">있는재료로 추천받기</span>
 				</div>
 			</div>
 		</div>
@@ -129,7 +126,7 @@
 			<div class="menu_sub">
 				<nav class="menu_sub_nav">
 					<ul class="menu_sub_ul">
-						<li><a href="#">레시피</a></li>
+						<li><a onClick="recipe()" style="cursor:pointer">레시피</a></li>
 						<li><a href="#">플래너</a></li>
 						<li><a href="#">쇼핑몰</a></li>
 					</ul>

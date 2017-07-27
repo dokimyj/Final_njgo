@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="recipeMapper">
+	<!-- view -->
+	<select id="rview" parameterType="java.lang.Integer" resultType="com.njgo.dto.RecipeDTO">
+		select * from RECIPE where NUM=#{num}
+	</select>
+	<select id="iview" parameterType="java.lang.Integer" resultType="com.njgo.dto.IngredientsDTO">
+		select NAME, AMOUNT from INGREDIENTS where RECIPENUM=#{num}
+	</select>
+	<select id="sview" parameterType="java.lang.Integer" resultType="com.njgo.dto.StepsDTO">
+		select STEP, EXPLAIN, FNAME, ONAME from STEPS where RECIPENUM=#{num}
+	</select>
+	<select id="tview" parameterType="java.lang.Integer" resultType="com.njgo.dto.HashtagDTO">
+		select HASHTAG from HASHTAG where RECIPENUM=#{num}
+	</select>
+	
+	<!-- list -->
+	<select id="totalcount" parameterType="com.njgo.util.ListInfo" resultType="java.lang.Integer">
+		select COUNT(NUM) from RECIPE
+		<if test="search=='title'">
+			where TITLE like '%'||#{find}||'%'
+		</if>
+		<if test="search=='writer'">
+			where WRITER like '%'||#{find}||'%'
+		</if>
+	</select>
+	<select id="list" parameterType="com.njgo.util.ListInfo" resultType="com.njgo.dto.RecipeDTO">
+		select * from 
+		(select ROWNUM R, L.* from 
+		(select NUM, WRITER, FOODNAME, TITLE, REP_PIC, RATING, ELAPSEDTIME, SCRAP from RECIPE 
+			<if test="search=='title'">
+				where TITLE like '%'||#{find}||'%'
+			</if>
+			<if test="search=='writer'">
+				where WRITER like '%'||#{find}||'%'
+			</if>
+		  order by
+		<if test="order=='regdate'">
+			REGDATE
+		</if>
+		<if test="order=='rating'">
+			RATING
+		</if>
+		<if test="order=='hit'">
+			HIT
+		</if>
+		  desc) L) 
+		where R between #{startRow} and #{lastRow}		
+	</select>
+	<select id="rnum" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select NUM from RECIPE where FOODNAME like '%'||#{keyword}||'%'	
+	</select>
+	<select id="inum" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select RECIPENUM from INGREDIENTS where NAME like '%'||#{keyword}||'%'
+	</select>
+	<select id="hnum" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select RECIPENUM from HASHTAG where HASHTAG like '%'||#{keyword}||'%'
+	</select>
+	<select id="searchcount" parameterType="java.util.List" resultType="java.lang.Integer">
+		select COUNT(distinct C.NUM) from RECIPE C, INGREDIENTS I, HASHTAG H
+		<trim prefix="where">
+		 C.NUM=I.RECIPENUM and C.NUM=H.RECIPENUM and C.NUM in 
+			<foreach collection="collection" item="num" open="(" separator="," close=")">
+				#{num}
+			</foreach>		 
+		</trim>
+	</select>
+	<select id="search" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeDTO">
+		select * from 
+		(select ROWNUM R, L.* from 
+		(select distinct C.* from RECIPE C, INGREDIENTS I, HASHTAG H
+		<trim prefix="where">
+		 C.NUM=I.RECIPENUM and C.NUM=H.RECIPENUM and C.NUM in 
+			<foreach collection="collection" item="num" open="(" separator="," close=")">
+				#{num}
+			</foreach>		 
+		</trim>
+		 order by
+		<if test="listInfo.order=='regdate'">
+			C.REGDATE
+		</if>
+		<if test="listInfo.order=='rating'">
+			C.RATING
+		</if>
+		<if test="listInfo.order=='hit'">
+			C.HIT
+		</if>
+		  desc) L) 
+		where R between #{listInfo.startRow} and #{listInfo.lastRow}
+	</select>
+	<select id="catecount" parameterType="com.njgo.dto.CategoryDTO" resultType="java.lang.Integer">
+		select COUNT(distinct C.NUM) from RECIPE C, CATEGORY T
+		<trim prefix="where">
+			C.NUM=T.RECIPENUM and C.NUM in (select RECIPENUM from CATEGORY where C_KIND like #{c_kind} and C_SITUATION like #{c_situation} and C_PROCEDURE like #{c_procedure} and C_INGREDIENT like #{c_ingredient})
+		</trim>
+	</select>
+	<select id="catesearch" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeDTO">
+		select * from 
+		(select ROWNUM R, L.* from 
+		(select distinct C.* from RECIPE C, CATEGORY T
+		 where C.NUM=T.RECIPENUM and T.RECIPENUM in (select RECIPENUM from CATEGORY where C_KIND like #{category.c_kind} and C_SITUATION like #{category.c_situation} and C_PROCEDURE like #{category.c_procedure} and C_INGREDIENT like #{category.c_ingredient})
+		 order by
+		<if test="listInfo.order=='regdate'">
+			C.REGDATE
+		</if>
+		<if test="listInfo.order=='rating'">
+			C.RATING
+		</if>
+		 desc) L) 
+		where R between #{listInfo.startRow} and #{listInfo.lastRow}
+	</select>
+	<select id="inglist" parameterType="java.lang.String" resultType="com.njgo.dto.IngredientsDTO">
+		select distinct NAME from INGREDIENTS where NAME like '%'||#{find}||'%'
+	</select>	
+	<select id="icount" parameterType="java.util.List" resultType="java.lang.Integer">
+		select COUNT(distinct C.NUM) from RECIPE C, INGREDIENTS I
+		<trim prefix="where">
+			C.NUM=I.RECIPENUM and I.RECIPENUM in (select RECIPENUM from INGREDIENTS where NAME in 
+			<foreach collection="collection" item="dto" open="(" separator="," close=")">
+				#{dto.name}
+			</foreach>)
+		</trim>
+	</select>
+	<select id="isearch" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeDTO">
+		select * from 
+		(select ROWNUM R, L.* from 
+		(select distinct C.* from RECIPE C, INGREDIENTS I
+		 where C.NUM=I.RECIPENUM and I.RECIPENUM in (select RECIPENUM from INGREDIENTS where NAME in 
+			<foreach collection="collection" item="dto" open="(" separator="," close=")">
+				#{dto.name}
+			</foreach>)
+		 order by
+		<if test="listInfo.order=='regdate'">
+			C.REGDATE
+		</if>
+		<if test="listInfo.order=='rating'">
+			C.RATING
+		</if>
+		 desc) L) 
+		where R between #{listInfo.startRow} and #{listInfo.lastRow}
+	</select> 
+	
+	
+	<!-- scrap -->
+	<update id="scrapI" parameterType="java.lang.Integer">
+		update RECIPE set SCRAP=SCRAP+1 where NUM=#{num}
+	</update>
+	<insert id="scrapAdd" parameterType="com.njgo.dto.ScrapDTO">
+		insert into SCRAP values(#{nickname}, #{recipenum})
+	</insert>
+	<update id="scrapD" parameterType="java.lang.Integer">
+		update RECIPE set SCRAP=SCRAP-1 where NUM=#{num}
+	</update>
+	<delete id="scrapSub" parameterType="com.njgo.dto.ScrapDTO">
+		delete SCRAP where NICKNAME=#{nickname} and RECIPENUM=#{recipenum}
+	</delete>
+	<select id="scrapSearch" parameterType="java.lang.String" resultType="com.njgo.dto.RecipeDTO">
+		select RECIPENUM from SCRAP where NICKNAME=#{nickname} 
+	</select>
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="recipeReplyMapper">
+	<select id="list" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeReplyDTO">
+		select * from (select ROWNUM R, C.* from (select * from RECIPE_REPLY where RECIPENUM=#{reply.rnum} order by REF desc, STEP asc) C) where R between #{reply.listInfo.firstRow} and #{reply.listInfo.lastRow}
+	</select>
+	<insert id="write" parameterType="com.njgo.dto.RecipeReplyDTO">
+		insert into RECIPE_REPLY values(RECIPEREPLY_SEQ.NEXTVAL, #{recipenum}, #{writer}, #{contents}, SYSDATE, RECIPEREPLY_SEQ.CURRVAL, 0, 0)
+	</insert>
+	<insert id="reply" statementType="CALLABLE" parameterType="java.util.Map">
+		{ call RREPLY_REPLY(#{replyDTO.num, mode=IN}, #{replyDTO.writer, mode=IN}, #{replyDTO.contents, mode=IN}, #{result, mode=OUT, javaType=int, jdbcType=INTEGER}) }
+	</insert>
+	<select id="view" parameterType="java.lang.Integer" resultType="com.njgo.dto.RecipeReplyDTO">
+		select * from RECIPE_REPLY where NUM=#{num}
+	</select>
+	<update id="update" parameterType="com.njgo.dto.RecipeReplyDTO">
+		update RECIPE_REPLY set CONTENTS=#{contents}, TIME=SYSDATE where NUM=#{num}
+	</update>
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete RECIPE_REPLY where NUM=#{num}
+	</delete>
+</mapper>

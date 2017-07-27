@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="recipeReviewMapper">
+	<select id="list" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeReviewDTO">
+		select * from (select ROWNUM R, C.* from (select * from RECIPE_REVIEW where RECIPENUM=#{review.rnum} order by NUM desc) C) where R between #{review.listInfo.firstRow} and #{review.listInfo.lastRow}
+	</select>
+	<insert id="write" statementType="CALLABLE" parameterType="java.util.Map">
+		{ call RREVIEW_WRITE(#{reviewDTO.recipenum, mode=IN}, #{reviewDTO.writer, mode=IN}, #{reviewDTO.contents, mode=IN}, #{reviewDTO.rating, mode=IN}, #{result, mode=OUT, javaType=int, jdbcType=INTEGER}) }
+	</insert>
+	<delete id="delete" statementType="CALLABLE" parameterType="java.util.Map">
+		{ call RREVIEW_DELETE(#{num, mode=IN}, #{rnum, mode=IN}, #{result, mode=OUT, javaType=int, jdbcType=INTEGER}) }
+	</delete>
+</mapper>

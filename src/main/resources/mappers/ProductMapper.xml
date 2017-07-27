@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductMapper">
+	<sql id="search">
+		<where>
+			<if test="cate_minor != '' and cate_major != ''">
+				CATE_MAJOR=#{cate_major} and CATE_MINOR=#{cate_minor}
+			</if>
+			<if test="cate_major != '' and cate_minor == ''">
+				CATE_MAJOR=#{cate_major}
+			</if>
+		</where>
+	</sql>
+	
+	<select id="proList" resultType="com.njgo.dto.ProductDTO" parameterType="com.njgo.util.RowMaker">
+		select * from 
+		(select ROWNUM R, P.* from 
+		(select * from PRODUCT 
+		<include refid="search"></include>
+		 order by PRONUM DESC) P) 
+		where R between #{startRow} and #{lastRow}
+	</select>
+	<select id="proView" resultType="com.njgo.dto.ProductDTO" parameterType="java.lang.Integer">
+		select * from PRODUCT where PRONUM=#{pronum}
+	</select>
+	<select id="proCount" resultType="java.lang.Integer" parameterType="com.njgo.util.RowMaker">
+		select nvl(count(PRONUM), 0) from PRODUCT 
+		<include refid="search"></include>
+	</select>
+
+	<insert id="proWrite" parameterType="com.njgo.dto.ProductDTO">
+		insert into PRODUCT values 
+		(pro_seq.nextval, #{name}, #{price}, #{amount}, #{procode}, #{cate_major}, #{cate_minor}, #{contents}, #{f_mainimg}, #{o_mainimg}, #{f_detailimg}, #{o_detailimg} )
+	</insert>
+	
+	<update id="proUpdate" parameterType="com.njgo.dto.ProductDTO">
+		update PRODUCT set NAME=#{name}, PRICE=#{price}, AMOUNT=#{amount}, PROCODE=#{procode}, CATE_MAJOR=#{cate_major}, CATE_MINOR=#{cate_minor}, CONTENTS=#{contents}, 
+		F_MAINIMG=#{f_mainimg}, O_MAINIMG=#{o_mainimg}, F_DETAILIMG=#{f_detailimg}, O_DETAILIMG=#{o_detailimg} 
+		where PRONUM=#{pronum}
+	</update>
+</mapper>

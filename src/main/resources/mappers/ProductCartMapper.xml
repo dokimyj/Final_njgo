@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductCartMapper">
+	
+	<select id="cartList" resultType="com.njgo.dto.ProductCartDTO" parameterType="java.lang.String">
+		select * from PRODUCT_CART where MEMBERID = #{memberid}
+	</select>
+
+	<insert id="cartInsert" parameterType="com.njgo.dto.ProductCartDTO">
+		insert into PRODUCT_CART values ( cart_seq.nextval, #{pronum}, #{memberid}, #{amount} )
+	</insert>
+	
+	<select id="cartIsEquals" resultType="java.lang.Integer" parameterType="com.njgo.dto.ProductCartDTO">
+        select COUNT(*) from PRODUCT_CART where MEMBERID= #{memberid} and PRONUM = #{pronum}
+    </select>
+    
+    <update id="cartUpdateEquals" parameterType="com.njgo.dto.ProductCartDTO">
+        update PRODUCT_CART set AMOUNT = AMOUNT + #{amount} where MEMBERID= #{memberid} and PRONUM = #{pronum}
+    </update>
+    
+    <delete id="cartDeleteOne" parameterType="java.lang.Integer">
+        delete from PRODUCT_CART where CARTID IN
+        <foreach collection="list" item="dto" open="(" close=")" separator=",">
+			#{dto}
+		</foreach>
+    </delete>
+    
+</mapper>

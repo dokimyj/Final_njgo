@@ -13,6 +13,7 @@ import com.njgo.dto.CategoryDTO;
 import com.njgo.dto.HashtagDTO;
 import com.njgo.dto.IngredientsDTO;
 import com.njgo.dto.RecipeDTO;
+import com.njgo.dto.ScrapDTO;
 import com.njgo.dto.StepsDTO;
 import com.njgo.util.ListInfo;
 
@@ -47,45 +48,36 @@ public class RecipeDAO {
 		return listPack;
 	}
 	
-	public HashMap<String, Object> tvsearch(ListInfo listInfo){
-		listInfo.setRow(listInfo.getCurPage(), 3);
-		Integer tvCount=sqlSession.selectOne(NAMESPACE+"tvcount", listInfo);
-		listInfo.makePage(tvCount, 1);
-		HashMap<String, Object> listPack=new HashMap<String, Object>();
-		listPack.put("listInfo", listInfo);
-		listPack.put("listPack", sqlSession.selectList(NAMESPACE+"tvsearch", listInfo)); 
-		return listPack;
+	private HashMap<String, Object> search(ListInfo listInfo, List<Integer> result){
+		if(result.size()==0){
+			result.add(0);
+		}
+		Integer totalCount=sqlSession.selectOne(NAMESPACE+"searchcount", result);
+		listInfo.setRow(listInfo.getCurPage(), 9);
+		listInfo.makePage(totalCount, 10);
+		HashMap<String, Object> searchresult=new HashMap<String, Object>();
+		searchresult.put("collection", result);
+		searchresult.put("listInfo", listInfo);
+		List<RecipeDTO> rdtoList=sqlSession.selectList(NAMESPACE+"search", searchresult);
+		searchresult.put("totalCount", totalCount);
+		searchresult.put("listPack", rdtoList);
+		List<RecipeDTO> tvList=sqlSession.selectList(NAMESPACE+"tvsearch", searchresult);
+		searchresult.put("tvlist", tvList);
+		return searchresult;
 	}
 	
 	public HashMap<String, Object> search(ListInfo listInfo){
-		listInfo.setRow(listInfo.getCurPage(), 9);
-		List<Integer> collection=sqlSession.selectList(NAMESPACE+"rnum", listInfo.getFind());
-		List<Integer> inum=sqlSession.selectList(NAMESPACE+"inum", listInfo.getFind());
-		List<Integer> hnum=sqlSession.selectList(NAMESPACE+"hnum", listInfo.getFind());
-		collection.addAll(inum);
-		collection.addAll(hnum);
-		Integer searchCount=sqlSession.selectOne(NAMESPACE+"searchcount", collection);
-		listInfo.makePage(searchCount, 10);
-		HashMap<String, Object> searchQ=new HashMap<String, Object>();
-		searchQ.put("collection", collection);
-		searchQ.put("listInfo", listInfo);
-		List<RecipeDTO> searchResult=sqlSession.selectList(NAMESPACE+"search", searchQ);
-		searchQ.put("listPack", searchResult);
-		searchQ.put("totalCount", searchCount);
-		return searchQ;
+		List<Integer> result=sqlSession.selectList(NAMESPACE+"hsearch1", listInfo);
+		List<Integer> tresult=sqlSession.selectList(NAMESPACE+"rsearch1", listInfo);
+		List<Integer> iresult=sqlSession.selectList(NAMESPACE+"isearch1", listInfo);
+		result.addAll(tresult);
+		result.addAll(iresult);
+		return this.search(listInfo, result);
 	}
 	
 	public HashMap<String, Object> catesearch(CategoryDTO category, ListInfo listInfo){
-		HashMap<String, Object> catesearch=new HashMap<String, Object>();
-		listInfo.setRow(listInfo.getCurPage(), 9);
-		Integer cateCount=sqlSession.selectOne(NAMESPACE+"catecount", category);
-		listInfo.makePage(cateCount, 10);
-		catesearch.put("listInfo", listInfo);
-		catesearch.put("category", category);
-		List<RecipeDTO> cateResult=sqlSession.selectList(NAMESPACE+"catesearch", catesearch);
-		catesearch.put("listPack", cateResult);
-		catesearch.put("totalCount", cateCount);
-		return catesearch;
+		List<Integer> result=sqlSession.selectList(NAMESPACE+"catesearch", category);
+		return this.search(listInfo, result);
 	}
 	
 	public List<IngredientsDTO> ingList(String find){
@@ -93,23 +85,29 @@ public class RecipeDAO {
 	}
 	
 	public HashMap<String, Object> isearch(List<IngredientsDTO> collection, ListInfo listInfo){
-		HashMap<String, Object> isearch=new HashMap<String, Object>();
-		listInfo.setRow(listInfo.getCurPage(), 9);
-		Integer iCount=sqlSession.selectOne(NAMESPACE+"icount", collection);
-		listInfo.makePage(iCount, 10);
-		isearch.put("listInfo", listInfo);
-		isearch.put("collection", collection);
-		List<RecipeDTO> iResult=sqlSession.selectList(NAMESPACE+"isearch", isearch);
-		isearch.put("listPack", iResult);
-		isearch.put("totalCount", iCount);
-		return isearch;
+		List<Integer> result=sqlSession.selectList(NAMESPACE+"ingsearch", collection);
+		return this.search(listInfo, result);
 	}
 	
-	public int scrapIncrease(Integer num){
-		return sqlSession.update(NAMESPACE+"scrapI", num);
+	public HashMap<String, Object> writersearch(String writer, ListInfo listInfo){
+		List<Integer> result=sqlSession.selectList(NAMESPACE+"writersearch", writer);
+		return this.search(listInfo, result);
 	}
 	
-	public int scrapDecrease(Integer num){
-		return sqlSession.update(NAMESPACE+"scrapD", num);
+	public HashMap<String, Object> scrapsearch(String nickname, ListInfo listInfo){
+		List<Integer> result=sqlSession.selectList(NAMESPACE+"scrapsearch", nickname);
+		return this.search(listInfo, result);
+	}
+	
+	public int scrapIncrease(ScrapDTO scrapDTO){ //scrapDTO의 닉네임은 session에서 받아오고, RecipeNum은 해당 넘버의 타이틀을 받으면 됨. 정상적으로 돌아갔다면 리턴값은 2
+		int result=sqlSession.insert(NAMESPACE+"scrapAdd", scrapDTO);
+		result+=sqlSession.update(NAMESPACE+"scrapI", scrapDTO.getRecipenum());
+		return result;
+	}
+	
+	public int scrapDecrease(ScrapDTO scrapDTO){ //scrapDTO의 닉네임은 session에서 받아오고, RecipeNum은 해당 넘버의 타이틀을 받으면 됨. 정상적으로 돌아갔다면 리턴값은 2
+		int result=sqlSession.delete(NAMESPACE+"scrapSub", scrapDTO);
+		result+=sqlSession.update(NAMESPACE+"scrapD", scrapDTO.getRecipenum());
+		return result;
 	}
 }

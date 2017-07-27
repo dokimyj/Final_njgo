@@ -11,138 +11,96 @@
 		select NAME, AMOUNT from INGREDIENTS where RECIPENUM=#{num}
 	</select>
 	<select id="sview" parameterType="java.lang.Integer" resultType="com.njgo.dto.StepsDTO">
-		select STEP, EXPLAIN, FNAME, ONAME from STEPS where RECIPENUM=#{num}
+		select STEP, EXPLAIN, FNAME, ONAME from STEPS where RECIPENUM=#{num} order by STEP asc
 	</select>
 	<select id="tview" parameterType="java.lang.Integer" resultType="com.njgo.dto.HashtagDTO">
 		select HASHTAG from HASHTAG where RECIPENUM=#{num}
 	</select>
 	
-	<!-- list -->
-	<select id="totalcount" parameterType="com.njgo.util.ListInfo" resultType="java.lang.Integer">
-		select COUNT(NUM) from RECIPE
-		<if test="search=='title'">
-			where TITLE like '%'||#{find}||'%'
-		</if>
-		<if test="search=='writer'">
-			where WRITER like '%'||#{find}||'%'
-		</if>
-	</select>
-	<select id="list" parameterType="com.njgo.util.ListInfo" resultType="com.njgo.dto.RecipeDTO">
-		select * from 
-		(select ROWNUM R, L.* from 
-		(select NUM, WRITER, FOODNAME, TITLE, REP_PIC, RATING, ELAPSEDTIME, SCRAP from RECIPE 
-			<if test="search=='title'">
-				where TITLE like '%'||#{find}||'%'
-			</if>
-			<if test="search=='writer'">
-				where WRITER like '%'||#{find}||'%'
-			</if>
-		  order by
-		<if test="order=='regdate'">
-			REGDATE
-		</if>
-		<if test="order=='rating'">
-			RATING
-		</if>
-		<if test="order=='hit'">
-			HIT
-		</if>
-		  desc) L) 
-		where R between #{startRow} and #{lastRow}		
-	</select>
-	<select id="rnum" parameterType="java.lang.String" resultType="java.lang.Integer">
-		select NUM from RECIPE where FOODNAME like '%'||#{keyword}||'%'	
-	</select>
-	<select id="inum" parameterType="java.lang.String" resultType="java.lang.Integer">
-		select RECIPENUM from INGREDIENTS where NAME like '%'||#{keyword}||'%'
-	</select>
-	<select id="hnum" parameterType="java.lang.String" resultType="java.lang.Integer">
-		select RECIPENUM from HASHTAG where HASHTAG like '%'||#{keyword}||'%'
-	</select>
+	<!-- list-main -->
 	<select id="searchcount" parameterType="java.util.List" resultType="java.lang.Integer">
-		select COUNT(distinct C.NUM) from RECIPE C, INGREDIENTS I, HASHTAG H
+		select COUNT(distinct NUM) from RECIPE 
 		<trim prefix="where">
-		 C.NUM=I.RECIPENUM and C.NUM=H.RECIPENUM and C.NUM in 
+		 NUM in 
 			<foreach collection="collection" item="num" open="(" separator="," close=")">
 				#{num}
-			</foreach>		 
-		</trim>
+			</foreach>
+		</trim>		 
 	</select>
 	<select id="search" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeDTO">
 		select * from 
 		(select ROWNUM R, L.* from 
-		(select distinct C.* from RECIPE C, INGREDIENTS I, HASHTAG H
+		(select distinct * from RECIPE
 		<trim prefix="where">
-		 C.NUM=I.RECIPENUM and C.NUM=H.RECIPENUM and C.NUM in 
+		 NUM in 
 			<foreach collection="collection" item="num" open="(" separator="," close=")">
 				#{num}
-			</foreach>		 
+			</foreach>
+		 and not WRITER='관리자'		 
 		</trim>
 		 order by
 		<if test="listInfo.order=='regdate'">
-			C.REGDATE
-		</if>
-		<if test="listInfo.order=='rating'">
-			C.RATING
+			REGDATE
 		</if>
 		<if test="listInfo.order=='hit'">
-			C.HIT
+			HIT
 		</if>
 		  desc) L) 
 		where R between #{listInfo.startRow} and #{listInfo.lastRow}
 	</select>
-	<select id="catecount" parameterType="com.njgo.dto.CategoryDTO" resultType="java.lang.Integer">
-		select COUNT(distinct C.NUM) from RECIPE C, CATEGORY T
-		<trim prefix="where">
-			C.NUM=T.RECIPENUM and C.NUM in (select RECIPENUM from CATEGORY where C_KIND like #{c_kind} and C_SITUATION like #{c_situation} and C_PROCEDURE like #{c_procedure} and C_INGREDIENT like #{c_ingredient})
-		</trim>
-	</select>
-	<select id="catesearch" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeDTO">
+	<select id="tvsearch" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeDTO">
 		select * from 
 		(select ROWNUM R, L.* from 
-		(select distinct C.* from RECIPE C, CATEGORY T
-		 where C.NUM=T.RECIPENUM and T.RECIPENUM in (select RECIPENUM from CATEGORY where C_KIND like #{category.c_kind} and C_SITUATION like #{category.c_situation} and C_PROCEDURE like #{category.c_procedure} and C_INGREDIENT like #{category.c_ingredient})
+		(select distinct * from RECIPE
+		<trim prefix="where">
+		 NUM in 
+			<foreach collection="collection" item="num" open="(" separator="," close=")">
+				#{num}
+			</foreach>
+		 and WRITER='관리자'		 
+		</trim>
 		 order by
 		<if test="listInfo.order=='regdate'">
-			C.REGDATE
+			REGDATE
 		</if>
-		<if test="listInfo.order=='rating'">
-			C.RATING
+		<if test="listInfo.order=='hit'">
+			HIT
 		</if>
-		 desc) L) 
-		where R between #{listInfo.startRow} and #{listInfo.lastRow}
+		  desc) L) 
+		where R between #{listInfo.startRow}/3 and #{listInfo.lastRow}/3
+	</select>
+	
+	<!-- search-categorized -->
+	<select id="rsearch1" parameterType="com.njgo.util.ListInfo" resultType="java.lang.Integer">
+		select NUM from RECIPE where FOODNAME like '%'||#{find}||'%'	
+	</select>
+	<select id="hsearch1" parameterType="com.njgo.util.ListInfo" resultType="java.lang.Integer">
+		select RECIPENUM from HASHTAG where HASHTAG like '%'||#{find}||'%'
+	</select>
+	<select id="catesearch" parameterType="com.njgo.dto.CategoryDTO" resultType="java.lang.Integer">
+		select distinct RECIPENUM from CATEGORY where RECIPENUM in (select RECIPENUM from CATEGORY where C_KIND like #{c_kind} and C_SITUATION like #{c_situation} and C_PROCEDURE like #{c_procedure} and C_INGREDIENT like #{c_ingredient})
+	</select>
+	
+	<select id="isearch1" parameterType="com.njgo.util.ListInfo" resultType="java.lang.Integer">
+		select RECIPENUM from INGREDIENTS where NAME like '%'||#{find}||'%'
 	</select>
 	<select id="inglist" parameterType="java.lang.String" resultType="com.njgo.dto.IngredientsDTO">
 		select distinct NAME from INGREDIENTS where NAME like '%'||#{find}||'%'
 	</select>	
-	<select id="icount" parameterType="java.util.List" resultType="java.lang.Integer">
-		select COUNT(distinct C.NUM) from RECIPE C, INGREDIENTS I
-		<trim prefix="where">
-			C.NUM=I.RECIPENUM and I.RECIPENUM in (select RECIPENUM from INGREDIENTS where NAME in 
+	<select id="isearch" parameterType="java.util.List" resultType="java.lang.Integer">
+		select distinct RECIPENUM from INGREDIENTS where RECIPENUM in (select RECIPENUM from INGREDIENTS where NAME in 
 			<foreach collection="collection" item="dto" open="(" separator="," close=")">
 				#{dto.name}
 			</foreach>)
-		</trim>
 	</select>
-	<select id="isearch" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeDTO">
-		select * from 
-		(select ROWNUM R, L.* from 
-		(select distinct C.* from RECIPE C, INGREDIENTS I
-		 where C.NUM=I.RECIPENUM and I.RECIPENUM in (select RECIPENUM from INGREDIENTS where NAME in 
-			<foreach collection="collection" item="dto" open="(" separator="," close=")">
-				#{dto.name}
-			</foreach>)
-		 order by
-		<if test="listInfo.order=='regdate'">
-			C.REGDATE
-		</if>
-		<if test="listInfo.order=='rating'">
-			C.RATING
-		</if>
-		 desc) L) 
-		where R between #{listInfo.startRow} and #{listInfo.lastRow}
-	</select> 
 	
+	<select id="writersearch" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select NUM from RECIPE where writer=#{writer}
+	</select>
+	
+	<select id="scrapsearch" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select RECIPENUM from SCRAP where NICKNAME=#{nickname} 
+	</select>
 	
 	<!-- scrap -->
 	<update id="scrapI" parameterType="java.lang.Integer">
@@ -157,7 +115,4 @@
 	<delete id="scrapSub" parameterType="com.njgo.dto.ScrapDTO">
 		delete SCRAP where NICKNAME=#{nickname} and RECIPENUM=#{recipenum}
 	</delete>
-	<select id="scrapSearch" parameterType="java.lang.String" resultType="com.njgo.dto.RecipeDTO">
-		select RECIPENUM from SCRAP where NICKNAME=#{nickname} 
-	</select>
 </mapper>

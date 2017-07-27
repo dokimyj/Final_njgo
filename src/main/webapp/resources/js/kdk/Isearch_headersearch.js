@@ -3,13 +3,13 @@
  */
 
 function recipe(){
-	$.ajax({
-		url:"./recipe/recipeList",
-		type:"GET",
-		success:function(data){
-			$('.main_section').html(data.trim());
-		}
-	});
+    $.ajax({
+        url:"./recipe/search",
+        type:"GET",
+        success:function(data){
+            $('.main_section').html(data.trim());
+        }
+    });
 }
 function search(find){
     if(event.keyCode == 13){

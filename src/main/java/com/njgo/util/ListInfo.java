@@ -90,7 +90,7 @@ public class ListInfo {
 	
 	public String getOrder() {
 		if(order==null){
-			order="rating";
+			order="regdate";
 		}
 		return order;
 	}

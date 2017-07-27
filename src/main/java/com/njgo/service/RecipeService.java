@@ -15,6 +15,7 @@ import com.njgo.dto.IngredientsDTO;
 import com.njgo.dto.RecipeDTO;
 import com.njgo.dto.RecipeReplyDTO;
 import com.njgo.dto.RecipeReviewDTO;
+import com.njgo.dto.ScrapDTO;
 import com.njgo.util.ListInfo;
 
 @Service
@@ -35,10 +36,6 @@ public class RecipeService {
 		return recipeDAO.list(listInfo);
 	}
 	
-	public HashMap<String, Object> tvsearch(ListInfo listInfo){
-		return recipeDAO.tvsearch(listInfo);
-	}
-	
 	public HashMap<String, Object> search(ListInfo listInfo){
 		return recipeDAO.search(listInfo);
 	}
@@ -53,6 +50,14 @@ public class RecipeService {
 	
 	public HashMap<String, Object> isearch(List<IngredientsDTO> ingredients, ListInfo listInfo){
 		return recipeDAO.isearch(ingredients, listInfo);
+	}
+	
+	public HashMap<String, Object> writersearch(String writer, ListInfo listInfo){
+		return recipeDAO.writersearch(writer, listInfo);
+	}
+	
+	public HashMap<String, Object> scrapsearch(String nickname, ListInfo listInfo){
+		return recipeDAO.scrapsearch(nickname, listInfo);
 	}
 	
 	public List<RecipeReplyDTO> replyList(ListInfo listInfo, Integer num){
@@ -91,11 +96,11 @@ public class RecipeService {
 		return rreviewDAO.reviewDelete(num, rnum);
 	}
 	
-	public int scrapIncrease(Integer num){
-		return recipeDAO.scrapIncrease(num);
+	public int scrapIncrease(ScrapDTO scrapDTO){
+		return recipeDAO.scrapIncrease(scrapDTO);
 	}
 	
-	public int scrapDecrease(Integer num){
-		return recipeDAO.scrapDecrease(num);
+	public int scrapDecrease(ScrapDTO scrapDTO){
+		return recipeDAO.scrapDecrease(scrapDTO);
 	}
 }

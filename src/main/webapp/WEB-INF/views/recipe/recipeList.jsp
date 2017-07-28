@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 태그별 검색 -->
-		
 <div class=categories>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="cate">종류별</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=c_kind title=active>전체</span>&nbsp;&nbsp;<span class=c_kind>밑반찬</span>&nbsp;&nbsp;<span class=c_kind>메인반찬</span>&nbsp;&nbsp;<span class=c_kind>국/탕</span>&nbsp;&nbsp;<span class=c_kind>찌개</span>&nbsp;&nbsp;<span class=c_kind>디저트</span>&nbsp;&nbsp;<span class=c_kind>면/만두</span>&nbsp;&nbsp;<span class=c_kind>밥/죽/떡</span>&nbsp;&nbsp;<span class=c_kind>퓨전</span>&nbsp;&nbsp;<span class=c_kind>김치/젓갈/장류</span>&nbsp;&nbsp;<span class=c_kind>양념/소스/잼</span>&nbsp;&nbsp;<span class=c_kind>양식</span>&nbsp;&nbsp;<span class=c_kind>샐러드</span>&nbsp;&nbsp;<span class=c_kind>스프</span>&nbsp;&nbsp;<span class=c_kind>빵</span>&nbsp;&nbsp;<span class=c_kind>과자</span>&nbsp;&nbsp;<span class=c_kind>차/음료/술</span>&nbsp;&nbsp;<span class=c_kind>기타</span><br>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="cate">상황별</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=c_situation title=active>전체</span>&nbsp;&nbsp;<span class=c_situation>일상</span>&nbsp;&nbsp;<span class=c_situation>초스피드</span>&nbsp;&nbsp;<span class=c_situation>손님접대</span>&nbsp;&nbsp;<span class=c_situation>술안주</span>&nbsp;&nbsp;<span class=c_situation>다이어트</span>&nbsp;&nbsp;<span class=c_situation>도시락</span>&nbsp;&nbsp;<span class=c_situation>영양식</span>&nbsp;&nbsp;<span class=c_situation>간식</span>&nbsp;&nbsp;<span class=c_situation>야식</span>&nbsp;&nbsp;<span class=c_situation>푸드스타일링</span>&nbsp;&nbsp;<span class=c_situation>해장</span>&nbsp;&nbsp;<span class=c_situation>명절</span>&nbsp;&nbsp;<span class=c_situation>이유식</span>&nbsp;&nbsp;<span class=c_situation>기타</span><br>
@@ -11,36 +10,34 @@
 	<hr>
 </div>
 <!-- 레시피 리스트 3*3, 최신순/hit순 -->
-<div id=results>
-	<div id=searchresult>
-		<c:forEach items="${list.listPack }" var="dto">
-			<div class=main_concep_channel title=${dto.num } data-toggle="modal" style="cursor:pointer" data-target="#recipeView">		
-				<div class="channel_img" style='background-image:url("resources/upload/${dto.rep_pic }")'>
-					<div id="overlays${dto.num }" class=overlays>
-						&nbsp;
-						<br>
-						<br>
-						<br>
-						<br>
-						<div id="counts${dto.num }" class=counts></div>
-						<br>					
-						<br>
-						<br>
-						<div id="creators${dto.num }" class=creators>by ${dto.writer}</div>
-						<br>
-					</div>
-				</div>			
-				<div class="channel_title">				
-					<div>${dto.foodname }</div>		
+<div id=searchresult>
+	<c:forEach items="${list.listPack }" var="dto">
+		<div class=main_concep_channel title=${dto.num } data-toggle="modal" style="cursor:pointer" data-target="#recipeView">		
+			<div class="channel_img" style='background-image:url("resources/upload/${dto.rep_pic }")'>
+				<div id="overlays${dto.num }" class=overlays>
+					&nbsp;
+					<br>
+					<br>
+					<br>
+					<br>
+					<div id="counts${dto.num }" class=counts></div>
+					<br>					
+					<br>
+					<br>
+					<div id="creators${dto.num }" class=creators>by ${dto.writer}</div>
+					<br>
 				</div>
-				<div class="channel_info">
-					<div>${dto.title }</div><div></div>
-				</div>	
-				</div>
-		</c:forEach>
-	</div>
+			</div>			
+			<div class="channel_title">				
+				<div>${dto.foodname }</div>		
+			</div>
+			<div class="channel_info">
+				<div>${dto.title }</div><div></div>
+			</div>	
+			</div>
+	</c:forEach>
+</div>
 <div class="clear"><input type="hidden" id="pagetype" value="${pagetype }"></div>
-<div id=tvresult>
 	<div id=pagers title='${list.totalCount }'>
 		<ul class="pagination">
 			<c:if test="${list.listInfo.curBlock>1 }">
@@ -54,10 +51,35 @@
 			</c:if>
 		</ul>
 	</div>
+<div id=tvresult>
+	<c:forEach items="${list.tvlist }" var="tvdto">
+		<div class=main_concep_channel title=${tvdto.num } data-toggle="modal" style="cursor:pointer" data-target="#recipeView">		
+			<div class="channel_img" style='background-image:url("resources/upload/${dto.rep_pic }")'>
+				<div id="overlays${tvdto.num }" class=overlays>
+					&nbsp;
+					<br>
+					<br>
+					<br>
+					<br>
+					<div id="counts${tvdto.num }" class=counts></div>
+					<br>					
+					<br>
+					<br>
+					<div id="creators${tvdto.num }" class=creators>by ${dto.writer}</div>
+					<br>
+				</div>
+			</div>			
+			<div class="channel_title">				
+				<div>${tvdto.foodname }</div>		
+			</div>
+			<div class="channel_info">
+				<div>${tvdto.title }</div><div></div>
+			</div>	
+			</div>
+	</c:forEach>
 </div>
 <br>
 
-<!-- TV-만개의레시피에서 두 프로그램정도 가져오기(DB에 전부 넣어야 함, 동영상 태그까지) perPage=3, 페이징 대신 a태그나 스크립트로 '더 보기' 버튼 만들기 -->
 	<script>	
 		$('.overlays').css("background", "none");
 		$('.creators').css("visibility", "hidden");

@@ -12,6 +12,9 @@ public class IngredientsDTO {
 		this.recipenum = recipenum;
 	}
 	public String getName() {
+		if(name==null){
+			name="%%";
+		}
 		return name;
 	}
 	public void setName(String name) {

@@ -75,8 +75,16 @@ public class RecipeDAO {
 		return this.search(listInfo, result);
 	}
 	
-	public HashMap<String, Object> catesearch(CategoryDTO category, ListInfo listInfo){
+	public HashMap<String, Object> catesearch(CategoryDTO category, List<IngredientsDTO> collection, ListInfo listInfo){
 		List<Integer> result=sqlSession.selectList(NAMESPACE+"catesearch", category);
+		List<Integer> hresult=sqlSession.selectList(NAMESPACE+"hsearch1", listInfo);
+		List<Integer> tresult=sqlSession.selectList(NAMESPACE+"rsearch1", listInfo);
+		List<Integer> iresult=sqlSession.selectList(NAMESPACE+"isearch1", listInfo);
+		List<Integer> ingresult=sqlSession.selectList(NAMESPACE+"ingsearch", collection);
+		result.addAll(hresult);
+		result.addAll(tresult);
+		result.addAll(iresult);
+		result.addAll(ingresult);
 		return this.search(listInfo, result);
 	}
 	

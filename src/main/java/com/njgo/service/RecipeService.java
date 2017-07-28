@@ -40,8 +40,8 @@ public class RecipeService {
 		return recipeDAO.search(listInfo);
 	}
 	
-	public HashMap<String, Object> catesearch(CategoryDTO category, ListInfo listInfo){
-		return recipeDAO.catesearch(category, listInfo);
+	public HashMap<String, Object> catesearch(CategoryDTO category, List<IngredientsDTO> ings, ListInfo listInfo){
+		return recipeDAO.catesearch(category, ings, listInfo);
 	}
 	
 	public List<IngredientsDTO> ingList(String find){

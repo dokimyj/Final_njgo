@@ -42,7 +42,6 @@ public class RecipeController {
 	public void list(RedirectAttributes ra) throws Exception{
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="search", method=RequestMethod.GET)
 	public String search(ListInfo listInfo, RedirectAttributes ra) throws Exception{
 		ra.addFlashAttribute("list", recipeService.search(listInfo));
@@ -52,8 +51,8 @@ public class RecipeController {
 
 	@ResponseBody
 	@RequestMapping(value="catesearch", method=RequestMethod.GET)
-	public String catesearch(CategoryDTO cdto, ListInfo listInfo, RedirectAttributes ra) throws Exception{
-		ra.addFlashAttribute("list", recipeService.catesearch(cdto, listInfo));
+	public String catesearch(CategoryDTO cdto, List<IngredientsDTO> ings, ListInfo listInfo, RedirectAttributes ra) throws Exception{
+		ra.addFlashAttribute("list", recipeService.catesearch(cdto, ings, listInfo));
 		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
 		return "redirect:recipeList";
 	}
@@ -65,7 +64,6 @@ public class RecipeController {
 		return "recipe/ingList";
 	}
 
-	@ResponseBody
 	@RequestMapping(value="isearch", method=RequestMethod.GET)
 	public String isearch(String[] ingredients, ListInfo listInfo, RedirectAttributes ra) throws Exception{
 		List<IngredientsDTO> ing=new ArrayList<IngredientsDTO>();

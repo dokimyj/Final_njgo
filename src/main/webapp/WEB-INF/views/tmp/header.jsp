@@ -71,6 +71,9 @@
 	<div class="search">
 		<div class="search_wrap">
 			<input type="text" id="searchInput" placeholder="음식명, 재료명으로 검색해주세요." onkeydown="search(this)">
+			<c:forEach items="curIng" var="ings">
+				<input type="hidden" id="curIng" value="${ings }">
+			</c:forEach>
 			<div class="pictureBtn">
 				<div id="person">
 					<c:if test="false">	<!-- 로그인 안 했을 때 -->

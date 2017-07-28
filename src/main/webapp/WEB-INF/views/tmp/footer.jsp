@@ -45,7 +45,4 @@
 		</div>
 	</div>
 	</section>
-<c:import url="./recipe/ingSearch.jsp"></c:import>
-<c:import url="./recipe/recipeView.jsp"></c:import>
 </footer>
-<script src="./resources/js/kdk/Isearch_headersearch.js"></script>

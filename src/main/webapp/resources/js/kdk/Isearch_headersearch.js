@@ -2,9 +2,6 @@
  * 
  */
 
-function recipe(){
-   location.href="./recipe/search";
-}
 function search(find){
     if(event.keyCode == 13){
     	$.ajax({

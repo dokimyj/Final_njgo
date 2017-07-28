@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="./resources/css/common/reset.css">
 <c:import url="./tmp/Bootstrap.jsp"/>
 <link rel="stylesheet" href="./resources/css/common/basic.css">
+<link rel="stylesheet" href="./resources/css/kdk/Main_Ingre.css">
 <style>
 </style>
 </head>
@@ -24,4 +25,6 @@
 	</section>
 	<c:import url="./tmp/footer.jsp"/>
 </body>
+<c:import url="./recipe/ingSearch.jsp"></c:import>
+<script src="./resources/js/kdk/Isearch_headersearch.js"></script>
 </html>

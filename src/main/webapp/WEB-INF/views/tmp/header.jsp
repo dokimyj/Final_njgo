@@ -129,7 +129,7 @@
 			<div class="menu_sub">
 				<nav class="menu_sub_nav">
 					<ul class="menu_sub_ul">
-						<li><a onClick="recipe()" style="cursor:pointer">레시피</a></li>
+						<li><a href="${pageContext.request.contextPath}/recipe/search">레시피</a></li>
 						<li><a href="#">플래너</a></li>
 						<li><a href="#">쇼핑몰</a></li>
 					</ul>

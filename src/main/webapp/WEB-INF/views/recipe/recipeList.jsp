@@ -6,14 +6,15 @@
 <head>
 <title>Insert title here</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="./resources/css/common/reset.css">
-<c:import url="./tmp/Bootstrap.jsp"/>
-<link rel="stylesheet" href="./resources/css/common/basic.css">
+<link rel="stylesheet" href="../resources/css/common/reset.css">
+<c:import url="../tmp/Bootstrap.jsp"/>
+<link rel="stylesheet" href="../resources/css/common/basic.css">
+<link rel="stylesheet" href="../resources/css/kdk/recipeList_Search.css">
 <style>
 </style>
 </head>
 <body>
-	<c:import url="./tmp/header.jsp"/>
+	<c:import url="../tmp/header.jsp"/>
 	
 	<section class="main_section">
 	<!-- 태그별 검색 -->
@@ -28,7 +29,7 @@
 		<div id=searchresult>
 			<c:forEach items="${list.listPack }" var="dto">
 				<div class=main_concep_channel title=${dto.num } data-toggle="modal" style="cursor:pointer" data-target="#recipeView">		
-					<div class="channel_img" style='background-image:url("resources/upload/${dto.rep_pic }")'>
+					<div class="channel_img" style='background-image:url("../resources/upload/${dto.rep_pic }")'>
 					<div id="overlays${dto.num }" class=overlays>
 						&nbsp;
 						<br>
@@ -69,7 +70,7 @@
 		<div id=tvresult>
 			<c:forEach items="${list.tvlist }" var="tvdto">
 				<div class=main_concep_channel title=${tvdto.num } data-toggle="modal" style="cursor:pointer" data-target="#recipeView">		
-					<div class="channel_img" style='background-image:url("resources/upload/${dto.rep_pic }")'>
+					<div class="channel_img" style='background-image:url("../resources/upload/${dto.rep_pic }")'>
 					<div id="overlays${tvdto.num }" class=overlays>
 						&nbsp;
 						<br>
@@ -95,7 +96,7 @@
 		</div>
 		<br>
 	</section>
-	<c:import url="./tmp/footer.jsp"/>
+	<c:import url="../tmp/footer.jsp"/>
 </body>
 <script>	
 		$('.overlays').css("background", "none");
@@ -104,7 +105,7 @@
 			
 		$('.main_concep_channel').mouseover(function(){	
 			var num=$(this).attr('title');
-			$('#overlays'+num).css("background-image", "url('./resources/images/kdk/thumb_over_rev1.png')");
+			$('#overlays'+num).css("background-image", "url('../resources/images/kdk/thumb_over_rev1.png')");
 			$('#creators'+num).css("visibility", "visible");
 			$('#counts'+num).css("visibility", "visible");
 		});
@@ -241,4 +242,5 @@
 			}
 		});
 </script>
+<c:import url="recipeView.jsp"></c:import>
 </html>

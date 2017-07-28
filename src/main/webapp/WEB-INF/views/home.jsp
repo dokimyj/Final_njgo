@@ -17,7 +17,8 @@
 	<c:import url="./tmp/header.jsp"/>
 	
 	<section class="main_section">
-	<!-- 냉장고 재료 검색파트->footer에 modal로 넣어놨어요~ -->
+	<!-- 냉장고 재료 검색파트 -->
+		<!-- 일단 Modal만 완료 -->
 	<!-- 날씨추천 파트 -->
 		<!-- 사용자의 태그를 우선으로 정렬예정 -->
 	<!-- 인기(HIT순) 정렬 파트 -->
@@ -26,5 +27,44 @@
 	<c:import url="./tmp/footer.jsp"/>
 </body>
 <c:import url="./recipe/ingSearch.jsp"></c:import>
-<script src="./resources/js/kdk/Isearch_headersearch.js"></script>
+<script>
+	function search(find){
+	    if(event.keyCode == 13){
+	    	location.href="./recipe/search?find="+find.value
+		}
+	}
+	function ingsearch(find){
+		$.ajax({
+			url:"./recipe/inglist",
+			type:"GET",
+			data:{
+				find:find.value
+			},
+			success:function(data){
+				$('.ings').html(data.trim());
+			}
+		});
+	}
+	$('.ing_btn').click(function(){
+		var ings=$('.ingkeyword').val();
+		$('.ing_search').append('<span class="btn btn-warning ingx" style="margin: 0 1% 1% 0" title="'+ings+'">'+ings+'<strong class="badge ing" style="cursor:pointer">X</strong></span>');
+		$('.ingkeyword').val('');
+	});
+	$('.ing_search').on("click", ".ingx", function(){
+		$(this).remove();
+	});
+	$('.isearch_btn').click(function(){
+		var url="./recipe/isearch";
+		var x=document.getElementsByClassName('ingx');
+		for(i=0;i<x.length;i++){
+			url+="?ingredients="+x[i].title+"&";
+		}
+		url+="curPage=1";
+		if($('.ing_search').html()!=''){
+			location.href=url;
+		}else{
+			alert('재료를 선택하신 후 검색해 주세요!');
+		}
+	});
+</script>
 </html>

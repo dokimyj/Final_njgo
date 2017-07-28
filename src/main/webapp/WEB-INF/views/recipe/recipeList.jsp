@@ -10,6 +10,7 @@
 <c:import url="../tmp/Bootstrap.jsp"/>
 <link rel="stylesheet" href="../resources/css/common/basic.css">
 <link rel="stylesheet" href="../resources/css/kdk/recipeList_Search.css">
+<link rel="stylesheet" href="../resources/css/kdk/Main_Ingre.css">
 <style>
 </style>
 </head>
@@ -25,9 +26,12 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="cate">방법별</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=c_procedure title=active>전체</span>&nbsp;&nbsp;<span class=c_procedure>볶음</span>&nbsp;&nbsp;<span class=c_procedure>끓이기</span>&nbsp;&nbsp;<span class=c_procedure>부침</span>&nbsp;&nbsp;<span class=c_procedure>조림</span>&nbsp;&nbsp;<span class=c_procedure>무침</span>&nbsp;&nbsp;<span class=c_procedure>비빔</span>&nbsp;&nbsp;<span class=c_procedure>찜</span>&nbsp;&nbsp;<span class=c_procedure>절임</span>&nbsp;&nbsp;<span class=c_procedure>튀김</span>&nbsp;&nbsp;<span class=c_procedure>삶기</span>&nbsp;&nbsp;<span class=c_procedure>굽기</span>&nbsp;&nbsp;<span class=c_procedure>데치기</span>&nbsp;&nbsp;<span class=c_procedure>회</span>&nbsp;&nbsp;<span class=c_procedure>기타</span><br>
 			<hr>
 		</div>
+		<div id="order"> <span class="orders" id="regdate" title="active">최신순</span> | <span class="orders" id="hit">조회순</span> </div>
+		<br>
+		<br>
 		<!-- 레시피 리스트 3*3, 최신순/hit순 -->
 		<div id=searchresult>
-			<c:forEach items="${list.listPack }" var="dto">
+				<c:forEach items="${list.listPack }" var="dto">
 				<div class=main_concep_channel title=${dto.num } data-toggle="modal" style="cursor:pointer" data-target="#recipeView">		
 					<div class="channel_img" style='background-image:url("../resources/upload/${dto.rep_pic }")'>
 					<div id="overlays${dto.num }" class=overlays>
@@ -51,54 +55,101 @@
 						<div>${dto.title }</div><div></div>
 					</div>	
 				</div>
-			</c:forEach>
-		</div>
-		<div class="clear"><input type="hidden" id="pagetype" value="${pagetype }"></div>
-		<div id=pagers title='${list.totalCount }'>
-			<ul class="pagination">
-				<c:if test="${list.listInfo.curBlock>1 }">
-					<li><span title='${list.listInfo.startNum-1 }' style='cursor:pointer'>&lt;</span></li>
-				</c:if>
-				<c:forEach begin="${list.listInfo.startNum }" end="${list.listInfo.lastNum }" step="1" var="i">
-					<li><span title='${i}' style='cursor:pointer'>${i}</span></li>
 				</c:forEach>
-				<c:if test="${list.listInfo.curBlock<listInfo.totalBlock }">
-					<li><span title='${list.listInfo.lastNum+1 }' style='cursor:pointer'>&gt;</span></li>
-				</c:if>
-			</ul>
-		</div>
-		<div id=tvresult>
-			<c:forEach items="${list.tvlist }" var="tvdto">
-				<div class=main_concep_channel title=${tvdto.num } data-toggle="modal" style="cursor:pointer" data-target="#recipeView">		
-					<div class="channel_img" style='background-image:url("../resources/upload/${dto.rep_pic }")'>
-					<div id="overlays${tvdto.num }" class=overlays>
-						&nbsp;
-						<br>
-						<br>
-						<br>
-						<br>
-						<div id="counts${tvdto.num }" class=counts></div>
-						<br>					
-						<br>
-						<br>
-						<div id="creators${tvdto.num }" class=creators>by ${dto.writer}</div>
-						<br>
-					</div>
-					</div>			
-					<div class="channel_title">				
-						<div>${tvdto.foodname }</div>		
-					</div>
-					<div class="channel_info">
-						<div>${tvdto.title }</div><div></div>
-					</div>	
+		
+				<div class="clear"></div>
+				<div id=pagers title='${list.totalCount }'>
+					<ul class="pagination">
+						<c:if test="${list.listInfo.curBlock>1 }">
+							<li><span title='${list.listInfo.startNum-1 }' style='cursor:pointer'>&lt;</span></li>
+						</c:if>
+						<c:forEach begin="${list.listInfo.startNum }" end="${list.listInfo.lastNum }" step="1" var="i">
+							<li><span title='${i}' style='cursor:pointer'>${i}</span></li>
+						</c:forEach>
+						<c:if test="${list.listInfo.curBlock<listInfo.totalBlock }">
+							<li><span title='${list.listInfo.lastNum+1 }' style='cursor:pointer'>&gt;</span></li>
+						</c:if>
+					</ul>
 				</div>
+				<div id=tvresult>
+					<c:forEach items="${list.tvlist }" var="tvdto">
+						<div class=main_concep_channel title=${tvdto.num } data-toggle="modal" style="cursor:pointer" data-target="#recipeView">		
+							<div class="channel_img" style='background-image:url("../resources/upload/${dto.rep_pic }")'>
+							<div id="overlays${tvdto.num }" class=overlays>
+								&nbsp;
+								<br>
+								<br>
+								<br>
+								<br>
+								<div id="counts${tvdto.num }" class=counts></div>
+								<br>					
+								<br>
+								<br>
+								<div id="creators${tvdto.num }" class=creators>by ${dto.writer}</div>
+								<br>
+							</div>
+							</div>			
+							<div class="channel_title">				
+								<div>${tvdto.foodname }</div>		
+							</div>
+							<div class="channel_info">
+								<div>${tvdto.title }</div><div></div>
+							</div>	
+						</div>
+					</c:forEach>
+				</div>
+				<div class="clear"></div>
+				<div id=pagers title='${list.totalCount }'>
+					<ul class="pagination">
+						<c:if test="${list.listInfo.curPage>1 }">
+							<li><span title='${list.listInfo.curPage-1 }' style='cursor:pointer'>&lt;</span></li>
+						</c:if>
+						<c:if test="${list.listInfo.curPage<list.totalCount/3 }">
+							<li><span title='${list.listInfo.curPage+1 }' style='cursor:pointer'>&gt;</span></li>
+						</c:if>
+					</ul>
+				</div>
+				<br>
+		<c:forEach items="${curIng }" var="ings">
+			<input type="hidden" name="curIng" value="${ings }">
 		</c:forEach>
+		<input type="hidden" id="find" value="${list.listInfo.find }">
 		</div>
-		<br>
 	</section>
 	<c:import url="../tmp/footer.jsp"/>
+	<c:import url="recipeView.jsp"></c:import>
+	<c:import url="ingSearch.jsp"></c:import>
 </body>
 <script>	
+		$('#order>span').click(function(){
+			$('.orders').attr('title', 'inactive');
+			$(this).attr('title', 'active');
+			jQuery.ajaxSettings.traditional = true;
+			var ar=new Array();
+			var curIng=document.getElementsByName('curIng');
+			for(i=0;i<curIng.length;i++){
+				ar.push(curIng[i].value);
+			}
+			if(curIng.length*1==0){
+				ar.push('undefined');
+			}
+			$.ajax({
+				url: "catesearch",
+				method: "GET",
+				data:{
+					order:$(this).attr("id"),
+					c_kind:$('.c_kind[title=active]').html(),
+					c_situation:$('.c_situation[title=active]').html(),
+					c_ingredient:$('.c_ingredient[title=active]').html(),
+					c_procedure:$('.c_procedure[title=active]').html(),
+					curIng:ar,
+					find:$('#find').val()
+				},
+				success:function(data){
+					$('#searchresult').html(data.trim());
+				}
+			});
+		});
 		$('.overlays').css("background", "none");
 		$('.creators').css("visibility", "hidden");
 		$('.counts').css("visibility", "hidden");
@@ -122,87 +173,130 @@
 			for(i=0;i<curIng.length;i++){
 				ar.push(curIng[i].value);
 			}
+			if(curIng.length*1==0){
+				ar.push('undefined');
+			}
 			$.ajax({
-				url: "./recipe/recipeView",
+				url: "recipeView",
 				method: "GET",
 				data:{
 					curIng:ar,
 					num:$(this).attr('title')
 				},
 				success:function(data){
-					
+					$('#searchresult').html(data.trim());
 				}
 			});
 		});
 		$('.c_kind').click(function(){
 			$('.c_kind').attr('title', 'inactive');
 			$(this).attr('title', 'active');
+			jQuery.ajaxSettings.traditional = true;
+			var ar=new Array();
+			var curIng=document.getElementsByName('curIng');
+			for(i=0;i<curIng.length;i++){
+				ar.push(curIng[i].value);
+			}
+			if(curIng.length*1==0){
+				ar.push('undefined');
+			}
 			$.ajax({
-				url: "./recipe/catesearch",
+				url: "catesearch",
 				type: "GET",
 				data:{
 					c_kind:$(this).html(),
 					c_situation:$('.c_situation[title=active]').html(),
 					c_ingredient:$('.c_ingredient[title=active]').html(),
-					c_procedure:$('.c_procedure[title=active]').html()
+					c_procedure:$('.c_procedure[title=active]').html(),
+					curIng:ar,
+					find:$('#find').val()
 				},
 				success:function(data){
-					$('.categories').show();
-					$('#results').html(data.trim());
+					$('#searchresult').html(data.trim());
 				}
 			});	
 		});
 		$('.c_situation').click(function(){
 			$('.c_situation').attr('title', 'inactive');
 			$(this).attr('title', 'active');
+			jQuery.ajaxSettings.traditional = true;
+			var ar=new Array();
+			var curIng=document.getElementsByName('curIng');
+			for(i=0;i<curIng.length;i++){
+				ar.push(curIng[i].value);
+			}
+			if(curIng.length*1==0){
+				ar.push('undefined');
+			}
 			$.ajax({
-				url: "./recipe/catesearch",
+				url: "catesearch",
 				type: "GET",
 				data:{
 					c_kind:$('.c_kind[title=active]').html(),
 					c_situation:$(this).html(),
 					c_ingredient:$('.c_ingredient[title=active]').html(),
-					c_procedure:$('.c_procedure[title=active]').html()
+					c_procedure:$('.c_procedure[title=active]').html(),
+					curIng:ar,
+					find:$('#find').val()
 				},
 				success:function(data){
-					$('.categories').show();
-					$('#results').html(data.trim());
+					$('#searchresult').html(data.trim());
 				}
 			});	
 		});
 		$('.c_ingredient').click(function(){
 			$('.c_ingredient').attr('title', 'inactive');
 			$(this).attr('title', 'active');
+			jQuery.ajaxSettings.traditional = true;
+			var ar=new Array();
+			var curIng=document.getElementsByName('curIng');
+			for(i=0;i<curIng.length;i++){
+				ar.push(curIng[i].value);
+			}
+			if(curIng.length*1==0){
+				ar.push('undefined');
+			}
 			$.ajax({
-				url: "./recipe/catesearch",
+				url: "catesearch",
 				type: "GET",
 				data:{
 					c_kind:$('.c_kind[title=active]').html(),
 					c_situation:$('.c_situation[title=active]').html(),
 					c_ingredient:$(this).html(),
-					c_procedure:$('.c_procedure[title=active]').html()
+					c_procedure:$('.c_procedure[title=active]').html(),
+					curIng:ar,
+					find:$('#find').val()
 				},
 				success:function(data){
-					$('.categories').show();
-					$('#results').html(data.trim());
+					$('#searchresult').html(data.trim());
 				}
 			});	
 		});
 		$('.c_procedure').click(function(){
 			$('.c_procedure').attr('title', 'inactive');
 			$(this).attr('title', 'active');
+			jQuery.ajaxSettings.traditional = true;
+			var ar=new Array();
+			var curIng=document.getElementsByName('curIng');
+			for(i=0;i<curIng.length;i++){
+				ar.push(curIng[i].value);
+			}
+			if(curIng.length*1==0){
+				ar.push('undefined');
+			}
 			$.ajax({
-				url: "./recipe/catesearch",
+				url: "catesearch",
 				type: "GET",
 				data:{
 					c_kind:$('.c_kind[title=active]').html(),
 					c_situation:$('.c_situation[title=active]').html(),
 					c_ingredient:$('.c_ingredient[title=active]').html(),
-					c_procedure:$(this).html()
+					c_procedure:$(this).html(),
+					curIng:ar,
+					find:$('#find').val()
 				},
 				success:function(data){
-					$('.categories').show();
-					$('#results').html(data.trim());
+					$('#searchresult').html(data.trim());
 				}
 			});	
 		});
@@ -213,34 +307,63 @@
 			for(i=0;i<curIng.length;i++){
 				ar.push(curIng[i].value);
 			}
-			if($('#pagetype').val()=='isearch'){
-				$.ajax({
-					url: "./recipe/isearch",
-					method: "GET",
-					data:{
-						curPage:$(this).attr('title'),
-						ingredients:ar
-					},
-					success:function(data){
-						$('.categories').hide();
-						$('#results').html(data.trim());
-					}
-				});
-			}else if($('#pagetype').val()=='search'||$('#pagetype').val()=='recipeList'){
-				$.ajax({
-					url:"./recipe/search",
-					method:"GET",
-					data:{
-						curPage:$(this).attr('title'),
-						find:$('#searchinput').val()
-					},
-					success:function(data){
-						$('.categories').hide();
-						$('#results').html(data.trim());
-					}
-				});
+			if(curIng.length*1==0){
+				ar.push('undefined');
+			}
+			$.ajax({
+				url: "catesearch",
+				method: "GET",
+				data:{
+					curPage:$(this).attr('title'),
+					c_kind:$('.c_kind[title=active]').html(),
+					c_situation:$('.c_situation[title=active]').html(),
+					c_ingredient:$('.c_ingredient[title=active]').html(),
+					c_procedure:$('.c_procedure[title=active]').html(),
+					curIng:ar,
+					find:$('#find').val()
+				},
+				success:function(data){
+					$('#searchresult').html(data.trim());
+				}
+			});
+		});
+		function search(find){
+		    if(event.keyCode == 13){
+		    	location.href="search?find="+find.value
+			}
+		}
+		function ingsearch(find){
+			$.ajax({
+				url:"inglist",
+				type:"GET",
+				data:{
+					find:find.value
+				},
+				success:function(data){
+					$('.ings').html(data.trim());
+				}
+			});
+		}
+		$('.ing_btn').click(function(){
+			var ings=$('.ingkeyword').val();
+			$('.ing_search').append('<span class="btn btn-warning ingx" style="margin: 0 1% 1% 0" title="'+ings+'">'+ings+'<strong class="badge ing" style="cursor:pointer">X</strong></span>');
+			$('.ingkeyword').val('');
+		});
+		$('.ing_search').on("click", ".ingx", function(){
+			$(this).remove();
+		});
+		$('.isearch_btn').click(function(){
+			var url="isearch";
+			var x=document.getElementsByClassName('ingx');
+			for(i=0;i<x.length;i++){
+				url+="?ingredients="+x[i].title+"&";
+			}
+			url+="curPage=1";
+			if($('.ing_search').html()!=''){
+				location.href=url;
+			}else{
+				alert('재료를 선택하신 후 검색해 주세요!');
 			}
 		});
 </script>
-<c:import url="recipeView.jsp"></c:import>
 </html>

@@ -38,59 +38,60 @@ public class RecipeController {
 		model.addAttribute("curIng", curIng);
 	}
 	
-	@RequestMapping(value="recipeList", method=RequestMethod.GET) 
-	public void list(RedirectAttributes ra) throws Exception{
-	}
-	
 	@RequestMapping(value="search", method=RequestMethod.GET)
-	public String search(ListInfo listInfo, RedirectAttributes ra) throws Exception{
-		ra.addFlashAttribute("list", recipeService.search(listInfo));
+	public String search(ListInfo listInfo, Model model) throws Exception{
+		model.addAttribute("list", recipeService.search(listInfo));
 		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
-		return "redirect:recipeList";
+		return "/recipe/recipeList";
 	}
 
-	@ResponseBody
 	@RequestMapping(value="catesearch", method=RequestMethod.GET)
-	public String catesearch(CategoryDTO cdto, List<IngredientsDTO> ings, ListInfo listInfo, RedirectAttributes ra) throws Exception{
-		ra.addFlashAttribute("list", recipeService.catesearch(cdto, ings, listInfo));
+	public String catesearch(CategoryDTO cdto, String[] curIng, ListInfo listInfo, Model model) throws Exception{
+		List<IngredientsDTO> ings=new ArrayList<IngredientsDTO>();
+		for(int i=0;i<curIng.length;i++){
+			IngredientsDTO idto=new IngredientsDTO();
+			idto.setName(curIng[i]);
+			ings.add(idto);
+		}
+		model.addAttribute("list", recipeService.catesearch(cdto, ings, listInfo));
+		model.addAttribute("curIng", curIng);
+		return "recipe/recipeSearch";
 		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
-		return "redirect:recipeList";
 	}
 	
 	@RequestMapping(value="inglist", method=RequestMethod.GET)
 	public String inglist(String find, Model model) throws Exception{
 		List<IngredientsDTO> ing=recipeService.ingList(find);
 		model.addAttribute("ingList", ing);
-		return "recipe/ingList";
+		return "/recipe/ingList";
 	}
 
 	@RequestMapping(value="isearch", method=RequestMethod.GET)
-	public String isearch(String[] ingredients, ListInfo listInfo, RedirectAttributes ra) throws Exception{
+	public String isearch(String[] ingredients, ListInfo listInfo, Model model) throws Exception{
 		List<IngredientsDTO> ing=new ArrayList<IngredientsDTO>();
 		for(int i=0;i<ingredients.length;i++){
 			IngredientsDTO idto=new IngredientsDTO();
 			idto.setName(ingredients[i]);
 			ing.add(idto);
 		}
-		ra.addFlashAttribute("list", recipeService.isearch(ing, listInfo));
+		model.addAttribute("list", recipeService.isearch(ing, listInfo));
 		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
-		return "redirect:recipeList";
+		model.addAttribute("curIng", ingredients);
+		return "/recipe/recipeList";
 	}
-	
-	@ResponseBody
+
 	@RequestMapping(value="writersearch", method=RequestMethod.GET)
 	public String writersearch(String writer, ListInfo listInfo, RedirectAttributes ra){
 		ra.addFlashAttribute("list", recipeService.writersearch(writer, listInfo));
 		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
-		return "redirect:recipeList";
+		return "redirect:recipe/recipeSearch";
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="scrapsearch", method=RequestMethod.GET)
 	public String scrapsearch(String nickname, ListInfo listInfo, RedirectAttributes ra){
 		ra.addFlashAttribute("list", recipeService.scrapsearch(nickname, listInfo));
 		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
-		return "redirect:recipeList";
+		return "redirect:recipe/recipeSearch";
 	}
 	
 	@RequestMapping(value="recipeScrapI", method=RequestMethod.GET)

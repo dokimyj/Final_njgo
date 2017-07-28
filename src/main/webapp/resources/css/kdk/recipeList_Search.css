@@ -1,5 +1,15 @@
 @CHARSET "UTF-8";
-
+	#order>span{
+		cursor:pointer;
+		font-weight: bold;
+		margin: 2% 0% 2% 0%;
+		color: #595528;
+	}
+	#order>span[title=active]{
+		background-color: #ffcc00;
+		border: 1px	solid #ffcc00;
+		border-radius: 5px;
+	}
 	.main_concep_channel{
 		width: 25%;
 	    height: 15%;

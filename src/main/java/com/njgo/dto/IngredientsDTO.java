@@ -12,7 +12,7 @@ public class IngredientsDTO {
 		this.recipenum = recipenum;
 	}
 	public String getName() {
-		if(name==null){
+		if(name==null||name.equals("undefined")){
 			name="%%";
 		}
 		return name;

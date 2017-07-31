@@ -2,6 +2,7 @@ package com.njgo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.njgo.dao.MemberDAO;
 import com.njgo.dto.MemberDTO;
@@ -11,6 +12,7 @@ public class MemberService {
 
 	@Autowired
 	private MemberDAO memberDAO;
+	
 	// ========================== Login , Delete, Update 관련 =====================
 	
 	//로그인

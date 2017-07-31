@@ -13,10 +13,14 @@
 <!-- 카카오톡 -->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <!-- 해먹남겨 css -->
-
-
-
-</head>
+<script type="text/javascript">
+	if("${memberDTO}"==""){
+		alert("로그인 해주세요.");
+		location.href="../login";
+	}
+</script>
+ 
+</head>  
 <body>
 	<c:import url="../../tmp/header.jsp" />
 
@@ -38,7 +42,7 @@
 					<div class="user_information">
 						<div class="inner">
 							<img alt="${memberDTO.nickName }" id="myPhoto"			
-								src="" >
+								 >
 
 							<strong>냉장고살인마</strong>
 							<!-- [D] 베스트유저인 경우	<strong class="best">김문어씨</strong>-->
@@ -61,16 +65,16 @@
 							            <h4 class="modal-title">프로필 사진 / 자기소개 편집</h4>
 							          </div>
 							          <div class="modal-body" style="padding:10px;text-align:center;">
-							                      <img id="profile_img" src="http://recipe.ezmember.co.kr/cache/rpf/2017/07/24/3095f9fccc452ec1b336510082f27d69.jpg" style="max-width:550px;max-height:500px;">
+							                      <img id="profile_img" src="" style="max-width:550px;max-height:500px;">
 							            <div style="margin-top:10px;">
 							            <!-- form  -->
-							            <form >
+							            <form action="profile_upload" method="post" enctype="multipart/form-data">
 								            <input type="file" name="myPhoto" id="file_1" style="display:none;" onchange="profileLoad(this)">
-								            <input type="hidden" id="new_Profile" name="new_Profile" value="">
-											<p><input type="text" name="info" value="" class="input-sm" size="60" maxlength="100" placeholder="자기소개를 100자 이내로 작성해 주세요."></p>
+								            <input type="hidden" name="email" value="${memberDTO.email }">
+											<p><input type="text" name="info" value="" id="info" class="input-sm" size="60" maxlength="100" placeholder="자기소개를 100자 이내로 작성해 주세요."></p>
 							            </form>
 							            <button type="button" onclick="document.getElementById('file_1').click();" class="btn btn-primary">프로필 사진 바꾸기</button>
-							            <button type="button" id="profileSubmitBtn" onclick="doProfileImageSubmit()" class="btn btn-primary" disabled="disabled">저장</button>
+							            <button type="button" id="profileSubmitBtn" class="btn btn-primary" disabled="disabled">저장</button>
 							            </div>
 							                    </div>
 							        </div>
@@ -125,25 +129,46 @@
 </body>
 <script type="text/javascript">
 	$(function() {
-	
+		var SNS_photo = ${SNS_photo};
 		
+		/* 마이페이지 이미지   */
+		// 이미지가 없을경우 기본값
 		if("${memberDTO.myPhoto}"==""||"${memberDTO.myPhoto}"==null){
 			$("#myPhoto").attr("src","${pageContext.request.contextPath}/resources/images/common/default.png");
+			$("#profile_img").attr("src","${pageContext.request.contextPath}/resources/images/common/default.png");
 		}
-		else{
-			$("#myPhoto").attr("src","${memberDTO.myPhoto}");	
-		}	
-		// file 
-		 $("#file_1").change(function(e) {
+		// SNS 회원 처음 가입하면 myPhoto = "sns" 값 , 즉 카카오에 설정되있는 기본 이미지 경로이므로 
+		// sns 값이라면 프로필 수정하기 전 이므로 세션에 저장해놓은 kakao 이미지 경로를 src에 넣어준다.
+		else if("${memberDTO.myPhoto}"=="sns"){
+			$("#myPhoto").attr("src",SNS_photo);	
+			$("#profile_img").attr("src",SNS_photo);	
+		}
+		// 세션에 저장된 member의 myPhoto 파일 이름을 가져옴
+		else {
+			$("#myPhoto").attr("src","${pageContext.request.contextPath}/resources/upload/profile/${memberDTO.myPhoto}");
+			$("#profile_img").attr("src","${pageContext.request.contextPath}/resources/upload/profile/${memberDTO.myPhoto}");
+		}
+		
+	})
+	
+	/* ========================================== Modal Script ===================================================  */	
+	    // 프로필 사진이 수정되면 "저장버튼" 활성화
+		$("#file_1").change(function(e) {
+			$("#profileSubmitBtn").removeAttr("disabled");
 			 	/* if (e.target.files[0].size > (2*1024*1024)) {
 			        alert("사진은 2MB까지만 허용됩니다.");
 			        return false;
-			    } */
-	 	
-		 });
+			    }  */	 	
+		 }); 
+		$("#info").change(function() {
+			$("#profileSubmitBtn").removeAttr("disabled");
+		});
 		
-	})
-	// 미리보기기능 FileReader사용 
+		$("#profileSubmitBtn").click(function() {
+			$("form").submit();            
+	    });
+	
+	// 미리보기기능 FileReader사용  
 	function profileLoad(value) {
 						alert(value.files[0].name);
 			          var reader = new FileReader();         //파일을 읽기 위한 FileReader객체 생성
@@ -177,5 +202,6 @@
 	        modal.style.display = "none";
 	    }
 	}
+	/* ========================================== Modal Script ===================================================  */
 </script>
 </html>

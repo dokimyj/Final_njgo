@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="MyPageMapper">
+ 	<update id="profileBoth" parameterType="java.util.Map">
+ 		update member set myPhoto=#{myPhoto} , info =#{info} where email =#{email}
+ 	</update>
+ 	
+ 	<update id="profile_f" parameterType="java.util.Map">
+ 		update member set myPhoto=#{myPhoto} where email =#{email}
+ 	</update>
+ 	
+ 	<update id="profile_info" parameterType="java.util.Map">
+ 		update member set info=#{info} where email =#{email}
+ 	</update>
+ </mapper>

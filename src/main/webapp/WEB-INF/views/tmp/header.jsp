@@ -105,18 +105,25 @@
 							<span class="tooltiptext">로그인</span>
 						</a>
 					</c:if>
-					<c:if test="${sessionScope.memberDTO !=null }">	<!-- 로그인 했을 때 -->
+					<!-- 로그인 했을 때 -->
+					<c:if test="${sessionScope.memberDTO !=null }">	
+						<!-- SNS 회원    -->
 						<c:if test="${sessionScope.memberDTO.login_mode eq 'SNS_join' }">
-							<!-- 사진있을때 -->
-							<c:if test="${memberDTO.myPhoto != ''  }">
-								<img alt="회원" style="width:35px;border-radius: 50%;" src="${memberDTO.myPhoto }" id="memberBtn">			
-							</c:if>
-							<!-- 사진없을때 -->
-							<c:if test="${memberDTO.myPhoto == '' }">
-								<img src="${pageContext.request.contextPath}/resources/images/default.png">
-							</c:if>
+						      <!-- 카카오 프로필 사진 유무 -->
+							<c:choose>
+								<c:when test="${memberDTO.myPhoto eq 'sns'  }">
+									
+									<img alt="회원" style="width:35px;border-radius: 50%;" src=${sessionScope.SNS_photo } id="memberBtn">	
+								</c:when>
+								
+							
+								<c:when test="${memberDTO.myPhoto != 'sns' }">
+									<img style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/upload/profile/${memberDTO.myPhoto}" id="memberBtn">
+								</c:when>
+							</c:choose>
 							
 						</c:if>
+						<!-- 일반회원   -->
 						<c:if test="${sessionScope.memberDTO.login_mode eq 'general_join' }">
 							<img alt="회원" style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/images/common/default.png"
 							onmouseover="this.src='${pageContext.request.contextPath}/resources/images/common/default.png'"

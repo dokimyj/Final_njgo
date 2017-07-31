@@ -136,13 +136,14 @@ function doSubmit(login_mode)
 	          <c:if test="${login_mode eq 'SNS_join' }">  
 	          	  <input type="hidden" name="grade" value="1">
 		          <input type="hidden" name="email" id="SNS_email" value="">
-		          <input type="hidden" name="myPhoto" id="SNS_photo" value="">
+		          <input type="hidden" name="myPhoto"  value="sns">
+		          <input type="hidden" name="SNS_photo" id="SNS_photo">
 		          <input type="hidden" name="kakaoID" id="SNS_id" value=""> <!-- 앱에 처음 연결시 저장되는 고유 id값 -->
 	          </c:if>
 	          <!-- 이미지 테스트  -->
-	          <div>
+	         <!--  <div>
 					<img alt="" id="SNS_photo2" src="">	          
-	          </div>
+	          </div> -->
 	          <button type="button" id="join_btn" class="btn btn-primary btn-block btn-lg">회원가입</button>
 	      </form></div>
       </section>
@@ -162,7 +163,6 @@ function doSubmit(login_mode)
 	     			$("#SNS_email").val(res.kaccount_email);
 	     			$("#SNS_photo").val(res.properties.profile_image);
 	     			$("#SNS_id").val(res.id);
-	     			$("#SNS_photo2").attr("src",res.properties.profile_image);  //테스트용
 	     			
 	     		}
 	     	});  		

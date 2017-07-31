@@ -103,7 +103,9 @@
 			 	     		url : "/v1/user/me",
 			 	     		
 			 	     		success: function(data){
+			 	     			
 			 	     			var kakaoID = JSON.stringify(data.id);
+			 	     			var SNS_photo = JSON.stringify(data.properties.profile_image); // 프로필 이미지
 			 	     			/* var result = JSON.stringify(data); */
 			 	     		
 			 	     			//data = JSON으로 앱에 연결된 사용자 정보를 가져옴 
@@ -113,7 +115,7 @@
 			 	     				url : "kakaoIDCheck",
 			 	     				type: "POST",
 			 	     				data : {
-			 	     					kakaoID : data.id
+			 	     					kakaoID : data.id,
 			 	     				},
 			 	     				//
 			 	     				success : function(result) {
@@ -121,7 +123,7 @@
 			 	     					// 냉장GO DB에 앱에 연결된 고유한 id값이 저장되 있다는뜻,
 			 	     					// 즉, 회원가입이 되있는 상태이므로 로그인을 가능
 									 	if(result.trim()==0){
-									 		location.href="memberLogin?login_mode=SNS_join&kakaoID="+kakaoID;
+									 		location.href="memberLogin?login_mode=SNS_join&kakaoID="+kakaoID+"&SNS_photo="+SNS_photo;
 											/* $("#kakaoID").val(data.id);
 											$("#btn_login").submit(); */
 										} 

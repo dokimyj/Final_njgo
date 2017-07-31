@@ -120,16 +120,19 @@ public class MemberController {
 	
 	// 로그인
 	@RequestMapping(value="memberLogin",method={RequestMethod.GET,RequestMethod.POST})
-	public String memberLogin(HttpSession session ,MemberDTO memberDTO,Model model){
-	
+	public String memberLogin(HttpSession session ,MemberDTO memberDTO,Model model, String SNS_photo){
+		System.out.println("SNS_photo : "+SNS_photo);
 		MemberDTO memberDTO_result = memberService.memberLogin(memberDTO);
 		System.out.println("memberDTO_result : "+memberDTO_result);
 		String message = "아이디 또는 비밀번호를 다시 확인해주세요.";
+		// 로그인 성공
 		if (memberDTO_result != null) {
 			message = "로그인 성공!!";
 			session.setAttribute("memberDTO", memberDTO_result);
+			session.setAttribute("SNS_photo", SNS_photo);
 			return "redirect:../";
 		}
+		//로그인 실패시 메세지 보내기
 		model.addAttribute("message", message);
 		
 		return "member/login"; 
@@ -187,11 +190,11 @@ public class MemberController {
 	}
 	// SNS(Kakao) 가입 
 	@RequestMapping(value="memberSNSJoin", method = RequestMethod.POST)
-	public String memberSNSJoin(MemberDTO memberDTO,RedirectAttributes rd,HttpSession session)throws Exception{
+	public String memberSNSJoin(MemberDTO memberDTO,RedirectAttributes rd,HttpSession session, String SNS_photo)throws Exception{
 		
 		int result = memberService.memberSNSJoin(memberDTO);
 		if(result>0){
-				
+			session.setAttribute("SNS_photo", SNS_photo);
 			session.setAttribute("memberDTO", memberDTO);
 			rd.addFlashAttribute("message", "가입성공!! 환영합니다.");
 		}else{

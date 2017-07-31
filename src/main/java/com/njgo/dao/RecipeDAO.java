@@ -1,5 +1,6 @@
 package com.njgo.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -75,30 +76,21 @@ public class RecipeDAO {
 	}
 	
 	public HashMap<String, Object> catesearch(CategoryDTO category, List<IngredientsDTO> collection, ListInfo listInfo){
-		List<Integer> result=sqlSession.selectList(NAMESPACE+"catesearch", category);
+		List<Integer> cresult=sqlSession.selectList(NAMESPACE+"catesearch", category);
 		List<Integer> hresult=sqlSession.selectList(NAMESPACE+"hsearch1", listInfo);
 		List<Integer> tresult=sqlSession.selectList(NAMESPACE+"rsearch1", listInfo);
 		List<Integer> iresult=sqlSession.selectList(NAMESPACE+"isearch1", listInfo);
 		List<Integer> ingresult=sqlSession.selectList(NAMESPACE+"isearch", collection);
+		List<Integer> result=new ArrayList<Integer>();
 		hresult.addAll(tresult);
 		hresult.addAll(iresult);
 		hresult.addAll(ingresult);
-		boolean check=false;
 		for (int i=0;i<hresult.size();i++) {
-			for(int j=0;j<result.size();j++){
-				if(result.get(j)==hresult.get(i)){
-					check = true;
-				}else{
-					//여기서 뭘 해야할까? for문의 순서는 맞을까?(반대로 result가 더 밖에 있어야 하는게 아닐지? 혹시나...
-					//비교의 순서는? 어느걸 하나씩 비교하는것인지?
+			for(int j=0;j<cresult.size();j++){
+				if(cresult.get(j)==hresult.get(i)){
+					result.add(hresult.get(i));
 				}
 			}
-		}
-		if(!check) {
-			result.removeAll(result);
-			result.add(0);
-		}else{
-			
 		}
 		return this.search(listInfo, result);
 	}

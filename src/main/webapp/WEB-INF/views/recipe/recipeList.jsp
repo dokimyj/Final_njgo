@@ -146,7 +146,7 @@
 					find:$('#find').val()
 				},
 				success:function(data){
-					$('#searchresult').html(data.trim());
+					$('#recipeView').html(data.trim());
 				}
 			});
 		});

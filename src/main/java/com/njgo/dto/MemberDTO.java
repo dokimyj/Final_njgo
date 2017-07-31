@@ -18,8 +18,15 @@ public class MemberDTO {
 	private Timestamp joint_date;
 	private String joinCode;
 	private String login_mode;
+	private String sns_photo;
 	
 	
+	public String getSns_photo() {
+		return sns_photo;
+	}
+	public void setSns_photo(String sns_photo) {
+		this.sns_photo = sns_photo;
+	}
 	public String getLogin_mode() {
 		return login_mode;
 	}

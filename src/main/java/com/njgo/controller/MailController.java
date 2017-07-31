@@ -72,6 +72,7 @@ public class MailController {
 			
 			if(memberDTO !=null){
 					message ="가입성공!! 환영합니다.";
+					System.out.println(memberDTO.getMyPhoto());
 					model.addAttribute("message", message);
 					session.setAttribute("memberDTO", memberDTO);
 			}

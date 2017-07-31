@@ -1,5 +1,6 @@
 package com.njgo.controller;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,7 +29,10 @@ public class MyPageController {
 	private MemberService memberService;
 	
 	@RequestMapping(value="myPage")
-	public void myPage(){
+	public void myPage(@RequestParam String nickName, HttpSession session){
+		
+		MemberDTO memberDTO = memberService.nickNameCheck(nickName);
+		session.setAttribute("myPage", memberDTO);
 		
 	}
 	
@@ -49,9 +54,10 @@ public class MyPageController {
 				result = myPageService.profileUpdateBoth(fileName,info,email);
 				// 업로드, DB수정이 성공하면  세션도 수정
 				if(result >0){
-					MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
+					MemberDTO memberDTO = (MemberDTO)session.getAttribute("myPage");
 					memberDTO.setInfo(info);
 					memberDTO.setMyPhoto(fileName);
+					session.setAttribute("myPage", memberDTO);
 					session.setAttribute("memberDTO", memberDTO);
 				}
 			}
@@ -66,25 +72,28 @@ public class MyPageController {
 				result = myPageService.profileUpdate_f(fileName,email);
 				// 업로드, DB수정이 성공하면  세션도 수정
 				if(result >0){
-					MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
+					MemberDTO memberDTO = (MemberDTO)session.getAttribute("myPage");
 					memberDTO.setMyPhoto(fileName);
+					session.setAttribute("myPage", memberDTO);
 					session.setAttribute("memberDTO", memberDTO);
 				}
 			}
 		
 		}
 		// Info 수정
-		else{
+		else if(myPhoto.getOriginalFilename().equals("") && !info.equals("")){
 			result = myPageService.profileUpdate_info(info, email);
 			//  DB수정이 성공하면  세션도 수정
 			if(result >0){
-				MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
+				MemberDTO memberDTO = (MemberDTO)session.getAttribute("myPage");
 				memberDTO.setInfo(info);
+				session.setAttribute("myPage", memberDTO);
 				session.setAttribute("memberDTO", memberDTO);
 			}
 		}
-	
+		
 		return mv;
+			
 		
 		//  1. 자기 소개의 내용만 수정된 경우
 		//  2. 자신의 "이미지"만 수정된 경우

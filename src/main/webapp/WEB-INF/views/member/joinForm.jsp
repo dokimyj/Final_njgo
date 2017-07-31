@@ -81,11 +81,6 @@ function doSubmit(login_mode)
 		            <span id="pwStatus2" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 		            <span id="pwMsg2" style="display:none;" class="text-danger">비밀번호 확인을 입력해주세요.</span>
 		          </div>
-		          <!-- KAKAO ID 입력 -->
-		          <div id="emailFrms" class="form-group has-feedback">
-		            <input type="text" name="kakaoID" class="form-control" id="kakaoID" onblur="chkKakao()" placeholder="카카오 아이디 ,나중에 추가하셔도됩니다!">
-		           
-		          </div>
 	          </c:if>
 	           <!-- 닉네임 --> 
 	          <div id="nickFrms" class="form-group has-feedback mag_b_10">
@@ -137,7 +132,7 @@ function doSubmit(login_mode)
 	          	  <input type="hidden" name="grade" value="1">
 		          <input type="hidden" name="email" id="SNS_email" value="">
 		          <input type="hidden" name="myPhoto"  value="sns">
-		          <input type="hidden" name="SNS_photo" id="SNS_photo">
+		          <input type="hidden" name="sns_photo" id="SNS_photo">
 		          <input type="hidden" name="kakaoID" id="SNS_id" value=""> <!-- 앱에 처음 연결시 저장되는 고유 id값 -->
 	          </c:if>
 	          <!-- 이미지 테스트  -->

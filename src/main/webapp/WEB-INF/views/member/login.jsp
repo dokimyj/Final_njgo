@@ -105,7 +105,7 @@
 			 	     		success: function(data){
 			 	     			
 			 	     			var kakaoID = JSON.stringify(data.id);
-			 	     			var SNS_photo = JSON.stringify(data.properties.profile_image); // 프로필 이미지
+			 	     			var SNS_photo = data.properties.profile_image; // 프로필 이미지
 			 	     			/* var result = JSON.stringify(data); */
 			 	     		
 			 	     			//data = JSON으로 앱에 연결된 사용자 정보를 가져옴 

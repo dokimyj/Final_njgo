@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript">
+
 	$(function() {
 		
 		function logout() {
@@ -110,24 +111,34 @@
 						<!-- SNS 회원    -->
 						<c:if test="${sessionScope.memberDTO.login_mode eq 'SNS_join' }">
 						      <!-- 카카오 프로필 사진 유무 -->
+						      <!-- 맨처음 가입하면 카카오 프로필 사진으로 저장됨, 하지만 프로필 설정에서 
+						      이미지를 바꾸면 서버에 저장되있는 경로로가서 이미지를 가져옴  -->
 							<c:choose>
 								<c:when test="${memberDTO.myPhoto eq 'sns'  }">
 									
-									<img alt="회원" style="width:35px;border-radius: 50%;" src=${sessionScope.SNS_photo } id="memberBtn">	
+									<img alt="회원" style="width:35px;border-radius: 50%;" src=${memberDTO.sns_photo } id="memberBtn">	
 								</c:when>
 								
 							
 								<c:when test="${memberDTO.myPhoto != 'sns' }">
-									<img style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/upload/profile/${memberDTO.myPhoto}" id="memberBtn">
+									<img style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}" id="memberBtn">
 								</c:when>
 							</c:choose>
 							
 						</c:if>
 						<!-- 일반회원   -->
 						<c:if test="${sessionScope.memberDTO.login_mode eq 'general_join' }">
-							<img alt="회원" style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/images/common/default.png"
-							onmouseover="this.src='${pageContext.request.contextPath}/resources/images/common/default.png'"
-							onmouseout="this.src='${pageContext.request.contextPath}/resources/images/common/default.png'" id="memberBtn">
+						
+							<c:if test="${memberDTO.myPhoto eq '' || memberDTO.myPhoto eq null }">
+								<img alt="회원" style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/images/common/default.png"
+								onmouseover="this.src='${pageContext.request.contextPath}/resources/images/common/default.png'"
+								onmouseout="this.src='${pageContext.request.contextPath}/resources/images/common/default.png'" id="memberBtn">
+							</c:if>
+							<c:if test="${memberDTO.myPhoto ne null} ">
+								<img alt="회원" style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}"
+								onmouseover="this.src='${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}'"
+								onmouseout="this.src='${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}'" id="memberBtn">
+							</c:if>
 						</c:if>
 							
 					</c:if>
@@ -155,7 +166,7 @@
 		</div>
 		<div class="member_box" style="display: none;" title="off">
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/member/myPage/myPage">MY홈</a></li>
+				<li><a href="${pageContext.request.contextPath}/member/myPage/myPage?nickName=${memberDTO.nickName}">MY홈</a></li>
 				<li><a href="#">스크랩한 레시피</a></li>
 				<li><a href="#">레시피 노트</a></li>
 				<li><a href="#">알림</a></li>

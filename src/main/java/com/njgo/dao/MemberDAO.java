@@ -97,6 +97,7 @@ public class MemberDAO {
 		//이메일 인증이 완료되면 grade 값 1로 변경 
 		if(memberDTO != null){
 			result = sqlSession.update(NAMESPACE+"join_success",map);
+			memberDTO.setGrade("1");
 		}
 		
 		return memberDTO;

@@ -37,7 +37,7 @@ public class MemberController {
 	
 	@RequestMapping(value="provision",method= RequestMethod.GET)
 	public void test(@RequestParam String login_mode,@RequestParam(defaultValue="") String access_token, Model model){
-		System.out.println("login_mode : "+login_mode);
+		
 		
 		model.addAttribute("login_mode", login_mode);
 		model.addAttribute("access_token", access_token);
@@ -120,16 +120,15 @@ public class MemberController {
 	
 	// 로그인
 	@RequestMapping(value="memberLogin",method={RequestMethod.GET,RequestMethod.POST})
-	public String memberLogin(HttpSession session ,MemberDTO memberDTO,Model model, String SNS_photo){
-		System.out.println("SNS_photo : "+SNS_photo);
+	public String memberLogin(HttpSession session ,MemberDTO memberDTO,Model model){
+		
 		MemberDTO memberDTO_result = memberService.memberLogin(memberDTO);
-		System.out.println("memberDTO_result : "+memberDTO_result);
+		
 		String message = "아이디 또는 비밀번호를 다시 확인해주세요.";
 		// 로그인 성공
 		if (memberDTO_result != null) {
 			message = "로그인 성공!!";
 			session.setAttribute("memberDTO", memberDTO_result);
-			session.setAttribute("SNS_photo", SNS_photo);
 			return "redirect:../";
 		}
 		//로그인 실패시 메세지 보내기
@@ -152,7 +151,7 @@ public class MemberController {
 	//약관 확인 누른다음 joinCode 생성해서 joinForm.jsp에 넣어줌
 	@RequestMapping(value="joinForm",method= RequestMethod.POST)
 	public void join(Model model, @RequestParam String login_mode, @RequestParam String access_token)throws Exception{
-		System.out.println("access_token : "+access_token);
+		
 		String path = "memberJoin";
 		if(login_mode.equals("SNS_join")){
 			path="memberSNSJoin";
@@ -190,11 +189,10 @@ public class MemberController {
 	}
 	// SNS(Kakao) 가입 
 	@RequestMapping(value="memberSNSJoin", method = RequestMethod.POST)
-	public String memberSNSJoin(MemberDTO memberDTO,RedirectAttributes rd,HttpSession session, String SNS_photo)throws Exception{
+	public String memberSNSJoin(MemberDTO memberDTO,RedirectAttributes rd,HttpSession session)throws Exception{
 		
 		int result = memberService.memberSNSJoin(memberDTO);
 		if(result>0){
-			session.setAttribute("SNS_photo", SNS_photo);
 			session.setAttribute("memberDTO", memberDTO);
 			rd.addFlashAttribute("message", "가입성공!! 환영합니다.");
 		}else{
@@ -222,7 +220,7 @@ public class MemberController {
 	//2. 로그인 할때 kakao 아이디 존재 유무
 		@RequestMapping(value="kakaoIDCheck", method = RequestMethod.POST)
 		public ModelAndView kakaoIDCheck(String kakaoID){
-			System.out.println("kakaoID : "+kakaoID);
+			
 			MemberDTO memberDTO = memberService.kakaoIDCheck(kakaoID);
 			ModelAndView mv = new ModelAndView();
 			int code = 1; // 사용가능한 kakaoID

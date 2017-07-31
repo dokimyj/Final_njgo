@@ -37,25 +37,28 @@
 
 			<div id="content">
 				<section class="sec_mypage">
-
+					
 					<!-- [D] 상단 사용자정보 영역 -->
 					<div class="user_information">
 						<div class="inner">
-							<img alt="${memberDTO.nickName }" id="myPhoto"			
-								 >
-
-							<strong>냉장고살인마</strong>
+							<img alt="" id="myPhoto" >
+							<strong>${myPage.nickName }</strong>
 							<!-- [D] 베스트유저인 경우	<strong class="best">김문어씨</strong>-->
 						<span class="follow"><em>0명 </em>팔로잉</span>
 
 							<p class="link">
 								<a target="_blank" href="http://"></a>
 							</p>
-							<p class="dsc">${memberDTO.info }</p>
+							<p class="dsc">${myPage.info }</p>
 
 							<div class="btn_area">
 								<!-- [D] 내 콜렉션인 경우 -->
-								<button id="profile_btn" class="btn_config call_profile">프로필설정&gt;</button>
+								<c:if test="${myPage.nickName eq memberDTO.nickName }">
+									<button id="profile_btn" class="btn_config call_profile">프로필설정&gt;</button>
+								</c:if>
+								<c:if test="${myPage.nickName != memberDTO.nickName }">
+									<button  class="btn_config call_profile">팔로우&gt;</button>
+								</c:if>
 						<!-- =============================The Modal ===============================-->
 								<div id="vProfileImageModal" class="modal in" role="dialog" aria-hidden="false" style="display: none; padding-right: 17px;">
 							      <div class="modal-dialog" style="width:570px">
@@ -70,7 +73,7 @@
 							            <!-- form  -->
 							            <form action="profile_upload" method="post" enctype="multipart/form-data">
 								            <input type="file" name="myPhoto" id="file_1" style="display:none;" onchange="profileLoad(this)">
-								            <input type="hidden" name="email" value="${memberDTO.email }">
+								            <input type="hidden" name="email" value="${myPage.email }">
 											<p><input type="text" name="info" value="" id="info" class="input-sm" size="60" maxlength="100" placeholder="자기소개를 100자 이내로 작성해 주세요."></p>
 							            </form>
 							            <button type="button" onclick="document.getElementById('file_1').click();" class="btn btn-primary">프로필 사진 바꾸기</button>
@@ -93,31 +96,34 @@
 
 					<div class="tab_st1">
 						<div class="inner">
-							<ul>
-								<li class="on"><a href="/mypage"> <strong>마이레시피</strong><em>0</em>
-								</a></li>
-								<li><a href="/mypage/scraps"> <strong>스크랩</strong><em>2</em>
-								</a></li>
-								<li><a href="/mypage/following"> <strong>팔로잉</strong><em>1</em>
-								</a></li>
-									<li><a href="/mypage/following"> <strong>쪽지함</strong><em>1</em>
-								</a></li>
-									<li><a href="/mypage/following"> <strong>주문내역</strong><em>1</em>
-								</a></li>
-							</ul>
+							<!-- =============================== MyPage 기능 =============================  -->
+							<c:if test="${memberDTO.grade < 2 }">
+								<ul>
+									<li class="on"><a href="/mypage"> <strong>마이레시피</strong><em>0</em>
+									</a></li>
+									<li><a href="/mypage/scraps"> <strong>스크랩</strong><em>2</em>
+									</a></li>
+									<li><a href="/mypage/following"> <strong>팔로잉</strong><em>1</em>
+									</a></li>
+										<li><a href="/mypage/following"> <strong>쪽지함</strong><em>1</em>
+									</a></li>
+										<li><a href="/mypage/following"> <strong>주문내역</strong><em>1</em>
+									</a></li>
+								</ul>	
+							</c:if>
+							<c:if test="${memberDTO.grade > 1 }">
+								<ul>
+									<li class="on"><a href="/mypage"> <strong>사용자 리스트</strong><em>0</em>
+									</a></li>
+									<li class="off"><a href="/mypage"> <strong>신고함 </strong><em>0</em>
+									</a></li>
+								</ul>
+							</c:if>
+							
 						</div>
 					</div>
 
-					<div class="in_mypage">
-						<ul class="lst_recipe">
-							<li class="btn_add"><a href="#">나의 레시피 추가하기</a></li>
-							<li class="no-recipes">
-								<div class="no-content">
-									아직 등록하신 레시피가 없습니다.<br>나만의 레시피를 등록해주세요.
-								</div>
-							</li>
-						</ul>
-					</div>
+					
 
 				</section>
 			</div>
@@ -129,24 +135,23 @@
 </body>
 <script type="text/javascript">
 	$(function() {
-		var SNS_photo = ${SNS_photo};
 		
 		/* 마이페이지 이미지   */
 		// 이미지가 없을경우 기본값
-		if("${memberDTO.myPhoto}"==""||"${memberDTO.myPhoto}"==null){
+		if("${myPage.myPhoto}"==""||"${myPage.myPhoto}"==null){
 			$("#myPhoto").attr("src","${pageContext.request.contextPath}/resources/images/common/default.png");
 			$("#profile_img").attr("src","${pageContext.request.contextPath}/resources/images/common/default.png");
 		}
 		// SNS 회원 처음 가입하면 myPhoto = "sns" 값 , 즉 카카오에 설정되있는 기본 이미지 경로이므로 
 		// sns 값이라면 프로필 수정하기 전 이므로 세션에 저장해놓은 kakao 이미지 경로를 src에 넣어준다.
-		else if("${memberDTO.myPhoto}"=="sns"){
-			$("#myPhoto").attr("src",SNS_photo);	
-			$("#profile_img").attr("src",SNS_photo);	
+		else if("${myPage.myPhoto}"=="sns"){
+			$("#myPhoto").attr("src","${memberDTO.sns_photo}");	
+			$("#profile_img").attr("src","${memberDTO.sns_photo}");	
 		}
 		// 세션에 저장된 member의 myPhoto 파일 이름을 가져옴
 		else {
-			$("#myPhoto").attr("src","${pageContext.request.contextPath}/resources/upload/profile/${memberDTO.myPhoto}");
-			$("#profile_img").attr("src","${pageContext.request.contextPath}/resources/upload/profile/${memberDTO.myPhoto}");
+			$("#myPhoto").attr("src","${pageContext.request.contextPath}/resources/upload/${myPage.myPhoto}");
+			$("#profile_img").attr("src","${pageContext.request.contextPath}/resources/upload/${myPage.myPhoto}");
 		}
 		
 	})
@@ -170,9 +175,13 @@
 	
 	// 미리보기기능 FileReader사용  
 	function profileLoad(value) {
-						alert(value.files[0].name);
+					  var inputImg = $("#file_1").val();
+					  alert(inputImg);
 			          var reader = new FileReader();         //파일을 읽기 위한 FileReader객체 생성
-		
+			          if(inputImg == ''){
+		  		            $("#profile_img").removeAttr("src");
+		  		            $("#profile_img").hide();
+		  		         }
 			         if(value.files && value.files[0]){
 			           
 			            reader.onload = function(e) {         //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
@@ -187,7 +196,6 @@
 			        	  return;
 			        	}
   			} // profileLoad
-	
 	
 	$("#profile_btn").click(function() {
 		$(".modal").css("display","block");

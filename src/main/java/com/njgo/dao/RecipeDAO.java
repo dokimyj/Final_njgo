@@ -92,6 +92,9 @@ public class RecipeDAO {
 				}
 			}
 		}
+		if(result.size()==0){
+			result.add(0);
+		}
 		return this.search(listInfo, result);
 	}
 	

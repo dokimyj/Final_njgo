@@ -1,0 +1,572 @@
+@CHARSET "UTF-8";
+
+body {
+	background-color: #eeeeee;
+}
+textarea{
+	resize:none;
+}
+*::-webkit-input-placeholder{
+	color: #a6a6a6;
+}
+.box{ 
+	width: 100%;
+	min-height: 150px;
+	border: 1px solid #f8f8f8;
+	margin-top: 10px;
+}
+.titlePart{ 
+	padding: 14px 18px;
+	font-size: 20px;
+	font-weight: bold;
+	background-color: #f8f8f8;
+	border-bottom: 1px solid #e6e7e8;
+}
+.contentPart {
+	background-color: white;
+	width: 100%;
+	min-height: 150px;
+	padding: 30px 80px 30px 50px;
+	font-size: large;
+}
+.content_title {
+	width: 140px;
+	height: 50px;
+	display: inline-block;
+}
+.content_input {
+	background: #f5f5f5;
+	border: 1px solid #e1e1e1;
+	font-size: 16px;
+	padding-left: 15px;
+	margin-top: -1px;
+	border-radius: 4px;
+	display: inline-block;
+}
+#title, #foodname {
+	vertical-align: middle;
+	height: 50px;
+	width: 570px;
+}
+#explanation {
+	vertical-align: top;
+	padding: 10px 15px;
+	height: 120px;
+	width: 570px;
+	margin-top: -5px;
+}
+#video {
+	vertical-align: top;
+	padding: 10px 15px;
+	height: 100px;
+	width: 350px;
+	margin-top: -5px;
+}
+.divPhotoBox {
+	vertical-align: top;
+	display: inline-block;
+	margin-top: -5px;
+   	margin-left: 10px;
+}
+.content_divisor {
+	margin-bottom: 35px; 
+ }
+.main_picture {
+	float: right;
+	width: auto;
+	height: auto;
+}
+.small {
+	font-size: small;
+}
+.select {
+	padding: 3px;
+	height: 40px;
+	width: auto;
+}
+.tip {
+	font-size: small;
+	color: #999;
+}
+.tip_category {
+	margin: -15px 0 0 146px;
+}
+.upload {
+	opacity: 0;
+	position: relative;
+	width: 250px;
+	height: 250px;
+	cursor: pointer;
+}
+.replace {
+	position: absolute;
+	width: 250px;
+	height: 250px;
+	cursor: pointer;
+	background-image: url('../../images/psy/pic_none4.gif');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	border: 1px solid #e1e1e1;
+}
+#videoPicture {
+	height: 100px;
+	width: auto;
+}
+#deleteMainPic {
+	display: none;
+	position: relative;
+	float: right;
+   	top: -250px;
+   	cursor: pointer;
+}
+.box2_sub {
+	width: 100%;
+	min-height: 70px;
+	padding: 15px 0px 25px 0px;
+}
+.box2_sub ul {
+	list-style: none;
+}
+.box2_sub li {
+	float: left;
+}
+.box2_input {
+	border: 1px solid #e1e1e1;
+	height: 50px;
+	padding-left: 15px;
+	border-radius: 5px;
+	display: inline-block;
+	margin-top: -3px;
+}
+.dragBtn {
+	background-image: url('../../images/psy/btn_lineup.gif');
+	background-repeat: no-repeat;
+	background-position: bottom;
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	vertical-align: top;
+}
+.kindInput {
+	background: #fffdd7;
+   	font-size: 18px;
+   	font-weight: bold;
+   	width: 210px;
+}
+.kindSection_btns {
+	display: block;
+    margin: 10px 0 0 34px;
+    text-align: center;
+    line-height: 1;
+    font-size: 0;
+}
+.kindSection_btns input {
+	font-size: small;
+    margin-right: 5px;
+}
+.allBtn {
+	color: #333;
+   	background-color: #fff;
+   	padding: 0px 10px 0px 25px;
+   	border: 1px solid #ccc;
+   	height: 33px;
+   	border-radius: 3px;
+   	background-repeat: no-repeat;
+}
+.allInsertBtn {
+	background-image: url('../../images/psy/one-finger-click-black-hand-symbol.png');
+	background-position: 7% 50%;
+}
+.allDeleteBtn {
+	background-image: url('../../images/psy/remove-symbol.png');
+	background-position: 9% 50%;
+}
+.box2_sub_1:not(:first-child) {
+	margin-top: 50px;	
+}
+.ingredientSection ul {
+	margin-left: 20px;
+	width: auto;
+	font-size: 0;
+}
+.ingredientSection li {
+	clear: both;
+	margin-bottom: 10px;
+}
+.ingredientInput {
+	background-color: #f5f5f5;
+	font-size: 16px;
+}
+#ingredientInput_1 {
+	width: 300px;
+	margin-right: 7px;
+}
+#ingredientInput_2 {
+	width: 265px;
+}
+.addBtn {
+	clear: both;
+	display: block;
+	margin: 0 auto;
+	width: 60px;
+	height: 40px;
+	font-weight: bold;
+	font-size: 0.85em;
+	text-align: right;
+	background-image: url('../../images/psy/plus-sign-in-a-black-circle.png');
+	background-repeat: no-repeat;
+	background-position: left;
+	background-color: white;
+	border: 0;
+}
+.deleteBtn {
+	background-image: url('../../images/psy/btn_del2.gif');
+	background-repeat: no-repeat;
+	background-position: left;
+	margin-left: 10px;
+	vertical-align: top;
+	width: 40px;
+	height: 40px;
+	display: none;
+	cursor: pointer;
+}
+.box2_sub_2 {
+	border-top: 1px solid #ccc;
+	padding: 25px 0px;
+	margin-top: 50px;
+}
+.box2_sub_2 p {
+	color: red;
+	font-size: 0.8em;
+	text-align: center;
+}
+.box2_sub_2 input {
+	width: 240px;
+	height: 45px;
+	display: block;
+	margin: 20px auto;
+	border: 1px solid #ccc;
+	background-color: white;
+	border-radius: 4px;
+	font-weight: bold;
+	padding: 0px 25px;
+	text-align: right;
+	background-image: url('../../images/psy/plus-symbol.png');
+	background-position: 12% 50%;
+	background-repeat: no-repeat;
+}
+.box3_title span {
+	font-size: larger;
+}
+.box3_title input {
+	border: 1px solid #e1e1e1;
+    background-color: white;
+    font-size: small;
+    border-radius: 3px;
+    width: 165px;
+    height: 30px;
+    text-align: right;
+    padding: 0 10px;
+    background-image: url('../../images/psy/plus-black-symbol.png');
+    background-repeat: no-repeat;
+    background-position: 7% 52%;
+}
+#tip_step_1 {
+	font-weight: bold;
+	margin-top: 20px;
+}
+#tip_step_2 {
+	padding: 0 20px;
+}
+.stepSection {
+	margin: 40px 0 20px 0;
+}
+.step_title {
+	margin-left: 70px;
+	font-size: xx-large;
+	color: #ffcc00;
+	font-weight: lighter;
+	float: left;
+	width: 130px;
+}
+.step_contents {
+	width: 460px;
+	height: 160px;
+	padding: 15px;
+	float: left;
+}
+.step_picture {
+	width: 160px;
+	height: 160px;
+	float: left;
+	cursor: pointer;
+}
+.upload_step {
+	opacity: 0;
+	position: relative;
+	width: 160px;
+	height: 160px;
+	cursor: pointer;
+}
+.replace_step {
+	margin-left: 3px;
+	border: 1px solid #e1e1e1;
+	position: absolute;
+	width: 160px;
+	height: 160px;
+	background: #f5f5f5;
+	cursor: pointer;
+	background-image: url('../../images/psy/pic_none2.gif');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+.deleteStepPic {
+	display: none;
+	position: absolute;
+   	cursor: pointer;
+}
+.addStepBtn {
+	clear: both;
+	display: block;
+	margin: 20px auto;
+	width: 90px;
+	height: 40px;
+	font-weight: bold;
+	font-size: 0.85em;
+	text-align: right;
+	background-image: url('../../images/psy/plus-sign-in-a-black-circle.png');
+	background-repeat: no-repeat;
+	background-position: left;
+	background-color: white;
+	border: 0;
+}
+.step {
+	margin-bottom: 20px;
+    width: 100%;
+    min-height: 160px;
+}
+.step_menu {
+	vertical-align: middle;
+	float: left;
+	margin: 1px 0px 0px 5px;
+	display: none;
+}
+.step_menu p {
+	display: block;
+	width: 38px;
+    height: 38px;
+    background: #eee;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+.step_menu span {
+	line-height: 37px;
+	margin-left: 11px;
+	color: white;
+}
+.step_menu p:hover {
+	background: #ffcc00;
+}
+.box4_title {
+	width: 120px;
+	font-size: larger;
+	display: inline-block;
+	float: left;
+}
+.tag_form li {
+	list-style: none;
+	float: left;
+}
+.tag_form {
+	list-style: none;
+	background: #f5f5f5;
+	border: 1px solid #dddddd;
+	font-size: 16px;
+	padding: 5px 8px 0px 8px;
+	display: inline-block;
+	width: 620px;
+	min-height: 46px;
+}
+.tag_input {
+	min-width: 150px;
+	height: 33px;
+	background: #f5f5f5;
+	border: 1px solid #f5f5f5;
+}
+.tag_input:focus {
+	outline: none;
+}
+.tag_view div {
+	width: auto;
+	height: 33px;
+	background-color: white;
+	border: 1px solid #dddddd;
+	border-radius: 5px;
+	padding: 0 10px;
+	margin: 0px 5px 5px 0px;
+	font-weight: bold;
+}
+.tag_view span {
+	line-height: 30px;
+}
+#deleteTagBtn {
+	margin: -2px 0px 0px 3px;
+	cursor: pointer;
+}
+@keyframes example {
+    from {background-color: white;}
+    to {
+    	background-color: yellow;
+    	opacity: .3;
+    }
+}
+.tag_tip {
+	margin-left: 120px;
+	font-size: small;
+}
+.finalBtns {
+	width: 290px;
+	height: 45px;
+	margin: 40px auto;
+}
+.finalBtns button {
+	width: 140px;
+	height: 50px;
+	border-radius: 3px;
+	font-size: large;
+	font-weight: bold;
+	border: 0;
+	color: white;
+}
+#saveBtn {
+	background-color: #FF5A5F;
+}
+#cancleBtn {
+	background-color: #008489;
+}
+
+/* 드래그 tooltip */
+.dragTooltip {
+	opacity: .9;
+	visibility: hidden;
+    width: 200px;
+    height: 30px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    padding: 3px 7px;
+	font-size: smaller;
+	line-height: 25px;
+   /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+.dragTooltip:after {
+	opacity: .9;
+	content: '';
+	position: absolute;
+	border-top: 8px solid black;
+    border-right:7px solid transparent;
+    border-left:7px solid transparent;
+    top: 30px;
+    left: 60px;
+}
+
+/* modal */
+.modal_section {
+	display: none;
+	position: absolute;
+	width: 680px;
+	height: 880px;
+	background-color: white;
+	border: 1px solid #e1e1e1;
+	border-radius: 7px;
+	box-shadow: -2px -2px 10px gray, 2px 2px 10px gray;
+	z-index: 101;
+	overflow: visible;
+}
+.modal_title {
+	padding: 16px 17px 14px 30px;
+	background-color: #efefef;
+	border-bottom: 1px solid #b4b4b4;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	width: 678px;
+	height: 60px;
+}
+#title_text {
+	font-size: large;
+	font-weight: bold;
+}
+#title_img {
+	float: right;
+}
+#title_img img {
+	cursor: pointer;
+}
+.modal_content {
+	padding: 40px;
+}
+#content_text1{
+	text-align: center;
+	color: #333;
+	font-weight: lighter;
+	margin-bottom: 15px;
+}
+.modal_input {
+	padding: 10px 15px;
+	height: 120px;
+   	width: 580px;
+   	resize: none;
+   	display: inline-block;
+    vertical-align: middle;
+    background: #f5f5f5;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    font-size: 16px;
+    color: gray;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+*::-webkit-input-placeholder{
+	color: #999;
+	font-weight: lighter;
+}
+.content_text2 {
+	color: #999;
+    font-size: 0.9em;
+    margin-left: 20px;
+}
+.modal_buttons {
+  		text-align: center;
+  		margin-top: 20px;
+}
+.modal_buttons button {
+	border-radius: 3px;
+	width: 95px;
+	height: 46px;
+	font-size: 18px;
+    font-weight: bold;
+  		text-align: center;
+}
+#m_saveBtn {
+	background-color: #ffcc00;
+	border: 1px solid #b38f00;
+	color: white;
+}
+#m_saveBtn:HOVER {
+	background-color: #e6b800;
+}
+#m_cancleBtn {
+	background-color: white;
+	border: 1px solid #ccc;
+}
+.explain img {
+	margin-top: 50px;
+	width: 600px;
+	height: 350px;
+	border: 1px solid #ccc;
+}

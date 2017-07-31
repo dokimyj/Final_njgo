@@ -14,6 +14,14 @@ public class RecipeDTO {
 	private double rating;
 	private String elapsedtime;
 	private int scrap;
+	private String r_intro;
+	
+	public String getR_intro() {
+		return r_intro;
+	}
+	public void setR_intro(String r_intro) {
+		this.r_intro = r_intro;
+	}
 	public int getNum() {
 		return num;
 	}
@@ -21,6 +29,9 @@ public class RecipeDTO {
 		this.num = num;
 	}
 	public String getWriter() {
+		if(writer==null){
+			writer="a";
+		}
 		return writer;
 	}
 	public void setWriter(String writer) {

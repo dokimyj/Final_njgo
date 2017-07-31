@@ -78,9 +78,8 @@
 		select RECIPENUM from HASHTAG where HASHTAG like '%'||#{find}||'%'
 	</select>
 	<select id="catesearch" parameterType="com.njgo.dto.CategoryDTO" resultType="java.lang.Integer">
-		select distinct RECIPENUM from CATEGORY where RECIPENUM in (select RECIPENUM from CATEGORY where C_KIND like #{c_kind} and C_SITUATION like #{c_situation} and C_PROCEDURE like #{c_procedure} and C_INGREDIENT like #{c_ingredient})
+		select RECIPENUM from CATEGORY where C_KIND like #{c_kind} and C_SITUATION like #{c_situation} and C_PROCEDURE like #{c_procedure} and C_INGREDIENT like #{c_ingredient}
 	</select>
-	
 	<select id="isearch1" parameterType="com.njgo.util.ListInfo" resultType="java.lang.Integer">
 		select RECIPENUM from INGREDIENTS where NAME like '%'||#{find}||'%'
 	</select>
@@ -115,4 +114,42 @@
 	<delete id="scrapSub" parameterType="com.njgo.dto.ScrapDTO">
 		delete SCRAP where NICKNAME=#{nickname} and RECIPENUM=#{recipenum}
 	</delete>
+	
+	<!--  recipe 입력 --> 
+	<insert id="insertRecipeInfo" parameterType="com.njgo.dto.RecipeDTO">
+  	insert into RECIPE (NUM, WRITER, FOODNAME, TITLE, HIT, REGDATE, REP_PIC, AMOUNT, RATING, ELAPSEDTIME, SCRAP, R_INTRO) values (RECIPE_SEQ.nextval, #{writer}, #{foodname}, #{title}, 0, sysdate, #{rep_pic}, #{amount}, 0, #{elapsedtime}, 0, #{r_intro})
+  	</insert> 
+  	<insert id="insertCategory" parameterType="com.njgo.dto.CategoryDTO">
+  	insert into CATEGORY (RECIPENUM, C_KIND, C_SITUATION, C_PROCEDURE, C_INGREDIENT) values (RECIPE_SEQ.currval, #{c_kind}, #{c_situation}, #{c_procedure}, #{c_ingredient})
+ 	</insert> 
+	<insert id="insertIngredient" parameterType="com.njgo.dto.IngredientsDTO">
+  	insert into INGREDIENTS (RECIPENUM, NAME, AMOUNT, KIND) 
+  		<if test="recipenum != 0">values (#{recipenum}, #{name}, #{amount}, #{kind})</if> 
+  		<if test="recipenum == 0">values (RECIPE_SEQ.currval, #{name}, #{amount}, #{kind})</if> 
+  	</insert>
+  	<insert id="insertStep" parameterType="com.njgo.dto.StepsDTO">
+  	insert into STEPS (RECIPENUM, STEP, EXPLAIN, FNAME, ONAME) 
+  		<if test="recipenum != 0">values (#{recipenum}, #{step}, #{explain}, #{fname}, '')</if> 
+  		<if test="recipenum == 0">values (RECIPE_SEQ.currval, #{step}, #{explain}, #{fname}, '')</if> 
+  	</insert>
+	<insert id="insertHashtag" parameterType="com.njgo.dto.HashtagDTO">
+	  insert into HASHTAG (RECIPENUM, HASHTAG) 
+  		<if test="recipenum != 0">values (#{recipenum}, #{hashtag})</if> 
+  		<if test="recipenum == 0">values (RECIPE_SEQ.currval, #{hashtag})</if> 
+  	</insert>
+ 	<!--  recipe 삭제 --> 
+	<delete id="deleteRecipeInfo" parameterType="java.lang.Integer">delete from RECIPE where NUM=#{recipeNum}</delete> 
+  	<delete id="deleteCategory" parameterType="java.lang.Integer">delete from CATEGORY where RECIPENUM=#{recipeNum}</delete> 
+  	<delete id="deleteIngredient" parameterType="java.lang.Integer">delete from INGREDIENTS where RECIPENUM=#{recipeNum}</delete> 
+  	<delete id="deleteStep" parameterType="java.lang.Integer">delete from STEPS where RECIPENUM=#{recipeNum}</delete> 
+  	<delete id="deleteHashtag" parameterType="java.lang.Integer">delete from HASHTAG where RECIPENUM=#{recipeNum}</delete> 
+<!--  recipe 뷰 --> 
+  	<select id="recipeInfoView" parameterType="java.lang.Integer" resultType="com.njgo.dto.RecipeDTO">select * from RECIPE where NUM=#{recipeNum}</select> 
+  	<select id="categoryView" parameterType="java.lang.Integer" resultType="com.njgo.dto.CategoryDTO">select * from CATEGORY where RECIPENUM=#{recipeNum}</select> 
+  	<select id="ingredientView" parameterType="java.lang.Integer" resultType="com.njgo.dto.IngredientsDTO">select * from INGREDIENTS where RECIPENUM=#{recipeNum}</select> 
+  	<select id="stepView" parameterType="java.lang.Integer" resultType="com.njgo.dto.StepsDTO">select * from STEPS where RECIPENUM=#{recipeNum} order by STEP asc</select> 
+  	<select id="hashtagView" parameterType="java.lang.Integer" resultType="com.njgo.dto.HashtagDTO">select * from HASHTAG where RECIPENUM=#{recipeNum}</select> 
+<!--  recipe update --> 
+  	<update id="recipeInfoUpdate" parameterType="com.njgo.dto.RecipeDTO">update RECIPE set FOODNAME=#{foodname}, TITLE=#{title}, REP_PIC=#{rep_pic}, AMOUNT=#{amount}, ELAPSEDTIME=#{elapsedtime}, R_INTRO=#{r_intro} where NUM=#{num}</update> 
+  	<update id="categoryUpdate" parameterType="com.njgo.dto.CategoryDTO">update CATEGORY set C_KIND=#{c_kind}, C_SITUATION=#{c_situation}, C_PROCEDURE=#{c_procedure}, C_INGREDIENT=#{c_ingredient} where RECIPENUM=#{recipenum}</update> 
 </mapper>

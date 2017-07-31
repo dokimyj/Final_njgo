@@ -4,6 +4,7 @@ public class IngredientsDTO {
 	private int recipenum;
 	private String name;
 	private String amount;
+	private String kind;
 	
 	public int getRecipenum() {
 		return recipenum;
@@ -26,5 +27,10 @@ public class IngredientsDTO {
 	public void setAmount(String amount) {
 		this.amount = amount;
 	}
-	
+	public String getKind() {
+		return kind;
+	}
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
 }

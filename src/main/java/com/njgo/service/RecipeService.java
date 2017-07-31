@@ -103,4 +103,21 @@ public class RecipeService {
 	public int scrapDecrease(ScrapDTO scrapDTO){
 		return recipeDAO.scrapDecrease(scrapDTO);
 	}
+	
+	public int recipeWrite(HashMap<String, Object> recipeMap) throws Exception {
+		return recipeDAO.recipeWrite(recipeMap);
+	}
+	
+	public int recipeDelete(int recipeNum) throws Exception {
+		return recipeDAO.recipeDelete(recipeNum);
+	}
+	
+	public HashMap<String, Object> recipeView(int recipeNum) {
+		return recipeDAO.recipeView(recipeNum);
+	}
+	
+	public int recipeUpadate(HashMap<String, Object> recipeMap) throws Exception {
+		return recipeDAO.recipeUpdate(recipeMap);
+	}
+	
 }

@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.njgo.dto.CategoryDTO;
 import com.njgo.dto.HashtagDTO;
@@ -81,15 +82,24 @@ public class RecipeDAO {
 		List<Integer> tresult=sqlSession.selectList(NAMESPACE+"rsearch1", listInfo);
 		List<Integer> iresult=sqlSession.selectList(NAMESPACE+"isearch1", listInfo);
 		List<Integer> ingresult=sqlSession.selectList(NAMESPACE+"isearch", collection);
-		List<Integer> result=new ArrayList<Integer>();
+		if(listInfo.getFind().equals("%%")&&!collection.get(0).getName().equals("%%")){
+			hresult.clear();
+			tresult.clear();
+			iresult.clear();
+		}else if(collection.get(0).getName().equals("%%")&&!listInfo.getFind().equals("%%")){
+			ingresult.clear();
+		}
 		hresult.addAll(tresult);
 		hresult.addAll(iresult);
 		hresult.addAll(ingresult);
-		for (int i=0;i<hresult.size();i++) {
-			for(int j=0;j<cresult.size();j++){
-				if(cresult.get(j)==hresult.get(i)){
-					result.add(hresult.get(i));
-				}
+		List<Integer> result=new ArrayList<Integer>();
+		String cresult_tostring="";
+		for(int i=0;i<cresult.size();i++){
+			cresult_tostring+=cresult.get(i)+",";
+		}
+		for(int i=0;i<hresult.size();i++){
+			if(cresult_tostring.indexOf(hresult.get(i).toString())!=-1){
+				result.add(hresult.get(i));
 			}
 		}
 		if(result.size()==0){
@@ -127,5 +137,80 @@ public class RecipeDAO {
 		int result=sqlSession.delete(NAMESPACE+"scrapSub", scrapDTO);
 		result+=sqlSession.update(NAMESPACE+"scrapD", scrapDTO.getRecipenum());
 		return result;
+	}
+	
+	@Transactional
+	public int recipeWrite(HashMap<String, Object> recipeMap) throws Exception {
+		int result = 0;
+		sqlSession.insert(NAMESPACE + "insertRecipeInfo", recipeMap.get("recipeInfo"));	// 요리 정보 넣기
+		sqlSession.insert(NAMESPACE + "insertCategory", recipeMap.get("category"));		// 카테고리 넣기
+		
+		for(IngredientsDTO i:(ArrayList<IngredientsDTO>)recipeMap.get("ingredient")) {	// 재료 넣기
+			sqlSession.insert(NAMESPACE + "insertIngredient", i);
+		}
+		
+		for(StepsDTO s:(ArrayList<StepsDTO>)recipeMap.get("step")) {					// 요리 순서 넣기
+			sqlSession.insert(NAMESPACE + "insertStep", s);
+		}
+		
+		for(HashtagDTO h:(ArrayList<HashtagDTO>)recipeMap.get("hashtag")) {				// 해쉬태그 넣기
+			if(h.getHashtag() != null) {
+				sqlSession.insert(NAMESPACE + "insertHashtag", h);
+			}
+		}
+		
+		return result;
+	}
+	
+	@Transactional
+	public int recipeDelete(int recipeNum) throws Exception {
+		sqlSession.delete(NAMESPACE + "deleteRecipeInfo", recipeNum);
+		sqlSession.delete(NAMESPACE + "deleteCategory", recipeNum);
+		sqlSession.delete(NAMESPACE + "deleteIngredient", recipeNum);
+		sqlSession.delete(NAMESPACE + "deleteStep", recipeNum);
+		return sqlSession.delete(NAMESPACE + "deleteHashtag", recipeNum);
+	}
+	
+	public HashMap<String, Object> recipeView(int recipeNum) {
+		HashMap<String, Object> recipeMap = new HashMap<String, Object>();
+		
+		RecipeDTO recipeDTO = sqlSession.selectOne(NAMESPACE + "recipeInfoView", recipeNum);
+		CategoryDTO categoryDTO = sqlSession.selectOne(NAMESPACE + "categoryView", recipeNum);
+		List<IngredientsDTO> ingArray = sqlSession.selectList(NAMESPACE + "ingredientView", recipeNum);
+		List<StepsDTO> stepsArray = sqlSession.selectList(NAMESPACE + "stepView", recipeNum);
+		List<HashtagDTO> hashtagArray = sqlSession.selectList(NAMESPACE + "hashtagView", recipeNum);
+		
+		recipeMap.put("recipeInfo", recipeDTO);
+		recipeMap.put("category", categoryDTO);
+		recipeMap.put("ingredient", ingArray);
+		recipeMap.put("step", stepsArray);
+		recipeMap.put("hashtag", hashtagArray);
+		
+		return recipeMap;
+	}
+	
+	@Transactional
+	public int recipeUpdate(HashMap<String, Object> recipeMap) {
+		 sqlSession.update(NAMESPACE + "recipeInfoUpdate", recipeMap.get("recipeInfo"));
+		 sqlSession.update(NAMESPACE + "categoryUpdate", recipeMap.get("category"));
+		 sqlSession.delete(NAMESPACE + "deleteIngredient", recipeMap.get("recipeNum"));
+		 sqlSession.delete(NAMESPACE + "deleteStep", recipeMap.get("recipeNum"));
+		 sqlSession.delete(NAMESPACE + "deleteHashtag", recipeMap.get("recipeNum"));
+		 
+		 for(IngredientsDTO i:(ArrayList<IngredientsDTO>)recipeMap.get("ingredient")) {		// 재료 넣기
+				sqlSession.insert(NAMESPACE + "insertIngredient", i);
+			}
+			
+			for(StepsDTO s:(ArrayList<StepsDTO>)recipeMap.get("step")) {					// 요리 순서 넣기
+				sqlSession.insert(NAMESPACE + "insertStep", s);
+			}
+			
+			for(HashtagDTO h:(ArrayList<HashtagDTO>)recipeMap.get("hashtag")) {				// 해쉬태그 넣기
+				if(h.getHashtag() != null) {
+					sqlSession.insert(NAMESPACE + "insertHashtag", h);
+				}
+			}
+		 
+		 return 0;
 	}
 }

@@ -28,10 +28,9 @@
 		</div>
 		<div id="order"> <span class="orders" id="regdate" title="active">최신순</span> | <span class="orders" id="hit">조회순</span> </div>
 		<br>
-		<br>
 		<!-- 레시피 리스트 3*3, 최신순/hit순 -->
 		<div id=searchresult>
-				<c:forEach items="${list.listPack }" var="dto">
+			<c:forEach items="${list.listPack }" var="dto">
 				<div class=main_concep_channel title=${dto.num } data-toggle="modal" style="cursor:pointer" data-target="#recipeView">		
 					<div class="channel_img" style='background-image:url("../resources/upload/${dto.rep_pic }")'>
 					<div id="overlays${dto.num }" class=overlays>
@@ -53,11 +52,23 @@
 					</div>
 					<div class="channel_info">
 						<div>${dto.title }</div><div></div>
-					</div>	
+					</div>
+					<div class=misc>
+						<div class="elaspedtime" style="display:inline">
+							<div style="display:inline"><img src="../resources/images/kdk/icon-157349_640.png" style="display:inline">${dto.elapsedtime }</div>
+						</div>	
+						&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+						<div class="scraps" style="display:inline">
+							<div style="display:inline"><img src="../resources/images/kdk/blackheart.png" style="display:inline">${dto.scrap }</div>
+						</div>
+						&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+						<div class="ratings" style="display:inline">
+							<div style="display:inline"><img src="../resources/images/kdk/fridge-over.png" style="display:inline">${dto.rating }</div>
+						</div>
+					</div>
 				</div>
-				</c:forEach>
-		
-				<div class="clear"></div>
+			</c:forEach>	
+			<div class="clear"></div>
 				<div id=pagers title='${list.totalCount }'>
 					<ul class="pagination">
 						<c:if test="${list.listInfo.curBlock>1 }">
@@ -98,7 +109,7 @@
 						</div>
 					</c:forEach>
 				</div>
-				<div class="clear"></div>
+			<div class="clear"></div>
 				<div id=pagers title='${list.totalCount }'>
 					<ul class="pagination">
 						<c:if test="${list.listInfo.curPage>1 }">

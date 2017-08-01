@@ -38,17 +38,6 @@ public class RecipeDAO {
 		return recipe;
 	}
 	
-	public HashMap<String, Object> list(ListInfo listInfo){
-		listInfo.setRow(listInfo.getCurPage(), 9);
-		Integer totalCount=sqlSession.selectOne(NAMESPACE+"totalcount", listInfo);
-		listInfo.makePage(totalCount, 10);
-		HashMap<String, Object> listPack=new HashMap<String, Object>();
-		listPack.put("listInfo", listInfo);
-		listPack.put("listPack", sqlSession.selectList(NAMESPACE+"list", listInfo)); 
-		listPack.put("totalCount", totalCount);
-		return listPack;
-	}
-	
 	private HashMap<String, Object> search(ListInfo listInfo, List<Integer> result){
 		if(result.size()==0){
 			result.add(0);

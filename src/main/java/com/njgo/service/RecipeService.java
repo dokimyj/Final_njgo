@@ -32,10 +32,6 @@ public class RecipeService {
 		return recipeDAO.view(num);
 	}
 	
-	public HashMap<String, Object> list(ListInfo listInfo){
-		return recipeDAO.list(listInfo);
-	}
-	
 	public HashMap<String, Object> search(ListInfo listInfo){
 		return recipeDAO.search(listInfo);
 	}

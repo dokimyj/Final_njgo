@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:forEach items="${list.listPack }" var="dto">
+		<c:forEach items="${list.listPack }" var="dto">
 				<div class=main_concep_channel title=${dto.num } data-toggle="modal" style="cursor:pointer" data-target="#recipeView">		
 					<div class="channel_img" style='background-image:url("../resources/upload/${dto.rep_pic }")'>
 					<div id="overlays${dto.num }" class=overlays>
@@ -118,7 +118,6 @@
 					num:$(this).attr('title')
 				},
 				success:function(data){
-					$('#searchresult').html(data.trim());
 				}
 			});
 		});

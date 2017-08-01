@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="../resources/css/common/basic.css">
 <link rel="stylesheet" href="../resources/css/kdk/recipeList_Search.css">
 <link rel="stylesheet" href="../resources/css/kdk/Main_Ingre.css">
+<link rel="stylesheet" href="http://d1hk7gw6lgygff.cloudfront.net/assets/application-661e969b01a864ad51eee95fed275e3a.css">
 <style>
 </style>
 </head>
@@ -55,15 +56,15 @@
 					</div>
 					<div class=misc>
 						<div class="elaspedtime" style="display:inline">
-							<div style="display:inline"><img src="../resources/images/kdk/icon-157349_640.png" style="display:inline">${dto.elapsedtime }</div>
+							<div style="display:inline"><img src="../resources/images/kdk/icon-157349_640.png" style="display:inline">&nbsp;&nbsp;${dto.elapsedtime }</div>
 						</div>	
 						&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 						<div class="scraps" style="display:inline">
-							<div style="display:inline"><img src="../resources/images/kdk/blackheart.png" style="display:inline">${dto.scrap }</div>
+							<div style="display:inline"><img src="../resources/images/kdk/blackheart.png" style="display:inline">&nbsp;&nbsp;${dto.scrap }</div>
 						</div>
 						&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 						<div class="ratings" style="display:inline">
-							<div style="display:inline"><img src="../resources/images/kdk/fridge-over.png" style="display:inline">${dto.rating }</div>
+							<div style="display:inline"><img src="../resources/images/kdk/fridge-over.png" style="display:inline">&nbsp;&nbsp;${dto.rating }</div>
 						</div>
 					</div>
 				</div>
@@ -105,7 +106,20 @@
 							</div>
 							<div class="channel_info">
 								<div>${tvdto.title }</div><div></div>
+							</div>
+							<div class=misc>
+							<div class="elaspedtime" style="display:inline">
+								<div style="display:inline"><img src="../resources/images/kdk/icon-157349_640.png" style="display:inline">&nbsp;&nbsp;${dto.elapsedtime }</div>
 							</div>	
+							&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+							<div class="scraps" style="display:inline">
+								<div style="display:inline"><img src="../resources/images/kdk/blackheart.png" style="display:inline">&nbsp;&nbsp;${dto.scrap }</div>
+							</div>
+							&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+							<div class="ratings" style="display:inline">
+								<div style="display:inline"><img src="../resources/images/kdk/fridge-over.png" style="display:inline">&nbsp;&nbsp;${dto.rating }</div>
+							</div>
+						</div>	
 						</div>
 					</c:forEach>
 				</div>
@@ -157,7 +171,7 @@
 					find:$('#find').val()
 				},
 				success:function(data){
-					$('#recipeView').html(data.trim());
+					$('#searchresult').html(data.trim());
 				}
 			});
 		});
@@ -195,7 +209,10 @@
 					num:$(this).attr('title')
 				},
 				success:function(data){
-					history.back();
+					$(data).each(function(){
+						$('#recipenum').val(this.recipeDTO.num);
+						$('.rep_pic>img').attr('src', "../resources/upload/"+this.recipeDTO.rep_pic);
+					});	
 				}
 			});
 		});

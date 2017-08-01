@@ -35,21 +35,19 @@ public class RecipeController {
 	@Inject
 	private RecipeService recipeService;
 	
+	@ResponseBody
 	@RequestMapping(value="recipeView", method=RequestMethod.GET)
-	public String view(Integer num, String[] curIng, Model model) throws Exception{
-		model.addAttribute("recipe", recipeService.view(num).get("recipeDTO"));
-		model.addAttribute("ingredients", recipeService.view(num).get("ingredients"));
-		model.addAttribute("steps", recipeService.view(num).get("steps"));
-		model.addAttribute("hashtags", recipeService.view(num).get("hashtags"));
-		model.addAttribute("curIng", curIng);
-		return "/recipe/recipeView";
+	public HashMap<String, Object> view(Integer num, String[] curIng, Model model) throws Exception{
+		HashMap<String, Object> results=recipeService.view(num);
+		results.put("curIng", curIng);
+		return results;
 	}
 	
 	@RequestMapping(value="search", method=RequestMethod.GET)
 	public String search(ListInfo listInfo, Model model) throws Exception{
 		model.addAttribute("list", recipeService.search(listInfo));
 		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
-		return "/recipe/recipeList";
+		return "recipe/recipeList";
 	}
 
 	@RequestMapping(value="catesearch", method=RequestMethod.GET)

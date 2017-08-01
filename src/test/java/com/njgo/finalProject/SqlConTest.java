@@ -17,7 +17,7 @@ public class SqlConTest extends Abstract4Test {
 	@Test
 	public void test() throws Exception{	
 		ListInfo listInfo=new ListInfo();
-		Assert.assertNotNull(rdao.list(listInfo));
+		Assert.assertNotNull(rdao.search(listInfo));
 	}
 	
 }

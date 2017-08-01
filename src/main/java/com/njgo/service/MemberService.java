@@ -1,11 +1,14 @@
 package com.njgo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.njgo.dao.MemberDAO;
 import com.njgo.dto.MemberDTO;
+import com.njgo.util.ListInfo;
 
 @Service
 public class MemberService {
@@ -64,6 +67,12 @@ public class MemberService {
 	public int memberSNSJoin(MemberDTO memberDTO) {
 		
 		return memberDAO.memberSNSJoin(memberDTO);
+	}
+	public List<MemberDTO> memberList(ListInfo listInfo) {
+		return memberDAO.memberList(listInfo);
+	}
+	public int memberTotalCount() {
+		return memberDAO.memberTotalCount();
 	}
 
 	

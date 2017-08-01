@@ -1,6 +1,7 @@
 package com.njgo.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.njgo.dto.MemberDTO;
+import com.njgo.util.ListInfo;
 
 @Repository
 public class MemberDAO {
@@ -50,8 +52,7 @@ public class MemberDAO {
 		}
 	}
 	
-	//List
-	public void memberList(){}
+
 	
 	//Update
 	public int memberUpdate(String data, String type,String email){
@@ -82,7 +83,17 @@ public class MemberDAO {
 		
 		return sqlSession.selectOne(NAMESPACE+"nickNameCheck", nickName);
 	}
-
+	//List
+	public List<MemberDTO> memberList(ListInfo listInfo) {
+			
+		return sqlSession.selectList(NAMESPACE+"memberList", listInfo);
+		
+	}
+	// 멤버 총인원
+	public int memberTotalCount() {
+		
+		return sqlSession.selectOne(NAMESPACE+"totalCount");
+	}
 	
 	//1. 이메일 인증 확인
 	public MemberDTO emailConfrim(String joinCode,String email) {
@@ -113,5 +124,4 @@ public class MemberDAO {
 		return sqlSession.insert(NAMESPACE+"SNSJoin",memberDTO);
 	}
 
-	
 }

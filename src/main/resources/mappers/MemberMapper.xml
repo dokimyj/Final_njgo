@@ -79,7 +79,15 @@
 		update member set grade=1 where email=#{email} and joinCode=#{joinCode}
 	</update>
 	
+	<!--============================== MyPage 관련 ===================================-->
+	<select id="totalCount" resultType="java.lang.Integer">
+			select count(email) from member
+	</select>
 	
-	
+	<select id="memberList" resultType="MemberDTO" parameterType="com.njgo.util.ListInfo">			
+			select rownum,M.* from
+			(select * from member) M 
+			where rownum BETWEEN 1 and 20
+	</select>
 	
 </mapper>

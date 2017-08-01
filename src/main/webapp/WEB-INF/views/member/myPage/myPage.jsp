@@ -113,7 +113,7 @@
 							</c:if>
 							<c:if test="${memberDTO.grade > 1 }">
 								<ul>
-									<li class="on"><a href="/mypage"> <strong>사용자 리스트</strong><em>0</em>
+									<li class="on"><a role="button" id="userList"> <strong>사용자 리스트</strong><em>0</em>
 									</a></li>
 									<li class="off"><a href="/mypage"> <strong>신고함 </strong><em>0</em>
 									</a></li>
@@ -122,7 +122,14 @@
 							
 						</div>
 					</div>
-
+					<!-- 뿌려주는 곳  -->
+					<div class="in_mypage">
+						<ul class="lst_recipe" id="result">
+								
+						</ul>
+			
+						
+					</div>
 					
 
 				</section>
@@ -211,5 +218,19 @@
 	    }
 	}
 	/* ========================================== Modal Script ===================================================  */
+	
+	$("#userList").click(function() {
+		$.ajax({
+			url : "userList",
+			data : {
+				curPage : 1
+			},
+			success : function(data) {
+				$("#result").html(data);
+			}
+			
+		});//ajax
+	}); // functuon
+	
 </script>
 </html>

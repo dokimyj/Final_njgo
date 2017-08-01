@@ -1,11 +1,14 @@
 package com.njgo.controller;
 
+import java.util.List;
+
 import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +19,7 @@ import com.njgo.dto.MemberDTO;
 import com.njgo.service.FileService;
 import com.njgo.service.MemberService;
 import com.njgo.service.MyPageService;
+import com.njgo.util.ListInfo;
 
 @Controller
 @RequestMapping(value="/member/myPage/**")
@@ -27,6 +31,19 @@ public class MyPageController {
 	private MyPageService myPageService;
 	@Autowired
 	private MemberService memberService;
+	
+	
+	@RequestMapping(value="userList")
+	public void userList(@RequestParam (defaultValue="0",required =false) int curPage, Model model){
+		
+		int totalCount = memberService.memberTotalCount();  // 회원 총인원
+		ListInfo listInfo = new ListInfo();
+		listInfo.makePage(totalCount, 5);					// 페이징처리 
+		listInfo.setRow(curPage, 20);						// 페이지당 몇개씩 보여줄지
+		List<MemberDTO> userList = memberService.memberList(listInfo); //회원 리스트
+		model.addAttribute("userList", userList);
+		
+	}	
 	
 	@RequestMapping(value="myPage")
 	public void myPage(@RequestParam String nickName, HttpSession session){

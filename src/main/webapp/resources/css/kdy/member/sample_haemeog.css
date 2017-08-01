@@ -3181,13 +3181,13 @@ body {
 	border-color: #839705
 }
 
-.lst_recipe {
+/* .lst_recipe {
 	overflow: hidden;
 	margin-bottom: 56px;
 	width: 1040px;
 	position: relative;
 	left: -16px
-}
+} */
 
 .lst_recipe>li {
 	width: 244px;

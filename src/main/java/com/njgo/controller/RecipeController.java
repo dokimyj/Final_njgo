@@ -36,12 +36,13 @@ public class RecipeController {
 	private RecipeService recipeService;
 	
 	@RequestMapping(value="recipeView", method=RequestMethod.GET)
-	public void view(Integer num, String[] curIng, Model model) throws Exception{
+	public String view(Integer num, String[] curIng, Model model) throws Exception{
 		model.addAttribute("recipe", recipeService.view(num).get("recipeDTO"));
 		model.addAttribute("ingredients", recipeService.view(num).get("ingredients"));
 		model.addAttribute("steps", recipeService.view(num).get("steps"));
 		model.addAttribute("hashtags", recipeService.view(num).get("hashtags"));
 		model.addAttribute("curIng", curIng);
+		return "/recipe/recipeView";
 	}
 	
 	@RequestMapping(value="search", method=RequestMethod.GET)

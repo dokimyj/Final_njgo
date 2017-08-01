@@ -195,7 +195,7 @@
 					num:$(this).attr('title')
 				},
 				success:function(data){
-					$('#searchresult').html(data.trim());
+					history.back();
 				}
 			});
 		});

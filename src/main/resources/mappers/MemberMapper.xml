@@ -48,6 +48,10 @@
 	<delete id="memberSNSDelete"  parameterType="MemberDTO">
 		delete member where kakaoID=#{kakaoID}
 	</delete>
+	
+	<update id="pointUpdate" parameterType="MemberDTO">
+		update member set point = #{point} where email = #{email}
+	</update>
 
 
 	<!-- ============================= 회원가입 관련 ======================================== -->
@@ -84,10 +88,39 @@
 			select count(email) from member
 	</select>
 	
+	<select id="total" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(email) from member 
+		<where>
+			<if test="data =='grade' ">
+				 grade > 1
+			</if>
+			<if test="data =='warn' ">
+				 w_count > 0
+			</if>
+		</where>
+	</select>
+	
 	<select id="memberList" resultType="MemberDTO" parameterType="com.njgo.util.ListInfo">			
-			select rownum,M.* from
-			(select * from member) M 
-			where rownum BETWEEN 1 and 20
+			select * from (
+			select rownum R,M.* from
+			(select * from member) M )
+			where R BETWEEN #{startRow} and #{lastRow}
+	</select>
+	
+	<select id="warningList" resultType="MemberDTO" parameterType="com.njgo.util.ListInfo">
+		select * from (
+			select rownum R,M.* from
+			(select * from member where w_count > 0 order by w_count desc) M )
+			where R BETWEEN #{startRow} and #{lastRow}
+			
+	</select>
+	
+	<select id="gradeList" resultType="MemberDTO" parameterType="com.njgo.util.ListInfo">
+		select * from (
+			select rownum R,M.* from
+			(select * from member where grade >1 order by grade desc) M )
+			where R BETWEEN #{startRow} and #{lastRow}
+			
 	</select>
 	
 </mapper>

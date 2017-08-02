@@ -64,6 +64,10 @@ public class MemberDAO {
 		return sqlSession.update(NAMESPACE+"memberUpdate", map);
 		
 	}
+	public int pointUpdate(MemberDTO memberDTO) {
+		
+		return sqlSession.update(NAMESPACE+"pointUpdate",memberDTO);
+	}
 	
 	
 	// =========================== 회원 가입 관련 ================================
@@ -89,11 +93,31 @@ public class MemberDAO {
 		return sqlSession.selectList(NAMESPACE+"memberList", listInfo);
 		
 	}
+	//Warning List
+	public List<MemberDTO> memberWarningList(ListInfo listInfo) {
+		
+		return sqlSession.selectList(NAMESPACE+"warningList",listInfo);
+	}
+	// 등급 순서대로 
+	public List<MemberDTO> memberGradeList(ListInfo listInfo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(NAMESPACE+"gradeList",listInfo);
+	}
+	
 	// 멤버 총인원
 	public int memberTotalCount() {
 		
 		return sqlSession.selectOne(NAMESPACE+"totalCount");
 	}
+	// 경고를 받은 멤버수 or 등급이 1이상인 멤버 수
+	//data 의 값에 따라 다름
+	public int memberTotalCount(String data) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("data", data);
+		
+		return sqlSession.selectOne(NAMESPACE+"total", map);
+	}
+
 	
 	//1. 이메일 인증 확인
 	public MemberDTO emailConfrim(String joinCode,String email) {
@@ -124,4 +148,6 @@ public class MemberDAO {
 		return sqlSession.insert(NAMESPACE+"SNSJoin",memberDTO);
 	}
 
+
+	
 }

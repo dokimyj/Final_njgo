@@ -134,7 +134,7 @@
 								onmouseover="this.src='${pageContext.request.contextPath}/resources/images/common/default.png'"
 								onmouseout="this.src='${pageContext.request.contextPath}/resources/images/common/default.png'" id="memberBtn">
 							</c:if>
-							<c:if test="${memberDTO.myPhoto ne null} ">
+							<c:if test="${memberDTO.myPhoto != null } ">
 								<img alt="회원" style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}"
 								onmouseover="this.src='${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}'"
 								onmouseout="this.src='${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}'" id="memberBtn">

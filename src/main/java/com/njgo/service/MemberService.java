@@ -35,6 +35,10 @@ public class MemberService {
 		
 		return memberDAO.memberDelete(memberDTO);
 	}
+	//포인트 차감
+	public int pointUpdate(MemberDTO memberDTO){
+		return memberDAO.pointUpdate(memberDTO);
+	}
 	
 	// =========================== 회원 가입 관련 ================================
 	
@@ -68,13 +72,29 @@ public class MemberService {
 		
 		return memberDAO.memberSNSJoin(memberDTO);
 	}
+	// 멤버 리스트
 	public List<MemberDTO> memberList(ListInfo listInfo) {
 		return memberDAO.memberList(listInfo);
 	}
+	//멤버 총 인원
 	public int memberTotalCount() {
 		return memberDAO.memberTotalCount();
 	}
-
+	// 경고 리스트 멤버
+	public List<MemberDTO> memberWarningList(ListInfo listInfo) {
+		
+		return memberDAO.memberWarningList(listInfo);
+	}
+	// 등급 높은순 멤버
+	public List<MemberDTO> memberGradeList(ListInfo listInfo) {
+		
+		return memberDAO.memberGradeList(listInfo);
+	}
+	public int memberTotalCount(String data) {
+		
+		return memberDAO.memberTotalCount(data);
+	}
+	
 	
 	
 }

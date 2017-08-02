@@ -18,6 +18,10 @@
 		alert("로그인 해주세요.");
 		location.href="../login";
 	}
+	if("${memberDTO.grade}"<3 && "${myPage.grade}">1){
+		alert("일반회원 따위가 들어올곳이 아니다. 돌아가라!!!");
+		location.href="../../";
+	}
 </script>
  
 </head>  
@@ -57,7 +61,7 @@
 									<button id="profile_btn" class="btn_config call_profile">프로필설정&gt;</button>
 								</c:if>
 								<c:if test="${myPage.nickName != memberDTO.nickName }">
-									<button  class="btn_config call_profile">팔로우&gt;</button>
+									<button id="follow_btn" class="btn_config call_profile">팔로우</button>
 								</c:if>
 						<!-- =============================The Modal ===============================-->
 								<div id="vProfileImageModal" class="modal in" role="dialog" aria-hidden="false" style="display: none; padding-right: 17px;">
@@ -74,7 +78,7 @@
 							            <form action="profile_upload" method="post" enctype="multipart/form-data">
 								            <input type="file" name="myPhoto" id="file_1" style="display:none;" onchange="profileLoad(this)">
 								            <input type="hidden" name="email" value="${myPage.email }">
-											<p><input type="text" name="info" value="" id="info" class="input-sm" size="60" maxlength="100" placeholder="자기소개를 100자 이내로 작성해 주세요."></p>
+											<p><input type="text" name="info" id="info" class="input-sm" size="60" maxlength="100" placeholder="자기소개를 100자 이내로 작성해 주세요."></p>
 							            </form>
 							            <button type="button" onclick="document.getElementById('file_1').click();" class="btn btn-primary">프로필 사진 바꾸기</button>
 							            <button type="button" id="profileSubmitBtn" class="btn btn-primary" disabled="disabled">저장</button>
@@ -97,7 +101,7 @@
 					<div class="tab_st1">
 						<div class="inner">
 							<!-- =============================== MyPage 기능 =============================  -->
-							<c:if test="${memberDTO.grade < 2 }">
+							<c:if test="${myPage.grade < 2 }">
 								<ul>
 									<li class="on"><a href="/mypage"> <strong>마이레시피</strong><em>0</em>
 									</a></li>
@@ -111,9 +115,9 @@
 									</a></li>
 								</ul>	
 							</c:if>
-							<c:if test="${memberDTO.grade > 1 }">
+							<c:if test="${myPage.grade > 1 }">
 								<ul>
-									<li class="on"><a role="button" id="userList"> <strong>사용자 리스트</strong><em>0</em>
+									<li class="on"><a role="button" id="userList"> <strong>사용자 리스트</strong>
 									</a></li>
 									<li class="off"><a href="/mypage"> <strong>신고함 </strong><em>0</em>
 									</a></li>
@@ -123,7 +127,7 @@
 						</div>
 					</div>
 					<!-- 뿌려주는 곳  -->
-					<div class="in_mypage">
+					<div class="in_mypage" style="margin-left: 20px;">
 						<ul class="lst_recipe" id="result">
 								
 						</ul>
@@ -217,8 +221,8 @@
 	        modal.style.display = "none";
 	    }
 	}
-	/* ========================================== Modal Script ===================================================  */
 	
+	/* ============================================ UserList ======================================================== */
 	// 모든 멤버 리스트형식으로 불러옴
 	$("#userList").click(function() {
 		$.ajax({
@@ -232,7 +236,28 @@
 			
 		});//ajax
 	}); // functuon
-	
+	function userList(num) {
+		var type = $("#type").val();
+		var url ="userList";
+		
+		if(type=='grade'){
+			url ="grade_view"
+		}
+		else if(type =='warn'){
+			url ="warning_view"
+		}
+
+		$.ajax({
+			url : url,
+			data : {
+				curPage : num
+			},
+			success : function(data) {
+				$("#result").html(data);
+			}
+			
+		});//ajax
+	}
 	
 	// 수정 버튼 누르면 -> 저장 버튼으로 바꿔줌 , 읽기전용 -> 수정가능하게 함
 	function correct_user(num) {
@@ -266,7 +291,7 @@
 			}
 		});
 	}
-	
+	// 경고 1회 추가
 	function warning_user(num) {
 		email = $("#user_email"+num).val();
 		w_count =$("#user_warn"+num).val();
@@ -285,6 +310,7 @@
 		});
 		
 	}
+	// 탈퇴시키기
 	function delete_user(num) {
 		email = $("#user_email"+num).val();
 		curPage = $("#user_curPage").val();
@@ -302,6 +328,7 @@
 			});	
 		}
 	}
+	// 닉네임으로 검색
 	function userSearch() {
 			
 				nickName = $("#userSearch").val();
@@ -322,8 +349,40 @@
 					
 				}
 	}
-			
-			
-	
+	// 경고 순서대로 
+	function warning_view() {
+		
+		$.ajax({
+			url : "warning_view",
+			type : "POST",
+			data :{
+				curPage : 1 ,
+				
+			},
+			success : function(data) {
+				$("#result").html(data);
+			}
+		});	
+	}		
+	// 등급 순으로 보여줌
+	function grade_view() {
+		$.ajax({
+			url : "grade_view",
+			type : "POST",
+			data :{
+				curPage : 1
+				
+			},
+			success : function(data) {
+				$("#result").html(data);
+			}
+		});	
+	}
+	 /* ========================================= follow ============================================ */
+	 
+	 $("#follow_btn").click(function() {
+		
+	});	
+	 
 </script>
 </html>

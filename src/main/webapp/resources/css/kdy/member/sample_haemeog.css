@@ -4145,7 +4145,7 @@ body {
 	bottom: 20px
 }
 
-.user_information .btn_area #profile_btn, .user_information .btn_area a {
+.user_information .btn_area #profile_btn,.btn_area #follow_btn, .user_information .btn_area a {
 	width: 120px;
 	height: 35px;
 	display: inline-block;

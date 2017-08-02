@@ -25,7 +25,11 @@
 <body>
 	<div class="container" style="width: 1140px;margin: 0px">
 	  <input type="hidden"  id="user_curPage" value="${curPage }"> 
-	  
+	  <input type="hidden"  id="type" value="${type }"> 
+	  <div id="qick_mode" style="margin-bottom: 10px;" >
+	  	<input type="button" style="width: 100px;" class="btn btn-success" value="경고순" onclick="warning_view()">
+	  	<input type="button" style="width: 100px;" class="btn btn-success" value="등급순" onclick="grade_view()">	
+	  </div>
 	  <table class="table table-bordered">
 	    <thead>
 	      <tr>
@@ -40,15 +44,15 @@
 	    <tbody>
 	  		<c:if test="${search ne 'search' }">
 	  		
-		      <c:forEach items="${userList }" var="list" step="1" varStatus="i">
+		      <c:forEach items="${userList }" var="list" step="1"  varStatus="i">
 			      <tr>
-			      	<td style="text-align: center;"><strong>${i.count }</strong> </td>
+			      	<td style="text-align: center;"><strong>${listInfo.startRow-1 + i.count }</strong> </td>
 			     		
 				        <td class="myPage_td" style="width: 300px;"><input class="user" id="user_email${i.count }" type="text" value="${list.email }" readonly="readonly"></td>
 				        <td class="myPage_td"><input class="user" id="user_nickName${i.count }"  type="text" value="${list.nickName }" readonly="readonly"></td>
-				        <td class="myPage_td"><input class="user${i.count }" id="user_grade${i.count }" style="border: 0px;"  type="text" value="${list.grade }" readonly="readonly"></td>
+				        <td class="myPage_td"><input class="user${i.count }" id="user_grade${i.count }" style="border: 0px;"  type="number" value="${list.grade }" readonly="readonly"></td>
 				        <td class="myPage_td"><input class="user${i.count }" id="user_point${i.count }" style="border: 0px;"  type="text" value="${list.point }" readonly="readonly"></td>
-				        <td class="myPage_td"><input class="user${i.count }" id="user_warn${i.count }" style="border: 0px;"  type="text" value="${list.w_count }" readonly="readonly"></td>
+				        <td class="myPage_td"><input class="user${i.count }" id="user_warn${i.count }" style="border: 0px;"  type="number" value="${list.w_count }" readonly="readonly"></td>
 			       
 			        <td id="correct_td${i.count }" style="text-align: center; "><input type="button" class=" btn btn-primary" id="correct_user${i.count }" onclick="correct_user('${i.count }')" value="수정"></td>
 			        <td style="text-align: center;"><input type="button" class=" btn btn-warning" id="warn_user${i.count }"  onclick="warning_user('${i.count }')" value="경고"></td>
@@ -96,7 +100,7 @@
 					<li><a href="userList?curPage=${listInfo.startNum-1}">이전</a></li>
 			  </c:if>
 					<c:forEach begin="${listInfo.startNum }" step="1" end="${listInfo.lastNum }" var="i" >
-					    <li id="curPage${i}"><a href="userList?curPage=${i}">${i }</a></li>
+					    <li id="curPage${i}"><a role="button" onclick="userList(${i})">${i }</a></li>
 					</c:forEach>
 			  <c:if test="${listInfo.curBlock < listInfo.totalBlock }">
 				    <li><a href="userList?curPage=${listInfo.lastNum+1}">다음</a></li>
@@ -112,6 +116,7 @@
 	if("${message}"!=""){
 		alert("${message}");
 	}
+	$("#curPage${curPage}").addClass("active");
 
 </script>
 

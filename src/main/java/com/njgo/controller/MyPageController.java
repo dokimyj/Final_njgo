@@ -37,23 +37,32 @@ public class MyPageController {
 	// ==================================추가 ==================================================
 	// Search , 닉네임으로 받아온다음 닉네임으로 검색 , 닉네임이 정확해야함
 	@RequestMapping(value="userSearch", method=RequestMethod.POST)
-	public String userSearch(MemberDTO memberDTO,  RedirectAttributes rd){
+	public String userSearch(MemberDTO memberDTO,  RedirectAttributes rd,Model model){
 		System.out.println("search");
 		List<MemberDTO> userList = new ArrayList<MemberDTO>();
 		MemberDTO memberDTO_result = myPageService.userSearch(memberDTO);   //nickName 속성에만 값이 들어가있음
+		String path ="redirect:userList?curPage=1";
+		
 		if(memberDTO_result ==null){
 			String message ="존재하지않은 닉네임입니다.";
 			rd.addFlashAttribute("message", message);
 		}
 		else{
+			ListInfo listInfo = new ListInfo();
+			listInfo.setPerPage(5);
+			listInfo.setRow(listInfo.getCurPage(),5);			// 페이지당 몇개씩 보여줄지
+			listInfo.makePage(1, 5);	
 			userList.add(memberDTO_result);  									// 결과 DTO List형식에 추가	
-			rd.addFlashAttribute("searchUser", userList);
-			rd.addFlashAttribute("search", "search");	
+			model.addAttribute("listInfo", listInfo);
+			model.addAttribute("searchUser", userList);
+			model.addAttribute("search", "search");	
+			model.addAttribute("curPage", 1);
+			path ="member/myPage/userList";
 		}
 		
-		return "redirect:userList";
+		return path;
 	}
-	
+	// userDelete  탈퇴버튼
 	@RequestMapping(value="userDelete", method=RequestMethod.POST)
 	public String userDelete(MemberDTO memberDTO, RedirectAttributes rd, int curPage){
 	
@@ -69,7 +78,7 @@ public class MyPageController {
 		
 		return "redirect:userList?curPage="+curPage;
 	}
-	
+	// userUpdate 정보 수정
 	@RequestMapping(value="userUpdate", method=RequestMethod.POST)
 	public String userUpdate(MemberDTO memberDTO, RedirectAttributes rd, int curPage){
 	
@@ -85,18 +94,62 @@ public class MyPageController {
 	
 	
 	// ==================================추가 ==================================================
+	
+	@RequestMapping(value="grade_view")
+	public String grade_view(ListInfo listInfo, Model model){
+		String data ="grade";
+		int totalCount = memberService.memberTotalCount(data);  // 회원 총인원
+		
+		listInfo.setPerPage(5);
+		listInfo.setRow(listInfo.getCurPage(),5);			// 페이지당 몇개씩 보여줄지
+	
+		List<MemberDTO> userList = memberService.memberGradeList(listInfo); //회원 리스트
+		
+		listInfo.makePage(totalCount, 5);					// 페이징처리 
+		
+		model.addAttribute("userList", userList);
+		model.addAttribute("curPage", listInfo.getCurPage());
+		model.addAttribute("listInfo", listInfo);
+		model.addAttribute("type", data);
+		
+		return "member/myPage/userList";
+	}	
+	
+	@RequestMapping(value="warning_view")
+	public String warning_view(ListInfo listInfo, Model model){
+		String data ="warn";
+		int totalCount = memberService.memberTotalCount(data);  // 회원 총인원
+		
+		listInfo.setPerPage(5);
+		listInfo.setRow(listInfo.getCurPage(),5);			// 페이지당 몇개씩 보여줄지
+		listInfo.makePage(totalCount, 5);					// 페이징처리 
+		
+		List<MemberDTO> userList = memberService.memberWarningList(listInfo); //회원 리스트
+		model.addAttribute("userList", userList);
+		model.addAttribute("curPage", listInfo.getCurPage());
+		model.addAttribute("listInfo", listInfo);
+		model.addAttribute("type", data);
+		
+		return "member/myPage/userList";
+	}	
+	
 	@RequestMapping(value="userList")
-	public void userList(@RequestParam (defaultValue="1",required =false) int curPage, Model model){
+	public void userList(ListInfo listInfo, Model model){
 		
 		int totalCount = memberService.memberTotalCount();  // 회원 총인원
-		ListInfo listInfo = new ListInfo();
+		
+		listInfo.setPerPage(5);
+		listInfo.setRow(listInfo.getCurPage(),5);			// 페이지당 몇개씩 보여줄지
 		listInfo.makePage(totalCount, 5);					// 페이징처리 
-		listInfo.setRow(curPage, 20);						// 페이지당 몇개씩 보여줄지
+		/*System.out.println("curPage : "+listInfo.getCurPage());
+		System.out.println("startRow : "+ listInfo.getstartRow());
+		System.out.println("lastRow : "+ listInfo.getLastRow());*/
 		List<MemberDTO> userList = memberService.memberList(listInfo); //회원 리스트
 		model.addAttribute("userList", userList);
-		model.addAttribute("curPage", curPage);
+		model.addAttribute("curPage", listInfo.getCurPage());
 		model.addAttribute("listInfo", listInfo);
-		
+		model.addAttribute("type", "list");
+	
 	}	
 	
 	
@@ -111,7 +164,7 @@ public class MyPageController {
 	@RequestMapping(value="profile_upload", method=RequestMethod.POST)
 	public ModelAndView profile_upload(HttpSession session , MultipartFile myPhoto, String info, String email)throws Exception{
 		System.out.println("myPhoto : "+myPhoto.getOriginalFilename());
-		System.out.println("intfo :" +info);
+		System.out.println("info :" +info);
 		String fileName ="";
 		int result =0;
 		ModelAndView mv = new ModelAndView();

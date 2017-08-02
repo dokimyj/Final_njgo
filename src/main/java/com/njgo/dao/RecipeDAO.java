@@ -28,28 +28,23 @@ public class RecipeDAO {
 	public HashMap<String, Object> view(Integer num) throws Exception{
 		RecipeDTO recipeDTO=sqlSession.selectOne(NAMESPACE+"rview", num);
 		List<IngredientsDTO> ingredients=sqlSession.selectList(NAMESPACE+"iview", num);
-		int tmp = 0;
-		List<Integer> count = new ArrayList<Integer>();
-		for(int i=0;i<ingredients.size();i++){	
-			if(i+1<ingredients.size()){
-				if(ingredients.get(i).getKind().equals(ingredients.get(i+1).getKind())) {
-					tmp++;
-				}else{
-					count.add(tmp);
-					tmp = 0;
-				}
-			}else{
-				count.add(tmp);
-			}
-		}
 		List<StepsDTO> steps=sqlSession.selectList(NAMESPACE+"sview", num);
 		List<HashtagDTO> tags=sqlSession.selectList(NAMESPACE+"tview", num);
 		HashMap<String, Object> recipe=new HashMap<String, Object>();
 		recipe.put("recipeDTO", recipeDTO);
-		recipe.put("ingredients", ingredients);
+		List<String> ing_kind=new ArrayList<String>();
+		List<String> ing_cont=new ArrayList<String>();
+		for(int i=0;i<ingredients.size()-1;i++){
+			ing_kind.add(ingredients.get(i).getKind());
+			if(ingredients.get(i+1).getKind().equals(ing_kind.get(i))){
+				ing_kind.remove(i);
+				ing_cont.add(ingredients.get(i).getName()+"\t\t"+ingredients.get(i).getAmount());
+			}
+		}
+		recipe.put("ing_kind", ing_kind);
+		recipe.put("ing_cont", ing_cont);
 		recipe.put("steps", steps);
 		recipe.put("hashtags", tags);
-		recipe.put("ingkindcount", count);
 		return recipe;
 	}
 	

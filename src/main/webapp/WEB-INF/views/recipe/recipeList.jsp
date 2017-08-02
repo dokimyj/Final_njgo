@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<title>N.J.GO</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../resources/css/common/reset.css">
 <c:import url="../tmp/Bootstrap.jsp"/>
@@ -32,7 +32,7 @@
 		<!-- 레시피 리스트 3*3, 최신순/hit순 -->
 		<div id=searchresult>
 			<c:forEach items="${list.listPack }" var="dto">
-				<div class=main_concep_channel title=${dto.num } data-toggle="modal" style="cursor:pointer" data-target="#recipeView">		
+				<div class=main_concep_channel title=${dto.num } style="cursor:pointer">		
 					<div class="channel_img" style='background-image:url("../resources/upload/${dto.rep_pic }")'>
 					<div id="overlays${dto.num }" class=overlays>
 						&nbsp;
@@ -142,7 +142,6 @@
 		</div>
 	</section>
 	<c:import url="../tmp/footer.jsp"/>
-	<c:import url="recipeView.jsp"></c:import>
 	<c:import url="ingSearch.jsp"></c:import>
 </body>
 <script>	
@@ -192,29 +191,16 @@
 			$('#counts'+num).css("visibility", "hidden");		
 		});
 		$('.main_concep_channel').click(function(){
-			jQuery.ajaxSettings.traditional = true;
-			var ar=new Array();
 			var curIng=document.getElementsByName('curIng');
-			for(i=0;i<curIng.length;i++){
-				ar.push(curIng[i].value);
-			}
-			if(curIng.length*1==0){
-				ar.push('undefined');
-			}
-			$.ajax({
-				url: "recipeView",
-				method: "GET",
-				data:{
-					curIng:ar,
-					num:$(this).attr('title')
-				},
-				success:function(data){
-					$(data).each(function(){
-						$('#recipenum').val(this.recipeDTO.num);
-						$('.rep_pic>img').attr('src', "../resources/upload/"+this.recipeDTO.rep_pic);
-					});	
+			var url="recipeView?num="+$(this).attr('title');
+			if(curIng.length*1!=0){
+				for(i=0;i<curIng.length;i++){
+					url+="&curIng="+curIng[i].value;
 				}
-			});
+			}else{
+				url+="&curIng=undefined"
+			}
+			location.href=url;
 		});
 		$('.c_kind').click(function(){
 			$('.c_kind').attr('title', 'inactive');

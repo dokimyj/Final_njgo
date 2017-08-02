@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<title>N.J.GO</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="./resources/css/common/reset.css">
 <c:import url="./tmp/Bootstrap.jsp"/>
@@ -54,12 +54,11 @@
 		$(this).remove();
 	});
 	$('.isearch_btn').click(function(){
-		var url="./recipe/isearch";
+		var url="./recipe/isearch?curPage=1";
 		var x=document.getElementsByClassName('ingx');
 		for(i=0;i<x.length;i++){
-			url+="?ingredients="+x[i].title+"&";
+			url+="&ingredients="+x[i].title;
 		}
-		url+="curPage=1";
 		if($('.ing_search').html()!=''){
 			location.href=url;
 		}else{

@@ -35,12 +35,11 @@ public class RecipeController {
 	@Inject
 	private RecipeService recipeService;
 	
-	@ResponseBody
 	@RequestMapping(value="recipeView", method=RequestMethod.GET)
-	public HashMap<String, Object> view(Integer num, String[] curIng, Model model) throws Exception{
+	public void view(Integer num, String[] curIng, Model model) throws Exception{
 		HashMap<String, Object> results=recipeService.view(num);
 		results.put("curIng", curIng);
-		return results;
+		model.addAttribute("view", results);
 	}
 	
 	@RequestMapping(value="search", method=RequestMethod.GET)

@@ -28,6 +28,20 @@ public class RecipeDAO {
 	public HashMap<String, Object> view(Integer num) throws Exception{
 		RecipeDTO recipeDTO=sqlSession.selectOne(NAMESPACE+"rview", num);
 		List<IngredientsDTO> ingredients=sqlSession.selectList(NAMESPACE+"iview", num);
+		int tmp = 0;
+		List<Integer> count = new ArrayList<Integer>();
+		for(int i=0;i<ingredients.size();i++){	
+			if(i+1<ingredients.size()){
+				if(ingredients.get(i).getKind().equals(ingredients.get(i+1).getKind())) {
+					tmp++;
+				}else{
+					count.add(tmp);
+					tmp = 0;
+				}
+			}else{
+				count.add(tmp);
+			}
+		}
 		List<StepsDTO> steps=sqlSession.selectList(NAMESPACE+"sview", num);
 		List<HashtagDTO> tags=sqlSession.selectList(NAMESPACE+"tview", num);
 		HashMap<String, Object> recipe=new HashMap<String, Object>();
@@ -35,6 +49,7 @@ public class RecipeDAO {
 		recipe.put("ingredients", ingredients);
 		recipe.put("steps", steps);
 		recipe.put("hashtags", tags);
+		recipe.put("ingkindcount", count);
 		return recipe;
 	}
 	

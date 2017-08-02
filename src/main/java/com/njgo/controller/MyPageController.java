@@ -1,5 +1,6 @@
 package com.njgo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.mail.Session;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.njgo.dto.MemberDTO;
 import com.njgo.service.FileService;
@@ -32,9 +34,59 @@ public class MyPageController {
 	@Autowired
 	private MemberService memberService;
 	
+	// ==================================추가 ==================================================
+	// Search , 닉네임으로 받아온다음 닉네임으로 검색 , 닉네임이 정확해야함
+	@RequestMapping(value="userSearch", method=RequestMethod.POST)
+	public String userSearch(MemberDTO memberDTO,  RedirectAttributes rd){
+		System.out.println("search");
+		List<MemberDTO> userList = new ArrayList<MemberDTO>();
+		MemberDTO memberDTO_result = myPageService.userSearch(memberDTO);   //nickName 속성에만 값이 들어가있음
+		if(memberDTO_result ==null){
+			String message ="존재하지않은 닉네임입니다.";
+			rd.addFlashAttribute("message", message);
+		}
+		else{
+			userList.add(memberDTO_result);  									// 결과 DTO List형식에 추가	
+			rd.addFlashAttribute("searchUser", userList);
+			rd.addFlashAttribute("search", "search");	
+		}
+		
+		return "redirect:userList";
+	}
 	
+	@RequestMapping(value="userDelete", method=RequestMethod.POST)
+	public String userDelete(MemberDTO memberDTO, RedirectAttributes rd, int curPage){
+	
+		int result = myPageService.userDelete(memberDTO);
+		
+		return "redirect:userList?curPage="+curPage;
+	}
+	
+	@RequestMapping(value="userWarn", method=RequestMethod.POST)
+	public String userWarn(MemberDTO memberDTO, RedirectAttributes rd, int curPage){
+	
+		int result = myPageService.userWarn(memberDTO);
+		
+		return "redirect:userList?curPage="+curPage;
+	}
+	
+	@RequestMapping(value="userUpdate", method=RequestMethod.POST)
+	public String userUpdate(MemberDTO memberDTO, RedirectAttributes rd, int curPage){
+	
+		int result = myPageService.userUpdate(memberDTO);
+		String message ="수정실패..?";
+		if(result>0){
+			message ="수정성공!";
+		}
+		rd.addFlashAttribute("message", message);
+		
+		return "redirect:userList?curPage="+curPage;
+	}
+	
+	
+	// ==================================추가 ==================================================
 	@RequestMapping(value="userList")
-	public void userList(@RequestParam (defaultValue="0",required =false) int curPage, Model model){
+	public void userList(@RequestParam (defaultValue="1",required =false) int curPage, Model model){
 		
 		int totalCount = memberService.memberTotalCount();  // 회원 총인원
 		ListInfo listInfo = new ListInfo();
@@ -42,8 +94,11 @@ public class MyPageController {
 		listInfo.setRow(curPage, 20);						// 페이지당 몇개씩 보여줄지
 		List<MemberDTO> userList = memberService.memberList(listInfo); //회원 리스트
 		model.addAttribute("userList", userList);
+		model.addAttribute("curPage", curPage);
+		model.addAttribute("listInfo", listInfo);
 		
 	}	
+	
 	
 	@RequestMapping(value="myPage")
 	public void myPage(@RequestParam String nickName, HttpSession session){

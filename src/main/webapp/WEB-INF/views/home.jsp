@@ -23,9 +23,7 @@
 	<c:import url="./tmp/footer.jsp"/>
 </body>
 	<script>
-	
-	 
-	//추가 된부분
+
 	if("${message}"!=""){
 		alert("${message}");
 	}

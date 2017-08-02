@@ -17,4 +17,20 @@
  	<update id="profile_info" parameterType="java.util.Map">
  		update member set info=#{info} where email =#{email}
  	</update>
+ 	
+ 	<!-- ===============관리자가 회원정보 수정,삭제,등등 하는곳 ======================-->
+ 	<update id="userUpdate" parameterType="MemberDTO">
+ 		update member set grade =#{grade}, point = #{point}, w_count=#{w_count} where email=#{email}
+ 	</update>
+ 	<update id="userWarn" parameterType="MemberDTO">
+ 		update member set w_count =#{w_count}+1 where email=#{email}
+ 	</update>
+ 	<delete id="userDelete" parameterType="MemberDTO">
+ 		delete member where email =#{email}
+ 	</delete>
+ 	
+ 	<select id="userSearch" parameterType="MemberDTO" resultType="MemberDTO">
+ 		select * from member where nickName=#{nickName}
+ 	</select>
+ 	
  </mapper>

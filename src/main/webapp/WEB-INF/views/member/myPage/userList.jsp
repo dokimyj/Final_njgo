@@ -12,15 +12,20 @@
  <style type="text/css">
  	.myPage_td{
  		width: 130px;
+ 		border: 0px;"
  	}
- 	
+ 	.user{
+ 		border: 0px;
+ 		width: 100%;
+ 	}
  </style>
   
 </head>
 
 <body>
 	<div class="container" style="width: 1140px;margin: 0px">
-	          
+	  <input type="hidden"  id="user_curPage" value="${curPage }"> 
+	  
 	  <table class="table table-bordered">
 	    <thead>
 	      <tr>
@@ -33,22 +38,82 @@
 	      </tr>
 	    </thead>
 	    <tbody>
-	      <c:forEach items="${userList }" var="list" step="1" varStatus="i">
-		      <tr>
-		      	<td style="text-align: center;"><strong>${i.count }</strong> </td>
-		        <td class="myPage_td" style="width: 300px;"><input style="width: 100%;border: 0px;" type="text" value="${list.email }" readonly="readonly"></td>
-		        <td class="myPage_td"><input style="width: 100%;border: 0px;" type="text" value="${list.nickName }" readonly="readonly"></td>
-		        <td class="myPage_td"><input style="width: 100%;" type="text" value="${list.grade }"></td>
-		        <td class="myPage_td"><input style="width: 100%;" type="text" value="${list.point }"></td>
-		        <td class="myPage_td"><input style="width: 100%;" type="text" value="${list.w_count }"></td>
-		        <td class=" btn btn-primary" style="text-align: center; "><button>수정</button></td>
-		        <td class=" btn btn-warning" style="text-align: center;"><button>경고</button></td>
-		        <td class=" btn btn-danger" style="text-align: center;"><button>탈퇴</button></td>
-		      </tr>
-	      </c:forEach>
-	   
+	  		<c:if test="${search ne 'search' }">
+	  		
+		      <c:forEach items="${userList }" var="list" step="1" varStatus="i">
+			      <tr>
+			      	<td style="text-align: center;"><strong>${i.count }</strong> </td>
+			     		
+				        <td class="myPage_td" style="width: 300px;"><input class="user" id="user_email${i.count }" type="text" value="${list.email }" readonly="readonly"></td>
+				        <td class="myPage_td"><input class="user" id="user_nickName${i.count }"  type="text" value="${list.nickName }" readonly="readonly"></td>
+				        <td class="myPage_td"><input class="user${i.count }" id="user_grade${i.count }" style="border: 0px;"  type="text" value="${list.grade }" readonly="readonly"></td>
+				        <td class="myPage_td"><input class="user${i.count }" id="user_point${i.count }" style="border: 0px;"  type="text" value="${list.point }" readonly="readonly"></td>
+				        <td class="myPage_td"><input class="user${i.count }" id="user_warn${i.count }" style="border: 0px;"  type="text" value="${list.w_count }" readonly="readonly"></td>
+			       
+			        <td id="correct_td${i.count }" style="text-align: center; "><input type="button" class=" btn btn-primary" id="correct_user${i.count }" onclick="correct_user('${i.count }')" value="수정"></td>
+			        <td style="text-align: center;"><input type="button" class=" btn btn-warning" id="warn_user${i.count }"  onclick="warning_user('${i.count }')" value="경고"></td>
+			        <td style="text-align: center;"><input type="button" class=" btn btn-danger" id="delete_user${i.count }"  onclick="delete_user('${i.count }')" value="탈퇴"></td>
+			      </tr>
+		      </c:forEach>
+	   		</c:if>
+	   		
+	   		<c:if test="${search eq 'search' }">
+	  		
+		      <c:forEach items="${searchUser }" var="list" step="1" varStatus="i">
+			      <tr>
+			      	<td style="text-align: center;"><strong>${i.count }</strong> </td>
+			     		
+				        <td class="myPage_td" style="width: 300px;"><input class="user" id="user_email${i.count }" type="text" value="${list.email }" readonly="readonly"></td>
+				        <td class="myPage_td"><input class="user" id="user_nickName${i.count }"  type="text" value="${list.nickName }" readonly="readonly"></td>
+				        <td class="myPage_td"><input class="user${i.count }" id="user_grade${i.count }" style="border: 0px;"  type="text" value="${list.grade }" readonly="readonly"></td>
+				        <td class="myPage_td"><input class="user${i.count }" id="user_point${i.count }" style="border: 0px;"  type="text" value="${list.point }" readonly="readonly"></td>
+				        <td class="myPage_td"><input class="user${i.count }" id="user_warn${i.count }" style="border: 0px;"  type="text" value="${list.w_count }" readonly="readonly"></td>
+			       
+			        <td id="correct_td${i.count }" style="text-align: center; "><input type="button" class=" btn btn-primary" id="correct_user${i.count }" onclick="correct_user('${i.count }')" value="수정"></td>
+			        <td style="text-align: center;"><input type="button" class=" btn btn-warning" id="warn_user${i.count }"  onclick="warning_user('${i.count }')" value="경고"></td>
+			        <td style="text-align: center;"><input type="button" class=" btn btn-danger" id="delete_user${i.count }"  onclick="delete_user('${i.count }')" value="탈퇴"></td>
+			      </tr>
+		      </c:forEach>
+	   		</c:if>
+	   	
 	    </tbody>
 	  </table>
+	  <!-- ============================================ Search ================================== -->
+	  <div class="user_search">
+				
+						<div style="text-align: center;">
+							<input style="width: 250px; display: inline-block;" class="form-control search" id="userSearch" type="text" placeholder="닉네임을 입력해주세요.">
+							<a style="width: 200px;height: 36px;" role="button" class="btn btn-success search" id="userSearchBtn" onclick="userSearch()">
+								 <span class="glyphicon glyphicon-search"></span> <span>검색 </span> 
+							</a>
+						</div>
+		</div>
+		<!-- ============================================== 페이징 ====================================  -->
+		<div class="pageing" style="text-align: center;">
+			  <ul class="pagination" > 
+			  <c:if test="${listInfo.curBlock > 1 }">
+					<li><a href="userList?curPage=1">&lt&lt</a></li>
+					<li><a href="userList?curPage=${listInfo.startNum-1}">이전</a></li>
+			  </c:if>
+					<c:forEach begin="${listInfo.startNum }" step="1" end="${listInfo.lastNum }" var="i" >
+					    <li id="curPage${i}"><a href="userList?curPage=${i}">${i }</a></li>
+					</c:forEach>
+			  <c:if test="${listInfo.curBlock < listInfo.totalBlock }">
+				    <li><a href="userList?curPage=${listInfo.lastNum+1}">다음</a></li>
+				    <li><a href="userList?curPage=${listInfo.lastNum}">&gt&gt</a></li>
+			  </c:if>
+			  </ul>
+		</div>
+		
+		
 	</div>
 </body>
+<script type="text/javascript">
+	if("${message}"!=""){
+		alert("${message}");
+	}
+
+</script>
+
+
 </html>

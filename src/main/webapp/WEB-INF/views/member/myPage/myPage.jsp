@@ -219,6 +219,7 @@
 	}
 	/* ========================================== Modal Script ===================================================  */
 	
+	// 모든 멤버 리스트형식으로 불러옴
 	$("#userList").click(function() {
 		$.ajax({
 			url : "userList",
@@ -231,6 +232,98 @@
 			
 		});//ajax
 	}); // functuon
+	
+	
+	// 수정 버튼 누르면 -> 저장 버튼으로 바꿔줌 , 읽기전용 -> 수정가능하게 함
+	function correct_user(num) {
+		$(".user"+num).removeAttr("readonly");
+		$(".user"+num).removeAttr("style");
+		$("#correct_user"+num).val("저장");
+		$("#correct_td"+num).html("<input type='button' class=' btn btn-success'  onclick='store_user("+num+")' value='저장'>");
+		
+	}
+	//저장버튼 누르면 데이터 수정 
+	function store_user(num) {
+		email = $("#user_email"+num).val();
+		nickName = $("#user_nickName"+num).val();
+		grade = $("#user_grade"+num).val();
+		point = $("#user_point"+num).val();
+		curPage = $("#user_curPage").val();
+		w_count =$("#user_warn"+num).val();
+		$.ajax({
+			url : "userUpdate",
+			type : "POST",
+			data :{
+				email : email,
+				nickName : nickName,
+				grade : grade,
+				point : point,
+				w_count : w_count,
+				curPage : curPage
+			},
+			success : function(data) {
+				$("#result").html(data);
+			}
+		});
+	}
+	
+	function warning_user(num) {
+		email = $("#user_email"+num).val();
+		w_count =$("#user_warn"+num).val();
+		curPage = $("#user_curPage").val();
+		$.ajax({
+			url : "userWarn",
+			type : "POST",
+			data :{
+				email : email,
+				w_count : w_count,
+				curPage : curPage
+			},
+			success : function(data) {
+				$("#result").html(data);
+			}
+		});
+		
+	}
+	function delete_user(num) {
+		email = $("#user_email"+num).val();
+		curPage = $("#user_curPage").val();
+		if(confirm("정말로 탈퇴시키시겠습니까?")){
+			$.ajax({
+				url : "userDelete",
+				type : "POST",
+				data :{
+					email : email,
+					curPage : curPage
+				},
+				success : function(data) {
+					$("#result").html(data);
+				}
+			});	
+		}
+	}
+	function userSearch() {
+			
+				nickName = $("#userSearch").val();
+				if(nickName ==''){
+					alert("닉네임을 입력하세요.");
+				}
+				else{
+					$.ajax({
+						url : "userSearch",
+						type : "POST",
+						data :{
+							nickName : nickName
+						},
+						success : function(data) {
+							$("#result").html(data);
+						}
+					});	
+					
+				}
+	}
+			
+			
 	
 </script>
 </html>

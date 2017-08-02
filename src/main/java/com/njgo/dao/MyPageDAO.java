@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.njgo.dto.MemberDTO;
+
 
 @Repository
 public class MyPageDAO {
@@ -37,6 +39,25 @@ public class MyPageDAO {
 		map.put("email", email);
 		
 		return sqlSession.update(NAMESPACE+"profile_info",map);
+	}
+
+	public int userUpdate(MemberDTO memberDTO) {
+		return sqlSession.update(NAMESPACE+"userUpdate", memberDTO);
+	}
+
+	public int userWarn(MemberDTO memberDTO) {
+		
+		return sqlSession.update(NAMESPACE+"userWarn", memberDTO);
+	}
+
+	public int userDelete(MemberDTO memberDTO) {
+		
+		return sqlSession.delete(NAMESPACE+"userDelete", memberDTO);
+	}
+
+	public MemberDTO userSearch(MemberDTO memberDTO) {
+		
+		return sqlSession.selectOne(NAMESPACE+"userSearch", memberDTO);
 	}
 	
 }

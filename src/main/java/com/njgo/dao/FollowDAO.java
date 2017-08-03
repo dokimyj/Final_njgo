@@ -1,5 +1,9 @@
 package com.njgo.dao;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,6 +26,19 @@ public class FollowDAO {
 	public int followingCount(MemberDTO myPage) {
 		
 		return sqlSession.selectOne(NAMESPACE+"followingCount",myPage);
+	}
+
+	public int followerCount(MemberDTO myPage) {
+		
+		return sqlSession.selectOne(NAMESPACE+"followerCount",myPage);
+	}
+
+	public List<String> followingList(String nickName) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("nickName", nickName);
+		
+		return sqlSession.selectList(NAMESPACE+"followingList", map);
 	}
 	
 }

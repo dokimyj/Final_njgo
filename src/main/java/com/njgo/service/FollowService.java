@@ -1,5 +1,7 @@
 package com.njgo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,16 @@ public class FollowService {
 	public int followingCount(MemberDTO myPage) {
 		
 		return followDAO.followingCount(myPage);
+	}
+
+	public int followerCount(MemberDTO myPage) {
+		
+		return followDAO.followerCount(myPage);
+	}
+
+	public List<String> followingList(String nickName) {
+		
+		return followDAO.followingList(nickName);
 	}
 
 	

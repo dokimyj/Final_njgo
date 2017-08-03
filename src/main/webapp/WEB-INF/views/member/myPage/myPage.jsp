@@ -112,7 +112,7 @@
 									</a></li>
 									<li><a href="/mypage/scraps"> <strong>스크랩</strong><em></em>
 									</a></li>
-									<li><a href="/mypage/following"> <strong>팔로잉</strong><em>${followingCount }</em>
+									<li><a role="button" onclick="followingList('${myPage.nickName}')"> <strong>팔로잉</strong><em>${followerCount }</em>
 									</a></li>
 										<li><a href="/mypage/following"> <strong>쪽지함</strong><em></em>
 									</a></li>
@@ -417,6 +417,19 @@
 				}
 			});	
 	});
+	 
+	 function followingList(nickName) {
+		$.ajax({
+			url : "followingList",
+			type : "POST",
+			data :{
+				nickName : nickName
+			},
+			success : function(data) {
+				$("#result").html(data);
+			}
+		});
+	}
 	 
 </script>
 </html>

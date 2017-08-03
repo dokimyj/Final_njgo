@@ -134,6 +134,7 @@ public class MemberController {
 		//로그인 실패시 메세지 보내기
 		model.addAttribute("message", message);
 		
+		
 		return "member/login"; 
 	}
 	// 로그아웃 

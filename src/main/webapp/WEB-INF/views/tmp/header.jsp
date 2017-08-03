@@ -6,6 +6,8 @@
 
 	$(function() {
 		
+		
+		
 		function logout() {
 			Kakao.init('cd868dba3cc2bd18d62a147752f2347c');
 			
@@ -129,16 +131,17 @@
 						<!-- 일반회원   -->
 						<c:if test="${sessionScope.memberDTO.login_mode eq 'general_join' }">
 							
-							<c:if test="${memberDTO.myPhoto eq '' || memberDTO.myPhoto eq null }">
-								<img alt="회원" style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/images/common/default.png"
-								onmouseover="this.src='${pageContext.request.contextPath}/resources/images/common/default.png'"
-								onmouseout="this.src='${pageContext.request.contextPath}/resources/images/common/default.png'" id="memberBtn">
-							</c:if>
-							<c:if test="${memberDTO.myPhoto != null } ">
-								<img alt="회원" style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}"
-								onmouseover="this.src='${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}'"
-								onmouseout="this.src='${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}'" id="memberBtn">
-							</c:if>
+								<c:if test="${sessionScope.memberDTO.myPhoto eq '' || sessionScope.memberDTO.myPhoto eq null }">
+									<img alt="회원" style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/images/common/default.png"
+									onmouseover="this.src='${pageContext.request.contextPath}/resources/images/common/default.png'"
+									onmouseout="this.src='${pageContext.request.contextPath}/resources/images/common/default.png'" id="memberBtn">
+								</c:if>
+								<c:if test="${sessionScope.memberDTO.myPhoto ne null }">
+									<img alt="회원" style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}"
+									onmouseover="this.src='${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}'"
+									onmouseout="this.src='${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}'" id="memberBtn">
+								</c:if>
+							
 						</c:if>
 							
 					</c:if>

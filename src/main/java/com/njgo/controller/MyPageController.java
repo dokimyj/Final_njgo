@@ -158,16 +158,20 @@ public class MyPageController {
 	}	
 	
 	// ======================================== Follow ===========================================
+	@RequestMapping(value="followingList")
+	public void followingList(String nickName){
+		// 팔로잉 리스트 가져오기 
+		
+		List<String> followingList = followService.followingList(nickName);
+		System.out.println("following 인원 :"+followingList.size());
+		
+		
+	}
 	
 	@RequestMapping(value="follow",method=RequestMethod.POST)
 	public String follow(String login_nickName,String myPage_nickName, Model model){
 		
-		 int result = myPageService.follow(login_nickName,myPage_nickName);
-		 if(result>0){
-			 System.out.println("follow 추가 성공!");
-			 
-		 }
-	 
+		 int result = myPageService.follow(login_nickName,myPage_nickName); 
 		 return "redirect:myPage?nickName="+myPage_nickName;
 	}
 	
@@ -175,11 +179,6 @@ public class MyPageController {
 	public String followCancel(String login_nickName,String myPage_nickName, Model model){
 		
 		 int result = myPageService.followCancel(login_nickName,myPage_nickName);
-		 if(result>0){
-			 System.out.println("follow 삭제 성공!");
-			 
-		 }
-	 
 		 return "redirect:myPage?nickName="+myPage_nickName;
 	}
 	
@@ -202,6 +201,7 @@ public class MyPageController {
 		// follower - following 존재 여부 확인
 		FollowDTO follow_check = followService.followingCheck(followDTO);
 		int followingCount = followService.followingCount(myPage);
+		int followerCount = followService.followerCount(myPage);
 		
 		if(follow_check != null){
 			model.addAttribute("following", "following");   // 존재함 
@@ -209,6 +209,7 @@ public class MyPageController {
 			model.addAttribute("follow", "follow");			// 존재하지 않음 
 		}	
 		model.addAttribute("followingCount", followingCount);
+		model.addAttribute("followerCount", followerCount);
 		session.setAttribute("myPage", myPage);
 		
 	}

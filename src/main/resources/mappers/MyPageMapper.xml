@@ -41,11 +41,18 @@
  		select count(following) from follow where follower = #{nickName}
  	</select>
  	
+ 	<select id="followerCount" resultType="java.lang.Integer" parameterType="MemberDTO">
+ 		select count(follower) from follow where following = #{nickName}
+ 	</select>
+ 	
  	<delete id="followCancel" parameterType="java.util.Map">
  		delete follow where following = #{login_nickName} and follower =#{myPage_nickName}
  	</delete>
  	<insert id="follow" parameterType="java.util.Map">
  		insert into follow values(#{login_nickName},#{myPage_nickName})
  	</insert>
+ 	<select id="followingList" parameterType="java.util.Map" resultType="java.lang.String">
+ 		select follower from follow where following =#{nickName}
+ 	</select>
  	
  </mapper>

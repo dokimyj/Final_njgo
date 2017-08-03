@@ -32,17 +32,7 @@ public class RecipeDAO {
 		List<HashtagDTO> tags=sqlSession.selectList(NAMESPACE+"tview", num);
 		HashMap<String, Object> recipe=new HashMap<String, Object>();
 		recipe.put("recipeDTO", recipeDTO);
-		List<String> ing_kind=new ArrayList<String>();
-		List<String> ing_cont=new ArrayList<String>();
-		for(int i=0;i<ingredients.size()-1;i++){
-			ing_kind.add(ingredients.get(i).getKind());
-			if(ingredients.get(i+1).getKind().equals(ing_kind.get(i))){
-				ing_kind.remove(i);
-				ing_cont.add(ingredients.get(i).getName()+"\t\t"+ingredients.get(i).getAmount());
-			}
-		}
-		recipe.put("ing_kind", ing_kind);
-		recipe.put("ing_cont", ing_cont);
+		recipe.put("ingredients", ingredients);
 		recipe.put("steps", steps);
 		recipe.put("hashtags", tags);
 		return recipe;

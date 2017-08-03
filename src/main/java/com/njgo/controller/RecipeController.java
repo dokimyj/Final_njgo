@@ -39,6 +39,23 @@ public class RecipeController {
 	public void view(Integer num, String[] curIng, Model model) throws Exception{
 		HashMap<String, Object> results=recipeService.view(num);
 		results.put("curIng", curIng);
+		List<Integer> count = new ArrayList<Integer>();
+		List<IngredientsDTO> inArray=(List<IngredientsDTO>)results.get("ingredients");
+		int tmp = 0;
+		for(int i=0;i<inArray.size();i++) {	
+			if(i+1 < inArray.size()) {
+				if(inArray.get(i).getKind().equals(inArray.get(i+1).getKind())) {
+					tmp++;
+				} else {
+					count.add(tmp);
+					tmp = 0;
+				}
+			} else {
+				count.add(tmp);
+			}
+		}
+		model.addAttribute("count", count);
+		model.addAttribute("ingredient", inArray);
 		model.addAttribute("view", results);
 	}
 	

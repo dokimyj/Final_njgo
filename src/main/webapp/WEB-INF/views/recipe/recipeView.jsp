@@ -16,11 +16,11 @@
 		border-bottom: 1px solid grey;
 	}
 	.top_section>p{
-		max-width:640px;
-		max-height:480px;
 		overflow:hidden;
 		text-align:center;
 		margin:0 auto;
+		height:80%;
+		width:60%;
 	}
 	.ing_section{
 		border-top: 1px solid grey;
@@ -37,16 +37,36 @@
 		background-position:20% center; 
 		background-repeat:no-repeat; 
 	}
+	.ing_section{
+		padding:5%;
+	}
+	.ing_section>li{
+		list-style-type: none;
+	}
+	.ingres{
+		margin: 0 auto;
+		width: 85%;
+		background-color: f1f1f2;
+		border-radius: 5px;
+	}
 	.step_section{
 		padding:5%;
 	}
 	.step_section>strong{
-		font-size:5.5em;
+		font-size:3.5em;
 		background-color:#ffcc00;
 		border-radius:50%;
 	}
 	.step_section>span{
-		font-size:3em;
+		font-size:2em;
+	}
+	.step_section>p{
+		margin: 0 auto;
+		width: 50%;
+		height: 60%;
+	}
+	#njgo_rating{
+		display:none;
 	}
 </style>
 </head>
@@ -56,7 +76,7 @@
 	<section class="main_section">
 		<article class=top_section>
 			<p>
-				<img src="../resources/upload/${view.recipeDTO.rep_pic }">
+				<img width="100%" height="100%" src="../resources/upload/${view.recipeDTO.rep_pic }">
 				<span><!-- 작성자의 프로필 사진을 넣어라 --></span>
 			</p>
 			<br>
@@ -79,19 +99,54 @@
 			<br>
 		</article>
 		<article class=ing_section>
-			<c:forEach items="${view.ing_kind }" var="ingk">
-				<h2>${ingk }</h2>
-				<c:forEach items="${view.ing_cont }" var="ingc">
-					${ingc }<br>
-				</c:forEach>
+			<c:set var="tmp" value="0"/>
+				<c:forEach items="${count}" var="c" varStatus="i">
+					<c:set var="tmp" value="${c+tmp+1}"/>
+						<c:if test="${i.index eq 0}">
+							<h3>${ingredient[tmp-1].kind}</h3>
+							<ul>
+							<c:forEach begin="0" end="${c}" var="index">
+								<li>${ingredient[index].name}&nbsp;&nbsp;${ingredient[index].amount}</li>
+							</c:forEach>
+							</ul>
+						</c:if>
+				<c:if test="${i.index ne 0}">
+				<c:set var="tmp" value="${tmp}"/>
+					<h3>${ingredient[tmp-1].kind}</h3>
+						<ul>
+						<c:forEach begin="${tmp-c-1}" end="${tmp-1}" var="index" varStatus="status">
+							<li>${ingredient[index].name}&nbsp;&nbsp;${ingredient[index].amount}</li>
+						</c:forEach>
+						</ul>
+					</c:if>
 			</c:forEach>
 		</article>
 		<article class=step_section>
 			<c:forEach items="${view.steps }" var="step">
 				<strong>${step.step+1 }</strong>&nbsp;&nbsp;&nbsp;<span>${step.explain }</span>
 				<br>
-				<img src="../resources/upload/${step.fname }"><br>
+				<p><img width=100% height=100% src="../resources/upload/${step.fname }"></p><br>
 			</c:forEach>
+		</article>
+		<article class=reply-review_section>
+			<ul class="nav nav-tabs">
+				<li class="active" id="reply"><a href="#">댓글</a></li>
+				<li id="review"><a href="#">리뷰</a></li>
+			</ul>
+			<hr>
+			<div id=inputarea>
+				<textarea id=comment></textarea>&nbsp;&nbsp;&nbsp;&nbsp;<input type=button id=send_comment value="등록">
+			</div>
+			<div id=njgo_rating>
+				<div id=ratings>
+					<c:forEach begin="1" end="5" step="1" varStatus="cnt">
+						<img id=rate_${cnt.count} src="../resources/images/kdk/fridge-rating-out.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</c:forEach>
+				</div>
+			</div>
+			<div id=comment_area>
+				
+			</div>
 		</article>
 	</section>
 	<c:import url="../tmp/footer.jsp"/>
@@ -135,5 +190,17 @@
 			alert('재료를 선택하신 후 검색해 주세요!');
 		}
 	});
+	$('.nav>ul>li').click(function(){
+		$('.nav>ul>li').attr('class', '');
+		$(this).attr('class', 'active');
+		alert($(this).attr('id'));
+		var listkind=$(this).attr('id');
+		$.get(listkind+'List', function(data){
+			$('#comment_area').html(data.trim());
+		});
+	});
+	if($('#review').attr('class')=='active'){ <!--&&세션 로그인되어있으면 -->
+		$('#njgo_rating').css('display', 'block');
+	}
 </script>
 </html>

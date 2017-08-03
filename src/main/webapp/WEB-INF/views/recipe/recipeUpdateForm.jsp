@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="../resources/css/common/basic.css">
 <link rel="stylesheet" href="../resources/css/psy/recipeWrite.css">
 <script src="../resources/js/psy/recipeWrite.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 	var nameArray = ["돼지고기", "양배추", "참기름", "소금", "고추가루 약간"];
 	var amountArray = ["300g", "1/2개", "1T", "2t", ""];
@@ -21,8 +23,13 @@
 	    $( ".ingredientSection_ul" ).disableSelection();
 	    $( ".box2_sub" ).sortable();
 	    $( ".box2_sub" ).disableSelection();
+	    
+		var list = $(".tag_text");
 		
-		/* box1 시작 */
+		list.each(function() {
+			tagArray.push($(this).html());
+		});
+	    
 		$("#kind_select").val("${map['category'].c_kind}").prop("selected", true);
 		$("#situation_select").val("${map['category'].c_situation}").prop("selected", true);
 		$("#procedure_select").val("${map['category'].c_procedure}").prop("selected", true);
@@ -32,6 +39,21 @@
 		$(".replace").css("background-image","url('../resources/upload/${map['recipeInfo'].rep_pic}')");
 		
 		
+		/* <li class="kindSection" style="display: none;">
+		<a href="#" class="dragBtn"></a>
+		<input type="text" name="kind" class="kindInput box2_input" required="required" value="${in.kind}">
+		<input type="hidden" class="kind_count" name="kind_count">
+		<p class="kindSection_btns">
+			<input class="allInsertBtn allBtn" type="button" value="한번에 넣기">
+			<input class="allDeleteBtn allBtn" type="button" value="묶음삭제">
+		</p>
+	</li> */
+		
+		for(var i=0;i<$(".kindSection").find(".kindInput").length;i++) {
+			
+		}
+		
+		/* box1 시작 */
 		$(".upload").change(function() {
 			$(".upload_check").val("yes");
 			
@@ -78,7 +100,8 @@
 		
 		$(document).on("click", ".addBtn", function() {
 			var index = $(this).attr("data-ul");
-			var num = (($(".ingredientSection li").last().attr("data-id") * 1) + 1) % 5;
+			/* var num = (($(".ingredientSection li").last().attr("data-id") * 1) + 1) % 5; */
+			var num = $(".ingredientSection").eq(index).find("li").length;
 			
 			addIngredient(num, index);
 		});
@@ -359,42 +382,66 @@
 						재료가 남거나 부족하지 않도록 정확한 계량정보를 적어주세요.
 					</p>
 					<div class="box2_sub">
-						<ul class="box2_sub_1">
-						
-							<li class="kindSection">
-								<a href="#" class="dragBtn"></a>
-								<input type="text" name="kind" class="kindInput box2_input" required="required">
-								<input type="hidden" class="kind_count" name="kind_count">
-								<p class="kindSection_btns">
-									<input class="allInsertBtn allBtn" type="button" value="한번에 넣기">
-									<input class="allDeleteBtn allBtn" type="button" value="묶음삭제">
-								</p>
-							</li>
-							<li class="ingredientSection">
-								<ul class="ingredientSection_ul_0 ingredientSection_ul" data-ul="0">
-									<li data-id="0">
-										<a href="#" class="dragBtn"></a>
-										<input type="text" name="i_name" class="ingredientInput box2_input" id="ingredientInput_1" placeholder="예) 돼지고기" required="required">
-										<input type="text" name="i_amount" class="ingredientInput box2_input" id="ingredientInput_2" placeholder="예) 300g">
-										<div class="deleteBtn delBtn_0"></div>
-									</li>
-									<li data-id="1">
-										<a href="#" class="dragBtn"></a>
-										<input type="text" name="i_name" class="ingredientInput box2_input" id="ingredientInput_1" placeholder="예) 양배추" required="required">
-										<input type="text" name="i_amount" class="ingredientInput box2_input" id="ingredientInput_2" placeholder="예) 1/2개">
-										<div class="deleteBtn delBtn_0"></div>
-									</li>
-									<li data-id="2">
-										<a href="#" class="dragBtn"></a>
-										<input type="text" name="i_name" class="ingredientInput box2_input" id="ingredientInput_1" placeholder="예) 참기름" required="required">
-										<input type="text" name="i_amount" class="ingredientInput box2_input" id="ingredientInput_2" placeholder="예) 1T">
-										<div class="deleteBtn delBtn_0"></div>
-									</li>
-								</ul>
-							</li>
+					
+					<c:set var="tmp" value="0"/>
+					<c:forEach items="${count}" var="c" varStatus="i">
+						<c:set var="tmp" value="${c+tmp+1}"/>
+						<c:if test="${i.index eq 0}">
+							<ul class="box2_sub_1">
+								<li class="kindSection">
+									<a href="#" class="dragBtn"></a>
+									<input type="text" name="kind" class="kindInput box2_input" required="required" value="${ingredient[tmp-1].kind}">
+									<input type="hidden" class="kind_count" name="kind_count" value="${c+1}">
+									<p class="kindSection_btns">
+										<input class="allInsertBtn allBtn" type="button" value="한번에 넣기">
+										<input class="allDeleteBtn allBtn" type="button" value="묶음삭제">
+									</p>
+								</li>
 							
-							<input type="button" class="addBtn" value="추가" data-ul="0">
-						</ul>
+								<li class="ingredientSection">
+									<ul class="ingredientSection_ul_${i.index} ingredientSection_ul" data-ul="0">
+										<c:forEach begin="0" end="${c}" var="index">
+										<li data-id="${index}">
+											<a href="#" class="dragBtn"></a>
+											<input type="text" name="i_name" class="ingredientInput box2_input" id="ingredientInput_1" placeholder="예) 돼지고기" required="required" value="${ingredient[index].name}">
+											<input type="text" name="i_amount" class="ingredientInput box2_input" id="ingredientInput_2" placeholder="예) 300g" value="${ingredient[index].amount}">
+											<div class="deleteBtn delBtn_${i.index}"></div>
+										</li>
+										</c:forEach>
+									</ul>
+								</li>
+								<input type="button" class="addBtn" value="추가" data-ul="${i.index}">
+							</ul>
+						</c:if>
+						<c:if test="${i.index ne 0}">
+						<c:set var="tmp" value="${tmp}"/>
+							<ul class="box2_sub_1">
+								<li class="kindSection">
+									<a href="#" class="dragBtn"></a>
+									<input type="text" name="kind" class="kindInput box2_input" required="required" value="${ingredient[tmp-1].kind}">
+									<input type="hidden" class="kind_count" name="kind_count">
+									<p class="kindSection_btns">
+										<input class="allInsertBtn allBtn" type="button" value="한번에 넣기">
+										<input class="allDeleteBtn allBtn" type="button" value="묶음삭제">
+									</p>
+								</li>
+							
+								<li class="ingredientSection">
+									<ul class="ingredientSection_ul_${i.index} ingredientSection_ul" data-ul="${i.index}">
+										<c:forEach begin="${tmp-c-1}" end="${tmp-1}" var="index" varStatus="status">
+										<li data-id="${status.count - 1}">
+											<a href="#" class="dragBtn"></a>
+											<input type="text" name="i_name" class="ingredientInput box2_input" id="ingredientInput_1" placeholder="예) 돼지고기" required="required" value="${ingredient[index].name}">
+											<input type="text" name="i_amount" class="ingredientInput box2_input" id="ingredientInput_2" placeholder="예) 300g" value="${ingredient[index].amount}">
+											<div class="deleteBtn delBtn_${i.index}"></div>
+										</li>
+										</c:forEach>
+									</ul>
+								</li>
+								<input type="button" class="addBtn" value="추가" data-ul="${i.index}">
+							</ul>
+						</c:if>
+					</c:forEach>	
 					</div>
 					
 					<div class="box2_sub_2">
@@ -454,7 +501,6 @@
 					<input type="button" class="addStepBtn addStepButton" value="순서추가" data-ul="0">
 				</div>
 			</div>
-			
 			
 			<div class="box4 box">
 				<div class="contentPart">

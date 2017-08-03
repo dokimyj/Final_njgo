@@ -22,6 +22,8 @@
 		alert("일반회원 따위가 들어올곳이 아니다. 돌아가라!!!");
 		location.href="../../";
 	}
+	
+	
 </script>
  
 </head>  
@@ -47,22 +49,25 @@
 						<div class="inner">
 							<img alt="" id="myPhoto" >
 							<strong>${myPage.nickName }</strong>
-							<!-- [D] 베스트유저인 경우	<strong class="best">김문어씨</strong>-->
-						<span class="follow"><em>0명 </em>팔로잉</span>
+						
+						<span class="follow"><em>${followingCount}명 </em>팔로잉</span>
 
 							<p class="link">
 								<a target="_blank" href="http://"></a>
 							</p>
 							<p class="dsc">${myPage.info }</p>
 
-							<div class="btn_area">
-								<!-- [D] 내 콜렉션인 경우 -->
+							<div class="btn_area"> 
+					   <!-- ========================Follow , 프로필성정 버튼 ================================ -->
 								<c:if test="${myPage.nickName eq memberDTO.nickName }">
 									<button id="profile_btn" class="btn_config call_profile">프로필설정&gt;</button>
 								</c:if>
-								<c:if test="${myPage.nickName != memberDTO.nickName }">
+								<c:if test="${follow eq 'follow' && myPage.nickName ne memberDTO.nickName }">
 									<button id="follow_btn" class="btn_config call_profile">팔로우</button>
 								</c:if>
+								<c:if test="${following eq 'following' && myPage.nickName ne memberDTO.nickName }">
+									<button id="followCancel_btn" class="btn_config call_profile">팔로우 취소</button>
+								</c:if> 
 						<!-- =============================The Modal ===============================-->
 								<div id="vProfileImageModal" class="modal in" role="dialog" aria-hidden="false" style="display: none; padding-right: 17px;">
 							      <div class="modal-dialog" style="width:570px">
@@ -103,15 +108,15 @@
 							<!-- =============================== MyPage 기능 =============================  -->
 							<c:if test="${myPage.grade < 2 }">
 								<ul>
-									<li class="on"><a href="/mypage"> <strong>마이레시피</strong><em>0</em>
+									<li class="on"><a href="/mypage"> <strong>마이레시피</strong><em></em>
 									</a></li>
-									<li><a href="/mypage/scraps"> <strong>스크랩</strong><em>2</em>
+									<li><a href="/mypage/scraps"> <strong>스크랩</strong><em></em>
 									</a></li>
-									<li><a href="/mypage/following"> <strong>팔로잉</strong><em>1</em>
+									<li><a href="/mypage/following"> <strong>팔로잉</strong><em>${followingCount }</em>
 									</a></li>
-										<li><a href="/mypage/following"> <strong>쪽지함</strong><em>1</em>
+										<li><a href="/mypage/following"> <strong>쪽지함</strong><em></em>
 									</a></li>
-										<li><a href="/mypage/following"> <strong>주문내역</strong><em>1</em>
+										<li><a href="/mypage/following"> <strong>주문내역</strong><em></em>
 									</a></li>
 								</ul>	
 							</c:if>
@@ -381,8 +386,37 @@
 	 /* ========================================= follow ============================================ */
 	 
 	 $("#follow_btn").click(function() {
-		
+		 var login_nickName = "${memberDTO.nickName}";
+		 var myPage_nickName = "${myPage.nickName}";
+		$.ajax({
+			url : "follow",
+			type : "POST",
+			data :{
+				login_nickName : login_nickName,
+				myPage_nickName :myPage_nickName
+				
+			},
+			success : function() {
+				location.href = "myPage?nickName="+myPage_nickName;
+			}
+		});	
 	});	
+	 $("#followCancel_btn").click(function() {
+		 var login_nickName = "${memberDTO.nickName}";
+		 var myPage_nickName = "${myPage.nickName}";
+			$.ajax({
+				url : "followCancel",
+				type : "POST",
+				data :{
+					login_nickName : login_nickName,
+					myPage_nickName : myPage_nickName
+					
+				},
+				success : function() {
+					location.href = "myPage?nickName="+myPage_nickName;
+				}
+			});	
+	});
 	 
 </script>
 </html>

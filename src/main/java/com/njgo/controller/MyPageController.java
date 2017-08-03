@@ -17,8 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.njgo.dto.FollowDTO;
 import com.njgo.dto.MemberDTO;
 import com.njgo.service.FileService;
+import com.njgo.service.FollowService;
 import com.njgo.service.MemberService;
 import com.njgo.service.MyPageService;
 import com.njgo.util.ListInfo;
@@ -33,8 +35,10 @@ public class MyPageController {
 	private MyPageService myPageService;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private FollowService followService;
 	
-	// ==================================추가 ==================================================
+	// ==================================user Search , Update ,Delete  ==================================================
 	// Search , 닉네임으로 받아온다음 닉네임으로 검색 , 닉네임이 정확해야함
 	@RequestMapping(value="userSearch", method=RequestMethod.POST)
 	public String userSearch(MemberDTO memberDTO,  RedirectAttributes rd,Model model){
@@ -93,8 +97,9 @@ public class MyPageController {
 	}
 	
 	
-	// ==================================추가 ==================================================
+	// ================================== ==================================================
 	
+	// 등급 순으로 리스트 가져옴
 	@RequestMapping(value="grade_view")
 	public String grade_view(ListInfo listInfo, Model model){
 		String data ="grade";
@@ -114,7 +119,7 @@ public class MyPageController {
 		
 		return "member/myPage/userList";
 	}	
-	
+	// 경고 많이 받은 순으로 가져옴
 	@RequestMapping(value="warning_view")
 	public String warning_view(ListInfo listInfo, Model model){
 		String data ="warn";
@@ -132,7 +137,7 @@ public class MyPageController {
 		
 		return "member/myPage/userList";
 	}	
-	
+	// 유저 리스트 
 	@RequestMapping(value="userList")
 	public void userList(ListInfo listInfo, Model model){
 		
@@ -152,15 +157,62 @@ public class MyPageController {
 	
 	}	
 	
+	// ======================================== Follow ===========================================
 	
-	@RequestMapping(value="myPage")
-	public void myPage(@RequestParam String nickName, HttpSession session){
+	@RequestMapping(value="follow",method=RequestMethod.POST)
+	public String follow(String login_nickName,String myPage_nickName, Model model){
 		
-		MemberDTO memberDTO = memberService.nickNameCheck(nickName);
-		session.setAttribute("myPage", memberDTO);
-		
+		 int result = myPageService.follow(login_nickName,myPage_nickName);
+		 if(result>0){
+			 System.out.println("follow 추가 성공!");
+			 
+		 }
+	 
+		 return "redirect:myPage?nickName="+myPage_nickName;
 	}
 	
+	@RequestMapping(value="followCancel",method=RequestMethod.POST)
+	public String followCancel(String login_nickName,String myPage_nickName, Model model){
+		
+		 int result = myPageService.followCancel(login_nickName,myPage_nickName);
+		 if(result>0){
+			 System.out.println("follow 삭제 성공!");
+			 
+		 }
+	 
+		 return "redirect:myPage?nickName="+myPage_nickName;
+	}
+	
+	
+	
+	// ======================================== Follow ===========================================
+	// 마이페이지 
+	@RequestMapping(value="myPage")
+	public void myPage(@RequestParam String nickName, HttpSession session , Model model){
+		
+		MemberDTO login_member = (MemberDTO)session.getAttribute("memberDTO"); 	// 로그인 된 계정
+		
+		MemberDTO myPage = memberService.nickNameCheck(nickName);				// 자신 또는 다른 사람의 myPage로 접속한경우 
+																				// myPage만의 DTO를 생성함
+		
+		FollowDTO followDTO = new FollowDTO();								
+		followDTO.setFollower(myPage.getNickName());
+		followDTO.setFollowing(login_member.getNickName());
+		//following 체크 
+		// follower - following 존재 여부 확인
+		FollowDTO follow_check = followService.followingCheck(followDTO);
+		int followingCount = followService.followingCount(myPage);
+		
+		if(follow_check != null){
+			model.addAttribute("following", "following");   // 존재함 
+		}else{
+			model.addAttribute("follow", "follow");			// 존재하지 않음 
+		}	
+		model.addAttribute("followingCount", followingCount);
+		session.setAttribute("myPage", myPage);
+		
+	}
+	// ======================================  프로필 수정 ========================================================
 	@RequestMapping(value="profile_upload", method=RequestMethod.POST)
 	public ModelAndView profile_upload(HttpSession session , MultipartFile myPhoto, String info, String email)throws Exception{
 		System.out.println("myPhoto : "+myPhoto.getOriginalFilename());

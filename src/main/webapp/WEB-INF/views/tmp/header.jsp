@@ -128,7 +128,7 @@
 						</c:if>
 						<!-- 일반회원   -->
 						<c:if test="${sessionScope.memberDTO.login_mode eq 'general_join' }">
-						
+							
 							<c:if test="${memberDTO.myPhoto eq '' || memberDTO.myPhoto eq null }">
 								<img alt="회원" style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/images/common/default.png"
 								onmouseover="this.src='${pageContext.request.contextPath}/resources/images/common/default.png'"

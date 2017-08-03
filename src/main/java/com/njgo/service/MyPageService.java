@@ -45,5 +45,15 @@ public class MyPageService {
 		
 		return myPageDAO.userSearch(memberDTO);
 	}
+
+	public int followCancel(String login_nickName, String myPage_nickName) {
+		
+		return myPageDAO.followCancel(login_nickName,myPage_nickName);
+	}
+
+	public int follow(String login_nickName, String myPage_nickName) {
+		// TODO Auto-generated method stub
+		return myPageDAO.follow(login_nickName,myPage_nickName);
+	}
 	
 }

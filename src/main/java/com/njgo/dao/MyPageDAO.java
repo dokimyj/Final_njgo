@@ -59,5 +59,21 @@ public class MyPageDAO {
 		
 		return sqlSession.selectOne(NAMESPACE+"userSearch", memberDTO);
 	}
+
+	public int followCancel(String login_nickName, String myPage_nickName) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("login_nickName", login_nickName);
+		map.put("myPage_nickName", myPage_nickName);
+		
+		return sqlSession.delete(NAMESPACE+"followCancel", map);
+	}
+
+	public int follow(String login_nickName, String myPage_nickName) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("login_nickName", login_nickName);
+		map.put("myPage_nickName", myPage_nickName);
+		
+		return sqlSession.delete(NAMESPACE+"follow", map);
+	}
 	
 }

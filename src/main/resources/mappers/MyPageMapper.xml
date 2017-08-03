@@ -32,5 +32,20 @@
  	<select id="userSearch" parameterType="MemberDTO" resultType="MemberDTO">
  		select * from member where nickName=#{nickName}
  	</select>
+ 	<!-- ====================== Follow Check, List ================================= -->
+ 	
+ 	<select id="followingCheck" parameterType="FollowDTO" resultType="FollowDTO">
+ 		select * from follow where follower =#{follower} and following = #{following}
+ 	</select>
+ 	<select id="followingCount" resultType="java.lang.Integer" parameterType="MemberDTO">
+ 		select count(following) from follow where follower = #{nickName}
+ 	</select>
+ 	
+ 	<delete id="followCancel" parameterType="java.util.Map">
+ 		delete follow where following = #{login_nickName} and follower =#{myPage_nickName}
+ 	</delete>
+ 	<insert id="follow" parameterType="java.util.Map">
+ 		insert into follow values(#{login_nickName},#{myPage_nickName})
+ 	</insert>
  	
  </mapper>

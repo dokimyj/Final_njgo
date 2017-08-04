@@ -46,7 +46,7 @@
 	.ingres{
 		margin: 0 auto;
 		width: 85%;
-		background-color: f1f1f2;
+		background-color: #f1f1f2;
 		border-radius: 5px;
 	}
 	.step_section{
@@ -65,8 +65,55 @@
 		width: 50%;
 		height: 60%;
 	}
-	#njgo_rating{
-		display:none;
+	#ratings{
+		margin: 0 auto;
+		padding: 3%;
+		background-color: #f1f1f2;
+		width: 60%;
+		padding-left: 16%;
+	}
+	#inputarea{
+		margin: 0 auto;
+		text-align: center;
+	}
+	#reply_contents {
+		background: none;
+		border-radius: 5%;
+		width: 80%;
+		height: 50%;
+	}
+	#reply_btn{
+		background-color: #ffcc00;
+	}
+	#reply-review{
+		cursor:pointer;
+		font-weight: bold;
+		margin: 2% 0% 2% 0%;
+		color: #595528;
+	}
+	#reply-review>span[title=active]{
+		background-color: #ffcc00;
+		border: 1px	solid #ffcc00;
+		border-radius: 5px;
+	}
+	.reply_list {
+		position: relative;
+		width: 80%;
+		height: auto;
+		border-radius: 1rem;
+		padding: .5% .1% .1% 2%;
+		margin: 2% 50% .8% 5%;
+		border: 2px solid #ffcc00;
+		background: rgba(255, 255, 255, .9) fixed;
+		color: #595528;
+		font-size: 1.1em;
+		display: inline-block;
+		overflow: hidden;
+	}
+	.rdel, .rmod, .r_date, .r_reply{
+		float: right;
+		margin-right: 1%;
+    	font-size: 50%;
 	}
 </style>
 </head>
@@ -74,6 +121,7 @@
 	<c:import url="../tmp/header.jsp"/>
 	
 	<section class="main_section">
+		<input type=hidden id=recipenum value="${view.recipeDTO.num }">
 		<article class=top_section>
 			<p>
 				<img width="100%" height="100%" src="../resources/upload/${view.recipeDTO.rep_pic }">
@@ -129,21 +177,10 @@
 			</c:forEach>
 		</article>
 		<article class=reply-review_section>
-			<ul class="nav nav-tabs">
-				<li class="active" id="reply"><a href="#">댓글</a></li>
-				<li id="review"><a href="#">리뷰</a></li>
-			</ul>
+			<div id=reply-review>
+				<span title=active class=reply-review id=reply>댓글</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span title=inactive class=reply-review id=review>리뷰</span> 
+			</div>
 			<hr>
-			<div id=inputarea>
-				<textarea id=comment></textarea>&nbsp;&nbsp;&nbsp;&nbsp;<input type=button id=send_comment value="등록">
-			</div>
-			<div id=njgo_rating>
-				<div id=ratings>
-					<c:forEach begin="1" end="5" step="1" varStatus="cnt">
-						<img id=rate_${cnt.count} src="../resources/images/kdk/fridge-rating-out.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					</c:forEach>
-				</div>
-			</div>
 			<div id=comment_area>
 				
 			</div>
@@ -190,17 +227,11 @@
 			alert('재료를 선택하신 후 검색해 주세요!');
 		}
 	});
-	$('.nav>ul>li').click(function(){
-		$('.nav>ul>li').attr('class', '');
-		$(this).attr('class', 'active');
-		alert($(this).attr('id'));
-		var listkind=$(this).attr('id');
-		$.get(listkind+'List', function(data){
-			$('#comment_area').html(data.trim());
-		});
+	$('#comment_area').load("replyList?rnum="+$('#recipenum').val());
+	$('#reply-review').on("click", "span", function(){
+		$('.reply-review').attr('title', 'inactive');
+		$(this).attr('title', 'active');
+		$('#comment_area').load($(this).attr('id')+'List?rnum='+$('#recipenum').val());
 	});
-	if($('#review').attr('class')=='active'){ <!--&&세션 로그인되어있으면 -->
-		$('#njgo_rating').css('display', 'block');
-	}
 </script>
 </html>

@@ -35,8 +35,8 @@ public class ListInfo {
 		return lastRow;
 	}
 	public void setRow(int curPage, int perPage){
-		startRow=(this.getCurPage()-1)*this.getPerPage()+1; //curPage가 null일 수 있기 때문에 이 페이지의 curPage를 가져오도록 this.getCurPage()로.
-		lastRow=this.getCurPage()*this.getPerPage();
+		startRow=(curPage-1)*this.getPerPage()+1; //curPage가 null일 수 있기 때문에 이 페이지의 curPage를 가져오도록 this.getCurPage()로.
+		lastRow=curPage*this.getPerPage();
 	}
 	private int curBlock;
 	private int totalBlock;

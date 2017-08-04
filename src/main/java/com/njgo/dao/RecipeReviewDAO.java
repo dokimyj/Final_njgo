@@ -22,6 +22,9 @@ public class RecipeReviewDAO {
 		HashMap<String, Object> review=new HashMap<String, Object>();
 		review.put("listInfo", listInfo);
 		review.put("rnum", rnum);
+		int totalCount=sqlSession.selectOne(NAMESPACE+"totalcount", rnum);
+		listInfo.makePage(totalCount, 10);
+		listInfo.setRow(listInfo.getCurPage(), 10);
 		return sqlSession.selectList(NAMESPACE+"list", review);
 	}
 	

@@ -23,6 +23,9 @@ public class RecipeReplyDAO {
 		HashMap<String, Object> reply=new HashMap<String, Object>();
 		reply.put("listInfo", listInfo);
 		reply.put("rnum", rnum);
+		int totalCount=sqlSession.selectOne(NAMESPACE+"totalcount", rnum);
+		listInfo.makePage(totalCount, 10);
+		listInfo.setRow(listInfo.getCurPage(), 10);
 		return sqlSession.selectList(NAMESPACE+"list", reply);
 	}
 	

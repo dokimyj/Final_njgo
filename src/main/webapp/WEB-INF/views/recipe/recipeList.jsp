@@ -27,6 +27,7 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="cate">방법별</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=c_procedure title=active>전체</span>&nbsp;&nbsp;<span class=c_procedure>볶음</span>&nbsp;&nbsp;<span class=c_procedure>끓이기</span>&nbsp;&nbsp;<span class=c_procedure>부침</span>&nbsp;&nbsp;<span class=c_procedure>조림</span>&nbsp;&nbsp;<span class=c_procedure>무침</span>&nbsp;&nbsp;<span class=c_procedure>비빔</span>&nbsp;&nbsp;<span class=c_procedure>찜</span>&nbsp;&nbsp;<span class=c_procedure>절임</span>&nbsp;&nbsp;<span class=c_procedure>튀김</span>&nbsp;&nbsp;<span class=c_procedure>삶기</span>&nbsp;&nbsp;<span class=c_procedure>굽기</span>&nbsp;&nbsp;<span class=c_procedure>데치기</span>&nbsp;&nbsp;<span class=c_procedure>회</span>&nbsp;&nbsp;<span class=c_procedure>기타</span><br>
 			<hr>
 		</div>
+		<br>
 		<div id="order"> <span class="orders" id="regdate" title="active">최신순</span> | <span class="orders" id="hit">조회순</span> </div>
 		<br>
 		<!-- 레시피 리스트 3*3, 최신순/hit순 -->

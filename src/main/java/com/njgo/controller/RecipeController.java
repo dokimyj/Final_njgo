@@ -133,6 +133,7 @@ public class RecipeController {
 	public void replyList(ListInfo listInfo, Integer rnum, Model model) throws Exception{ //rnum은 해당 레시피의 글번호
 		List<RecipeReplyDTO> replyList=recipeService.replyList(listInfo, rnum);
 		model.addAttribute("list", replyList);
+		model.addAttribute("listInfo", listInfo);
 	}
 	
 	@RequestMapping(value="replyWrite", method=RequestMethod.POST)
@@ -170,6 +171,7 @@ public class RecipeController {
 	public void reviewList(ListInfo listInfo, Integer rnum, Model model) throws Exception{ //rnum은 해당 레시피의 글번호
 		List<RecipeReviewDTO> reviewList=recipeService.reviewList(listInfo, rnum);
 		model.addAttribute("list", reviewList);
+		model.addAttribute("listInfo", listInfo);
 	}
 	
 	@RequestMapping(value="reviewWrite", method=RequestMethod.POST)

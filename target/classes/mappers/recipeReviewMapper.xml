@@ -7,7 +7,7 @@
 		select COUNT(NUM) from RECIPE_REVIEW where RECIPENUM=#{rnum}
 	</select>
 	<select id="list" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeReviewDTO">
-		select * from (select ROWNUM R, C.* from (select * from RECIPE_REVIEW where RECIPENUM=#{rnum} order by NUM desc) C) where R between #{listInfo.startRow} and #{listInfo.lastRow}
+		select * from (select ROWNUM R, C.* from (select * from RECIPE_REVIEW where RECIPENUM=#{rnum} order by NUM asc) C) where R between #{listInfo.startRow} and #{listInfo.lastRow}
 	</select>
 	<insert id="write" statementType="CALLABLE" parameterType="java.util.Map">
 		{ call RREVIEW_WRITE(#{reviewDTO.recipenum, mode=IN}, #{reviewDTO.writer, mode=IN}, #{reviewDTO.contents, mode=IN}, #{reviewDTO.rating, mode=IN}, #{result, mode=OUT, javaType=int, jdbcType=INTEGER}) }

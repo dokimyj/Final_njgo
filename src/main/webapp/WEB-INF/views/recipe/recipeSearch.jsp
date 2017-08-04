@@ -23,6 +23,19 @@
 					</div>
 					<div class="channel_info">
 						<div>${dto.title }</div><div></div>
+					</div>
+					<div class=misc>
+						<div class="elaspedtime" style="display:inline">
+							<div style="display:inline"><img src="../resources/images/kdk/icon-157349_640.png" style="display:inline">&nbsp;&nbsp;${dto.elapsedtime }</div>
+						</div>	
+						&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+						<div class="scraps" style="display:inline">
+							<div style="display:inline"><img src="../resources/images/kdk/blackheart.png" style="display:inline">&nbsp;&nbsp;${dto.scrap }</div>
+						</div>
+						&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+						<div class="ratings" style="display:inline">
+							<div style="display:inline"><img src="../resources/images/kdk/fridge-over.png" style="display:inline">&nbsp;&nbsp;${dto.rating }</div>
+						</div>
 					</div>	
 				</div>
 			</c:forEach>

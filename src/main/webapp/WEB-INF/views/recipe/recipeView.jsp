@@ -40,7 +40,7 @@
 	.ing_section{
 		padding:5%;
 	}
-	.ing_section>li{
+	.ing_section>ul>li{
 		list-style-type: none;
 	}
 	.ingres{
@@ -151,7 +151,7 @@
 				<c:forEach items="${count}" var="c" varStatus="i">
 					<c:set var="tmp" value="${c+tmp+1}"/>
 						<c:if test="${i.index eq 0}">
-							<h3>${ingredient[tmp-1].kind}</h3>
+							<h3>[${ingredient[tmp-1].kind}]</h3>
 							<ul>
 							<c:forEach begin="0" end="${c}" var="index">
 								<li>${ingredient[index].name}&nbsp;&nbsp;${ingredient[index].amount}</li>
@@ -160,7 +160,7 @@
 						</c:if>
 				<c:if test="${i.index ne 0}">
 				<c:set var="tmp" value="${tmp}"/>
-					<h3>${ingredient[tmp-1].kind}</h3>
+					<h3>[${ingredient[tmp-1].kind}]</h3>
 						<ul>
 						<c:forEach begin="${tmp-c-1}" end="${tmp-1}" var="index" varStatus="status">
 							<li>${ingredient[index].name}&nbsp;&nbsp;${ingredient[index].amount}</li>

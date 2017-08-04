@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div id=pagearea>
 <div id=inputarea>
 	<input type="text" name="contents" id="reply_contents">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=button id=reply_btn class="btn btn-warning" value="등록">
 </div>
 <hr>
+
 <c:forEach items="${list}" var="rdto">
 	<div class="reply_list" id="${rdto.num}">
 		<c:if test="${rdto.depth>0 }">
@@ -28,6 +30,19 @@
 		<p id=replyinput style="display:none"><input type="text" name="contents" id="replyReply_contents">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=button id=replyReply_btn class="btn btn-warning" value="등록"></p>
 	</div>
 </c:forEach>
+				<div id=pagers>
+					<ul class="pagination">
+						<c:if test="${listInfo.curBlock>1 }">
+							<li><span title='${listInfo.startNum-1 }' style='cursor:pointer'>&lt;</span></li>
+						</c:if>
+						<c:forEach begin="${listInfo.startNum }" end="${listInfo.lastNum }" step="1" var="i">
+							<li><span title='${i}' style='cursor:pointer'>${i}</span></li>
+						</c:forEach>
+						<c:if test="${listInfo.curBlock<listInfo.totalBlock }">
+							<li><span title='${listInfo.lastNum+1 }' style='cursor:pointer'>&gt;</span></li>
+						</c:if>
+					</ul>
+				</div>
 <script>
 	$('#reply_btn').click(function(){
 		var repcont=$('#reply_contents').val();
@@ -61,8 +76,7 @@
     	var num = $(this).attr("title");
     	var rnum=$('#recipenum').val();
     	$(".reply_list").load("../recipe/replyUpdate?num="+num+"&recipenum="+rnum);
-     });
-	
+     });	
 	$(".reply_list").on("click", ".r_reply", function(){
 		var num = $(this).attr("title");
     	var rnum=$('#recipenum').val();
@@ -74,4 +88,18 @@
     		});
      	}); 
 	});
+	$('.pagination').on("click", "span", function(){
+		$.ajax({
+			url: "replyList",
+			method: "GET",
+			data:{
+				curPage:$(this).attr('title'),
+				rnum:$('#recipenum').val()
+			},
+			success:function(data){
+				$('#pagearea').html(data.trim());
+			}
+		});
+	});
 </script>
+</div>

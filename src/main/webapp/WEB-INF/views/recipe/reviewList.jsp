@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div id=pagearea>
 	<div id=ratings title="0">
 		<img class="njgo_off" title="1" name="uncheck" style="cursor:pointer" src="../resources/images/kdk/fridge-rating-out.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<img class="njgo_off" title="2" name="uncheck" style="cursor:pointer" src="../resources/images/kdk/fridge-rating-out.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -21,6 +22,19 @@
 		<p><div class="r_con">${rdto.contents}</div></p>
 	</div>
 </c:forEach>
+				<div id=pagers>
+					<ul class="pagination">
+						<c:if test="${listInfo.curBlock>1 }">
+							<li><span title='${listInfo.startNum-1 }' style='cursor:pointer'>&lt;</span></li>
+						</c:if>
+						<c:forEach begin="${listInfo.startNum }" end="${listInfo.lastNum }" step="1" var="i">
+							<li><span title='${i}' style='cursor:pointer'>${i}</span></li>
+						</c:forEach>
+						<c:if test="${listInfo.curBlock<listInfo.totalBlock }">
+							<li><span title='${listInfo.lastNum+1 }' style='cursor:pointer'>&gt;</span></li>
+						</c:if>
+					</ul>
+				</div>
 <script>
 	$('#ratings').on("mouseenter", "img", function(){
 		var njgo_off=document.getElementsByClassName('njgo_off');
@@ -66,4 +80,18 @@
 			});
 		}
 	});
+	$('.pagination').on("click", "span", function(){
+		$.ajax({
+			url: "reviewList",
+			method: "GET",
+			data:{
+				curPage:$(this).attr('title'),
+				rnum:$('#recipenum').val()
+			},
+			success:function(data){
+				$('#pagearea').html(data.trim());
+			}
+		});
+	});
 </script>
+</div>

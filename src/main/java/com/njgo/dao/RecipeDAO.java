@@ -26,6 +26,7 @@ public class RecipeDAO {
 	private final String NAMESPACE="recipeMapper.";
 	
 	public HashMap<String, Object> view(Integer num) throws Exception{
+		sqlSession.update(NAMESPACE+"hitup", num);
 		RecipeDTO recipeDTO=sqlSession.selectOne(NAMESPACE+"rview", num);
 		List<IngredientsDTO> ingredients=sqlSession.selectList(NAMESPACE+"iview", num);
 		List<StepsDTO> steps=sqlSession.selectList(NAMESPACE+"sview", num);

@@ -1,5 +1,6 @@
 package com.njgo.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,14 +24,14 @@ public class FollowDAO {
 		return sqlSession.selectOne(NAMESPACE+"followingCheck", followDTO);
 	}
 
-	public int followingCount(MemberDTO myPage) {
+	public int followingCount(String nickName) {
 		
-		return sqlSession.selectOne(NAMESPACE+"followingCount",myPage);
+		return sqlSession.selectOne(NAMESPACE+"followingCount",nickName);
 	}
 
-	public int followerCount(MemberDTO myPage) {
+	public int followerCount(String nickName) {
 		
-		return sqlSession.selectOne(NAMESPACE+"followerCount",myPage);
+		return sqlSession.selectOne(NAMESPACE+"followerCount",nickName);
 	}
 
 	public List<String> followingList(String nickName) {
@@ -40,5 +41,15 @@ public class FollowDAO {
 		
 		return sqlSession.selectList(NAMESPACE+"followingList", map);
 	}
-	
+
+	public List<MemberDTO> followList(List<String> followingList) {
+		List<MemberDTO> ar =  new ArrayList<MemberDTO>();
+		
+		for(int i = 0 ; i<followingList.size() ;i++){
+			ar.add((MemberDTO)sqlSession.selectOne(NAMESPACE+"followList", followingList.get(i))); 
+		}
+		
+		return ar;
+	}
+
 }

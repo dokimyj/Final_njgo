@@ -31,12 +31,12 @@ function doSend()
             if(result == 'SUCCESS')
             {
                 alert('비밀번호 재설정 안내 메일을 발송했습니다. 메일을 확인해 주세요.');
-                location.href = '../';
+                location.href = 'login';
             }
             else if(result == 'SNS_USER')
             {
-                alert('회원님은 SNS(facebook,카카오톡)로 가입하셨습니다. SNS로 로그인이 가능하십니다.');
-                location.href = '../';
+                alert('회원님은 SNS(카카오톡)로 가입하셨습니다. SNS로 로그인이 가능하십니다.');
+                location.href = 'login';
             }
             else
             {
@@ -51,6 +51,7 @@ function doSend()
     });
 
 }
+
 </script>
 <body>
 	<c:import url="../tmp/header.jsp"/>
@@ -70,4 +71,5 @@ function doSend()
 	
 	<c:import url="../tmp/footer.jsp"/>
 </body>
+
 </html>

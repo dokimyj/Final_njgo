@@ -43,7 +43,7 @@ public class MailController {
 			MemberDTO memberDTO = memberService.find_password(email);
 			String code = "NOT_EXIST";										// 성공/실패 code
 			
-			if(memberDTO !=null){
+			if(memberDTO !=null && !memberDTO.getLogin_mode().equals("SNS_join")){
 				 String subject = "넁장GO 계정 비밀번호 확인입니다.";   			//이메일 제목
 				 code = "SUCCESS";
 			        StringBuilder sb = new StringBuilder();
@@ -54,6 +54,8 @@ public class MailController {
 			        	System.out.println("이메일 발송에 실패했습니다.");
 			        	return "home";
 			        }	
+			}else if(memberDTO !=null && memberDTO.getLogin_mode().equals("SNS_join")){
+				code="SNS_USER";
 			}
 			model.addAttribute("code", code);
 			

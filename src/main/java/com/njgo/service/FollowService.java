@@ -19,20 +19,24 @@ public class FollowService {
 		return followDAO.followingCheck(followDTO);
 	}
 
-	public int followingCount(MemberDTO myPage) {
+	public int followingCount(String nickName) {
 		
-		return followDAO.followingCount(myPage);
+		return followDAO.followingCount(nickName);
 	}
 
-	public int followerCount(MemberDTO myPage) {
+	public int followerCount(String nickName) {
 		
-		return followDAO.followerCount(myPage);
+		return followDAO.followerCount(nickName);
 	}
-
+	// 팔로잉한 닉네임 리스트
 	public List<String> followingList(String nickName) {
 		
 		return followDAO.followingList(nickName);
 	}
-
+	// 팔로잉한 닉네임 리스트로 각 닉네임에대한 정보를 리스트로 가져옴
+	public List<MemberDTO> followList(List<String> followingList) {
+		
+		return followDAO.followList(followingList);
+	}
 	
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -159,22 +160,36 @@ public class MyPageController {
 	
 	// ======================================== Follow ===========================================
 	@RequestMapping(value="followingList")
-	public void followingList(String nickName){
+	public void followingList(String nickName, Model model,@RequestParam(defaultValue="1",required=false) Integer curPage){
 		// 팔로잉 리스트 가져오기 
+		ListInfo listInfo = new ListInfo();
+		listInfo.setCurPage(curPage);
+		listInfo.setPerPage(10);
+		listInfo.setRow(listInfo.getCurPage(),10);			// 페이지당 몇개씩 보여줄지
 		
 		List<String> followingList = followService.followingList(nickName);
-		System.out.println("following 인원 :"+followingList.size());
+		/*System.out.println("팔로워 리스트 : "+followingList.size());*/
 		
+		listInfo.makePage(followingList.size(), 5);					// 페이징처리 
 		
+		List<MemberDTO> f_List = followService.followList(followingList); 
+		/*System.out.println(" test : "+f_List.size());*/
+		List<Integer> f_count = new ArrayList<Integer>();
+		for( int i = 0 ; i < followingList.size();i++){
+			f_count.add(followService.followingCount(followingList.get(i)));
+		}
+		model.addAttribute("following_count", f_count);
+		model.addAttribute("f_List", f_List);
+		model.addAttribute("listInfo", listInfo);
 	}
-	
+	// 팔로우
 	@RequestMapping(value="follow",method=RequestMethod.POST)
 	public String follow(String login_nickName,String myPage_nickName, Model model){
 		
 		 int result = myPageService.follow(login_nickName,myPage_nickName); 
 		 return "redirect:myPage?nickName="+myPage_nickName;
 	}
-	
+	// 팔로우 취소
 	@RequestMapping(value="followCancel",method=RequestMethod.POST)
 	public String followCancel(String login_nickName,String myPage_nickName, Model model){
 		
@@ -200,8 +215,8 @@ public class MyPageController {
 		//following 체크 
 		// follower - following 존재 여부 확인
 		FollowDTO follow_check = followService.followingCheck(followDTO);
-		int followingCount = followService.followingCount(myPage);
-		int followerCount = followService.followerCount(myPage);
+		int followingCount = followService.followingCount(myPage.getNickName());
+		int followerCount = followService.followerCount(myPage.getNickName());
 		
 		if(follow_check != null){
 			model.addAttribute("following", "following");   // 존재함 

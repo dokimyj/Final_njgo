@@ -37,12 +37,12 @@
  	<select id="followingCheck" parameterType="FollowDTO" resultType="FollowDTO">
  		select * from follow where follower =#{follower} and following = #{following}
  	</select>
- 	<select id="followingCount" resultType="java.lang.Integer" parameterType="MemberDTO">
- 		select count(following) from follow where follower = #{nickName}
+ 	<select id="followingCount" resultType="java.lang.Integer" parameterType="String">
+ 		select count(following) from follow where follower = #{value}
  	</select>
  	
- 	<select id="followerCount" resultType="java.lang.Integer" parameterType="MemberDTO">
- 		select count(follower) from follow where following = #{nickName}
+ 	<select id="followerCount" resultType="java.lang.Integer" parameterType="String">
+ 		select count(follower) from follow where following = #{value}
  	</select>
  	
  	<delete id="followCancel" parameterType="java.util.Map">
@@ -53,6 +53,10 @@
  	</insert>
  	<select id="followingList" parameterType="java.util.Map" resultType="java.lang.String">
  		select follower from follow where following =#{nickName}
+ 	</select>
+ 	
+ 	<select id="followList" parameterType="String" resultType="MemberDTO">
+ 		select * from member where nickName = #{value}
  	</select>
  	
  </mapper>

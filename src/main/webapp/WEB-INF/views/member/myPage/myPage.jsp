@@ -25,9 +25,29 @@
 	
 	
 </script>
- 
+ <style>
+	div.scrollmenu {
+		margin-top :-60px;
+	    background-color: #333;
+	    overflow: auto;
+	    white-space: nowrap;
+	} 
+	
+	div.scrollmenu a {
+	    display: inline-block;
+	    color: white;
+	    text-align: center;
+	    padding: 14px;
+	    text-decoration: none;
+	}
+	
+	div.scrollmenu a:hover {
+	   
+	    color:black;
+	}
+</style>
 </head>  
-<body>
+<body style="background-color: white">
 	<c:import url="../../tmp/header.jsp" />
 
 	<section class="main_section">
@@ -50,7 +70,7 @@
 							<img alt="" id="myPhoto" >
 							<strong>${myPage.nickName }</strong>
 						
-						<span class="follow"><em>${followingCount}명 </em>팔로잉</span>
+						<span class="follow"><em>${followingCount}명 </em>팔로워</span>
 
 							<p class="link">
 								<a target="_blank" href="http://"></a>
@@ -112,12 +132,15 @@
 									</a></li>
 									<li><a href="/mypage/scraps"> <strong>스크랩</strong><em></em>
 									</a></li>
-									<li><a role="button" onclick="followingList('${myPage.nickName}')"> <strong>팔로잉</strong><em>${followerCount }</em>
+									<li><a role="button" onclick="followingList()"> <strong>팔로잉</strong><em>${followerCount }</em>
 									</a></li>
-										<li><a href="/mypage/following"> <strong>쪽지함</strong><em></em>
-									</a></li>
+									<c:if test="${myPage.nickName eq memberDTO.nickName }">
+											<li><a role="button" onclick="messageList()" > <strong>쪽지함</strong><em></em></a>
+												
+											</li>
 										<li><a href="/mypage/following"> <strong>주문내역</strong><em></em>
 									</a></li>
+									</c:if>
 								</ul>	
 							</c:if>
 							<c:if test="${myPage.grade > 1 }">
@@ -131,6 +154,14 @@
 							
 						</div>
 					</div>
+					
+					<div class="scrollmenu"  id="message" style="display:none ;margin-left: 470px; width: 50%;text-align: center; background-color: #ffcc00">
+					  <a role="button" onclick=""><strong>받은메세지함</strong></a>
+					  <a role="button" onclick=""><strong>보낸메세지함</strong></a>
+					  <a role="button" onclick=""><strong>신고 내역</strong></a>
+					  <a role="button" onclick=""><strong>메세지 작성</strong></a>
+					</div>
+
 					<!-- 뿌려주는 곳  -->
 					<div class="in_mypage" style="margin-left: 20px;">
 						<ul class="lst_recipe" id="result">
@@ -418,18 +449,34 @@
 			});	
 	});
 	 
-	 function followingList(nickName) {
+	 function followingList(num) {
+		 var nickName ="${myPage.nickName}";
+		 var curPage = num;
 		$.ajax({
 			url : "followingList",
 			type : "POST",
 			data :{
+				curPage : curPage,
 				nickName : nickName
 			},
 			success : function(data) {
+				/* 특정 태그를 선택하면 class="on" 으로 설정 */
+				$("#message").css("display","none");
+				$(".inner ul li:nth-child(n)").removeClass("on");
+				$(".inner ul li:nth-child(3)").addClass("on");
 				$("#result").html(data);
 			}
 		});
 	}
+	 
+	 //===================================== 쪽지함 =======================================
+	 
+     function messageList() {
+    		$(".inner ul li:nth-child(n)").removeClass("on");
+			$(".inner ul li:nth-child(4)").addClass("on");
+			$("#message").css("display","block"); 
+	 }
+	
 	 
 </script>
 </html>

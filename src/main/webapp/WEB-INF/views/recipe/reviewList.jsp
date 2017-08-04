@@ -30,11 +30,6 @@
 			njgo_off[i].src="../resources/images/kdk/fridge-rating-mouseover.png";
 		}
 	});
-	if($('#ratings').attr('title')=='0'){
-		$('#ratings').on("mouseleave", "img", function(){
-			$('.njgo_off').attr("src","../resources/images/kdk/fridge-rating-out.png");
-		});
-	}
 	$('#ratings').on("click", "img", function(){
 		var njgo_off=document.getElementsByClassName('njgo_off');
 		$('#ratings').attr('title', $(this).attr('title'));
@@ -43,6 +38,11 @@
 			njgo_off[i].name="check";
 		}
 	});
+	if($('#ratings').attr('title')=='0'){
+		$('#ratings').on("mouseleave", "img", function(){
+			$('.njgo_off').attr("src","../resources/images/kdk/fridge-rating-out.png");
+		});
+	}
 	$('#reply_btn').click(function(){
 		var repcont=$('#reply_contents').val();
 		var rating=$('#rating').attr('title');

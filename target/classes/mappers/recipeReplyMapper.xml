@@ -7,8 +7,9 @@
 		select COUNT(NUM) from RECIPE_REPLY where RECIPENUM=#{rnum}
 	</select>
 	<select id="list" parameterType="java.util.HashMap" resultType="com.njgo.dto.RecipeReplyDTO">
-		select * from (select ROWNUM R, C.* from (select * from RECIPE_REPLY where RECIPENUM=#{rnum} order by REF desc, STEP asc) C) where R between #{listInfo.startRow} and #{listInfo.lastRow}
+		select * from (select ROWNUM R, C.* from (select * from RECIPE_REPLY where RECIPENUM=#{rnum} order by REF asc, DEPTH asc, STEP desc) C) where R between #{listInfo.startRow} and #{listInfo.lastRow}
 	</select>
+	<!-- 주의: step만 desc, 나머지는 asc다... 이거 잘못알고있었음 -->
 	<insert id="write" parameterType="com.njgo.dto.RecipeReplyDTO">
 		insert into RECIPE_REPLY values(RECIPEREPLY_SEQ.NEXTVAL, #{recipenum}, #{writer}, #{contents}, SYSDATE, RECIPEREPLY_SEQ.CURRVAL, 0, 0)
 	</insert>

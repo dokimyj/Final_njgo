@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="../resources/css/common/basic.css">
 <link rel="stylesheet" href="../resources/css/kdk/recipeList_Search.css">
 <link rel="stylesheet" href="../resources/css/kdk/Main_Ingre.css">
-<link rel="stylesheet" href="http://d1hk7gw6lgygff.cloudfront.net/assets/application-661e969b01a864ad51eee95fed275e3a.css">
 <style>
 </style>
 </head>

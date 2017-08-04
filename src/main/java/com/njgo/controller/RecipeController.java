@@ -150,7 +150,7 @@ public class RecipeController {
 	@RequestMapping(value="replyUpdate", method=RequestMethod.GET)
 	public String replyUpdate(Integer num, Model model) throws Exception{
 		RecipeReplyDTO rrdto=recipeService.replyView(num);
-		model.addAttribute("content", rrdto.getContents());
+		model.addAttribute("content", rrdto);
 		return "/recipe/replyView";
 	}
 	

@@ -25,6 +25,9 @@ public class RecipeReplyDTO {
 		this.recipenum = recipenum;
 	}
 	public String getWriter() {
+		if(writer==null){
+			writer="a";
+		}
 		return writer;
 	}
 	public void setWriter(String writer) {

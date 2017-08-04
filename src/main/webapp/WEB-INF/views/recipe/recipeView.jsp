@@ -103,7 +103,6 @@
 		border-radius: 1rem;
 		padding: .5% .1% .1% 2%;
 		margin: 2% 50% .8% 5%;
-		border: 2px solid #ffcc00;
 		background: rgba(255, 255, 255, .9) fixed;
 		color: #595528;
 		font-size: 1.1em;
@@ -142,6 +141,7 @@
 			</div>
 			<div class=scrapbtn-claim>
 				<button><img src='../resources/images/kdk/blackheart.png'>&nbsp;스크랩&nbsp;${view.recipeDTO.scrap }</button>
+				<button>작성자에게&nbsp;&nbsp;<img src='../resources/images/kdk/Messaging-Message-icon.png'></button>
 				<button>신고하기</button>
 			</div>
 			<br>

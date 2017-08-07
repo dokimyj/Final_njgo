@@ -102,7 +102,7 @@
 							</div>
 							</div>			
 							<div class="channel_title">				
-								<div>${tvdto.foodname }</div>		
+								<div >${tvdto.foodname }</div>		
 							</div>
 							<div class="channel_info">
 								<div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${tvdto.title }</div><div></div>

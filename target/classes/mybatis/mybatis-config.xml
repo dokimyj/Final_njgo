@@ -20,6 +20,7 @@
 	<typeAliases> 
 		<typeAlias type="com.njgo.dto.MemberDTO" alias="MemberDTO"/>
 		<typeAlias type="com.njgo.dto.FollowDTO" alias="FollowDTO"/>
+		<typeAlias type="com.njgo.dto.MessageDTO" alias="MessageDTO"/>
 	</typeAliases>
 </configuration> 
 

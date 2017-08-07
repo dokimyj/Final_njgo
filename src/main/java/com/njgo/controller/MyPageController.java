@@ -158,7 +158,7 @@ public class MyPageController {
 	
 	}	
 	
-	// ======================================== Follow ===========================================
+	// ======================================== Follow START===========================================
 	@RequestMapping(value="followingList")
 	public void followingList(String nickName, Model model,@RequestParam(defaultValue="1",required=false) Integer curPage){
 		// 팔로잉 리스트 가져오기 
@@ -199,10 +199,10 @@ public class MyPageController {
 	
 	
 	
-	// ======================================== Follow ===========================================
+	// ======================================== Follow END===========================================
 	// 마이페이지 
 	@RequestMapping(value="myPage")
-	public void myPage(@RequestParam String nickName, HttpSession session , Model model){
+	public String myPage(@RequestParam String nickName, HttpSession session , Model model){
 		
 		MemberDTO login_member = (MemberDTO)session.getAttribute("memberDTO"); 	// 로그인 된 계정
 		
@@ -211,10 +211,16 @@ public class MyPageController {
 		
 		FollowDTO followDTO = new FollowDTO();								
 		followDTO.setFollower(myPage.getNickName());
-		followDTO.setFollowing(login_member.getNickName());
 		//following 체크 
 		// follower - following 존재 여부 확인
-		FollowDTO follow_check = followService.followingCheck(followDTO);
+		FollowDTO follow_check =null;
+		
+		// 로그인을안하고 uri로 접글했을때 , myPage 내에서 세션이 만료되어 비로그인상태인 경우
+		if(login_member!=null){
+			followDTO.setFollowing(login_member.getNickName());
+			follow_check = followService.followingCheck(followDTO);
+		}
+		
 		int followingCount = followService.followingCount(myPage.getNickName());
 		int followerCount = followService.followerCount(myPage.getNickName());
 		
@@ -222,12 +228,12 @@ public class MyPageController {
 			model.addAttribute("following", "following");   // 존재함 
 		}else{
 			model.addAttribute("follow", "follow");			// 존재하지 않음 
-		}	
+		}	 
 		model.addAttribute("followingCount", followingCount);
 		model.addAttribute("followerCount", followerCount);
 		session.setAttribute("myPage", myPage);
-		
-	}
+		return "member/myPage/myPage";   
+	}   
 	// ======================================  프로필 수정 ========================================================
 	@RequestMapping(value="profile_upload", method=RequestMethod.POST)
 	public ModelAndView profile_upload(HttpSession session , MultipartFile myPhoto, String info, String email)throws Exception{

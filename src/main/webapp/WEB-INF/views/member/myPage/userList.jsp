@@ -53,10 +53,13 @@
 				        <td class="myPage_td"><input class="user${i.count }" id="user_grade${i.count }" style="border: 0px;"  type="number" value="${list.grade }" readonly="readonly"></td>
 				        <td class="myPage_td"><input class="user${i.count }" id="user_point${i.count }" style="border: 0px;"  type="text" value="${list.point }" readonly="readonly"></td>
 				        <td class="myPage_td"><input class="user${i.count }" id="user_warn${i.count }" style="border: 0px;"  type="number" value="${list.w_count }" readonly="readonly"></td>
-			       
-			        <td id="correct_td${i.count }" style="text-align: center; "><input type="button" class=" btn btn-primary" id="correct_user${i.count }" onclick="correct_user('${i.count }')" value="수정"></td>
-			        <td style="text-align: center;"><input type="button" class=" btn btn-warning" id="warn_user${i.count }"  onclick="warning_user('${i.count }')" value="경고"></td>
-			        <td style="text-align: center;"><input type="button" class=" btn btn-danger" id="delete_user${i.count }"  onclick="delete_user('${i.count }')" value="탈퇴"></td>
+			          <c:if test="${myPage.grade > 2 }"> 
+			     		   <td id="correct_td${i.count }" style="text-align: center; "><input type="button" class=" btn btn-primary" id="correct_user${i.count }" onclick="correct_user('${i.count }')" value="수정"></td>
+			        	</c:if>
+			    	    <td style="text-align: center;"><input type="button" class=" btn btn-warning" id="warn_user${i.count }"  onclick="warning_user('${i.count }')" value="경고"></td>
+			          	<c:if test="${myPage.grade > 2 }"> 
+			        		<td style="text-align: center;"><input type="button" class=" btn btn-danger" id="delete_user${i.count }"  onclick="delete_user('${i.count }')" value="탈퇴"></td>
+			      		</c:if>
 			      </tr>
 		      </c:forEach>
 	   		</c:if>
@@ -74,8 +77,10 @@
 				        <td class="myPage_td"><input class="user${i.count }" id="user_warn${i.count }" style="border: 0px;"  type="text" value="${list.w_count }" readonly="readonly"></td>
 			       
 			        <td id="correct_td${i.count }" style="text-align: center; "><input type="button" class=" btn btn-primary" id="correct_user${i.count }" onclick="correct_user('${i.count }')" value="수정"></td>
-			        <td style="text-align: center;"><input type="button" class=" btn btn-warning" id="warn_user${i.count }"  onclick="warning_user('${i.count }')" value="경고"></td>
-			        <td style="text-align: center;"><input type="button" class=" btn btn-danger" id="delete_user${i.count }"  onclick="delete_user('${i.count }')" value="탈퇴"></td>
+				        <td style="text-align: center;"><input type="button" class=" btn btn-warning" id="warn_user${i.count }"  onclick="warning_user('${i.count }')" value="경고"></td>
+			        <c:if test="${myPage.grade > 2 }"> 
+				        <td style="text-align: center;"><input type="button" class=" btn btn-danger" id="delete_user${i.count }"  onclick="delete_user('${i.count }')" value="탈퇴"></td>
+			        </c:if>
 			      </tr>
 		      </c:forEach>
 	   		</c:if>
@@ -96,15 +101,15 @@
 		<div class="pageing" style="text-align: center;">
 			  <ul class="pagination" > 
 			  <c:if test="${listInfo.curBlock > 1 }">
-					<li><a href="userList?curPage=1">&lt&lt</a></li>
-					<li><a href="userList?curPage=${listInfo.startNum-1}">이전</a></li>
+					<li><a role="button" onclick="userList(1)">&lt&lt</a></li>
+					<li><a role="button" onclick="userList(${listInfo.startNum-1})">이전</a></li>
 			  </c:if>
 					<c:forEach begin="${listInfo.startNum }" step="1" end="${listInfo.lastNum }" var="i" >
 					    <li id="curPage${i}"><a role="button" onclick="userList(${i})">${i }</a></li>
 					</c:forEach>
 			  <c:if test="${listInfo.curBlock < listInfo.totalBlock }">
-				    <li><a href="userList?curPage=${listInfo.lastNum+1}">다음</a></li>
-				    <li><a href="userList?curPage=${listInfo.lastNum}">&gt&gt</a></li>
+				    <li><a role="button" onclick="userList(${listInfo.lastNum+1})">다음</a></li>
+				    <li><a role="button" onclick="userList(${listInfo.lastNum})">&gt&gt</a></li>
 			  </c:if>
 			  </ul>
 		</div>

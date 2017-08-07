@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+<mapper namespace="MessageMapper">
+	
+	<sql id="type">
+		<trim prefix="where">
+			<if test="category == 'general'">
+			    get_nickName =#{nickName} and category=#{category}
+			</if>	
+			<if test="category == 'report'">
+				get_nickName =#{nickName} and send_nickName ='운영자'
+			</if>
+			<if test="category == 'send'">
+				send_nickName =#{nickName}
+			</if>
+			
+		</trim>
+	</sql>
+	
+	<insert id="messageInsert" parameterType="MessageDTO">
+		insert into message values(meg_seq.nextval,#{title},#{contents},#{send_nickName},#{get_nickName},sysdate,#{category},0)
+	</insert>
+	
+	<select id="messageTotalCount" resultType="java.lang.Integer" parameterType="String">
+		select count(m_num) from message where get_nickName= #{nickName}
+	</select>
+	
+	<select id="messageList" resultType="MessageDTO" parameterType="java.util.Map">
+		select * from (
+    	select rownum R ,M.* from 
+		(select * from message <include refid="type"></include> order by send_time desc ) M)
+        where R BETWEEN #{listInfo.startRow} and #{listInfo.lastRow} 
+		
+	</select>
+	
+	<select id="messageView" resultType="MessageDTO" parameterType="int">
+		select * from message where m_num = #{m_num}
+	</select>
+	
+	<update id="messageUpdate" parameterType="int">
+		update message set status = 1 where m_num=#{m_num}
+	</update>
+	
+</mapper>

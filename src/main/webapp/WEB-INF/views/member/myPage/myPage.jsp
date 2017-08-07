@@ -18,7 +18,7 @@
 		alert("로그인 해주세요.");
 		location.href="../login";
 	}
-	if("${memberDTO.grade}"<3 && "${myPage.grade}">1){
+	if("${memberDTO.grade}"==1 && "${myPage.grade}">1){
 		alert("일반회원 따위가 들어올곳이 아니다. 돌아가라!!!");
 		location.href="../../";
 	}
@@ -88,8 +88,8 @@
 								<c:if test="${following eq 'following' && myPage.nickName ne memberDTO.nickName }">
 									<button id="followCancel_btn" class="btn_config call_profile">팔로우 취소</button>
 								</c:if> 
-						<!-- =============================The Modal ===============================-->
-								<div id="vProfileImageModal" class="modal in" role="dialog" aria-hidden="false" style="display: none; padding-right: 17px;">
+						<!-- =============================The Profile Modal Start===============================-->
+								<div class="modal in" id="profileModal" role="dialog" aria-hidden="false" style="display: none; padding-right: 17px;">
 							      <div class="modal-dialog" style="width:570px">
 							        <div class="modal-content" style="padding:0;">
 							          <div class="modal-header">
@@ -112,11 +112,10 @@
 							        </div>
 							      </div>
 							    </div>
-								
-								
-								
-								
-								<!-- <a href="javascript:;" class="btn_share">소개하기</a> -->
+							<!-- =================================== Profile Modal End ======================================= -->	
+							
+							
+	
 							</div>
 						</div>
 					</div>
@@ -156,10 +155,10 @@
 					</div>
 					
 					<div class="scrollmenu"  id="message" style="display:none ;margin-left: 470px; width: 50%;text-align: center; background-color: #ffcc00">
-					  <a role="button" onclick=""><strong>받은메세지함</strong></a>
-					  <a role="button" onclick=""><strong>보낸메세지함</strong></a>
-					  <a role="button" onclick=""><strong>신고 내역</strong></a>
-					  <a role="button" onclick=""><strong>메세지 작성</strong></a>
+					  <a role="button" onclick="messageList()"><strong>받은쪽지함</strong></a>
+					  <a role="button" onclick="messageSendList()"><strong>보낸쪽지함</strong></a>
+					  <a role="button" onclick="messageReportList()"><strong>운영자 쪽지함</strong></a>
+					  <a role="button" onclick="messageWrite('general')"><strong>쪽지 작성</strong></a>
 					</div>
 
 					<!-- 뿌려주는 곳  -->
@@ -177,7 +176,27 @@
 
 		</div>
 	</section>
-
+	
+	<!-- =============================The Message Modal Start===============================-->
+								<div id="messageModal" class="modal in" role="dialog" aria-hidden="false" style="display: none; padding-right: 17px;">
+							      <div class="modal-dialog" style="width:570px">
+							        <div class="modal-content" style="padding:0;">
+							          <div class="modal-header">
+							            <button type="button" class="close" id="message_close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="${pageContext.request.contextPath}/resources/images/common/btn_close.gif" alt="닫기"></span></button>
+							            <h4 class="modal-title" id="msgModalTitle"></h4>
+							          </div>
+							          <!-- ============= Modal body ==============  -->
+								          <div class="modal-body" id="messageModal_body" style="padding:10px;text-align:center;">
+								               
+									          
+								           </div>
+							           <!-- ============= Modal body ==============  -->
+							        </div>
+							      </div>
+							    </div>
+	<!-- =================================== Message Modal End ======================================= -->	
+								
+								
 	<c:import url="../../tmp/footer.jsp" />
 </body>
 <script type="text/javascript">
@@ -245,10 +264,10 @@
   			} // profileLoad
 	
 	$("#profile_btn").click(function() {
-		$(".modal").css("display","block");
+		$("#profileModal").css("display","block");
 	});
 	$(".close").click(function() {
-		$(".modal").css("display","none");
+		$("#profileModal").css("display","none");
 	});
 	
 	// When the user clicks anywhere outside of the modal, close it
@@ -470,13 +489,160 @@
 	}
 	 
 	 //===================================== 쪽지함 =======================================
-	 
-     function messageList() {
+	 //기본적으로 받은 메세지 리스트를 보여줌
+     function messageList(curPage) {
+		 var nickName ="${memberDTO.nickName}";
+		 var category ='general';
+		 
     		$(".inner ul li:nth-child(n)").removeClass("on");
 			$(".inner ul li:nth-child(4)").addClass("on");
 			$("#message").css("display","block"); 
+			$.ajax({
+				url : "messageList",
+				type :"POST",
+				data :{
+					nickName : nickName,
+					curPage : curPage,
+					category : category
+				},
+				success : function(data) {
+					$("#result").html(data);
+				}
+			});
 	 }
-	
 	 
+     //보낸쪽지함
+     function messageSendList(curPage) {
+		 var nickName ="${memberDTO.nickName}";
+		 var category ='send';
+		 
+    		$(".inner ul li:nth-child(n)").removeClass("on");
+			$(".inner ul li:nth-child(4)").addClass("on");
+			$("#message").css("display","block"); 
+			$.ajax({
+				url : "messageList",
+				type :"POST",
+				data :{
+					nickName : nickName,
+					curPage : curPage,
+					category : category
+				},
+				success : function(data) {
+					$("#result").html(data);
+				}
+			});
+	 }
+	 
+	 // 운영자 쪽지 리스트
+     function messageReportList(curPage) {
+		 var nickName ="${memberDTO.nickName}";
+		 var category ="report";
+		 
+    		$(".inner ul li:nth-child(n)").removeClass("on");
+			$(".inner ul li:nth-child(4)").addClass("on");
+			$("#message").css("display","block"); 
+			$.ajax({
+				url : "messageList",
+				type :"POST",
+				data :{
+					nickName : nickName,
+					curPage : curPage,
+					category : category
+				},
+				success : function(data) {
+					$("#result").html(data);
+				}
+			});
+	 }
+	 
+	 
+	 // messageWrite.jsp -> messageModal-body에 넣어줌
+	 function messageWrite(category) {
+		 if(category =='general'){
+			 $("#msgModalTitle").text("쪽지 보내기");
+		 }else{
+			 $("#msgModalTitle").text("신고쪽지 보내기");
+		 }
+		//var nickName = "${memberDTO.nickName}";
+		//1. 제목
+		//2. 받는사람
+	
+		$.ajax({
+			url : "messageWrite",
+			data : {
+			//	nickName : nickName,
+				category :category
+			},
+			success : function(data) {
+				$("#messageModal_body").html(data);
+				$("#messageModal").css("display","block");
+			}
+		});
+	}
+	
+	 // message send
+	 $(".modal-body").on("click","#message_send",function() {
+		 	var send_nickName = "${memberDTO.nickName}";		// 로그인한 계정의 닉네임
+		 	var get_nickName = "${myPage.nickName}"; 		// 레시피의 닉네임을 가져와야됨
+		 	var contents = $("#contents").val();				// 메세지 내용
+		 	var title = "쥬시의 새로운 레시피 초코수박바나나!!!";		// 레시피의 제목
+		 	var category = $("#category").val();				// 작성자에게 질문 하는 메세지 : general , 신고 = report
+		 
+			$.ajax({
+				url : "messageSend",
+				type : "POST",
+				data : {
+					send_nickName : send_nickName,
+					get_nickName : get_nickName,
+					contents : contents,
+					title : title,
+					category : category
+				},
+				success : function(data) {
+					alert("쪽지를 보냈습니다.");
+					$("#messageModal").css("display","none");
+				}
+			})
+	});
+	 
+	 //message View
+	 function messageView(m_num) {
+		 $("#msgModalTitle").text("쪽지 보기");
+		var category = $("#message_category").val();
+		 $.ajax({
+				url : "messageView",
+				data : {
+					m_num : m_num,
+					category : category
+				},
+				success : function(data) {
+					$("#messageModal_body").html(data);
+					$("#messageModal").css("display","block");
+				}
+			}); 
+	}
+	 
+	 $("#message_close").click(function() {
+			$("#messageModal").css("display","none");
+		});
+	 
+	 
+	 //messageReply
+	 function messageReply(nickName) {
+		 $("#msgModalTitle").text("답변 쪽지 보내기");
+		 var category = $("#category").val();
+		 
+		 $.ajax({
+				url : "messageWrite",
+				data : {
+				 	nickName : nickName,
+					category :category
+				},
+				success : function(data) {
+					$("#messageModal_body").html(data);
+					$("#messageModal").css("display","block");
+				}
+			});
+	}
 </script>
 </html>

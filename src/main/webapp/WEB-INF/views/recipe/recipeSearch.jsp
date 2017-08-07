@@ -22,7 +22,7 @@
 						<div>${dto.foodname }</div>		
 					</div>
 					<div class="channel_info">
-						<div>${dto.title }</div><div></div>
+						<div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${dto.title }</div><div></div>
 					</div>
 					<div class=misc>
 						<div class="elaspedtime" style="display:inline">
@@ -57,7 +57,7 @@
 		<div id=tvresult>
 			<c:forEach items="${list.tvlist }" var="tvdto">
 				<div class=main_concep_channel title=${tvdto.num } data-toggle="modal" style="cursor:pointer" data-target="#recipeView">		
-					<div class="channel_img" style='background-image:url("../resources/upload/${dto.rep_pic }")'>
+					<div class="channel_img" style='background-image:url("../resources/upload/${tvdto.rep_pic }")'>
 					<div id="overlays${tvdto.num }" class=overlays>
 						&nbsp;
 						<br>
@@ -68,7 +68,7 @@
 						<br>					
 						<br>
 						<br>
-						<div id="creators${tvdto.num }" class=creators>by ${dto.writer}</div>
+						<div id="creators${tvdto.num }" class=creators>by ${tvdto.writer}</div>
 						<br>
 					</div>
 					</div>			
@@ -76,8 +76,21 @@
 						<div>${tvdto.foodname }</div>		
 					</div>
 					<div class="channel_info">
-						<div>${tvdto.title }</div><div></div>
-					</div>	
+						<div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${tvdto.title }</div><div></div>
+					</div>
+					<div class=misc>
+							<div class="elaspedtime" style="display:inline">
+								<div style="display:inline"><img src="../resources/images/kdk/icon-157349_640.png" style="display:inline">&nbsp;&nbsp;${tvdto.elapsedtime }</div>
+							</div>	
+							&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+							<div class="scraps" style="display:inline">
+								<div style="display:inline"><img src="../resources/images/kdk/blackheart.png" style="display:inline">&nbsp;&nbsp;${tvdto.scrap }</div>
+							</div>
+							&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+							<div class="ratings" style="display:inline">
+								<div style="display:inline"><img src="../resources/images/kdk/fridge-over.png" style="display:inline">&nbsp;&nbsp;${tvdto.rating }</div>
+							</div>
+					</div>		
 				</div>
 		</c:forEach>
 		</div>
@@ -114,25 +127,16 @@
 			$('#counts'+num).css("visibility", "hidden");		
 		});
 		$('.main_concep_channel').click(function(){
-			jQuery.ajaxSettings.traditional = true;
-			var ar=new Array();
 			var curIng=document.getElementsByName('curIng');
-			for(i=0;i<curIng.length;i++){
-				ar.push(curIng[i].value);
-			}
-			if(curIng.length*1==0){
-				ar.push('undefined');
-			}
-			$.ajax({
-				url: "recipeView",
-				method: "GET",
-				data:{
-					curIng:ar,
-					num:$(this).attr('title')
-				},
-				success:function(data){
+			var url="recipeView?num="+$(this).attr('title');
+			if(curIng.length*1!=0){
+				for(i=0;i<curIng.length;i++){
+					url+="&curIng="+curIng[i].value;
 				}
-			});
+			}else{
+				url+="&curIng=undefined"
+			}
+			location.href=url;
 		});
 		$('.c_kind').click(function(){
 			$('.c_kind').attr('title', 'inactive');

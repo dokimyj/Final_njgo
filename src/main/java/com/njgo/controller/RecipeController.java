@@ -318,6 +318,30 @@ public class RecipeController {
 	public void recipeUpdateForm(int recipeNum, Model model) throws Exception {
 		HashMap<String, Object> recipeMap = recipeService.recipeView(recipeNum);
 		
+		List<IngredientsDTO> inArray = (List<IngredientsDTO>) recipeMap.get("ingredient");
+		List<IngredientsDTO> newArray = new ArrayList<IngredientsDTO>();
+		List<Integer> count = new ArrayList<Integer>();
+		
+		int tmp = 0;
+		
+		for(int i=0;i<inArray.size();i++) {	
+			if(i+1 < inArray.size()) {
+				if(inArray.get(i).getKind().equals(inArray.get(i+1).getKind())) {
+					tmp++;
+				} else {
+					count.add(tmp);
+					tmp = 0;
+				}
+			} else {
+				count.add(tmp);
+			}
+		}
+		
+		for(int i:count) {
+			System.out.println(i);
+		}
+		model.addAttribute("ingredient", inArray);
+		model.addAttribute("count", count);
 		model.addAttribute("map", recipeMap);
 	}
 	

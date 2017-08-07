@@ -39,7 +39,7 @@
 			<foreach collection="collection" item="num" open="(" separator="," close=")">
 				#{num}
 			</foreach>
-		 and not WRITER='관리자'		 
+		 and not WRITER='운영자'		 
 		</trim>
 		 order by
 		<if test="listInfo.order=='regdate'">
@@ -60,7 +60,7 @@
 			<foreach collection="collection" item="num" open="(" separator="," close=")">
 				#{num}
 			</foreach>
-		 and WRITER='관리자'		 
+		 and WRITER='운영자'		 
 		</trim>
 		 order by
 		<if test="listInfo.order=='regdate'">

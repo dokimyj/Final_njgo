@@ -346,7 +346,7 @@
 		    	location.href="search?find="+find.value
 			}
 		}
-		function ingsearch(find){
+		function ingsearch2(find){
 			$.ajax({
 				url:"inglist",
 				type:"GET",
@@ -354,26 +354,25 @@
 					find:find.value
 				},
 				success:function(data){
-					$('.ings').html(data.trim());
+					$('.ings2').html(data.trim());
 				}
 			});
 		}
-		$('.ing_btn').click(function(){
-			var ings=$('.ingkeyword').val();
-			$('.ing_search').append('<span class="btn btn-warning ingx" style="margin: 0 1% 1% 0" title="'+ings+'">'+ings+'<strong class="badge ing" style="cursor:pointer">X</strong></span>');
-			$('.ingkeyword').val('');
+		$('.ing_btn2').click(function(){
+			var ings=$('.ingkeyword2').val();
+			$('.ing_search2').append('<span class="btn btn-warning ingx2" style="margin: 0 1% 1% 0" title="'+ings+'">'+ings+'<strong class="badge ing2" style="cursor:pointer">X</strong></span>');
+			$('.ingkeyword2').val('');
 		});
-		$('.ing_search').on("click", ".ingx", function(){
+		$('.ing_search2').on("click", ".ingx2", function(){
 			$(this).remove();
 		});
-		$('.isearch_btn').click(function(){
-			var url="isearch";
-			var x=document.getElementsByClassName('ingx');
+		$('.isearch_btn2').click(function(){
+			var url="isearch?curPage=1";
+			var x=document.getElementsByClassName('ingx2');
 			for(i=0;i<x.length;i++){
-				url+="?ingredients="+x[i].title+"&";
+				url+="&ingredients="+x[i].title;
 			}
-			url+="curPage=1";
-			if($('.ing_search').html()!=''){
+			if($('.ing_search2').html()!=''){
 				location.href=url;
 			}else{
 				alert('재료를 선택하신 후 검색해 주세요!');

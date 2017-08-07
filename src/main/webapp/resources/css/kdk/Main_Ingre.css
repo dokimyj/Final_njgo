@@ -15,18 +15,18 @@
 	.fridge>h3{
 		color: white;
 	}
-	.ingkeyword{
+	.ingkeyword, .ingkeyword2{
 		width:50%;
 		height:50px;
 		text-align:center;
 		margin:0 auto;
 		border-radius:5px;
 	}
-	.ing_btn{
+	.ing_btn, .ing_btn2{
 		height:50px;
 		width:88px;
 	}
-	.ing_search{
+	.ing_search, .ing_search2{
 		border: 1px solid #ffcc00;
 		border-radius: 5px;
 		background-color: white;

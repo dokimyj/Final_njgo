@@ -6,7 +6,7 @@
 	<input type="text" name="contents" id="reply_contents">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=button id=reply_btn class="btn btn-warning" value="등록">
 </div>
 <hr>
-
+<div id=replyarea>
 <c:forEach items="${list}" var="rdto">
 	<div class="reply_list" id="${rdto.num}">
 		<c:if test="${rdto.depth>0 }">
@@ -15,11 +15,11 @@
 		</c:forEach>
 		</c:if>
 		<%-- <c:if test='${rdto.writer eq member.nickname}'> --%>
-		<span class="rmod" title="${rdto.num}">수정</span>
-		<span class="rdel" title="${rdto.num}">삭제</span>
+		<span class="rmod" title="${rdto.num}" style="border:1px solid black; border-radius:3px; cursor:pointer;">수정</span>
+		<span class="rdel" title="${rdto.num}" style="border:1px solid black; border-radius:3px; cursor:pointer;">삭제</span>
 		<%-- </c:if> --%>
-		<span class="r_reply" title="${rdto.num}">답글</span>
-		<span class="r_id">${rdto.writer}</span><span class="r_date">${rdto.time}</span>
+		<span class="r_reply" title="${rdto.num}" style="border:1px solid black; border-radius:3px; cursor:pointer;">답글</span>
+		<span class="r_id" style="cursor:pointer;">${rdto.writer}</span><span class="r_date">${rdto.time}</span>
 		<br>
 		<c:if test="${rdto.depth>0 }">
 		<c:forEach begin="1" end="${rdto.depth }" step="1">
@@ -27,9 +27,13 @@
 		</c:forEach>
 		</c:if>
 			<div class="r_con" style="display:inline">${rdto.contents}</div>
-		<p id=replyinput style="display:none"><input type="text" name="contents" id="replyReply_contents">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=button id=replyReply_btn class="btn btn-warning" value="등록"></p>
+		<p id=replyinput style="display:none"><input type="text" name="contents" id="replyReply_contents">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type=button id=replyReply_btn class="btn btn-warning" style="background-color:#ffcc00" value="등록">&nbsp;&nbsp;
+			<input type=button id=replyMod_cancel class="btn btn-warning" style="background-color:#ffcc00" value="취소">
+		</p>
 	</div>
 </c:forEach>
+</div>
 				<div id=pagers>
 					<ul class="pagination">
 						<c:if test="${listInfo.curBlock>1 }">
@@ -75,7 +79,7 @@
 	$(".reply_list").on("click",".rmod",function(){
     	var num = $(this).attr("title");
     	var rnum=$('#recipenum').val();
-    	$(".reply_list").load("../recipe/replyUpdate?num="+num+"&recipenum="+rnum);
+    	$("#replyarea").load("../recipe/replyUpdate?num="+num+"&recipenum="+rnum);
      });	
 	$(".reply_list").on("click", ".r_reply", function(){
 		var num = $(this).attr("title");
@@ -100,6 +104,11 @@
 				$('#pagearea').html(data.trim());
 			}
 		});
+	});
+	$("#replyMod_cancel").on("click", function(){
+		if(confirm('작성을 취소하시겠습니까?')){
+			location.reload();	
+		}
 	});
 </script>
 </div>

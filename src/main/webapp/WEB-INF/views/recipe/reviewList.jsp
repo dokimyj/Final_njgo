@@ -16,9 +16,9 @@
 <c:forEach items="${list}" var="rdto">
 	<div class="reply_list" id="${rdto.num}">
 		<%-- <c:if test='${rdto.writer eq member.nickname}'> --%>
-			<span class="rdel" title="${rdto.num}">삭제</span>
+			<span class="rdel" title="${rdto.num}" style="border:1px solid black; border-radius:3px; cursor:pointer;">삭제</span>
 		<%-- </c:if> --%>
-		<span class="r_id">${rdto.writer}</span><span class="r_date">${rdto.rating}.0 / 5.0</span>
+		<span class="r_id">${rdto.writer}</span><span class="r_date" style="font-size:1.1em">${rdto.rating}.0 / 5.0</span>
 		<p><div class="r_con">${rdto.contents}</div></p>
 	</div>
 </c:forEach>

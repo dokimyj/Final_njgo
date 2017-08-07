@@ -39,15 +39,13 @@
 	}
 	.ing_section{
 		padding:5%;
-	}
-	.ing_section>ul>li{
-		list-style-type: none;
-	}
-	.ingres{
 		margin: 0 auto;
 		width: 85%;
 		background-color: #f1f1f2;
 		border-radius: 5px;
+	}
+	.ing_section>ul>li{
+		list-style-type: none;
 	}
 	.step_section{
 		padding:5%;
@@ -76,7 +74,7 @@
 		margin: 0 auto;
 		text-align: center;
 	}
-	#reply_contents {
+	#reply_contents, #replyReply_contents, #replyMod_contents {
 		background: none;
 		border-radius: 5%;
 		width: 80%;
@@ -146,6 +144,7 @@
 			</div>
 			<br>
 		</article>
+		<br>
 		<article class=ing_section>
 			<c:set var="tmp" value="0"/>
 				<c:forEach items="${count}" var="c" varStatus="i">
@@ -169,11 +168,19 @@
 					</c:if>
 			</c:forEach>
 		</article>
+		<br>
+		<hr>
 		<article class=step_section>
 			<c:forEach items="${view.steps }" var="step">
 				<strong>${step.step+1 }</strong>&nbsp;&nbsp;&nbsp;<span>${step.explain }</span>
 				<br>
-				<p><img width=100% height=100% src="../resources/upload/${step.fname }"></p><br>
+				<p><img width=100% height=25% src="../resources/upload/${step.fname }"></p><br>
+			</c:forEach>
+		</article>
+		<article class=tag_section>
+			<span><img src="../resources/images/kdk/icon_tag.png"></span>
+			<c:forEach items="${view.hashtags }" var="tags">
+				<a href="search?find=${tags.hashtag }">#${tags.hashtag }&nbsp;&nbsp;</a>
 			</c:forEach>
 		</article>
 		<article class=reply-review_section>

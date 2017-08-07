@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.mail.Session;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -187,14 +188,15 @@ public class MyPageController {
 	public String follow(String login_nickName,String myPage_nickName, Model model){
 		
 		 int result = myPageService.follow(login_nickName,myPage_nickName); 
-		 return "redirect:myPage?nickName="+myPage_nickName;
+		 return "redirect:myPage?nickName=test1";
 	}
 	// 팔로우 취소
 	@RequestMapping(value="followCancel",method=RequestMethod.POST)
 	public String followCancel(String login_nickName,String myPage_nickName, Model model){
 		
 		 int result = myPageService.followCancel(login_nickName,myPage_nickName);
-		 return "redirect:myPage?nickName="+myPage_nickName;
+		 
+		 return "redirect:myPage?nickName=test1";  
 	}
 	
 	
@@ -202,12 +204,17 @@ public class MyPageController {
 	// ======================================== Follow END===========================================
 	// 마이페이지 
 	@RequestMapping(value="myPage")
-	public String myPage(@RequestParam String nickName, HttpSession session , Model model){
+	public String myPage(@RequestParam String nickName, HttpSession session , Model model)throws Exception{
+		
+		System.out.println("myPage nickName : "+nickName);
 		
 		MemberDTO login_member = (MemberDTO)session.getAttribute("memberDTO"); 	// 로그인 된 계정
 		
 		MemberDTO myPage = memberService.nickNameCheck(nickName);				// 자신 또는 다른 사람의 myPage로 접속한경우 
-																				// myPage만의 DTO를 생성함
+		if(myPage ==null){
+			model.addAttribute("message", "존재하지않는 닉네임입니다.");
+			return "home";
+		}																		// myPage만의 DTO를 생성함
 		
 		FollowDTO followDTO = new FollowDTO();								
 		followDTO.setFollower(myPage.getNickName());

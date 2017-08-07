@@ -22,7 +22,13 @@
 			 <label class="control-label " style="padding: 0px;margin-top:5px;float: left;"  >받는사람:</label>
     		  <div class="col-xs-10">     
     		  	<!-- 받는사람 -->     
-    		    <input type="text" class="form-control col-xs-2" name="get_nickName" id="get_nickName" style="width: 100%;" value="${nickName }" readonly="readonly" >
+    		  	<c:if test="${category eq 'general' || category eq'reportList' }">
+    		  		 <input type="text" class="form-control col-xs-2" name="get_nickName" id="get_nickName" style="width: 100%;" value="${nickName }" readonly="readonly" >
+    		  	</c:if>
+    		  	<c:if test="${category eq 'report' }">
+    		  		 <input type="text" class="form-control col-xs-2" name="get_nickName" id="get_nickName" style="width: 100%;" value="운영자" readonly="readonly" >
+    		  	</c:if> 
+    		  
     		  </div>
 			<br><br><br>
 	  		<textarea class="form-control" name="contents" id="contents" rows="8" id="comment"></textarea>

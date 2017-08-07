@@ -94,6 +94,7 @@ public class MemberService {
 		
 		return memberDAO.memberTotalCount(data);
 	}
+
 	
 	
 	

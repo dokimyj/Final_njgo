@@ -28,7 +28,7 @@
 								</c:when>
 
 								<c:when test="${list.myPhoto != 'sns' }">
-									<img style="width:100px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}" id="memberBtn">
+									<img style="width:100px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/upload/${list.myPhoto}" id="memberBtn">
 								</c:when>
 							</c:choose>
 							

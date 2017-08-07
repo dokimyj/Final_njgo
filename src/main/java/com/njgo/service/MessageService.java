@@ -20,9 +20,9 @@ public class MessageService {
 		return messageDAO.messageInsert(messageDTO);
 	}
 
-	public int messageTotalCount(String nickName) {
+	public int messageTotalCount(String nickName, String category) {
 	
-		return messageDAO.messageTotalCount(nickName);
+		return messageDAO.messageTotalCount(nickName,category);
 	}
 
 	public List<MessageDTO> messageList(ListInfo listInfo, String category, String nickName) {
@@ -30,9 +30,9 @@ public class MessageService {
 		return messageDAO.messageList(listInfo,category,nickName);
 	}
 
-	public MessageDTO messageView(int m_num) {
+	public MessageDTO messageView(int m_num, String category) {
 	
-		return messageDAO.messageView(m_num);
+		return messageDAO.messageView(m_num,category);
 	}
 	
 }

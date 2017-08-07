@@ -124,10 +124,10 @@
 
 					<div class="tab_st1">
 						<div class="inner">
-							<!-- =============================== MyPage 기능 =============================  -->
+							<!-- =============================== MyPage 기능 (일반 회원 메뉴) =============================  -->
 							<c:if test="${myPage.grade < 2 }">
 								<ul>
-									<li class="on"><a href="/mypage"> <strong>마이레시피</strong><em></em>
+									<li class="off"><a href="/mypage"> <strong>마이레시피</strong><em></em>
 									</a></li>
 									<li><a href="/mypage/scraps"> <strong>스크랩</strong><em></em>
 									</a></li>
@@ -142,23 +142,24 @@
 									</c:if>
 								</ul>	
 							</c:if>
+							<!--============================== 운영자, 관리자 메뉴 ====================================  -->
 							<c:if test="${myPage.grade > 1 }">
 								<ul>
-									<li class="on"><a role="button" id="userList"> <strong>사용자 리스트</strong>
+									<li class="off"><a role="button" id="userList"> <strong>사용자 리스트</strong>
 									</a></li>
-									<li class="off"><a href="/mypage"> <strong>신고함 </strong><em>0</em>
+									<li class="off"><a role="button" onclick="messageList(1,'reportList')"> <strong>신고함 </strong><em></em>
 									</a></li>
 								</ul>
 							</c:if>
 							
 						</div>
 					</div>
-					
+					<!-- =============================================== 쪽지 Message  ==================================================  -->
 					<div class="scrollmenu"  id="message" style="display:none ;margin-left: 470px; width: 50%;text-align: center; background-color: #ffcc00">
-					  <a role="button" onclick="messageList()"><strong>받은쪽지함</strong></a>
-					  <a role="button" onclick="messageSendList()"><strong>보낸쪽지함</strong></a>
-					  <a role="button" onclick="messageReportList()"><strong>운영자 쪽지함</strong></a>
-					  <a role="button" onclick="messageWrite('general')"><strong>쪽지 작성</strong></a>
+					  <a role="button" onclick="messageList(1,'general')"><strong>받은쪽지함</strong></a>
+					  <a role="button" onclick="messageList(1,'send')"><strong>보낸쪽지함</strong></a>
+					  <a role="button" onclick="messageList(1,'report')"><strong>운영자 쪽지함</strong></a>
+					  <a role="button" onclick="messageWrite('report')"><strong>쪽지 작성</strong></a>
 					</div>
 
 					<!-- 뿌려주는 곳  -->
@@ -211,7 +212,7 @@
 		// SNS 회원 처음 가입하면 myPhoto = "sns" 값 , 즉 카카오에 설정되있는 기본 이미지 경로이므로 
 		// sns 값이라면 프로필 수정하기 전 이므로 세션에 저장해놓은 kakao 이미지 경로를 src에 넣어준다.
 		else if("${myPage.myPhoto}"=="sns"){
-			$("#myPhoto").attr("src","${memberDTO.sns_photo}");	
+			$("#myPhoto").attr("src","${myPage.sns_photo}");	
 			$("#profile_img").attr("src","${memberDTO.sns_photo}");	
 		}
 		// 세션에 저장된 member의 myPhoto 파일 이름을 가져옴
@@ -280,6 +281,8 @@
 	/* ============================================ UserList ======================================================== */
 	// 모든 멤버 리스트형식으로 불러옴
 	$("#userList").click(function() {
+		$(".inner ul li:nth-child(n)").removeClass("on");
+		$(".inner ul li:nth-child(1)").addClass("on");
 		$.ajax({
 			url : "userList",
 			data : {
@@ -490,13 +493,17 @@
 	 
 	 //===================================== 쪽지함 =======================================
 	 //기본적으로 받은 메세지 리스트를 보여줌
-     function messageList(curPage) {
+     function messageList(curPage,category) {
 		 var nickName ="${memberDTO.nickName}";
-		 var category ='general';
-		 
+		 	
+		 if(category=='reportList'){
+			 $(".inner ul li:nth-child(n)").removeClass("on");
+			 $(".inner ul li:nth-child(2)").addClass("on");
+		 }else{
     		$(".inner ul li:nth-child(n)").removeClass("on");
 			$(".inner ul li:nth-child(4)").addClass("on");
 			$("#message").css("display","block"); 
+		 }
 			$.ajax({
 				url : "messageList",
 				type :"POST",
@@ -511,51 +518,9 @@
 			});
 	 }
 	 
-     //보낸쪽지함
-     function messageSendList(curPage) {
-		 var nickName ="${memberDTO.nickName}";
-		 var category ='send';
-		 
-    		$(".inner ul li:nth-child(n)").removeClass("on");
-			$(".inner ul li:nth-child(4)").addClass("on");
-			$("#message").css("display","block"); 
-			$.ajax({
-				url : "messageList",
-				type :"POST",
-				data :{
-					nickName : nickName,
-					curPage : curPage,
-					category : category
-				},
-				success : function(data) {
-					$("#result").html(data);
-				}
-			});
-	 }
+   
 	 
-	 // 운영자 쪽지 리스트
-     function messageReportList(curPage) {
-		 var nickName ="${memberDTO.nickName}";
-		 var category ="report";
-		 
-    		$(".inner ul li:nth-child(n)").removeClass("on");
-			$(".inner ul li:nth-child(4)").addClass("on");
-			$("#message").css("display","block"); 
-			$.ajax({
-				url : "messageList",
-				type :"POST",
-				data :{
-					nickName : nickName,
-					curPage : curPage,
-					category : category
-				},
-				success : function(data) {
-					$("#result").html(data);
-				}
-			});
-	 }
-	 
-	 
+	 // 쪽지 쓰기
 	 // messageWrite.jsp -> messageModal-body에 넣어줌
 	 function messageWrite(category) {
 		 if(category =='general'){
@@ -580,14 +545,18 @@
 		});
 	}
 	
-	 // message send
+	 // message send  쪽지 보내기
 	 $(".modal-body").on("click","#message_send",function() {
-		 	var send_nickName = "${memberDTO.nickName}";		// 로그인한 계정의 닉네임
-		 	var get_nickName = "${myPage.nickName}"; 		// 레시피의 닉네임을 가져와야됨
-		 	var contents = $("#contents").val();				// 메세지 내용
-		 	var title = "쥬시의 새로운 레시피 초코수박바나나!!!";		// 레시피의 제목
-		 	var category = $("#category").val();				// 작성자에게 질문 하는 메세지 : general , 신고 = report
 		 
+		 	var get_nickName = 	$("#get_nickName").val(); 								
+		 	var contents = $("#contents").val();				// 메세지 내용
+		 	var title = $("#title").val();						
+		 	var category = $("#category").val();				// 작성자에게 질문 하는 메세지 : general , 신고 = report
+		 	var send_nickName = "${memberDTO.nickName}";		// 로그인한 계정의 닉네임
+		 	if(category =='reportList'){
+		 		send_nickName ='운영자';
+		 	}
+		 	
 			$.ajax({
 				url : "messageSend",
 				type : "POST",
@@ -596,16 +565,18 @@
 					get_nickName : get_nickName,
 					contents : contents,
 					title : title,
-					category : category
+					category : category,
+					
 				},
 				success : function(data) {
 					alert("쪽지를 보냈습니다.");
+					messageList(1 , category);
 					$("#messageModal").css("display","none");
 				}
 			})
 	});
 	 
-	 //message View
+	 //message View  쪽지 보기
 	 function messageView(m_num) {
 		 $("#msgModalTitle").text("쪽지 보기");
 		var category = $("#message_category").val();
@@ -624,10 +595,12 @@
 	 
 	 $("#message_close").click(function() {
 			$("#messageModal").css("display","none");
-		});
+			
+			messageList(1 , $("#category").val());
+	});
 	 
 	 
-	 //messageReply
+	 //messageReply 쪽지 답변
 	 function messageReply(nickName) {
 		 $("#msgModalTitle").text("답변 쪽지 보내기");
 		 var category = $("#category").val();
@@ -644,5 +617,7 @@
 				}
 			});
 	}
+	 
+	
 </script>
 </html>

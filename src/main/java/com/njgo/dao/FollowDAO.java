@@ -47,8 +47,8 @@ public class FollowDAO {
 		
 		for(int i = 0 ; i<followingList.size() ;i++){
 			ar.add((MemberDTO)sqlSession.selectOne(NAMESPACE+"followList", followingList.get(i))); 
+			System.out.println("following List : "+followingList.get(i));
 		}
-		
 		return ar;
 	}
 

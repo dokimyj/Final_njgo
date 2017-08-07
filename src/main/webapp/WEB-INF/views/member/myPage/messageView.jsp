@@ -27,6 +27,7 @@
 			<br><br><br>
 	  		<textarea style="background-color: white;" class="form-control" name="contents" id="contents" rows="8" id="comment" readonly="readonly">${messageDTO.contents }</textarea>
 	  		<input type="hidden" id="category" value="${category }">
+	  		<input type="hidden" id="m_num" value="${messageDTO.m_num }">
 	  		<c:if test="${category ne 'send' }">
 	  			<button class="btn btn-success" onclick="messageReply('${messageDTO.send_nickName }')"  style="margin-top: 10px;margin-bottom:10px; float: right;width: 120px;"> 답변 </button>
 	  		</c:if>

@@ -23,7 +23,7 @@
         	<c:if test="${category eq 'send' }">
         		받는사람
         	</c:if>
-        	<c:if test="${category eq 'general' || category eq 'report' }">
+        	<c:if test="${category eq 'general' || category eq 'report' || category eq'reportList' }">
         		보낸사람
         	</c:if>
         </th>
@@ -35,10 +35,15 @@
 	    <c:forEach items="${m_List }" var="list" step="1"  varStatus="i">
 		      <tr>
 		        <td><strong>${listInfo.startRow-1 + i.count }</strong></td>
-		        <td>${list.send_nickName }</td>
+		        <c:if test="${category eq 'general' || category eq 'report' || category eq'reportList'}">
+			        <td>${list.send_nickName }</td>
+        		</c:if>
+        		  <c:if test="${category eq 'send' }">
+			        <td>${list.get_nickName }</td>
+        		</c:if>
 		        <td><a role="button" onclick="messageView('${list.m_num}')">
-		        <c:if test="${list.status == 0 }"><strong> ${list.title }</strong> </c:if>
-		      	<c:if test="${list.status == 1 }"><span style="color: #777;">${list.title }</span> </c:if>
+		        <c:if test="${list.status == 0 || list.category eq 'send'}"><strong> ${list.title }</strong> </c:if>
+		      	<c:if test="${list.status == 1 && list.category ne 'send'}"><span style="color: #777;">${list.title }</span> </c:if>
 		        
 		        </a></td>
 		        <td>${list.send_time }</td>
@@ -57,7 +62,7 @@
 					<li><a role="button" onclick="messageList(${listInfo.startNum-1})">이전</a></li>
 			  </c:if>
 					<c:forEach begin="${listInfo.startNum }" step="1" end="${listInfo.lastNum }" var="i" >
-					    <li id="curPage${i}"><a role="button" onclick="messageList(${i})">${i }</a></li>
+					    <li id="curPage${i}"><a role="button" onclick="messageList(${i},'${category }')">${i }</a></li>
 					</c:forEach>
 			  <c:if test="${listInfo.curBlock < listInfo.totalBlock }">
 				    <li><a role="button" onclick="messageList(${listInfo.lastNum+1})">다음</a></li>

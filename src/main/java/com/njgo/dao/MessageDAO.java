@@ -25,9 +25,13 @@ public class MessageDAO {
 	}
 
 
-	public int messageTotalCount(String nickName) {
+	public int messageTotalCount(String nickName, String category) {
 		
-		return sqlSession.selectOne(NAMESPACE+"messageTotalCount",nickName);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("nickName", nickName);
+		map.put("category", category);
+	
+		return sqlSession.selectOne(NAMESPACE+"messageTotalCount",map);
 	}
 
 
@@ -41,9 +45,11 @@ public class MessageDAO {
 	}
 
 
-	public MessageDTO messageView(int m_num) {
+	public MessageDTO messageView(int m_num, String category) {
 		
-	    int result = sqlSession.update(NAMESPACE+"messageUpdate",m_num);
+		if(!category.equals("send")){
+			int result = sqlSession.update(NAMESPACE+"messageUpdate",m_num);			
+		}
 		
 		return sqlSession.selectOne(NAMESPACE+"messageView", m_num);
 	}

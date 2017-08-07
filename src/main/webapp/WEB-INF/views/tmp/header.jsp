@@ -118,12 +118,12 @@
 							<c:choose>
 								<c:when test="${memberDTO.myPhoto eq 'sns'  }">
 									
-									<img alt="회원" style="width:35px;border-radius: 50%;" src=${memberDTO.sns_photo } id="memberBtn">	
+									<img alt="회원" style="width:35px;height:36px; border-radius: 50%;" src=${memberDTO.sns_photo } id="memberBtn">	
 								</c:when>
 								
 							
 								<c:when test="${memberDTO.myPhoto != 'sns' }">
-									<img style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}" id="memberBtn">
+									<img style="width:35px;height:36px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}" id="memberBtn">
 								</c:when>
 							</c:choose>
 							
@@ -132,12 +132,12 @@
 						<c:if test="${sessionScope.memberDTO.login_mode eq 'general_join' }">
 							
 								<c:if test="${sessionScope.memberDTO.myPhoto eq '' || sessionScope.memberDTO.myPhoto eq null }">
-									<img alt="회원" style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/images/common/default.png"
+									<img alt="회원" style="width:35px;height:36px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/images/common/default.png"
 									onmouseover="this.src='${pageContext.request.contextPath}/resources/images/common/default.png'"
 									onmouseout="this.src='${pageContext.request.contextPath}/resources/images/common/default.png'" id="memberBtn">
 								</c:if>
 								<c:if test="${sessionScope.memberDTO.myPhoto ne null }">
-									<img alt="회원" style="width:35px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}"
+									<img alt="회원" style="width:35px;height:36px;border-radius: 50%;" src="${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}"
 									onmouseover="this.src='${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}'"
 									onmouseout="this.src='${pageContext.request.contextPath}/resources/upload/${memberDTO.myPhoto}'" id="memberBtn">
 								</c:if>

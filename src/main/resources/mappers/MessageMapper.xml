@@ -7,6 +7,7 @@
   
 <mapper namespace="MessageMapper">
 	
+	<!-- 각각의 리스트  -->
 	<sql id="type">
 		<trim prefix="where">
 			<if test="category == 'general'">
@@ -15,6 +16,9 @@
 			<if test="category == 'report'">
 				get_nickName =#{nickName} and send_nickName ='운영자'
 			</if>
+			<if test="category == 'reportList'">
+				get_nickName ='운영자' 
+			</if>
 			<if test="category == 'send'">
 				send_nickName =#{nickName}
 			</if>
@@ -22,12 +26,32 @@
 		</trim>
 	</sql>
 	
+	
+	<!-- category에 따른 각각의  totalCount  -->
+	<sql id="count">
+		<trim prefix="where">
+				<if test="category == 'general'">
+				    get_nickName =#{nickName} and category=#{category}
+				</if>	
+				<if test="category == 'report'">
+					get_nickName =#{nickName} and send_nickName ='운영자'
+				</if>
+				<if test="category == 'reportList'">
+					get_nickName ='운영자' 
+				</if>
+				<if test="category == 'send'">
+					send_nickName =#{nickName}
+				</if>
+				
+			</trim>
+	</sql>
+	
 	<insert id="messageInsert" parameterType="MessageDTO">
 		insert into message values(meg_seq.nextval,#{title},#{contents},#{send_nickName},#{get_nickName},sysdate,#{category},0)
 	</insert>
 	
-	<select id="messageTotalCount" resultType="java.lang.Integer" parameterType="String">
-		select count(m_num) from message where get_nickName= #{nickName}
+	<select id="messageTotalCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(m_num) from message <include refid="count"></include>
 	</select>
 	
 	<select id="messageList" resultType="MessageDTO" parameterType="java.util.Map">

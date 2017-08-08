@@ -64,7 +64,8 @@ public class RecipeController {
 		model.addAttribute("list", recipeService.search(listInfo));
 		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
 		String url="";
-		if(recipeService.search(listInfo).isEmpty()){
+		List<RecipeDTO> temp=(List<RecipeDTO>)recipeService.search(listInfo).get("listPack");
+		if(temp.isEmpty()){
 			url="recipe/noresult";
 		}else{
 			url="recipe/recipeList";
@@ -85,7 +86,9 @@ public class RecipeController {
 		model.addAttribute("list", recipeService.catesearch(cdto, ings, listInfo));
 		model.addAttribute("curIng", curIng);
 		String url="";
-		if(recipeService.catesearch(cdto, ings, listInfo).isEmpty()){
+		List<RecipeDTO> temp=(List<RecipeDTO>)recipeService.catesearch(cdto, ings, listInfo).get("listPack");
+		System.out.println(temp);
+		if(temp.isEmpty()){
 			url="recipe/noresult";
 		}else{
 			url="recipe/recipeSearch";
@@ -113,7 +116,8 @@ public class RecipeController {
 		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
 		model.addAttribute("curIng", ingredients);
 		String url="";
-		if(recipeService.isearch(ing, listInfo).isEmpty()){
+		List<RecipeDTO> temp=(List<RecipeDTO>)recipeService.isearch(ing, listInfo).get("listPack");
+		if(temp.isEmpty()){
 			url="recipe/noresult";
 		}else{
 			url="/recipe/recipeList";

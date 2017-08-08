@@ -64,8 +64,14 @@ public class RecipeController {
 		model.addAttribute("list", recipeService.search(listInfo));
 		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
 		String url="";
-		List<RecipeDTO> temp=(List<RecipeDTO>)recipeService.search(listInfo).get("listPack");
-		if(temp.isEmpty()){
+		// 추가
+		HashMap<String, Object> temp= recipeService.search(listInfo);
+		
+		List<RecipeDTO> ar = (List<RecipeDTO>) temp.get("listPack");
+		List<RecipeDTO> ar2=(List<RecipeDTO>) temp.get("tvlist");
+ 	
+		System.out.println(ar.size());
+		if(ar.size()+ar2.size()==0){
 			url="recipe/noresult";
 		}else{
 			url="recipe/recipeList";
@@ -86,9 +92,14 @@ public class RecipeController {
 		model.addAttribute("list", recipeService.catesearch(cdto, ings, listInfo));
 		model.addAttribute("curIng", curIng);
 		String url="";
-		List<RecipeDTO> temp=(List<RecipeDTO>)recipeService.catesearch(cdto, ings, listInfo).get("listPack");
-		System.out.println(temp);
-		if(temp.isEmpty()){
+		// 추가
+		HashMap<String, Object> temp= recipeService.catesearch(cdto, ings, listInfo);
+		
+		List<RecipeDTO> ar = (List<RecipeDTO>) temp.get("listPack");
+		List<RecipeDTO> ar2=(List<RecipeDTO>) temp.get("tvlist");
+ 	
+		System.out.println(ar.size());
+		if(ar.size()+ar2.size()==0){
 			url="recipe/noresult";
 		}else{
 			url="recipe/recipeSearch";
@@ -116,11 +127,17 @@ public class RecipeController {
 		//해시맵 타입, 키: "listInfo"-페이징을 위한 startNum, lastNum 받아옴 / "listPack"-List<RecipeDTO>받아옴
 		model.addAttribute("curIng", ingredients);
 		String url="";
-		List<RecipeDTO> temp=(List<RecipeDTO>)recipeService.isearch(ing, listInfo).get("listPack");
-		if(temp.isEmpty()){
+		// 추가
+		HashMap<String, Object> temp= recipeService.isearch(ing, listInfo);
+		
+		List<RecipeDTO> ar = (List<RecipeDTO>) temp.get("listPack");
+		List<RecipeDTO> ar2=(List<RecipeDTO>) temp.get("tvlist");
+ 	
+		System.out.println(ar.size());
+		if(ar.size()+ar2.size()==0){
 			url="recipe/noresult";
 		}else{
-			url="/recipe/recipeList";
+			url="recipe/recipeList";
 		}
 		return url;
 	}

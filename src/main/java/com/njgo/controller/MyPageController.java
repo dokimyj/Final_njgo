@@ -21,9 +21,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.njgo.dto.FollowDTO;
 import com.njgo.dto.MemberDTO;
+import com.njgo.dto.MessageDTO;
 import com.njgo.service.FileService;
 import com.njgo.service.FollowService;
 import com.njgo.service.MemberService;
+import com.njgo.service.MessageService;
 import com.njgo.service.MyPageService;
 import com.njgo.util.ListInfo;
 
@@ -39,6 +41,8 @@ public class MyPageController {
 	private MemberService memberService;
 	@Autowired
 	private FollowService followService;
+	@Autowired
+	private MessageService messageService;
 	
 	// ==================================user Search , Update ,Delete  ==================================================
 	// Search , 닉네임으로 받아온다음 닉네임으로 검색 , 닉네임이 정확해야함
@@ -81,6 +85,15 @@ public class MyPageController {
 	public String userWarn(MemberDTO memberDTO, RedirectAttributes rd, int curPage){
 	
 		int result = myPageService.userWarn(memberDTO);
+		if(result>0){
+			MessageDTO messageDTO = new MessageDTO();
+			messageDTO.setSend_nickName("운영자");
+			messageDTO.setGet_nickName(memberDTO.getNickName());
+			messageDTO.setTitle("경고 메세지 입니다.");
+			messageDTO.setContents("신고에 의해 경고 1회 누적 되셨습니다. 경고가 많이 누적되면 이용에 제한이 됩니다.");
+			messageDTO.setCategory("reportList");
+			messageService.messageInsert(messageDTO);
+		}
 		
 		return "redirect:userList?curPage="+curPage;
 	}

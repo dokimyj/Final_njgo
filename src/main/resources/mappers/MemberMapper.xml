@@ -90,21 +90,23 @@
 	
 	<select id="total" parameterType="java.util.Map" resultType="java.lang.Integer">
 		select count(email) from member 
+	 
 		<where>
 			<if test="data =='grade' ">
-				 grade > 1
+					grade  > 1
 			</if>
 			<if test="data =='warn' ">
 				 w_count > 0
 			</if>
 		</where>
+	
 	</select>
 	
 	<select id="memberList" resultType="MemberDTO" parameterType="com.njgo.util.ListInfo">			
 			select * from (
-			select rownum R,M.* from
-			(select * from member) M )
-			where R BETWEEN #{startRow} and #{lastRow}
+			select rownum R,M.* from 
+			(select * from member where grade between 0 and 2) M )
+			where R BETWEEN #{startRow} and #{lastRow} 
 	</select>
 	
 	<select id="warningList" resultType="MemberDTO" parameterType="com.njgo.util.ListInfo">

@@ -84,7 +84,8 @@
 	function loginWithKakao() { 
 		//1. 로그인
 	    Kakao.Auth.login({
-	        persistAccessToken : true,  // 세션이 종료된 뒤에도 Access Token을 사용할수 있도록 로컬 스토리지에 저장
+	       
+	    	persistAccessToken : true,  // 세션이 종료된 뒤에도 Access Token을 사용할수 있도록 로컬 스토리지에 저장
 	        success: function(authObj) {				
 	        	
 	        	

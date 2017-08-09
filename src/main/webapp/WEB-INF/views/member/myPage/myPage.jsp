@@ -58,9 +58,7 @@
 			<div id="dialog-message" title="알림"
 				class="haemuk-dialog-with-jquery-ui"></div>
 			<!-- TODO 페이지별로 다른 리소스를 사용하는 경우 처리 -->
-			<link rel="stylesheet" type="text/css"
-				href="http://d1hk7gw6lgygff.cloudfront.net/assets/_css/mypage-0485c54c43e2bfff2e6096a8445ef9fc.css?1501056816">
-
+		
 			<div id="content">
 				<section class="sec_mypage">
 					
@@ -159,7 +157,6 @@
 					  <a role="button" onclick="messageList(1,'general')"><strong>받은쪽지함</strong></a>
 					  <a role="button" onclick="messageList(1,'send')"><strong>보낸쪽지함</strong></a>
 					  <a role="button" onclick="messageList(1,'report')"><strong>운영자 쪽지함</strong></a>
-					  <a role="button" onclick="messageWrite('report')"><strong>쪽지 작성</strong></a>
 					</div>
 
 					<!-- 뿌려주는 곳  -->
@@ -351,6 +348,7 @@
 	}
 	// 경고 1회 추가
 	function warning_user(num) {
+		nickName = $("#user_nickName"+num).val();
 		email = $("#user_email"+num).val();
 		w_count =$("#user_warn"+num).val();
 		curPage = $("#user_curPage").val();
@@ -359,6 +357,7 @@
 			type : "POST",
 			data :{
 				email : email,
+				nickName : nickName,
 				w_count : w_count,
 				curPage : curPage
 			},
